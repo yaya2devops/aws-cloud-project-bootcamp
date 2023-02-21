@@ -27,6 +27,10 @@
 #### Docker Run issue, Env Variable
 <img src="assets/week1/docker run didnt work first because we didnt set envi variable.png">
 
+#### Logs Troubleshoot
+
+<img src="assets/week1/10- troubleshoot logs .png">
+
 
 #### Server is working
 <img src="assets/week1/works server.png">
@@ -57,9 +61,6 @@
 
 <img src="assets/week1/data is here!.png">
 
-#### Logs Troubleshoot
-
-<img src="assets/week1/10- troubleshoot logs .png">
 
 #### Docker Run
 <img src="assets/week1/11docker run.png">
