@@ -1,21 +1,16 @@
 # FREE AWS Cloud Project Bootcamp
 
+
 - Application: Cruddur
 - Cohort: 2023-A1
 
 This is the starting codebase that will be used in the FREE AWS Cloud Project Bootcamp 2023
 
-![Cruddur Graphic](_docs/assets/cruddur-banner.jpg)
+<img src="_docs/assets/cruddur-screenshot.png" width="600" align="right">
+<img src="_docs/assets/cruddur-banner.jpg" width="600">
 
-![Cruddur Screenshot](_docs/assets/cruddur-screenshot.png)
 
-## Instructions
-
-At the start of the bootcamp you need to create a new Github Repoistory from this template.
-
-## Journaling Homework
-
-The `/journal` directory contains
+# Yaya's Journaling Homework
 
 - [x] [Week 0](journal/week0.md)
 - [x] [Week 1](journal/week1.md)
@@ -31,3 +26,6 @@ The `/journal` directory contains
 - [ ] [Week 11](journal/week11.md)
 - [ ] [Week 12](journal/week12.md)
 - [ ] [Week 13](journal/week13.md) 
+
+
+
