@@ -1,9 +1,20 @@
 # Week 1 — App Containerization
 
+
+### I have a blog on docker, [check it! ](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
+Hope this helps before checking further with my instructions 😊
+
+<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="400">
+
+
+## My go with week 1
+
 ### Week objectives:
 - work with flask 
 - dockerize using dockerfile
 - docker-compose for running more than a container //
+
+
 
 #### Prereq 
 - Docker extension
@@ -11,58 +22,54 @@
 - And much more
 
 
-
-## My go with week 1:
-
-
-### Backend work:
-#### Install Flask
+## Backend work:
+### Install Flask
 <img src="assets/week1/install%20flask.png">
 
-#### Install Flask Core
+### Install Flask Core
 <img src="assets/week1/installed%20flask%20core.png">
 
 
 
-#### Docker Run issue, Env Variable
+### Docker Run issue, Env Variable
 <img src="assets/week1/docker run didnt work first because we didnt set envi variable.png">
 
-#### Logs Troubleshoot
+### Logs Troubleshoot
 
 <img src="assets/week1/10- troubleshoot logs .png">
 
 
-#### Server is working
+### Server is working
 <img src="assets/week1/works server.png">
 
 
 
-#### building docker image
+### building docker image
 <img src="assets/week1/building the docker image.png">
 
-#### Success Build
+### Success Build
 
 <img src="assets/week1/success built.png">
 
 
 
-#### Docker PS from BASH
+### Docker PS from BASH
 <img src="assets/week1/docker ps from bash.png">
 
 
-#### Listing current images
+### Listing current images
 <img src="assets/week1/images built list.png">
 
 
-#### working ports
+### working ports
 <img src="assets/week1/port 4567.png">
 
-#### Data is here
+### Data is here
 
 <img src="assets/week1/data is here!.png">
 
 
-#### Docker Run
+### Docker Run
 <img src="assets/week1/11docker run.png">
 
 <img src="assets/week1/12 docker run the 5th.png">
@@ -73,7 +80,7 @@
 Front end is honestly easier, same process, the only diff is the docker compose to be able to run both dockers same time and get ur app running and functional with backend.
 
 
-#### NPM required
+### NPM required
 <img src="assets/week1/frontend npom install.png">
 
 
@@ -92,7 +99,7 @@ Front end is honestly easier, same process, the only diff is the docker compose 
 ### Result :)
 <img src="assets/week1/APP LIVE.png">
 
-## thanks
+## Amazing! Thank you for following!
 <img src="assets/week1/sign ins.png">
 
 
