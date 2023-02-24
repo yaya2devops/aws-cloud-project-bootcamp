@@ -2,7 +2,7 @@
 
 
 ### I have a blog on docker, [check it! ](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
-Hope this helps before checking further with my instructions 😊
+Hope this helps before going further with my instructions 😊
 
 <img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="400">
 
