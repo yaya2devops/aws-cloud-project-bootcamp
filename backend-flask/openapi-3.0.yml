@@ -148,7 +148,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Message'
-
 components:
   schemas:
     Activity:

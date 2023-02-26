@@ -1,25 +1,35 @@
 # Week 1 — App Containerization
 
 
-#### I wrote a blog on docker months ago, I'm sure it is helpful. 
-## [Check it😊! ](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
+#### First of all, I wrote a blog on docker months ago.
 
-<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="400">
+<details>
+
+<summary>
+Check it!
+<summary>
+
+[<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="400">](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
 
 
-## My go with week 1
+</details>
+
+
+
+
 
 ### Week objectives:
 - work with flask 
 - dockerize using dockerfile
 - docker-compose for running more than a container //
+- troubleshoot using debugger, the error code and everything in between
 
 
 
 #### Prereq 
 - Docker extension
 - Install Flask on top of py
-- And much more
+- NPM for reactjs to use react-scripts
 
 
 ## Backend work:
@@ -90,17 +100,50 @@ Front end is honestly easier, same process, the only diff is the docker compose 
 ### Some stats of what i have 
 <img src="assets/week1/statas.png">
 
-### The union port :)
+## Result Front Container
+
+<img src="assets/week1/APP LIVE.png">
+
+
+### The union port issue
+You have to shutdown the frontend container since it will be used by docker compose later when running the entire app.
 <img src="assets/week1/The everything ports.png">
 
 ### Docker compose, using compose up or from terminal
 <img src="assets/week1/docker compose to build both containers.png">
 
-### Result :)
-<img src="assets/week1/APP LIVE.png">
+## Tons of troubleshooting
 
-## Amazing! Thank you for following!
+This didnt work cause i forgot to install npm which itself will require the react scripts required for our front end reactjs application frontend
+
+
+<img src="assets/week1/troubleshoot before the go.png">
+
+
+## This command was a game changer
+<img src="assets/week1/gamerchanger.png">
+
+
+
+## Docker Compose Success
+
+<img src="assets/week1/WORKS PERFECT.png">
+
+## I'm there! Welcome To the App
+
+<img src="assets/week1/THE FRONT CONNECTED TO THE BACKEND.png">
+
+
+# Sign ins
+
 <img src="assets/week1/sign ins.png">
+
+
+# First CRUDD !
+<img src="assets/week1/Crudd.png">
+
+
+# Notification Feature 
 
 
 
