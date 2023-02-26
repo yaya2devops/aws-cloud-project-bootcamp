@@ -140,6 +140,52 @@ This didnt work cause i forgot to install npm which itself will require the reac
 
 # Notification Feature 
 
+### How i'm starting
+<img src="assets/week1/next notifications.png">
+
+Document your api usage ok nice
+<img src="assets/week1/OpenAPI, andrew did this page using readmedotio.png">
+
+
+### A sceenshot me into backend
+
+<img src="assets/week1/backend stuff.png">
+
+
+## Including the endpoint URL For the notification API
+
+<img src="assets/week1/endpoint URL.png">
+
+
+# Troubleshoot Space
+
+| CONTAINER ID   | IMAGE                                          | COMMAND                  | CREATED          | STATUS                 | PORTS                                       | NAMES                                      |
+| -------------- | ---------------------------------------------- | ------------------------ | ---------------- | ---------------------- | ------------------------------------------- | ------------------------------------------ |
+| 61ab34832d8a   | aws-cloud-project-bootcamp-frontend-react-js   | "docker-entrypoint.s…"   | 18 minutes ago   | Up 18 minutes          | 0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   | aws-cloud-project-bootcamp-frontend-react-js-1 |
+| 3ed9dff36c1e   | aws-cloud-project-bootcamp-backend-flask       | "python3 -m flask ru…"   | 18 minutes ago   | Up 18 minutes          | 0.0.0.0:4567->4567/tcp, :::4567->4567/tcp   | aws-cloud-project-bootcamp-backend-flask-1 |
+| 6da1651b38c0   | postgres:13-alpine                             | "docker-entrypoint.s…"   | 4 hours ago      | Up 4 hours (healthy)   | 0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   | aws-cloud-project-bootcamp-db-1             |
+| cd062d6c1188   | amazon/dynamodb-local:latest                   | "java -jar DynamoDBL…"   | 4 hours ago      | Up 4 hours             | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   | dynamodb-local                             |
+
+
+> Include the asset here.
+
+## Checking it, works JSON
+
+<img src="assets/week1/endpoint is back!.png">
+
+
+## UI NOTIF EFFECTS
+
+
+
+
+<img src="assets/week1/CocoNotif.png">
+
+
+
+
+
+
 
 
 
