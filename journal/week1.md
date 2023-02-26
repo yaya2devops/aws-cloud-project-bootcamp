@@ -230,4 +230,50 @@ aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http
 
 
 
+# Postgres
+
+Connect to postgres:
+
+```
+psql --host localhost
+```
+
+
+
+Connect to postgres with password as pw:
+
+```
+psql -Upostgres --host localhost
+```
+
+
+- This will get you into Postgres
+
+
+to find relations:
+```
+/d
+```
+
+
+to check tuples on or off:
+```
+/t
+```
+
+
+to see ID owner and description:
+
+```
+/dl
+```
+
+
+to see templates:
+
+```
+/l
+```
+
+
 
