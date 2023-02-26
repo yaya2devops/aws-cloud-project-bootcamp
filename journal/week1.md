@@ -3,16 +3,11 @@
 
 #### First of all, I wrote a blog on docker months ago.
 
-<details>
-
-<summary>
 Check it!
-<summary>
 
-[<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="400">](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
+[<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="500">](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
 
 
-</details>
 
 
 
