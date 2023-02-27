@@ -113,8 +113,136 @@ Andrew has provided more great architecture, such as the Twitter System Arch and
 ## I can work with that
 <img src="assets/week0/Amazing i got a credit..png">
 
+# CLIs Work.
 
-# Open Support ticket & request  Service Limit
+## Generated  Access Key
+<img src="assets/week0/CLI-WORK/1-GENERATE CREDENITIAL ACCESS KEY.png">
+
+### I required ENV VAR
+<img src="assets/week0/CLI-WORK/3 aws available but need to add env variable .png">
+
+### Solved
+<img src="assets/week0/CLI-WORK/4 danger zone set the stuff.png">
+
+### Check AWS Connection
+
+```
+aws sts get-caller-identity
+```
+
+<img src="assets/week0/CLI-WORK/5 connected to aws from gitpod .png">
+
+## Set ENV var for gitpod 
+```
+gp env instead of export 
+```
+<img src="assets/week0/CLI-WORK/6 setting the aws cli env var in gitpod auto.png">
+
+# Budget setup start
+
+### $ AWS ACCOUNT ID process
+
+get the id
+
+```
+aws sts get-caller-identity
+```
+ or? 
+
+```
+aws sts get-caller-identity --query Account
+
+```
+
+
+or without " " ?
+
+```
+aws sts get-caller-identity --query Account --output text
+
+```
+
+set it to env variable now since we aint changing that.
+
+```
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+```
+
+check it 
+
+```
+env grep ACCOUNT
+```
+
+save it?
+
+```
+gp env  AWS_ACCOUNT_ID="598485450821"
+```
+<img src="assets/week0/CLI-WORK/7 Budget 1.png">
+
+```
+aws budgets create-budget \
+    --account-id $AWS_ACCOUNT_ID \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
+
+```
+
+<img src="assets/week0/CLI-WORK/8 budget 2 applied.png">
+
+## Voilà
+<img src="assets/week0/CLI-WORK/9 budget 3 done success.png">
+
+## SNS WORK
+Checking have this from Chirag video "ops", this will stay that way even later because this is region sensitive.
+<img src="assets/week0/CLI-WORK/10 sns topic from ops is here.png">
+
+### Create SNS
+
+```
+aws sns create-topic --name CLI-billing-alarm
+```
+
+<img src="assets/week0/CLI-WORK/11 sns cli create.png">
+
+### Confirm SNS
+
+```
+aws sns subscribe \
+    --topic-arn="arn:aws:sns:ca-central-1:598485450821:CLI-billing-alarm" \
+    --protocol=email \
+    --notification-endpoint yahyaabulhaj@outlook.com
+```
+<img src="assets/week0/CLI-WORK/12 sns confirm.png">
+<img src="assets/week0/CLI-WORK/13 SNS CLI CONFIRM MAIL.png">
+
+### Mailed Confirmed
+<img src="assets/week0/CLI-WORK/14 confirmed.png">
+
+## Let's check with Canada Central!
+<img src="assets/week0/CLI-WORK/15 here it is in the right region.png">
+<img src="assets/week0/CLI-WORK/16 perfect .png">
+
+## CloudWatch
+
+```
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
+```
+<img src="assets/week0/CLI-WORK/17 cloudwatch alarm command.png">
+<img src="assets/week0/CLI-WORK/18 alarm is here notification.png">
+
+## Appeared in AWS Console
+<img src="assets/week0/CLI-WORK/19 en alarme.png">
+
+## Investigating Cloudwatch
+<img src="assets/week0/CLI-WORK/20 the end.png">
+
+
+
+
+# Wrapping Week 0: Open Support ticket & request  Service Limit
 
  **[Instructions](https://support.console.aws.amazon.com/support/home#/ )**
 - Navigate to the AWS Support Center
@@ -134,9 +262,12 @@ Andrew has provided more great architecture, such as the Twitter System Arch and
 <img src="assets/week0/4 case.png">
 
 
-## Emailed on the case.
+#### Emailed on the case:
 
 <img src="assets/week0/6 cased.png">
+
+
+### Completed.👋
 
 
 
