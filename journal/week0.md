@@ -58,74 +58,65 @@ Andrew has provided more great architecture, such as the Twitter System Arch and
 
 
 
-## IAM FROM ROOT to me YahyaAbulhaj
+# IAM assigned
 <img src="assets/week0/IAM DONE.png">
 
 
-## Hi YahyaAbulhaj Is Ne; Apply MFA to it as well
+## Connection as IAM & Apply MFA
 <img src="assets/week0/hiiam.png">
 
 
-# Create a Budget
 
-Creating using the JSON.
+# Operation Work.
 
-
-Type this in your terminal interface
-```
-aws budgets create-budget \
-    --account-id $AWS_ACCOUNT_ID \
-    --budget file://aws/json/budget.json \
-    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
-
-```
-
-You should have the file in the exact same path. If you wish to have it on root (not a good practice) take the `/aws.`
-
-[Here r the files](../aws/json/README.md) used
+## CloudWatch Metric ALARM Ops
 
 
-## Result:
+<img src="assets/week0/1 alarm.png">
 
-<img src="assets/week0/doingbudget.png">
+<img src="assets/week0/2 alarm.png">
 
 
 
+<img src="assets/week0/3- pick a topic.png">
 
-# Subscribe to Topic
-I get an email where i have to confirm to recieve the notifications alerts.
 
-```
-aws sns subscribe \
-    --topic-arn arn:aws:sns:us-east-1:706157350338:Default_CloudWatch_Alarms_Topic \
-    --protocol email \
-    --notification-endpoint Yahya@itzYahya.tech
-```
+<img src="assets/week0/4- notif received.png">
 
-Thanks Zohoo for this email with my domain. I got it for free. The only thing required was to have a domain.
 
-> proof here required
+<img src="assets/week0/5- BILLINB ALARM DONE.png">
 
-# CloudWatch Metric ALARM
 
-```
-aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
-```
-> proof here required
+<img src="assets/week0/6-done.png">
 
-In case you are still wondering about the file, its [here](../aws/json/alarm_config.json.example)
+
+<img src="assets/week0/7-waiting alarm.png">
 
 
 
-# Hooking up Health Dashboard to SNS using EventBridge
-> proof here required
 
+## Create a Budget Ops
+
+
+
+<img src="assets/week0/&.png">
+
+<img src="assets/week0/1bud.png">
+
+
+<img src="assets/week0/2bud.png">
+
+
+### Its well set!
+<img src="assets/week0/3 budget is set .png">
+
+## I can work with that
+<img src="assets/week0/Amazing i got a credit..png">
 
 
 # Open Support ticket & request  Service Limit
-> proof here required
 
-My instructions:
+ **[Instructions](https://support.console.aws.amazon.com/support/home#/ )**
 - Navigate to the AWS Support Center
 - On the left side menu, select "Create Case"
 - Select "Looking for service limit increase?" from the link in the center right
@@ -133,4 +124,19 @@ My instructions:
 - Click on "Create Case"
 - Verify that the ticket you opened reflects the necessary details
 
-https://support.console.aws.amazon.com/support/home#/
+<img src="assets/week0/1 case.png">
+
+<img src="assets/week0/2 case.png">
+
+<img src="assets/week0/3 case.png">
+
+## Case Details
+<img src="assets/week0/4 case.png">
+
+
+## Emailed on the case.
+
+<img src="assets/week0/6 cased.png">
+
+
+
