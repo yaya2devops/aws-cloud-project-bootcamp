@@ -1,15 +1,20 @@
 # Week 0 — Billing and Architecture
 
-This was a very introduction week. Not heavy instructions more to get folks a good welcome and get them on board.
 
-- We discussed security and its importance
-- Also the importance of good architecture going to the benefits of the microservice architecture.
-- I also got the chance to have some hands on Lucidchart, i'm well practical with drawio & visio at work so this felt very similar
-- We then discussed some AWS stuff and the importance of working under an IAM rather than root.
-- We did great operations related to budget, alerts and to have sense of your expenses on AWS Cost explorer.
+### Week 0 Summary 👋
+Hey! I am very excited to be a part of this amazing bootcamp!
 
-Here is a reminder for you.
+I'd like to begin by expressing my commitment to fully engaging in all tasks assigned to me and closely following instructions. It's not just about finishing the program for me; it's also about enjoying the learning journey along the way. With that said, let me go over my observations from the first week.
 
+During Week 0, the emphasis was on introducing participants, including myself, to the program. The week began with a discussion about the importance of security, followed by an examination of the benefits of microservice architecture and much more.
+
+Hands-on experience with Lucidchart was also provided, which felt familiar to me because I used Drawio and Visio at work for security architectures. Moreover, The importance of working under an IAM (Identity and Access Management) rather than root in AWS was highlighted and applied below!
+
+We were also taught how to manage AWS expenses using budgets and alert operations using the AWS Console as well as the AWS CLI, from shell but also outside.
+
+
+
+We were also encouraged to think about and reflect on these critical pillars:
 | Pillar | Focus |
 | --- | --- |
 | Operational Excellence | Utilizing a fully automated operations pipeline for IT operations |
@@ -20,8 +25,12 @@ Here is a reminder for you.
 | Business Agility | Enabling rapid responses to changing customer requirements and market trends |
 
 
-Let's go on some of the things i worked on!
+Mirroring on my first week at this bootcamp, I can say with certainty that it was a steep learning curve for me. I was immersed in a variety of topics and concepts, ranging from desigining architectures, Linux to automation.
 
+Finally, the AWS operations hands on was extremely beneficial, particularly in terms of cost management and resource optimization. I discovered the significance of setting up billing alerts and how to use AWS to track and investigate my expenses.
+
+
+Allow me to take you to a small portion of the process that I thought I'd capture.
 
 # 1- Creating Architecture 
 I loved the beard guy and how he mentioned about TOGAF Certification, it's a pursue of a high entreprise architects. Maybe, i'll consider it going further.
@@ -67,7 +76,7 @@ Andrew has provided more great architecture, such as the Twitter System Arch and
 
 
 
-# Operation Work.
+# 3- Operation Work In The AWS Console
 
 ## CloudWatch Metric ALARM Ops
 
@@ -113,9 +122,10 @@ Andrew has provided more great architecture, such as the Twitter System Arch and
 ## I can work with that
 <img src="assets/week0/Amazing i got a credit..png">
 
-# CLIs Work.
+# 4- AUTHENITICATION TO AWS - CLIs Work From Gitpod CLI (or any!)
 
-## Generated  Access Key
+### Generated  Access Key
+Did this in order to authenticate to AWS CLI from outside e.g. Gitpod CLI!
 <img src="assets/week0/CLI-WORK/1-GENERATE CREDENITIAL ACCESS KEY.png">
 
 ### I required ENV VAR
@@ -138,7 +148,7 @@ gp env instead of export
 ```
 <img src="assets/week0/CLI-WORK/6 setting the aws cli env var in gitpod auto.png">
 
-# Budget setup start
+# 5- Budget setup start
 
 ### $ AWS ACCOUNT ID process
 
@@ -195,7 +205,7 @@ aws budgets create-budget \
 ## Voilà
 <img src="assets/week0/CLI-WORK/9 budget 3 done success.png">
 
-## SNS WORK
+# 6- Setting SNS
 Checking have this from Chirag video "ops", this will stay that way even later because this is region sensitive.
 <img src="assets/week0/CLI-WORK/10 sns topic from ops is here.png">
 
