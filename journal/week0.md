@@ -277,7 +277,21 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 <img src="assets/week0/6 cased.png">
 
 
-### Completed.👋
+# Week 0 To-Do & Student Status
+
+| Task | Status   |
+|------|----------|
+| Watched Week 0 - Live Streamed Video | ✅ |
+| Watched Chirag's Week 0 - Spend Considerations | ✅ |
+| Watched Ashish's Week 0 - Security Considerations | ✅ |
+| Recreate Conceptual Diagram in Lucid Charts or on a Napkin | ✅ |
+| Recreate Logical Architectual Diagram in Lucid Charts | ✅ |
+| Create an Admin User | ✅ |
+| Use CloudShell | ✅ |
+| Generate AWS Credentials | ✅ |
+| Installed AWS CLI | ✅ |
+| Create a Billing Alarm | ✅ |
+| Create a Budget | ✅ |
 
 
 
