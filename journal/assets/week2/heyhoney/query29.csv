@@ -1,0 +1,331 @@
+Timestamp,app.now,duration_ms,error,exception.escaped,exception.message,exception.stacktrace,exception.type,http.flavor,http.host,http.method,http.route,http.scheme,http.server_name,http.status_code,http.target,http.user_agent,library.name,library.version,meta.annotation_type,meta.signal_type,name,net.host.port,net.peer.ip,net.peer.port,parent_name,service.name,span.kind,span.num_events,span.num_links,status_code,status_message,telemetry.instrumentation_library,telemetry.sdk.language,telemetry.sdk.name,telemetry.sdk.version,trace.parent_id,trace.span_id,trace.trace_id,type
+2023-03-02T23:41:46.055505183Z,2023-03-02T23:41:46.055521+00:00,0.080550,,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,0,0,0,,,python,opentelemetry,1.16.0,c3ba21bf37460e48,a997bf3888000784,24b156b63d8714ff6caf6626be494b1e,internal
+2023-03-02T23:41:46.054814803Z,,1.627360,,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,200,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,39844,,backend-flask,server,0,0,0,,true,python,opentelemetry,1.16.0,,c3ba21bf37460e48,24b156b63d8714ff6caf6626be494b1e,server
+2023-03-02T23:41:45.172567118Z,2023-03-02T23:41:45.172586+00:00,0.096270,,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,0,0,0,,,python,opentelemetry,1.16.0,e4da3461accb7965,f27580a294c2ef66,7d1190cbada32981113f6afd31f678df,internal
+2023-03-02T23:41:45.168283588Z,,5.403330,,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,200,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,39838,,backend-flask,server,0,0,0,,true,python,opentelemetry,1.16.0,,e4da3461accb7965,7d1190cbada32981113f6afd31f678df,server
+2023-03-02T23:40:43.023973432Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,926b983ed5e123d1,,d9901c44eedaeb001236e4fba019cade,
+2023-03-02T23:40:43.023471442Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,e9c0fb32a636b443,,d9901c44eedaeb001236e4fba019cade,
+2023-03-02T23:40:43.023242882Z,,0.245650,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,926b983ed5e123d1,e9c0fb32a636b443,d9901c44eedaeb001236e4fba019cade,internal
+2023-03-02T23:40:43.022589242Z,,1.396000,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,39156,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,926b983ed5e123d1,d9901c44eedaeb001236e4fba019cade,server
+2023-03-02T23:40:41.633179694Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,cf1940eaa36baee6,,62032b8bcdc8dbbc66efa93c42e9a80d,
+2023-03-02T23:40:41.632680644Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,1f8a359787ce125b,,62032b8bcdc8dbbc66efa93c42e9a80d,
+2023-03-02T23:40:41.632446224Z,,0.251380,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,cf1940eaa36baee6,1f8a359787ce125b,62032b8bcdc8dbbc66efa93c42e9a80d,internal
+2023-03-02T23:40:41.631748724Z,,1.442710,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,39108,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,cf1940eaa36baee6,62032b8bcdc8dbbc66efa93c42e9a80d,server
+2023-03-02T23:40:38.215743909Z,,1.079280,,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,,http,0.0.0.0,404,/?vscodeBrowserReqId=1677800438089,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,HTTP GET,4567,192.168.32.140,57794,,backend-flask,server,0,0,0,,true,python,opentelemetry,1.16.0,,fe98ff0ffd25dece,16c1fa49d631e2cba991c7d14f1d4bb2,server
+2023-03-02T23:40:34.409695484Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,c2f246a28ab8b1d4,,38a346fdd423b1455c982b5c920875c8,
+2023-03-02T23:40:34.408693484Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,63c386d2c58398a4,,38a346fdd423b1455c982b5c920875c8,
+2023-03-02T23:40:34.408132264Z,,0.582620,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,c2f246a28ab8b1d4,63c386d2c58398a4,38a346fdd423b1455c982b5c920875c8,internal
+2023-03-02T23:40:34.403788775Z,,5.920100,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,57758,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,c2f246a28ab8b1d4,38a346fdd423b1455c982b5c920875c8,server
+2023-03-02T23:39:50.91652561Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,6b779b25fdbf972b,,e0cd50335bb10864b8e2e7b50ca56c2c,
+2023-03-02T23:39:50.91604964Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,778a5161c8a8b9e8,,e0cd50335bb10864b8e2e7b50ca56c2c,
+2023-03-02T23:39:50.91585592Z,,0.210080,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,6b779b25fdbf972b,778a5161c8a8b9e8,e0cd50335bb10864b8e2e7b50ca56c2c,internal
+2023-03-02T23:39:50.91521721Z,,1.319600,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,37396,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,6b779b25fdbf972b,e0cd50335bb10864b8e2e7b50ca56c2c,server
+2023-03-02T23:39:50.33112773Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,82a9026f3ffca29e,,f3b92eb0850979d82dc1feaab7dab4af,
+2023-03-02T23:39:50.3300657Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 12, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,49c9a1d3aa84a159,,f3b92eb0850979d82dc1feaab7dab4af,
+2023-03-02T23:39:50.32950731Z,,0.582240,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,82a9026f3ffca29e,49c9a1d3aa84a159,f3b92eb0850979d82dc1feaab7dab4af,internal
+2023-03-02T23:39:50.32548044Z,,5.661030,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,37348,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,82a9026f3ffca29e,f3b92eb0850979d82dc1feaab7dab4af,server
+2023-03-02T23:39:03.61068972Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,1ea7dc8d866bed94,,7dd729e1d9879c9942e4bfd190a0a355,
+2023-03-02T23:39:03.610085029Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,946f22d92f041662,,7dd729e1d9879c9942e4bfd190a0a355,
+2023-03-02T23:39:03.609900489Z,,0.202491,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,1ea7dc8d866bed94,946f22d92f041662,7dd729e1d9879c9942e4bfd190a0a355,internal
+2023-03-02T23:39:03.60922062Z,,1.484869,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,57314,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,1ea7dc8d866bed94,7dd729e1d9879c9942e4bfd190a0a355,server
+2023-03-02T23:38:57.75913677Z,,1.091810,,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,,http,0.0.0.0,404,/,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,HTTP GET,4567,192.168.32.140,54958,,backend-flask,server,0,0,0,,true,python,opentelemetry,1.16.0,,877bd84a74f2f964,9aa23a31f5891a9f574caa9117a41abb,server
+2023-03-02T23:38:45.825609583Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,8069d944afbd666c,,eaa394294c02b603816a84551e1b0a65,
+2023-03-02T23:38:45.824990094Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,0e32e558e545d619,,eaa394294c02b603816a84551e1b0a65,
+2023-03-02T23:38:45.824764503Z,,0.242951,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,8069d944afbd666c,0e32e558e545d619,eaa394294c02b603816a84551e1b0a65,internal
+2023-03-02T23:38:45.824071314Z,,1.549720,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,56886,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,8069d944afbd666c,eaa394294c02b603816a84551e1b0a65,server
+2023-03-02T23:38:45.083795212Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,ea77cc3e6da97df8,,c3ce0c4d061cf10535b74f2dbd660710,
+2023-03-02T23:38:45.083224332Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,d2261ae89fba8081,,c3ce0c4d061cf10535b74f2dbd660710,
+2023-03-02T23:38:45.082910021Z,,0.332751,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,ea77cc3e6da97df8,d2261ae89fba8081,c3ce0c4d061cf10535b74f2dbd660710,internal
+2023-03-02T23:38:45.082149792Z,,1.659220,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,56842,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,ea77cc3e6da97df8,c3ce0c4d061cf10535b74f2dbd660710,server
+2023-03-02T23:38:39.053615082Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File ""/usr/local/lib/python3.10/site-packages/flask_cors/extension.py"", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File ""/usr/local/lib/python3.10/site-packages/flask/app.py"", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File ""/backend-flask/app.py"", line 95, in data_home
+    data = HomeActivities.run()
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,opentelemetry.instrumentation.flask,0.37b0,span_event,trace,exception,,,,/api/activities/home,backend-flask,,,,,,true,python,opentelemetry,1.16.0,8393a69a09aeef9c,,b20264c92ac695e41e81fc6908c37894,
+2023-03-02T23:38:39.052552162Z,,,true,False,'str' object is not callable,"Traceback (most recent call last):
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 573, in use_span
+    yield span
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/sdk/trace/__init__.py"", line 1045, in start_as_current_span
+    yield span_context
+  File ""/usr/local/lib/python3.10/site-packages/opentelemetry/trace/__init__.py"", line 440, in start_as_current_span
+    yield span
+  File ""/backend-flask/services/home_activities.py"", line 14, in run
+    span.set_attribute(""app.now"", now.isoformat()())
+TypeError: 'str' object is not callable
+",TypeError,,,,,,,,,,home.activities,,span_event,trace,exception,,,,home-activities-mock-data,backend-flask,,,,,,,python,opentelemetry,1.16.0,340ab500e29de47c,,b20264c92ac695e41e81fc6908c37894,
+2023-03-02T23:38:39.051991272Z,,0.581490,true,,,,,,,,,,,,,,home.activities,,,trace,home-activities-mock-data,,,,,backend-flask,internal,1,0,2,TypeError: 'str' object is not callable,,python,opentelemetry,1.16.0,8393a69a09aeef9c,340ab500e29de47c,b20264c92ac695e41e81fc6908c37894,internal
+2023-03-02T23:38:39.047554952Z,,6.073980,true,,,,,1.1,4567-yaya2devops-awscloudpro-ccot7vfi3ph.ws-eu89.gitpod.io,GET,/api/activities/home,http,0.0.0.0,,/api/activities/home,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",opentelemetry.instrumentation.flask,0.37b0,,trace,/api/activities/home,4567,192.168.32.140,40238,,backend-flask,server,1,0,2,TypeError: 'str' object is not callable,true,python,opentelemetry,1.16.0,,8393a69a09aeef9c,b20264c92ac695e41e81fc6908c37894,server
