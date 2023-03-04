@@ -256,4 +256,31 @@ This error happened cause i called the endpoint after running docker compose wit
 <img src="assets/week2/heyhoney/29 another query but with zoom.png">
 
 
-Loading next.
+# Instrument AWS X-Ray
+
+### Install AWS SDK
+
+<img src="week2/XRAY/">
+
+## Create group
+```
+aws xray create-group \
+   --group-name "Cruddur" \
+   --filter-expression "service(\"backend-flask\")
+```
+
+
+## Sampling 
+
+a good way to ask it to show you what you really need.
+
+
+## Create it using CLI using the xray.json
+
+```
+aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
+```
+
+
+### Set up the deamon
+
