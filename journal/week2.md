@@ -15,10 +15,10 @@ This week, we'll go over three great tools that can help with this.
 
 | Observability Tool         | Description                                          |
 |-------------| -----------------------------------------------------|
-| [Honeycomb](#Honeycomb)   |  Honeycomb is a distributed tracing & observability platform designed to help engineers understand and debug complex systems. It offers features like dynamic sampling, real-time aggregation, and advanced visualization capabilities to make it easy to analyze and troubleshoot distributed systems. |
-| [AWS X-Ray]()   |  AWS X-Ray is a tracing service provided by Amazon Web Services (AWS) that helps developers analyze and debug distributed applications.  |
-| [CloudWatch]()  |Amazon CloudWatch is a monitoring and observability service provided by AWS. It provides metrics, logs, and alarms for AWS resources, applications, and services and can be used to monitor and troubleshoot distributed systems. |
-
+| [Honeycomb](#honeycomb-dive)   |  Honeycomb is a distributed tracing & observability platform designed to help engineers understand and debug complex systems. It offers features like dynamic sampling, real-time aggregation, and advanced visualization capabilities to make it easy to analyze and troubleshoot distributed systems. |
+| [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service provided by Amazon Web Services (AWS) that helps developers analyze and debug distributed applications.  |
+| [CloudWatch](#aws-cloudwatch)  |Amazon CloudWatch is a monitoring and observability service provided by AWS. It provides metrics, logs, and alarms for AWS resources, applications, and services and can be used to monitor and troubleshoot distributed systems. |
+| [Rollbar](#Rollbar)  |Rollbar is a cloud-based error and log monitoring tool that helps identify and diagnose software errors in real-time.  |
 
 
 # Honeycomb Dive
@@ -313,7 +313,7 @@ Create it using CLI using the xray.json
 
 You can do it using aws console. However listen brother, UI changes json dont ;)
 
-<img src="assets/week2/XRAY/6 created using the json.png">
+<img src="assets/week2/XRAY/6 the real 6.png">
 
 
 ### Set up the deamon
@@ -328,7 +328,8 @@ It is ca-central, i corrected it before commiting.
 <img src="assets/week2/XRAY/9 success deliver to xray.png">
 
 ## We have data:
-<img src="assets/week2/XRAY/10 DATA IS IN XRAY.png">
+
+<img src="assets/week2/XRAY/10  the real 10.png">
 
 ## Digging into XRAY specific request:
 <img src="assets/week2/XRAY/11 more of XRAY.png">
@@ -354,9 +355,40 @@ It is ca-central, i corrected it before commiting.
 <img src="assets/week2/XRAY/SUBSEG VIDEO/4 getting more data.png">
 
 ## Mock data is there, success:
+
+<img src="assets/week2/XRAY/SUBSEG VIDEO/5 before 5.png">
 <img src="assets/week2/XRAY/SUBSEG VIDEO/5 mock data s here.png">
 
+---
 
+
+# AWS CloudWatch
+
+## Installing the requried package:
+<img src="assets/week2/Cloudwatch/1- install watchtower.png">
+
+## Facing an error :
+<img src="assets/week2/Cloudwatch/2 result in error because we have to pass it to it.png">
+
+## Troubleshooting the error:
+<img src="assets/week2/Cloudwatch/3 tried but still error.png">
+
+## Solving the Error:
+
+<img src="assets/week2/Cloudwatch/4 another error because it should be done instead.png">
+
+## Dev Proof:
+<img src="assets/week2/Cloudwatch/7 prrof.png">
+
+## Cloudwatch Visual Proof:
+<img src="assets/week2/Cloudwatch/8 log streams data.png">
+
+## Cloudwatch is set to receive logs:
+<img src="assets/week2/Cloudwatch/9 here it is.png">
+
+---
+
+# Rollbar
 
 
 ---
@@ -370,5 +402,5 @@ It is ca-central, i corrected it before commiting.
 | Instrument Honeycomb with OTEL                     | ✅     |
 | Instrument AWS X-Ray                              | ✅     |
 | Instrument AWS X-Ray Subsegments                   | ✅     |
-| Configure custom logger to send to CloudWatch Logs |      |
+| Configure custom logger to send to CloudWatch Logs |  ✅    |
 | Integrate Rollbar and capture an error             |      |
