@@ -1,10 +1,30 @@
 # Week 2 — Distributed Tracing
 
+I call this the troubleshooting tools week. 
+
+Having the ability to get insight of your requests and data to resolve whatever technical problem you face.
+
+Starting with logs and going further with the tools.
+
+Let's define **Distrubuted Tracing**, it is a technique for tracking the path of a request as it flows through a distributed system or application. In a distributed system, a single request can touch many different components, services, and systems, and tracking the path of that request can be challenging.
+
+Let's explain **Instrumentation**, It is  the practice of adding code to a software application in order to capture data about its performance or behavior. This data can then be used to analyze and optimize the application, or to diagnose and resolve issues that may arise.
+
+
+This week, we'll go over three great tools that can help with this.
+
+| Observability Tool         | Description                                          |
+|-------------| -----------------------------------------------------|
+| [Honeycomb](#Honeycomb)   |  Honeycomb is a distributed tracing & observability platform designed to help engineers understand and debug complex systems. It offers features like dynamic sampling, real-time aggregation, and advanced visualization capabilities to make it easy to analyze and troubleshoot distributed systems. |
+| [AWS X-Ray]()   |  AWS X-Ray is a tracing service provided by Amazon Web Services (AWS) that helps developers analyze and debug distributed applications.  |
+| [CloudWatch]()  |Amazon CloudWatch is a monitoring and observability service provided by AWS. It provides metrics, logs, and alarms for AWS resources, applications, and services and can be used to monitor and troubleshoot distributed systems. |
 
 
 
---- HoneyComb: Stream Part------
-# A- Set Honeycomb API Env Var
+# Honeycomb Dive
+
+
+## A- Set Honeycomb API Env Var
 
 ```
 export HONEYCOMB_API_KEY="Kk4cyhQ9zhCxNKg1BzyCyA"
@@ -16,7 +36,7 @@ gp env HONEYCOMB_API_KEY="Kk4cyhQ9zhCxNKg1BzyCyA"
 
 <img src="assets/week2/heyhoney/1 set api key env var.png">
 
-# B-Hard code Service Name  in docker compose
+## B-Hard code Service Name  in docker compose
 
 <img src="assets/week2/heyhoney/2- include api key and others requirement for honeycomb.png">
 
@@ -33,7 +53,7 @@ gp env HONEYCOMB_SERVICE_NAME="Cruddur"
 :lamp: Because you dont want it to be consistent as your backend services may vary.
 
 
-### C- Configure Open Telemetry to send for honeycomb
+## C- Configure Open Telemetry to send for honeycomb
 
 ```
       OTEL_SERVICE_NAME: "backend-flask" 
@@ -204,12 +224,6 @@ This will help using only the opentelemetryAPI, cause there is fat pack of impor
 
 ```
 from opentelemetry import trace
-```
-
--and this just a bit down:
-
-
-```
 tracer = trace.get_tracer("home.activities")
 ```
 - 2: Creating Spans afte def run():
@@ -256,31 +270,105 @@ This error happened cause i called the endpoint after running docker compose wit
 <img src="assets/week2/heyhoney/29 another query but with zoom.png">
 
 
+
+---
+
 # Instrument AWS X-Ray
 
 ### Install AWS SDK
 
-<img src="week2/XRAY/">
+
+<img src="assets/week2/XRAY/1 isntall sdk.png">
+
+
 
 ## Create group
+
+<img src="assets/week2/XRAY/2 json.png">
+
 ```
 aws xray create-group \
    --group-name "Cruddur" \
    --filter-expression "service(\"backend-flask\")
 ```
+<img src="assets/week2/XRAY/3 crfeate groip.png">
 
+
+
+### Here it is
+
+<img src="assets/week2/XRAY/4- Its here to group traces together..png">
 
 ## Sampling 
 
 a good way to ask it to show you what you really need.
 
-
-## Create it using CLI using the xray.json
-
 ```
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 
+<img src="assets/week2/XRAY/5 sample using json.png">
+
+Create it using CLI using the xray.json
+
+You can do it using aws console. However listen brother, UI changes json dont ;)
+
+<img src="assets/week2/XRAY/6 created using the json.png">
+
 
 ### Set up the deamon
 
+It is ca-central, i corrected it before commiting.
+<img src="assets/week2/XRAY/7 add the daemon thanks andrew it was headache to get it as he said.png">
+
+## Backend working:
+<img src="assets/week2/XRAY/8 backend work doing good.png">
+
+## Things are going succesfully to XRAY
+<img src="assets/week2/XRAY/9 success deliver to xray.png">
+
+## We have data:
+<img src="assets/week2/XRAY/10 DATA IS IN XRAY.png">
+
+## Digging into XRAY specific request:
+<img src="assets/week2/XRAY/11 more of XRAY.png">
+
+## More:
+<img src="assets/week2/XRAY/12 more.png">
+
+## Overview:
+<img src="assets/week2/XRAY/13 bye.png">
+
+## Part 2 XRAY: Subsegmentation:
+
+### Checking the connectivity:
+<img src="assets/week2/XRAY/SUBSEG VIDEO/1 works hmmhmh.png">
+
+## Service Map in AWS XRAY:
+<img src="assets/week2/XRAY/SUBSEG VIDEO/2 service map.png">
+
+## Metadata ERROR is not Big deal:
+<img src="assets/week2/XRAY/SUBSEG VIDEO/3 meta data work dont really matter hm.png">
+
+## Gaining more insights:
+<img src="assets/week2/XRAY/SUBSEG VIDEO/4 getting more data.png">
+
+## Mock data is there, success:
+<img src="assets/week2/XRAY/SUBSEG VIDEO/5 mock data s here.png">
+
+
+
+
+---
+# To-Do Checklist & Student Status
+
+| Tasks                                             | Status |
+|---------------------------------------------------|--------|
+| Watch Week 2 Live-Stream Video                    | ✅     |
+| Watch Chirag Week 2 - Spending Considerations     | ✅     |
+| Watched Ashish's Week 2 - Observability Security Considerations | ✅     |
+| Instrument Honeycomb with OTEL                     | ✅     |
+| Instrument AWS X-Ray                              | ✅     |
+| Instrument AWS X-Ray Subsegments                   | ✅     |
+| Configure custom logger to send to CloudWatch Logs |      |
+| Integrate Rollbar and capture an error             |      |

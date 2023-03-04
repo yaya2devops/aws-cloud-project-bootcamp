@@ -11,7 +11,7 @@ from services.search_activities import *
 from services.message_groups import *
 from services.messages import *
 from services.create_message import *
-
+from services.show_activity import *
 
 # HoneyComb for reference 1-----
 from opentelemetry import trace
@@ -55,7 +55,7 @@ app = Flask(__name__)
 XRayMiddleware(app, xray_recorder)
 
 
-# HoneyComb things for reference 3-----
+# HoneyComb things for reference 3:  Initialize automatic instrumentation with Flask
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 
@@ -105,7 +105,8 @@ def data_create_message():
     return model['data'], 200
   return
 
-@app.route("/api/activities/home", methods=['GET'])
+@app.route("/api/activities/home", methods=['GET']) 
+@xray_recorder.capture('activity-home')
 def data_home():
   data = HomeActivities.run()
   return data, 200
@@ -116,13 +117,14 @@ def data_notifications():
   return data, 200
 
 @app.route("/api/activities/@<string:handle>", methods=['GET'])
+@xray_recorder.capture('user_activities')
 def data_handle(handle):
   model = UserActivities.run(handle)
   if model['errors'] is not None:
     return model['errors'], 422
   else:
     return model['data'], 200
-
+  
 @app.route("/api/activities/search", methods=['GET'])
 def data_search():
   term = request.args.get('term')
@@ -132,6 +134,12 @@ def data_search():
   else:
     return model['data'], 200
   return
+
+@app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
+@xray_recorder.capture('activities_show')
+def data_show_activity(activity_uuid):
+  data = ShowActivity.run(activity_uuid=activity_uuid)
+  return data, 200  
 
 @app.route("/api/activities", methods=['POST','OPTIONS'])
 @cross_origin()
