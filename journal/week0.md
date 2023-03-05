@@ -291,6 +291,7 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 | Use CloudShell | ✅ |
 | Generate AWS Credentials | ✅ |
 | Installed AWS CLI | ✅ |
+|Understand how to look at monthly billing reports|✅|
 | Create a Billing Alarm | ✅ |
 | Create a Budget | ✅ |
 
@@ -305,6 +306,7 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 | Create an architectural diagram (to the best of your ability) the CI/CD logical pipeline in Lucid Charts |  ✅      |
 | Research the technical and service limits of specific services and how they could impact the technical path for technical flexibility. |    ✅    |
 | Open a support ticket and request a service limit                                                        |  ✅      |
+|Use EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue| ⌛|
 
 
 

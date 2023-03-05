@@ -409,7 +409,7 @@ It is ca-central, i corrected it before commiting.
 
 # AWS CloudWatch
 
-## Installing the requried package:
+## Installing the Package:
 <img src="assets/week2/Cloudwatch/1- install watchtower.png">
 
 ## Facing an error :
@@ -474,12 +474,13 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 
 
 ---
-# Week Three To-Do & Student Status
+# Week Two To-Do & Student Status
 
 | Tasks                                             | Status |
 |:---------------------------------------------------|:--------:|
 | Watch Week 2 Live-Stream Video                    | ✅     |
 | Watch Chirag Week 2 - Spending Considerations     | ✅     |
+|Watched  Github Codespaces Crash Course|✅|
 | Watched Ashish's Week 2 - Observability Security Considerations | ✅     |
 | Instrument Honeycomb with OTEL                     | ✅     |
 |Run queries to explore traces within Honeycomb.io|✅|
@@ -498,7 +499,7 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 
 |  Challenge                                                                                                   | Status |
 |:----------------------------------------------------------------------------------------------------------------------|:--------:|
-| Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]      |        |
+| Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]      |     ⌛   |
 | Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span                          |     ✅    |
 | Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces                              |     ✅    |
 | Figure out how to do segment and sub-segment on AWS XRAY                                                               |     ✅    |
