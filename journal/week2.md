@@ -10,13 +10,13 @@ I started by learning about the three main observability pillars: metrics, trace
 
 I gained a deeper understanding of how each of these pillars can provide valuable insights into the performance of software applications & help to identify and resolve issues quickly.
 
-I succesfully setup CRUDDUR to four different observability tools: Honeycomb, AWS X-Ray, CloudWatch, and Rollbar.
+I successfully setup CRUDDUR to four different observability tools: Honeycomb, AWS X-Ray, CloudWatch, and Rollbar.
 
 Here is a brief on the tools, if you consider learning more.
 
 |  Tools         | Description                                          |
 |-------------| -----------------------------------------------------|
-| [Honeycomb](#honeycomb-dive)   |  Honeycomb is a distributed tracing & observability platform to help engineers understand and debug complex systems. |
+| [Honeycomb](#honeycomb-exploration)   |  Honeycomb is a distributed tracing & observability platform to help engineers understand and debug complex systems. |
 | [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service provided by AWS that helps analyze and debug distributed applications.  |
 | [CloudWatch](#aws-cloudwatch)  |Amazon CloudWatch is a monitoring and observability service provided by AWS |
 | [Rollbar](#rollbar)  |Rollbar is a cloud-based error and log monitoring tool  helps identify software errors in real-time.  |
@@ -39,7 +39,7 @@ Take a look at the work completed thus far below!
 
 
 
-# Honeycomb Dive
+# Honeycomb Exploration
 
 
 ## A- Set Honeycomb API Env Var
@@ -54,7 +54,7 @@ gp env HONEYCOMB_API_KEY="Kk4cyhQ9zhCxNKg1BzyCyA"
 
 <img src="assets/week2/heyhoney/1 set api key env var.png">
 
-## B-Hard code Service Name  in docker compose
+## B- Hard code Service Name  in Docker compose
 
 <img src="assets/week2/heyhoney/2- include api key and others requirement for honeycomb.png">
 
@@ -80,9 +80,9 @@ gp env HONEYCOMB_SERVICE_NAME="Cruddur"
 Automatic Instrumentation isnt as good in the frontend.
 
 
-#  Send Data to required backend lang  dependent
+#  Send Data to  Backend "lang-dependent"
 
-## 1-  Install your backend required language packages
+## 1-  Install Backend Packages
 
 go to backend
 
@@ -115,7 +115,7 @@ pip install -r requirements.txt
 <img src="assets/week2/heyhoney/4 installed them from txt file.png">
 
 
-## 2- Initialize
+## 2- Initialize!
 
 add this to app.py
 
@@ -159,7 +159,7 @@ Making code explicit, env var are sneaky.
 Env var are technically easy but.
 
 
-## D- Docker Compose up
+## D- Docker Compose Up 
 No need to build the container, it will do it for us. Simple let the docker compose do the magic.
 
 ERROR!
@@ -168,22 +168,22 @@ ERROR!
 
 
 
-## Troubleshoot
+## Hm, Troubleshoot
 <img src="assets/week2/heyhoney/8 troubleshoot solution.png">
 
-added this 
+Added this 
 ```
 # Show this in the logs within the backend-flask app (STDOUT)
 simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
 provider.add_span_processor(simple_processor)
 ```
 
-and imported its librairy
+and imported its library
 ```
 from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
 ```
 
-and then go try the endpoint once more
+and then went to try the endpoint once more
 
 
 Oh it shows data now!
@@ -192,14 +192,14 @@ Oh it shows data now!
 
 ## Honeycomb dont show?
 
-- Check again
+- Checking again:
 
 env | grep HONEY
 
 It is there.
 
 
-go to 
+Let's go to:
 
 honeycomb-whoami.glitch.me to find out what api is that..
 
@@ -208,18 +208,20 @@ honeycomb-whoami.glitch.me to find out what api is that..
 # Restart fresh
 <img src="assets/week2/heyhoney/replace2.png">
 
+<br>
+
 <img src="assets/week2/heyhoney/12 update npm front.png">
 
-## Let's automate this in gitpod
+## Let's automate NPM i
 <img src="assets/week2/npm auto.png">
 
-## And make ports unlocked by default in gitpod
+## And make ports unlocked by default in Gitpod
 
 <img src="assets/week2/related make port open by default in gitpod.png">
 
 
 
-### Solved, here is the dashbaord showing data.
+### Solved, Here is the dashbaord showing data.
 
 <img src="assets/week2/heyhoney/13- SOLVED! about honey dashboard.png">
 
@@ -296,6 +298,7 @@ span.set_attribute("user.id", user.id())
 <img src="assets/week2/heyhoney/25 query p2.png">
 
 This error happened cause i called the endpoint after running docker compose with python syntax missing identation:
+
 <img src="assets/week2/heyhoney/26 takes me to this span where i had error cause i missed a python syntax.png">
 
 <br>
@@ -308,7 +311,7 @@ This error happened cause i called the endpoint after running docker compose wit
 
 <img src="assets/week2/heyhoney/28 another query.png">
 
-## Dig deep with this feature and + 
+## Investigate more thoroughly: 
 <img src="assets/week2/heyhoney/29 another query but with zoom.png">
 
 
@@ -373,7 +376,7 @@ It is ca-central, i corrected it before commiting.
 
 <img src="assets/week2/XRAY/10  the real 10.png">
 
-## Digging into XRAY specific request:
+## Scooping into XRAY specific request:
 <img src="assets/week2/XRAY/11 more of XRAY.png">
 
 ## More:
@@ -382,7 +385,7 @@ It is ca-central, i corrected it before commiting.
 ## Overview:
 <img src="assets/week2/XRAY/13 bye.png">
 
-## Part 2 XRAY: Subsegmentation:
+## Part 2 XRAY - Subsegmentation:
 
 ### Checking the connectivity:
 <img src="assets/week2/XRAY/SUBSEG VIDEO/1 works hmmhmh.png">
@@ -453,7 +456,7 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 <img src="assets/week2/rollbar/4 listitening.png">
 
 
-## Seeing this page after clicking on Items is  good sign:
+## Seeing this page after clicking on Items is good sign:
 <img src="assets/week2/rollbar/5 WHEN U CLICK ON ITEMS AND FIND THIS ITS GOOD SIGN.png">
 
 <br>
