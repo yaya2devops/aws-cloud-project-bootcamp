@@ -18,7 +18,7 @@ This week, we'll go over three great tools that can help with this.
 | [Honeycomb](#honeycomb-dive)   |  Honeycomb is a distributed tracing & observability platform designed to help engineers understand and debug complex systems. It offers features like dynamic sampling, real-time aggregation, and advanced visualization capabilities to make it easy to analyze and troubleshoot distributed systems. |
 | [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service provided by Amazon Web Services (AWS) that helps developers analyze and debug distributed applications.  |
 | [CloudWatch](#aws-cloudwatch)  |Amazon CloudWatch is a monitoring and observability service provided by AWS. It provides metrics, logs, and alarms for AWS resources, applications, and services and can be used to monitor and troubleshoot distributed systems. |
-| [Rollbar](#Rollbar)  |Rollbar is a cloud-based error and log monitoring tool that helps identify and diagnose software errors in real-time.  |
+| [Rollbar](#rollbar)  |Rollbar is a cloud-based error and log monitoring tool that helps identify and diagnose software errors in real-time.  |
 
 
 # Honeycomb Dive
@@ -389,6 +389,36 @@ It is ca-central, i corrected it before commiting.
 ---
 
 # Rollbar
+
+Rollbar is a great product indeed. Simply put it's a way to investigate any kind of error that can happen to the backend with further details.
+
+
+## Install required packages:
+<img src="assets/week2/rollbar/1 install rollbar required packages.png">
+
+## Configure Rollbar Tokens:
+<img src="assets/week2/rollbar/2 settin rollbar tokens.png">
+
+## Sample verification page:
+<img src="assets/week2/rollbar/3 rollbar checks.png">
+
+# Listening:
+<img src="assets/week2/rollbar/4 listitening.png">
+
+
+## Seeing this page after clicking on Items is  good sign:
+<img src="assets/week2/rollbar/5 WHEN U CLICK ON ITEMS AND FIND THIS ITS GOOD SIGN.png">
+
+<img src="assets/week2/rollbar/6 here it is.png">
+
+## The Hello World:
+<img src="assets/week2/rollbar/7 view inside.png">
+
+## Checking connection and trying things:
+<img src="assets/week2/rollbar/7 zanother 7.png">
+
+## Dashboard Overview:
+<img src="assets/week2/rollbar/9 dashbaord.png">
 
 
 ---
