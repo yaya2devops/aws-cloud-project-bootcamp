@@ -29,7 +29,7 @@ There were two practices I was doing that are worth mentioning:
 - **Instrumentation**, which is the practice of adding code to a software application in order to capture data about its performance or behavior, most onboarding to the tools was taking this putting that and troubleshoot in between.
 - **Distrubuted Tracing**, it is a technique for tracking the path of a request as it flows through a distributed system or application.
 
-In a distributed system, a single request can touch many different components, services, and systems, and tracking the path of that request can be challenging. This is what these tools can help us to achive.
+In a distributed system, a single request can touch many different components, services, and systems, and tracking the path of that request can be challenging. This is what these tools can help us in achieving.
 
 
 Very decent accumulated knowledge, and there is still more related to acquire. 
@@ -200,12 +200,12 @@ It is there.
 
 go to 
 
-honeycomb-whoami.glitch.me to find out what api is that xD
+honeycomb-whoami.glitch.me to find out what api is that..
 
-<img src="assets/week2/heyhoney/10 check key.png">
+<img src="assets/week2/heyhoney/replace.png">
 
 ### Restart fresh
-<img src="assets/week2/heyhoney/11 new contect .png">
+<img src="assets/week2/heyhoney/replace2.png">
 
 <img src="assets/week2/heyhoney/12 update npm front.png">
 
@@ -218,15 +218,21 @@ honeycomb-whoami.glitch.me to find out what api is that xD
 
 <img src="assets/week2/heyhoney/14 honey queries.png">
 
+
 <img src="assets/week2/heyhoney/15- HTTP status code.png">
+
+<br>
 
 <img src="assets/week2/heyhoney/16- bubble.png">
 
 ## Spans:
+
 <img src="assets/week2/heyhoney/17 span sample.png">
 
 ## More Observability
 <img src="assets/week2/heyhoney/18 daata set daily traffic.png">
+
+<br>
 
 <img src="assets/week2/heyhoney/19 HISTOIRY.png">
 
@@ -259,7 +265,7 @@ span.set_attribute("user.id", user.id())
 
 <img src="assets/week2/heyhoney/20 two spans.png">
 
-
+<br>
 
 <img src="assets/week2/heyhoney/21 SPAN EXPAND.png">
 
@@ -276,11 +282,21 @@ span.set_attribute("user.id", user.id())
 
 <img src="assets/week2/heyhoney/24 query eyyyey.png">
 
+<br>
+
 <img src="assets/week2/heyhoney/25 query p2.png">
 
 This error happened cause i called the endpoint after running docker compose with python syntax missing identation:
 <img src="assets/week2/heyhoney/26 takes me to this span where i had error cause i missed a python syntax.png">
+
+<br>
+
+
 <img src="assets/week2/heyhoney/27 another query.png">
+
+<br>
+
+
 <img src="assets/week2/heyhoney/28 another query.png">
 
 ## Dig deep with this feature and + 
@@ -425,6 +441,8 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 
 ## Seeing this page after clicking on Items is  good sign:
 <img src="assets/week2/rollbar/5 WHEN U CLICK ON ITEMS AND FIND THIS ITS GOOD SIGN.png">
+
+<br>
 
 <img src="assets/week2/rollbar/6 here it is.png">
 
