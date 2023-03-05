@@ -16,10 +16,10 @@ Here is a brief on the tools, if you consider learning more.
 
 |  Tools         | Description                                          |
 |-------------| -----------------------------------------------------|
-| [Honeycomb](#honeycomb-exploration)   |  Honeycomb is a distributed tracing & observability platform to help engineers understand and debug complex systems. |
-| [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service provided by AWS that helps analyze and debug distributed applications.  |
-| [CloudWatch](#aws-cloudwatch)  |Amazon CloudWatch is a monitoring and observability service provided by AWS |
-| [Rollbar](#rollbar)  |Rollbar is a cloud-based error and log monitoring tool  helps identify software errors in real-time.  |
+| [Honeycomb](#honeycomb-exploration)   |  Honeycomb is a distributed tracing & observability platform to help understand & debug complex systems. |
+| [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service that helps to analyze & debug distributed applications.  |
+| [CloudWatch](#aws-cloudwatch)  |AWS CloudWatch is a monitoring and observability service.   |
+| [Rollbar](#rollbar)  |Rollbar is a cloud-based log monitoring tool helps to identify software errors in real-time.  |
 
 
 Through careful analysis of the data generated, I was capable to effectively identify and resolve numerous critical issues, allowing me to make data-driven decisions that led to real improvements in the performance and stability of the app.
