@@ -1,4 +1,7 @@
 # Week 1 — App Containerization
+
+<img src="assets/week1/week1.png">
+
 This week was jam-packed of hands-on. 
 
 
@@ -334,8 +337,9 @@ to see templates:
 
 <img src="assets/week1/Postgre/5 quit postgre.png">
 
+---
 
-# Week 1 To-Do & Student Status
+# Week One To-Do & Student Status
 
 | Task                                                 | Status |
 | ---------------------------------------------------- | ------ |
@@ -351,6 +355,20 @@ to see templates:
 | Write a React Page for Notifications                   |  ✅    |
 | Run DynamoDB Local Container and ensure it works       |  ✅    |
 | Run Postgres Container and ensure it works             |  ✅    |
+
+---
+
+
+# Homework Challenges & Student Status
+|  Homework                                                        | Status |
+|---------------------------------------------------------------------------------|--------|
+| Run the dockerfile CMD as an external script                                    |        |
+| Push and tag a image to DockerHub (they have a free tier)                        |        |
+| Use multi-stage building for a Dockerfile build                                 |        |
+| Implement a healthcheck in the V3 Docker compose file                            |        |
+| Research best practices of Dockerfiles and attempt to implement it in your Dockerfile |        |
+| Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces |        |
+| Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. |        |
 
 
 

@@ -276,8 +276,9 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 
 <img src="assets/week0/6 cased.png">
 
+---
 
-# Week 0 To-Do & Student Status
+# Week Zero To-Do & Student Status
 
 | Task | Status   |
 |------|----------|
@@ -292,6 +293,18 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 | Installed AWS CLI | ✅ |
 | Create a Billing Alarm | ✅ |
 | Create a Budget | ✅ |
+
+---
+
+# Homework Challenges & Student Status
+
+| Homework                                                                                        | Status |
+|:----------------------------------------------------------------------------------------------------------|:--------:|
+| Destroy your root account credentials, Set MFA, IAM role                                                |     ✅   |
+| Review all the questions of each pillars in the Well Architected Tool (No specialized lens)             |     ✅   |
+| Create an architectural diagram (to the best of your ability) the CI/CD logical pipeline in Lucid Charts |  ✅      |
+| Research the technical and service limits of specific services and how they could impact the technical path for technical flexibility. |    ✅    |
+| Open a support ticket and request a service limit                                                        |  ✅      |
 
 
 

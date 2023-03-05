@@ -210,11 +210,12 @@ honeycomb-whoami.glitch.me to find out what api is that..
 
 <img src="assets/week2/heyhoney/12 update npm front.png">
 
-## Let's automate this:
-<img src="assets/week2/related make port open by default in gitpod.png">
-<br>
-
+## Let's automate this in gitpod
 <img src="assets/week2/npm auto.png">
+
+## And make ports unlocked by default in gitpod
+
+<img src="assets/week2/related make port open by default in gitpod.png">
 
 
 
@@ -470,7 +471,7 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 
 
 ---
-# To-Do Checklist & Student Status
+# Week Three To-Do & Student Status
 
 | Tasks                                             | Status |
 |---------------------------------------------------|--------|
@@ -478,7 +479,23 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 | Watch Chirag Week 2 - Spending Considerations     | ✅     |
 | Watched Ashish's Week 2 - Observability Security Considerations | ✅     |
 | Instrument Honeycomb with OTEL                     | ✅     |
+|Run queries to explore traces within Honeycomb.io|✅|
 | Instrument AWS X-Ray                              | ✅     |
+|Configure and provision X-Ray daemon within docker-compose and send data back to X-Ray API|✅|
+|Observe X-Ray traces within the AWS Console|✅|
 | Instrument AWS X-Ray Subsegments                   | ✅     |
+|Install WatchTower & Onboard to Cloudwatch|✅|
 | Configure custom logger to send to CloudWatch Logs |  ✅    |
 | Integrate Rollbar and capture an error             |   ✅   |
+
+
+---
+
+# Homework Challenge & Student Status
+
+|  Challenge                                                                                                   | Status |
+|----------------------------------------------------------------------------------------------------------------------|--------|
+| Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]      |        |
+| Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span                          |        |
+| Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces                              |        |
+| Figure out how to do segment and sub-segment on AWS XRAY                                                               |        |
