@@ -1,24 +1,41 @@
 # Week 2 — Distributed Tracing
 
-I call this the troubleshooting tools week. 
 
-Having the ability to get insight of your requests and data to resolve whatever technical problem you face.
+The good times continue!
 
-Starting with logs and going further with the tools.
+This past week was a great dive into the world of troubleshooting and the importance of observability for us; software developers.
 
-Let's define **Distrubuted Tracing**, it is a technique for tracking the path of a request as it flows through a distributed system or application. In a distributed system, a single request can touch many different components, services, and systems, and tracking the path of that request can be challenging.
+I started by learning about the three main observability pillars: metrics, traces, and logs. 
 
-Let's explain **Instrumentation**, It is  the practice of adding code to a software application in order to capture data about its performance or behavior. This data can then be used to analyze and optimize the application, or to diagnose and resolve issues that may arise.
+I gained a deeper understanding of how each of these pillars can provide valuable insights into the performance of software applications & help to identify and resolve issues quickly.
 
+I succesfully setup CRUDDUR to four different observability tools: Honeycomb, AWS X-Ray, CloudWatch, and Rollbar.
 
-This week, we'll go over three great tools that can help with this.
+Here is a brief on the tools, if you consider learning more.
 
-| Observability Tool         | Description                                          |
+|  Tools         | Description                                          |
 |-------------| -----------------------------------------------------|
-| [Honeycomb](#honeycomb-dive)   |  Honeycomb is a distributed tracing & observability platform designed to help engineers understand and debug complex systems. It offers features like dynamic sampling, real-time aggregation, and advanced visualization capabilities to make it easy to analyze and troubleshoot distributed systems. |
-| [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service provided by Amazon Web Services (AWS) that helps developers analyze and debug distributed applications.  |
-| [CloudWatch](#aws-cloudwatch)  |Amazon CloudWatch is a monitoring and observability service provided by AWS. It provides metrics, logs, and alarms for AWS resources, applications, and services and can be used to monitor and troubleshoot distributed systems. |
-| [Rollbar](#rollbar)  |Rollbar is a cloud-based error and log monitoring tool that helps identify and diagnose software errors in real-time.  |
+| [Honeycomb](#honeycomb-dive)   |  Honeycomb is a distributed tracing & observability platform to help engineers understand and debug complex systems. |
+| [AWS X-Ray](#instrument-aws-x-ray)   |  AWS X-Ray is a tracing service provided by AWS that helps analyze and debug distributed applications.  |
+| [CloudWatch](#aws-cloudwatch)  |Amazon CloudWatch is a monitoring and observability service provided by AWS |
+| [Rollbar](#rollbar)  |Rollbar is a cloud-based error and log monitoring tool  helps identify software errors in real-time.  |
+
+
+Through careful analysis of the data generated, I was capable to effectively identify and resolve numerous critical issues, allowing me to make data-driven decisions that led to real improvements in the performance and stability of the app.
+
+
+There were two practices I was doing that are worth mentioning:
+
+- **Instrumentation**, which is the practice of adding code to a software application in order to capture data about its performance or behavior, most onboarding to the tools was taking this putting that and troubleshoot in between.
+- **Distrubuted Tracing**, it is a technique for tracking the path of a request as it flows through a distributed system or application.
+
+In a distributed system, a single request can touch many different components, services, and systems, and tracking the path of that request can be challenging. This is what these tools can help us to achive.
+
+
+Very decent accumulated knowledge, and there is still more related to acquire. 
+
+Take a look at the work completed thus far below!
+
 
 
 # Honeycomb Dive
@@ -433,4 +450,4 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 | Instrument AWS X-Ray                              | ✅     |
 | Instrument AWS X-Ray Subsegments                   | ✅     |
 | Configure custom logger to send to CloudWatch Logs |  ✅    |
-| Integrate Rollbar and capture an error             |      |
+| Integrate Rollbar and capture an error             |   ✅   |
