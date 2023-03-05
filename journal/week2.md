@@ -410,7 +410,12 @@ It is ca-central, i corrected it before commiting.
 
 <img src="assets/week2/Cloudwatch/4 another error because it should be done instead.png">
 
+## here:
+<img src="assets/week2/Cloudwatch/6 should be working now.png">
+
 ## Dev Proof:
+
+
 <img src="assets/week2/Cloudwatch/7 prrof.png">
 
 ## Cloudwatch Visual Proof:
