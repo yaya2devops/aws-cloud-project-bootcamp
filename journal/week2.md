@@ -502,7 +502,7 @@ Do you want to make use of these tools?
 
 |  Challenge                                                                                                   | Status |
 |:----------------------------------------------------------------------------------------------------------------------|:--------:|
-| Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend[HARD]      |     ⌛   |
 | Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span                          |     ✅    |
 | Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces                              |     ✅    |
 | Figure out how to do segment and sub-segment on AWS XRAY                                                               |     ✅    |
+|Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend  |⌛|
