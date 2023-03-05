@@ -221,7 +221,7 @@ honeycomb-whoami.glitch.me to find out what api is that..
 
 
 
-### Solved, Here is the dashbaord showing data.
+### Solved, The dashboard is showing DATA!
 
 <img src="assets/week2/heyhoney/13- SOLVED! about honey dashboard.png">
 
@@ -369,7 +369,7 @@ It is ca-central, i corrected it before commiting.
 ## Backend working:
 <img src="assets/week2/XRAY/8 backend work doing good.png">
 
-## Things are going succesfully to XRAY
+## Things are going well for XRAY
 <img src="assets/week2/XRAY/9 success deliver to xray.png">
 
 ## We have data:
