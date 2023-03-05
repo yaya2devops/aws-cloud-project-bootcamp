@@ -342,7 +342,7 @@ to see templates:
 # Week One To-Do & Student Status
 
 | Task                                                 | Status |
-| ---------------------------------------------------- | ------ |
+| :---------------------------------------------------- | :------: |
 | Watch How to Ask for Technical Help                  |  ✅    |
 | Watched Grading Homework Summaries                    |  ✅    |
 | Watched Week 1 - Live Streamed Video                  |  ✅    |
@@ -361,7 +361,7 @@ to see templates:
 
 # Homework Challenges & Student Status
 |  Homework                                                        | Status |
-|---------------------------------------------------------------------------------|--------|
+|:---------------------------------------------------------------------------------|:--------:|
 | Run the dockerfile CMD as an external script                                    |        |
 | Push and tag a image to DockerHub (they have a free tier)                        |        |
 | Use multi-stage building for a Dockerfile build                                 |        |

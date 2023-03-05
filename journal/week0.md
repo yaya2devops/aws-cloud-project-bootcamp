@@ -281,7 +281,7 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 # Week Zero To-Do & Student Status
 
 | Task | Status   |
-|------|----------|
+|:------|:----------:|
 | Watched Week 0 - Live Streamed Video | ✅ |
 | Watched Chirag's Week 0 - Spend Considerations | ✅ |
 | Watched Ashish's Week 0 - Security Considerations | ✅ |
