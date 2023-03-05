@@ -1,5 +1,6 @@
 # Week 2 — Distributed Tracing
 
+<img src="assets/week2/welcome.png">
 
 The good times continue!
 
@@ -204,10 +205,17 @@ honeycomb-whoami.glitch.me to find out what api is that..
 
 <img src="assets/week2/heyhoney/replace.png">
 
-### Restart fresh
+# Restart fresh
 <img src="assets/week2/heyhoney/replace2.png">
 
 <img src="assets/week2/heyhoney/12 update npm front.png">
+
+## Let's automate this:
+<img src="assets/week2/related make port open by default in gitpod.png">
+<br>
+
+<img src="assets/week2/npm auto.png">
+
 
 
 ### Solved, here is the dashbaord showing data.
