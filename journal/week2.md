@@ -95,7 +95,7 @@ Run
 ```
 pip install opentelemetry-api 
 ```
-<img src="assets/week2/heyhoney/3 install required packages.png">
+<img src="assets/week2/heyhoney/3honey.png">
 
 Include all the packages in requirement.txt
 ```
@@ -206,11 +206,11 @@ honeycomb-whoami.glitch.me to find out what api is that..
 <img src="assets/week2/heyhoney/replace.png">
 
 # Restart fresh
-<img src="assets/week2/heyhoney/replace2.png">
+<img src="assets/week2/heyhoney/replace 3.png">
 
 <br>
 
-<img src="assets/week2/heyhoney/12 update npm front.png">
+<img src="assets/week2/heyhoney/12 honey.png">
 
 ## Let's automate NPM i
 <img src="assets/week2/npm auto.png">
@@ -472,6 +472,9 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 ## Dashboard Overview:
 <img src="assets/week2/rollbar/9 dashbaord.png">
 
+
+Do you want to make use of these tools?
+- [Examine what YOU can do.](assets/week2/pricing/README.md)
 
 ---
 # Week Two To-Do & Student Status
