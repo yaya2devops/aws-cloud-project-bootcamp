@@ -2,13 +2,15 @@
 
 <img src="assets/week2/welcome.png">
 
-The good times continue!
+Awareness continues with another productive week.
 
-This past week was a great dive into the world of troubleshooting and the importance of observability for us; software developers.
+This past days was a great dive into the world of observability.
 
-I started by learning about the three main observability pillars: metrics, traces, and logs. 
+I acknowledged the importance of seeing things clearly and tracing its roots.
 
-I gained a deeper understanding of how each of these pillars can provide valuable insights into the performance of software applications & help to identify and resolve issues quickly.
+I started by learning about the three main observability pillars: metrics¹, traces², and logs³. 
+
+I gained a deeper understanding of how each of these pillars can provide valuable insights into the performance of software applications & aid to identify issues.
 
 I successfully setup CRUDDUR to four different observability tools: Honeycomb, AWS X-Ray, CloudWatch, and Rollbar.
 
@@ -22,7 +24,7 @@ Here is a brief on the tools, if you consider learning more.
 | [Rollbar](#rollbar)  |Rollbar is a cloud-based log monitoring tool helps to identify software errors in real-time.  |
 
 
-Through careful analysis of the data generated, I was capable to effectively identify and resolve numerous critical issues, allowing me to make data-driven decisions that led to real improvements in the performance and stability of the app.
+I identified & resolved numerous critical issues, and made data-driven decisions that led to real improvements in the performance and stability of the app.
 
 
 There were two practices I was doing that are worth mentioning:
@@ -35,7 +37,7 @@ In a distributed system, a single request can touch many different components, s
 
 Very decent accumulated knowledge, and there is still more related to acquire. 
 
-Take a look at the work completed thus far below!
+Come join me and, take a look at the work done thus far below.
 
 
 
