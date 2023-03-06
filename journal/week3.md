@@ -113,8 +113,13 @@ Cognito UI is Nah.
 
 <img src="assets/Week3/Amplify/32 working.png">
 
-
-
+```
+aws cognito-idp admin-set-user-password \
+  --user-pool-id <your-user-pool-id> \
+  --username <username> \
+  --password <password> \
+  --permanent
+```
 
 ---
 
