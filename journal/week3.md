@@ -107,12 +107,6 @@ Cognito UI is Nah.
 
 <img src="assets/Week3/Amplify/28 user created.png">
 
-<img src="assets/Week3/Amplify/29 enfocing pw for user.png">
-
-<img src="assets/Week3/Amplify/30 cognito status.png">
-
-<img src="assets/Week3/Amplify/32 working.png">
-
 ```
 aws cognito-idp admin-set-user-password \
   --user-pool-id <your-user-pool-id> \
@@ -120,6 +114,140 @@ aws cognito-idp admin-set-user-password \
   --password <password> \
   --permanent
 ```
+
+<img src="assets/Week3/Amplify/29 enfocing pw for user.png">
+
+<img src="assets/Week3/Amplify/30 cognito status.png">
+
+<img src="assets/Week3/Amplify/32 working.png">
+
+
+---
+
+
+
+<img src="assets/Week3/Complete/1 cognito again with preffered name.png">
+
+<img src="assets/Week3/Complete/2 specify new user pool as required.png">
+
+
+<img src="assets/Week3/Complete/3 client name.png">
+
+
+<img src="assets/Week3/Complete/4 specify new connection.png">
+
+
+<img src="assets/Week3/Complete/5- creation of user new .png">
+
+
+<img src="assets/Week3/Complete/6 requires mroe.png">
+
+
+<img src="assets/Week3/Complete/7 new pool new user force pw etc.png">
+
+<img src="assets/Week3/Complete/8 proof after running that command.png">
+
+<img src="assets/Week3/Complete/9 had to specify this.png">
+
+<img src="assets/Week3/Complete/10 current users.png">
+
+<img src="assets/Week3/Complete/11 cbn.png">
+
+<img src="assets/Week3/Complete/15 auth confirm.png">
+
+<img src="assets/Week3/Complete/16 auth home plus reply why not.png">
+
+<img src="assets/Week3/Complete/17 recover page.png">
+
+<img src="assets/Week3/Complete/18 the right result before fixing the preferedd name.png">
+
+<img src="assets/Week3/Complete/19 wasaup.png">
+
+<img src="assets/Week3/Complete/20 all set.png">
+
+<img src="assets/Week3/Complete/21 the result!.png">
+
+
+---
+
+<img src="assets/Week3/Complete/Signup/1 add name.png">
+
+<img src="assets/Week3/Complete/Signup/2 add username.png">
+
+
+<img src="assets/Week3/Complete/Signup/3 code artist.png">
+
+
+<img src="assets/Week3/Complete/Signup/4 confirmation page.png">
+
+
+<img src="assets/Week3/Complete/Signup/5 sign up ui with the required additional inputs.png">
+
+
+<img src="assets/Week3/Complete/Signup/6 hmm error.png">
+
+
+<img src="assets/Week3/Complete/Signup/7 troubleshoot.png">
+
+
+<img src="assets/Week3/Complete/Signup/8 this is ok.png">
+
+
+<img src="assets/Week3/Complete/Signup/9 for real tho OMG.png">
+
+
+---
+
+# The damn part: 
+
+<img src="assets/Week3/Complete/Signup/userpool again/1- bye user pool n2.png">
+
+<img src="assets/Week3/Complete/Signup/userpool again/2 he only meant to do that LOL.png">
+
+<img src="assets/Week3/Complete/Signup/userpool again/3 sign up.png">
+
+
+
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/4 email sent.png">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/5 Hm we can custom this from cognito (2).jpg">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/6 Hm we can custom this from cognito (1).jpg">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/6-6 confirmed.png">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/7 sign in after confirmation.png">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/8r.jpg">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/8 recover pw.png">
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/9 perfect.png">
+
+## Let's go:
+<img src="assets/Week3/Complete/Signup/userpool again/10.png">
+
+
+> we better then login users after they confirm directly!
+
+
+
+
+
+
+
+
+
+
 
 ---
 
