@@ -240,6 +240,101 @@ aws cognito-idp admin-set-user-password \
 > we better then login users after they confirm directly!
 
 
+---
+
+
+<img src="assets/Week3/Cognito JWT/1 this we have to pass it.png">
+
+
+<img src="assets/Week3/Cognito JWT/2 here, front.png">
+
+
+<img src="assets/Week3/Cognito JWT/3 passing headers with authorization as called in homefeedpage.png">
+
+
+<img src="assets/Week3/Cognito JWT/4 blank screen error.png">
+
+<img src="assets/Week3/Cognito JWT/4 trying to solve importing sys.png">
+
+
+
+<img src="assets/Week3/Cognito JWT/5 and adding stdout.png">
+
+
+<img src="assets/Week3/Cognito JWT/6 no...png">
+
+
+<img src="assets/Week3/Cognito JWT/7 tried to force flush.png">
+
+
+<img src="assets/Week3/Cognito JWT/8 no again.png">
+
+
+<img src="assets/Week3/Cognito JWT/9 trying app logger instead.png">
+
+
+<img src="assets/Week3/Cognito JWT/10 no...png">
+
+
+<img src="assets/Week3/Cognito JWT/11 out of the topic error.png">
+
+
+
+<img src="assets/Week3/Cognito JWT/11-2 better error .png">
+
+
+<img src="assets/Week3/Cognito JWT/12 hm cors policy.png">
+
+
+<img src="assets/Week3/Cognito JWT/13 debu instead of info hm.png">
+
+
+<img src="assets/Week3/Cognito JWT/14 cbn.png">
+
+
+<img src="assets/Week3/Cognito JWT/15 these should print my token bro i dont see it.png">
+
+
+
+---
+
+<img src="assets/Week3/Cognito JWT/Token/1 we may need thiscode -community driven nice.png">
+<img src="assets/Week3/Cognito JWT/Token/2 take the class.png">
+<img src="assets/Week3/Cognito JWT/Token/3 kk he thinks there is some limitation to that.png">
+<img src="assets/Week3/Cognito JWT/Token/4 next anyway.png">
+<img src="assets/Week3/Cognito JWT/Token/5 u really should know about the librairy before u install it.png">
+<img src="assets/Week3/Cognito JWT/Token/6 we only need this 2 for the librairy.png">
+<img src="assets/Week3/Cognito JWT/Token/7 adjusted as required for compose.png">
+<img src="assets/Week3/Cognito JWT/Token/8 imported the librairy.png">
+<img src="assets/Week3/Cognito JWT/Token/9 validate pattern.png">
+<img src="assets/Week3/Cognito JWT/Token/10 added auth work to backend but im getting error.png">
+<img src="assets/Week3/Cognito JWT/Token/11 bye limited librairy..png">
+<img src="assets/Week3/Cognito JWT/Token/12 hm.png">
+<img src="assets/Week3/Cognito JWT/Token/13 im just leaving you.png">
+<img src="assets/Week3/Cognito JWT/Token/14 here we are again.png">
+<img src="assets/Week3/Cognito JWT/Token/15 We add these two.png">
+<img src="assets/Week3/Cognito JWT/Token/16 and added here.png">
+<img src="assets/Week3/Cognito JWT/Token/17 and do this.png">
+<img src="assets/Week3/Cognito JWT/Token/18 from here.png">
+<img src="assets/Week3/Cognito JWT/Token/19 god tier plays.png">
+<img src="assets/Week3/Cognito JWT/Token/20 we doing JWT so lets make it more readable.png">
+<img src="assets/Week3/Cognito JWT/Token/21 dig it into it.png">
+<img src="assets/Week3/Cognito JWT/Token/22 adjust libariry name.png">
+<img src="assets/Week3/Cognito JWT/Token/23 and thisss.png">
+<img src="assets/Week3/Cognito JWT/Token/24 passing the token.png">
+<img src="assets/Week3/Cognito JWT/Token/25 we aint changing the header so its fine.png">
+<img src="assets/Week3/Cognito JWT/Token/26 it is not self we adjusted it earlier.png">
+<img src="assets/Week3/Cognito JWT/Token/28 take this out.png">
+<img src="assets/Week3/Cognito JWT/Token/29 and this.png">
+<img src="assets/Week3/Cognito JWT/Token/30 we dont know what this class really about.png">
+<img src="assets/Week3/Cognito JWT/Token/31 maybe we can call it here, i mean in ruby nah but maybe in py.png">
+<img src="assets/Week3/Cognito JWT/Token/32 import but this token service makes no sense.png">
+<img src="assets/Week3/Cognito JWT/Token/33 there is no data i need from here.png">
+<img src="assets/Week3/Cognito JWT/Token/34 the user pool is well set.png">
+<img src="assets/Week3/Cognito JWT/Token/35 client pool is also well set.png">
+
+## Errors:
+<img src="assets/Week3/Cognito JWT/Token/37 something is wrong.png">
 
 
 
@@ -250,14 +345,4 @@ aws cognito-idp admin-set-user-password \
 
 
 ---
-
-
-# Week Three To-Do & Student Status
-
-
----
-
-
-# Homework Challenge & Student Status
-
 

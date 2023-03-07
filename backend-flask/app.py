@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask_cors import CORS, cross_origin
 import os
+import sys
 
 from services.home_activities import *
 from services.notifications_activities import *
@@ -12,6 +13,8 @@ from services.message_groups import *
 from services.messages import *
 from services.create_message import *
 from services.show_activity import *
+
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
 
 # HoneyComb for reference 1-----
 from opentelemetry import trace
@@ -73,6 +76,13 @@ tracer = trace.get_tracer(__name__)
 
 
 app = Flask(__name__)
+
+Cognito_jwt_token = CognitoJwtToken(
+    user_pool_id=os.getenv("ca-central-1_RT6uZ6IkV") ,
+    user_pool_client_id=os.getenv("5il3116qm0rh3ropspnirktnls"), 
+    region=os.getenv("AWS_DEFAULT_REGION")
+)
+
 # XRAY Launch
 XRayMiddleware(app, xray_recorder)
 
@@ -87,11 +97,10 @@ origins = [frontend, backend]
 cors = CORS(
   app, 
   resources={r"/api/*": {"origins": origins}},
-  expose_headers="location,link",
-  allow_headers="content-type,if-modified-since",
+  headers=['Content-Type', 'Authorization'], 
+  expose_headers='Authorization',
   methods="OPTIONS,GET,HEAD,POST"
 )
-
 
 # Rollbar assign env var
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
@@ -159,10 +168,24 @@ def data_create_message():
     return model['data'], 200
   return
 
+
 @app.route("/api/activities/home", methods=['GET']) 
 @xray_recorder.capture('activity-home')
 def data_home():
-  data = HomeActivities.run(Logger=LOGGER)
+  access_token = extract_access_token(request.headers)
+  try:
+      claims = cognito_jwt_token.verify(access_token)
+      # AUTHENTICATED REQUEST
+      app.logger.debug("Authenticated")
+      app.Logger.debug(claims)
+      app.Logger.debug(claims['username'])    
+      data = HomeActivities.run(cognito_user_id=claims['username'])
+  except TokenVerifyError as e:
+      # UNAUTHENTICATED REQUEST
+      app.logger.debug(e)
+      app.logger.debug("Unauthenticated")
+      data = HomeActivities.run()
+
   return data, 200
   
 @app.route("/api/activities/notifications", methods=['GET'])
