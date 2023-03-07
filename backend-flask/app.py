@@ -77,10 +77,10 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
-Cognito_jwt_token = CognitoJwtToken(
-    user_pool_id=os.getenv("ca-central-1_RT6uZ6IkV") ,
-    user_pool_client_id=os.getenv("5il3116qm0rh3ropspnirktnls"), 
-    region=os.getenv("AWS_DEFAULT_REGION")
+cognito_jwt_token = CognitoJwtToken(
+  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+  region=os.getenv("AWS_DEFAULT_REGION")
 )
 
 # XRAY Launch
@@ -174,18 +174,17 @@ def data_create_message():
 def data_home():
   access_token = extract_access_token(request.headers)
   try:
-      claims = cognito_jwt_token.verify(access_token)
-      # AUTHENTICATED REQUEST
-      app.logger.debug("Authenticated")
-      app.Logger.debug(claims)
-      app.Logger.debug(claims['username'])    
-      data = HomeActivities.run(cognito_user_id=claims['username'])
+    claims = cognito_jwt_token.verify(access_token)
+    # AUTHENTICATED REQUEST
+    app.logger.debug("Authenticated")
+    app.Logger.debug(claims)
+    app.Logger.debug(claims['username'])    
+    data = HomeActivities.run(cognito_user_id=claims['username'])
   except TokenVerifyError as e:
-      # UNAUTHENTICATED REQUEST
-      app.logger.debug(e)
-      app.logger.debug("Unauthenticated")
-      data = HomeActivities.run()
-
+    # UNAUTHENTICATED REQUEST
+    app.logger.debug(e)
+    app.logger.debug("Unauthenticated")
+    data = HomeActivities.run()
   return data, 200
   
 @app.route("/api/activities/notifications", methods=['GET'])
