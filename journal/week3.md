@@ -488,7 +488,7 @@ We aint changing the header.
 ## Errors:
 <img src="assets/Week3/Cognito JWT/Token/37 something is wrong.png">
 
-- [Troubleshoot Completion](#Revert-back-to-JWT-Debugging)
+- [Troubleshoot Completion](#revert-back-to-jwt-debugging)
 
 # Gitpod is down
 <img src="assets/Week3/Codespaces/0- gitpod downbilling.png">
@@ -604,6 +604,28 @@ We are back to the exact error before running out of credit in gitpod as well as
 
 
 # Revert back to JWT Debugging
+
+[JWT Intial work](#cognito-jason-web-token--construction)
+
+## Backend Logs:
+<img src="assets/Week3/backend logs.png">
+
+## Browser:
+<img src="assets/Week3/more.png">
+
+## Token issue:
+<img src="assets/Week3/tokenissue.png">
+
+
+## Solved:
+<img src="assets/Week3/solved here.png">
+
+## However token is not passed: 
+
+<img src="assets/Week3/but token is not apssed.png">
+
+
+
 
 
 
