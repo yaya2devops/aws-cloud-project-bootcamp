@@ -298,19 +298,21 @@ aws cognito-idp admin-set-user-password \
 <img src="assets/Week3/Complete/Signup/userpool again/7 sign in after confirmation.png">
 
 
-## Password Recovery:
 
-
-<img src="assets/Week3/Complete/Signup/userpool again/8 recover pw.png">
 
 ## Recover Notification:
 
 <img src="assets/Week3/Complete/Signup/userpool again/8r.jpg" width="300">
 
+## Password Recovery:
+
+
+<img src="assets/Week3/Complete/Signup/userpool again/8 recover pw.png">
+
 ## Recovered Client's Account:
 <img src="assets/Week3/Complete/Signup/userpool again/9 perfect.png">
 
-## Client Recovered Connection:
+## Client Recovered Connection✔️:
 <img src="assets/Week3/Complete/Signup/userpool again/10.png">
 
 
@@ -322,109 +324,306 @@ aws cognito-idp admin-set-user-password \
 # Cognito Jason Web Token — Construction
 
 
-
+## securing front:
 <img src="assets/Week3/Cognito JWT/1 this we have to pass it.png">
 
 
 <img src="assets/Week3/Cognito JWT/2 here, front.png">
 
 
+## Passing headers with authorization as called in homefeedpage:
 <img src="assets/Week3/Cognito JWT/3 passing headers with authorization as called in homefeedpage.png">
 
-
+## Blank:
 <img src="assets/Week3/Cognito JWT/4 blank screen error.png">
 
+## Shooting this:
 <img src="assets/Week3/Cognito JWT/4 trying to solve importing sys.png">
 
 
-
+## And this:
 <img src="assets/Week3/Cognito JWT/5 and adding stdout.png">
 
-
+## Yet:
 <img src="assets/Week3/Cognito JWT/6 no...png">
 
-
+## Trying to force flush:
 <img src="assets/Week3/Cognito JWT/7 tried to force flush.png">
 
-
+# Not yet:
 <img src="assets/Week3/Cognito JWT/8 no again.png">
 
-
+## Trying App logger:
 <img src="assets/Week3/Cognito JWT/9 trying app logger instead.png">
 
-
+## Still:
 <img src="assets/Week3/Cognito JWT/10 no...png">
 
-
+## Checking  the error:
 <img src="assets/Week3/Cognito JWT/11 out of the topic error.png">
 
 
-
+## We back with better error:
 <img src="assets/Week3/Cognito JWT/11-2 better error .png">
 
-
+## CORS Policy
 <img src="assets/Week3/Cognito JWT/12 hm cors policy.png">
 
-
+## Debug instead of info:
 <img src="assets/Week3/Cognito JWT/13 debu instead of info hm.png">
 
 
+## Up again:
 <img src="assets/Week3/Cognito JWT/14 cbn.png">
 
-
+## Where is my token:
 <img src="assets/Week3/Cognito JWT/15 these should print my token bro i dont see it.png">
 
 
 
 ---
 
-## Flask AWS Cognito Librairy — Construction
+# Flask AWS Cognito Librairy —
 
+## Librairy source code:
 <img src="assets/Week3/Cognito JWT/Token/1 we may need thiscode -community driven nice.png">
+
+## Taking the class:
 <img src="assets/Week3/Cognito JWT/Token/2 take the class.png">
+
+## JWT Limits:
 <img src="assets/Week3/Cognito JWT/Token/3 kk he thinks there is some limitation to that.png">
+
+## Install the librairy:
 <img src="assets/Week3/Cognito JWT/Token/4 next anyway.png">
+
+## Learning about the librairy and its code base:
 <img src="assets/Week3/Cognito JWT/Token/5 u really should know about the librairy before u install it.png">
+
+
 <img src="assets/Week3/Cognito JWT/Token/6 we only need this 2 for the librairy.png">
+
+## Adjusting the code:
 <img src="assets/Week3/Cognito JWT/Token/7 adjusted as required for compose.png">
+
+## Importing the librairy:
 <img src="assets/Week3/Cognito JWT/Token/8 imported the librairy.png">
+
+## Validating the pattern:
 <img src="assets/Week3/Cognito JWT/Token/9 validate pattern.png">
+
+## Adding auth work to backend but im getting error:
 <img src="assets/Week3/Cognito JWT/Token/10 added auth work to backend but im getting error.png">
+
+## Limited librairy:
 <img src="assets/Week3/Cognito JWT/Token/11 bye limited librairy..png">
 <img src="assets/Week3/Cognito JWT/Token/12 hm.png">
+
 <img src="assets/Week3/Cognito JWT/Token/13 im just leaving you.png">
+
+## Here we are again:
 <img src="assets/Week3/Cognito JWT/Token/14 here we are again.png">
+
+## Adding these:
 <img src="assets/Week3/Cognito JWT/Token/15 We add these two.png">
+
+## And added here:
 <img src="assets/Week3/Cognito JWT/Token/16 and added here.png">
+
+## And did this:
 <img src="assets/Week3/Cognito JWT/Token/17 and do this.png">
+
+## From here:
 <img src="assets/Week3/Cognito JWT/Token/18 from here.png">
+
+## God tier plays:
 <img src="assets/Week3/Cognito JWT/Token/19 god tier plays.png">
+
+## We doing JWT so lets make it more readable:
 <img src="assets/Week3/Cognito JWT/Token/20 we doing JWT so lets make it more readable.png">
+
+## Digging deeper:
 <img src="assets/Week3/Cognito JWT/Token/21 dig it into it.png">
+
+## Adjusting librairy:
 <img src="assets/Week3/Cognito JWT/Token/22 adjust libariry name.png">
+
+## And this:
 <img src="assets/Week3/Cognito JWT/Token/23 and thisss.png">
+
+## Passing the token:
 <img src="assets/Week3/Cognito JWT/Token/24 passing the token.png">
+
+## Its fine:
+We aint changing the header.
 <img src="assets/Week3/Cognito JWT/Token/25 we aint changing the header so its fine.png">
+
+## This is not self:
 <img src="assets/Week3/Cognito JWT/Token/26 it is not self we adjusted it earlier.png">
+
+## Taking this out:
 <img src="assets/Week3/Cognito JWT/Token/28 take this out.png">
+
+## As well as this:
 <img src="assets/Week3/Cognito JWT/Token/29 and this.png">
+
+## We dont know what this class really about:
 <img src="assets/Week3/Cognito JWT/Token/30 we dont know what this class really about.png">
+
+## Maybe we can call it here, i mean in ruby nah but maybe in py:
 <img src="assets/Week3/Cognito JWT/Token/31 maybe we can call it here, i mean in ruby nah but maybe in py.png">
+
+## Import but this token service makes no sense:
 <img src="assets/Week3/Cognito JWT/Token/32 import but this token service makes no sense.png">
+
+## There is no data in here:
 <img src="assets/Week3/Cognito JWT/Token/33 there is no data i need from here.png">
+
+## The user pool is well set:
 <img src="assets/Week3/Cognito JWT/Token/34 the user pool is well set.png">
+
+## The client pool is set as well:
 <img src="assets/Week3/Cognito JWT/Token/35 client pool is also well set.png">
 
 ## Errors:
 <img src="assets/Week3/Cognito JWT/Token/37 something is wrong.png">
 
+- [Troubleshoot Completion](#Revert-back-to-JWT-Debugging)
+
+# Gitpod is down
+<img src="assets/Week3/Codespaces/0- gitpod downbilling.png">
+
+## Configuring codespaces:
+<img src="assets/Week3/Codespaces/1 onboarding to codespaces and setup devcontainer json file .png">
+
+## Settin AWS CLI:
+<img src="assets/Week3/Codespaces/2 setting aws cli  access id.png">
+
+## Secret Key:
+<img src="assets/Week3/Codespaces/3 secret key.png">
+
+## Region:
+<img src="assets/Week3/Codespaces/4 region.png">
+
+## Overall Env var:
+<img src="assets/Week3/Codespaces/5 overall nice.png">
+
+## Setup port for front:
+<img src="assets/Week3/Codespaces/5-5 set up port env for frontend.png">
+
+## Env var port again:
+<img src="assets/Week3/Codespaces/5-5 set up ports env.png">
+
+## All set:
+<img src="assets/Week3/Codespaces/6 env var set.png">
+
+## Reloading:
+<img src="assets/Week3/Codespaces/6 reload required.png">
+
+## Rebuilding container:
+<img src="assets/Week3/Codespaces/7 rebuild container since its diff workplace and workspace.png">
+
+## Innovative thinking while loading:
+<img src="assets/Week3/Codespaces/8 rebuilding loading........png">
+
+## AWS is authenticated for the time number too much:
+<img src="assets/Week3/Codespaces/9 aws authenticated.png">
+
+## Container Launch:
+<img src="assets/Week3/Codespaces/10 after launchin the containers, hm why .png">
+
+## Codespaces is set:
+<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
+
+# Codespaces Down - Moving to local
 
 
+## AWS CLI:
+<img src="assets/Week3/docker-local/1 back vs code, set up aws.png">
+
+## Secret from UI
+<img src="assets/Week3/docker-local/2 secret.png">
+
+## Done:
+<img src="assets/Week3/docker-local/3.png">
+
+## Install AWS EXE:
+<img src="assets/Week3/docker-local/5 aws cli.png">
+
+## Checking Availability:
+<img src="assets/Week3/docker-local/6 cbn aws vscode.png">
+
+## Env var:
+<img src="assets/Week3/docker-local/7 set up env var.png">
+
+## Hm, i dont see:
+<img src="assets/Week3/docker-local/8 i dont see do youuu.png">
+
+## Exported, worked:
+<img src="assets/Week3/docker-local/9 all good all set i see now.png">
+
+## That's why we document our stuff:
+<img src="assets/Week3/docker-local/10 thats why we document our stuff officially authenticated.png">
+
+## Depedency requirements:
+<img src="assets/Week3/docker-local/11 requires npm scripts.png">
+
+## Satisfying it:
+<img src="assets/Week3/docker-local/12 doing the require.png">
+
+## Launching Docker local:
+<img src="assets/Week3/docker-local/13 docker local amazing.png">
+
+## Docker Images:
+<img src="assets/Week3/docker-local/14 docker images.png">
+
+## Available containers:
+<img src="assets/Week3/docker-local/15 containers stats.png">
+
+## Further stats:
+<img src="assets/Week3/docker-local/16 running.png">
+
+## Ops:
+<img src="assets/Week3/docker-local/16 -2 but port dont work.png">
+
+## Compose Config:
+<img src="assets/Week3/docker-local/17 because diff env required in docker compose.png">
+
+## And this:
+<img src="assets/Week3/docker-local/18 and this.png">
+
+## Close look:
+<img src="assets/Week3/docker-local/19 used to work hm.png">
+
+# Relaunching containers:
+<img src="assets/Week3/docker-local/20 try to clear caches.png">
+
+## Great News:
+We are back to the exact error before running out of credit in gitpod as well as moving to codespaces which run of space due to high volume of journal assets.
+<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
 
 
-
+# Revert back to JWT Debugging
 
 
 
 ---
+
+
+
+# Week Three To-Do & Student Status
+| Task                                        | Status |
+|---------------------------------------------|--------|
+| Watched Ashish's Week 3                     |   ✅   |
+| Watch Chirag Week 3 - Spending Considerations (Not yet posted) |   ⌛   |
+| Provision via ClickOps a Amazon Cognito User Pool                      |   ✅   |
+|Implement API calls to Amazon Coginto for custom login|✅|
+|Install and configure Amplify client-side library for Amazon Congito|✅|
+| Implement Custom Signup Page                 |   ✅   |
+| Implement Custom Confirmation Page           |   ✅   |
+| Implement Custom Recovery Page               |   ✅   |
+| Watch about different approaches to verifying JWTs  |   ✅   |
+|Verify JWT Token server side to serve authenticated API endpoints in Flask Application|⌛|
+
+
 

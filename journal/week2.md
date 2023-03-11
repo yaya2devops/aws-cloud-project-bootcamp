@@ -474,9 +474,20 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 ## Dashboard Overview:
 <img src="assets/week2/rollbar/9 dashbaord.png">
 
+## Errors with Rollbar:
+<img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 1.png">
 
-Do you want to make use of these tools?
-- [Examine what YOU can do.](assets/week2/pricing/README.md)
+
+<img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 2.png">
+
+<img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 3.png">
+
+<img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 4.png">
+
+<img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 5.png">
+
+
+
 
 ---
 # Week Two To-Do & Student Status
@@ -508,3 +519,4 @@ Do you want to make use of these tools?
 | Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces                              |     ✅    |
 | Figure out how to do segment and sub-segment on AWS XRAY                                                               |     ✅    |
 |Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend  |⌛|
+| [Events limits](assets/week2/pricing/README.md)|+|
