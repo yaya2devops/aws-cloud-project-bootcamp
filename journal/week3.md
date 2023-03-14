@@ -1,4 +1,5 @@
 # Week 3 — Decentralized Authentication
+<img src="assets/Week3/week3-banner.png">
 
 
 # Authenticate with Amazon Cognito
@@ -624,14 +625,15 @@ We are back to the exact error before running out of credit in gitpod as well as
 
 <img src="assets/Week3/but token is not apssed.png">
 
+## Credit Restart - back to gitpod
+<img src="assets/Week3/Last-part/0-we-back-to-gitpod-credit-anyway.png">
 
+Will have to keep troubleshooting. Asap.
 
 
 
 
 ---
-
-
 
 # Week Three To-Do & Student Status
 | Task                                        | Status |
@@ -649,3 +651,37 @@ We are back to the exact error before running out of credit in gitpod as well as
 
 
 
+---
+
+
+# Homework Challenge & Student Status
+|  Challenge                                                                               | Difficulty | Status |
+|---------------------------------------------------------------------------------------------------|------------|--------|
+| Decouple the JWT verify from the application code by writing a Flask Middleware                  | Medium     |   ⌛     |
+| Implement a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library             | Hard       |  ⌛      |
+| Decouple the JWT verify process by using Envoy as a sidecar                                      | Hard       |       ⌛ |
+| Implement a IdP login (e.g. Login with Amazon or Facebook or Apple)                               | Hard       |    ⌛    |
+| Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ⌛     |
+
+
+
+
+## Security Quiz
+
+| Question | Answer |
+| --- | --- |
+| Which additional AWS service should be enabled and monitored alongside Cognito to help detect malicious Cognito user behavior? | Cloud Trail |
+| When it comes to single-sign-on, what does the acronym SAML stand for? | Security Assertion Markup Language |
+| Which AWS service should be used with Cognito to enable rate limiting, and setup allow/deny rule lists? | WAF (Web Application Firewall) |
+| Which of the following is NOT an industry standard for authentication and authorization? | YAML |
+| Your Cognito deployment should only be in the AWS region which you are legally allowed to hold user data in | FALSE |
+
+
+---
+
+| Alternatives and Considerations                                                                 | 
+|-------------------------------------------------------------------------------------------------|
+| We could have used Auth0 which is a popular decentralized authentication service which has a free-tier. Since we are building a social media website we have to consider the cost of Monthly Active Users (MAUs) |
+| In practice a social media platform would likely roll its own decentralized authentication service |
+| AuthN would have put on a good technical path to roll own decentralized authentication service however it requires Postgres and Redis so it would be too many extra moving parts and costs considerations for the scope of this bootcamp |
+| Azure AD B2C is another possible solution. Its low cost has support for many Identity Providers (IpDs) |
