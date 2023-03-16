@@ -26,6 +26,28 @@ Despite the challenges he faced, Yahya remained dedicated to his work and succes
 
 He knew that his clients would appreciate the level of care and attention he had put into creating  to secure the authentication experience.
 
+
+### Table Of Contents:
+
+- [Create Amazon Cognito](#authenticate-with-amazon-cognito)
+- [Amplify Integration](#amplify-integration)
+  - [Setup Authentication](#authentication-set-up)
+  - [Setup Sign in](#sign-in-setup)
+  - [Setup Recover Page](#recover-page-setup)
+  - [Client Sign up]()
+  
+- [JSON Web Token](#cognito-jason-web-token--construction)
+  - [AWS Cognito Librairy](#flask-aws-cognito-librairy-)
+
+<br>
+
+- Environments
+   - [GitHub Codespaces](#configuring-codespaces)
+   - [Docker Desktop](#codespaces-down---moving-to-local)
+   - [Gitpod](#credit-restart---back-to-gitpod)
+
+
+
 # Authenticate with Amazon Cognito
 
 ## Create Cognito:
