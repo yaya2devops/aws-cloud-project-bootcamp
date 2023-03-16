@@ -1,6 +1,30 @@
 # Week 3 — Decentralized Authentication
+
+Once upon a time, there was a passionate software developer named Yahya who spent his week(s) learning about AWS Cognito and its user pools.
+
+Welcome to Week 3 Journal.
+
 <img src="assets/Week3/week3-banner.png">
 
+
+He was determined to master this technology and create a seamless user experience.
+
+**Y**aya dove right into his work, creating Cognito User Pools not once, not twice, but three times! He wanted to ensure that he had a solid understanding of the process and could troubleshoot any issues that may arise in the future.
+
+After setting up the user pools,  Yahya created a user and forced its password. He then integrated everything with Amplify, a development framework that simplifies building web and mobile applications. John made sure to include authentication sign-in, sign-up, and password recovery features.
+
+To make sure that his project was secure, Yahya used JWToken to secure both the front and back end of the application. Everything was running smoothly until he ran out of credit on his development platform, Gitpod.
+
+
+Yahya learned more than just the technical aspects of authentication during his week working on the Cognito User Pools. He also went over the various authentication methods and their distinct features.
+
+For example, Yahya noted about authentication methods like OAuth, OpenID Connect, and SAML and how they differ. While OAuth is primarily used for authorization, he discovered that OpenID Connect and SAML are used for authentication.
+
+Undeterred, Yaya switched to Codespaces, a cloud-based development environment, and continued his work there. Eventually, he decided to work locally with Docker Desktop, but he ran into some issues that he couldn't resolve. So, he went back to Gitpod, happy to see that his credits had been reset.
+
+Despite the challenges he faced, Yahya remained dedicated to his work and successfully completed his project, leaving him with a sense of pride and accomplishment. 
+
+He knew that his clients would appreciate the level of care and attention he had put into creating  to secure the authentication experience.
 
 # Authenticate with Amazon Cognito
 
@@ -638,6 +662,12 @@ We finished the required tasks.
 
 Challenges will be taken on by me priority-based.
 <img src="assets/Week3/Last-part/3 solved the cors error.png">
+
+
+## Wrapup Week 3: Improving UI
+
+<img src="assets/Week3/Last-part/6 WEEK 3 improved UI.png">
+
 
 
 

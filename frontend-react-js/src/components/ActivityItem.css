@@ -1,8 +1,7 @@
 .activity_item {
   display: flex;
   align-items: start;
-  border-bottom: solid 1px rgb(31,36,49);
-  overflow: hidden;
+  border-bottom: solid 1px rgb(60,54,79);  overflow: hidden;
   padding: 16px;
 }
 .activity_item:last-child {
