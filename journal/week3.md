@@ -11,7 +11,7 @@ He was determined to master this technology and create a seamless user experienc
 
 **Y**aya dove right into his work, creating Cognito User Pools not once, not twice, but three times! He wanted to ensure that he had a solid understanding of the process and could troubleshoot any issues that may arise in the future.
 
-After setting up the user pools,  Yahya created a user and forced its password. He then integrated everything with Amplify, a development framework that simplifies building web and mobile applications. John made sure to include authentication sign-in, sign-up, and password recovery features.
+After setting up the user pools,  Yahya created a user and forced its password. He then integrated everything with Amplify, a development framework that simplifies building web and mobile applications. He made sure to include authentication sign-in, sign-up, and password recovery features.
 
 To make sure that his project was secure, Yahya used JWToken to secure both the front and back end of the application. Everything was running smoothly until he ran out of credit on his development platform, Gitpod.
 
