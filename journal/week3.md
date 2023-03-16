@@ -20,7 +20,7 @@ Yahya learned more than just the technical aspects of authentication during his 
 
 For example, Yahya noted about authentication methods like OAuth, OpenID Connect, and SAML and how they differ. While OAuth is primarily used for authorization, he discovered that OpenID Connect and SAML are used for authentication.
 
-Undeterred, Yaya switched to Codespaces, a cloud-based development environment, and continued his work there. Eventually, he decided to work locally with Docker Desktop, but he ran into some issues that he couldn't resolve. So, he went back to Gitpod, happy to see that his credits had been reset.
+Undeterred, Yaya switched to Codespaces, a cloud-based development environment, and continued his work there. Eventually, he decided to work locally with Docker Desktop, suddenly, his credits had been reset on Gitpod. So, he went back happy to continue that on this super smooth environement.
 
 Despite the challenges he faced, Yahya remained dedicated to his work and successfully completed his project, leaving him with a sense of pride and accomplishment. 
 
