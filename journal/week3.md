@@ -24,9 +24,6 @@ Undeterred, Yaya switched to Codespaces, a cloud-based development environment, 
 
 Despite the challenges he faced, Yahya remained dedicated to his work and successfully completed his project, leaving him with a sense of pride and accomplishment. 
 
-He knew that his clients would appreciate the level of care and attention he had put into creating  to secure the authentication experience.
-
-
 ### Table Of Contents:
 
 - [Create Amazon Cognito](#authenticate-with-amazon-cognito)
