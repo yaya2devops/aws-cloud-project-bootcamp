@@ -628,7 +628,19 @@ We are back to the exact error before running out of credit in gitpod as well as
 ## Credit Restart - back to gitpod
 <img src="assets/Week3/Last-part/0-we-back-to-gitpod-credit-anyway.png">
 
-Will have to keep troubleshooting. Asap.
+
+## Settin env:
+
+<img src="assets/Week3/Last-part/2- got it back.png">
+
+## We are BACK
+We finished the required tasks.
+
+Challenges will be taken on by me priority-based.
+<img src="assets/Week3/Last-part/3 solved the cors error.png">
+
+
+
 
 
 
@@ -639,7 +651,6 @@ Will have to keep troubleshooting. Asap.
 | Task                                        | Status |
 |---------------------------------------------|--------|
 | Watched Ashish's Week 3                     |   ✅   |
-| Watch Chirag Week 3 - Spending Considerations (Not yet posted) |   ⌛   |
 | Provision via ClickOps a Amazon Cognito User Pool                      |   ✅   |
 |Implement API calls to Amazon Coginto for custom login|✅|
 |Install and configure Amplify client-side library for Amazon Congito|✅|
@@ -647,14 +658,14 @@ Will have to keep troubleshooting. Asap.
 | Implement Custom Confirmation Page           |   ✅   |
 | Implement Custom Recovery Page               |   ✅   |
 | Watch about different approaches to verifying JWTs  |   ✅   |
-|Verify JWT Token server side to serve authenticated API endpoints in Flask Application|⌛|
+|Verify JWT Token server side to serve authenticated API endpoints in Flask Application|✅|
 
 
 
 ---
 
 
-# Homework Challenge & Student Status
+# Homework Challenges & Student Status
 |  Challenge                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
 | Decouple the JWT verify from the application code by writing a Flask Middleware                  | Medium     |   ⌛     |
