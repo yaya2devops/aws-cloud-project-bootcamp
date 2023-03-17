@@ -31,7 +31,7 @@ Despite the challenges he faced, Yahya remained dedicated to his work and succes
   - [Setup Authentication](#authentication-set-up)
   - [Setup Sign in](#sign-in-setup)
   - [Setup Recover Page](#recover-page-setup)
-  - [Client Sign up]()
+  - [Client Sign up](#client-sign-up)
 - [JSON Web Token](#cognito-jason-web-token--construction)
   - [AWS Cognito Librairy](#flask-aws-cognito-librairy-)
 - Environments
