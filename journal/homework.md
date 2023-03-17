@@ -16,8 +16,19 @@ As I proceed with my tasks, I will give priority to completing my homework and e
 | Open a support ticket and request a service limit                                                        |  ✅      |
 |Use EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue| ⌛|
 
+---
 
+|  Week 1 Challenges                                                        | Status |
+|:---------------------------------------------------------------------------------|:--------:|
+| Run the dockerfile CMD as an external script                                    |        ⌛|
+| Push and tag a image to DockerHub (they have a free tier)                        |     ⌛   |
+| Use multi-stage building for a Dockerfile build                                 | ⌛       |
+| Implement a healthcheck in the V3 Docker compose file                            |    ⌛    |
+| Research best practices of Dockerfiles and attempt to implement it in your Dockerfile |  ⌛      |
+| Learn how to install Docker on your localmachine and get the same containers running outside of Gitpod / Codespaces |   ✅     |
+| Launch an EC2 instance that has docker installed, and pull a container to demonstrate you can run your own docker processes. |     ⌛   |
 
+---
 
 |  Week 2 Challenges                                                                                                   | Status |
 |:----------------------------------------------------------------------------------------------------------------------|:--------:|
@@ -26,6 +37,9 @@ As I proceed with my tasks, I will give priority to completing my homework and e
 | Figure out how to do segment and sub-segment on AWS XRAY                                                               |     ✅    |
 |Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend  |⌛|
 | [Events limits](assets/week2/pricing/README.md)|+|
+
+
+---
 
 |  Week 3 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|

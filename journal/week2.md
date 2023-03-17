@@ -511,12 +511,5 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 
 ---
 
-# Homework Challenge & Student Status
-
-|  Challenge                                                                                                   | Status |
+|  Events limits:                                                                                               | [Learn more](assets/week2/pricing/README.md) |
 |:----------------------------------------------------------------------------------------------------------------------|:--------:|
-| Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span                          |     ✅    |
-| Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces                              |     ✅    |
-| Figure out how to do segment and sub-segment on AWS XRAY                                                               |     ✅    |
-|Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend  |⌛|
-| [Events limits](assets/week2/pricing/README.md)|+|
