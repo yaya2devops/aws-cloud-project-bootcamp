@@ -299,7 +299,7 @@ aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.js
 
 # Homework Challenges & Student Status
 
-| Homework                                                                                        | Status |
+| Challenges                                                                                        | Status |
 |:----------------------------------------------------------------------------------------------------------|:--------:|
 | Destroy your root account credentials, Set MFA, IAM role                                                |     ✅   |
 | Review all the questions of each pillars in the Well Architected Tool (No specialized lens)             |     ✅   |

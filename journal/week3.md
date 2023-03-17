@@ -679,10 +679,7 @@ We are back to the exact error before running out of credit in gitpod as well as
 
 <img src="assets/Week3/Last-part/2- got it back.png">
 
-## We are BACK
-We finished the required tasks.
-
-Challenges will be taken on by me priority-based.
+## BACK:
 <img src="assets/Week3/Last-part/3 solved the cors error.png">
 
 
@@ -715,17 +712,6 @@ Challenges will be taken on by me priority-based.
 
 
 ---
-
-
-# Homework Challenges & Student Status
-|  Challenge                                                                               | Difficulty | Status |
-|---------------------------------------------------------------------------------------------------|------------|--------|
-| Decouple the JWT verify from the application code by writing a Flask Middleware                  | Medium     |   ⌛     |
-| Implement a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library             | Hard       |  ⌛      |
-| Decouple the JWT verify process by using Envoy as a sidecar                                      | Hard       |       ⌛ |
-| Implement a IdP login (e.g. Login with Amazon or Facebook or Apple)                               | Hard       |    ⌛    |
-| Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ⌛     |
-
 
 
 
