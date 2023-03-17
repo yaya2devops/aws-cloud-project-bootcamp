@@ -11,7 +11,7 @@ He was determined to master this technology and create a seamless user experienc
 
 **Y**aya dove right into his work, creating Cognito User Pools not once, not twice, but three times! He wanted to ensure that he had a solid understanding of the process and could troubleshoot any issues that may arise in the future.
 
-After setting up the user pools,  Yahya created a user and forced its password. He then integrated everything with Amplify, a development framework that simplifies building web and mobile applications. John made sure to include authentication sign-in, sign-up, and password recovery features.
+After setting up the user pools,  Yahya created a user and forced its password. He then integrated everything with Amplify, a development framework that simplifies building web and mobile applications. He made sure to include authentication sign-in, sign-up, and password recovery features.
 
 To make sure that his project was secure, Yahya used JWToken to secure both the front and back end of the application. Everything was running smoothly until he ran out of credit on his development platform, Gitpod.
 
@@ -20,12 +20,9 @@ Yahya learned more than just the technical aspects of authentication during his 
 
 For example, Yahya noted about authentication methods like OAuth, OpenID Connect, and SAML and how they differ. While OAuth is primarily used for authorization, he discovered that OpenID Connect and SAML are used for authentication.
 
-Undeterred, Yaya switched to Codespaces, a cloud-based development environment, and continued his work there. Eventually, he decided to work locally with Docker Desktop, but he ran into some issues that he couldn't resolve. So, he went back to Gitpod, happy to see that his credits had been reset.
+Undeterred, Yaya switched to Codespaces, a cloud-based development environment, and continued his work there. Eventually, he decided to work locally with Docker Desktop, suddenly, his credits had been reset on Gitpod. So, he went back happy to continue that on this super smooth environement.
 
 Despite the challenges he faced, Yahya remained dedicated to his work and successfully completed his project, leaving him with a sense of pride and accomplishment. 
-
-He knew that his clients would appreciate the level of care and attention he had put into creating  to secure the authentication experience.
-
 
 ### Table Of Contents:
 
@@ -35,12 +32,8 @@ He knew that his clients would appreciate the level of care and attention he had
   - [Setup Sign in](#sign-in-setup)
   - [Setup Recover Page](#recover-page-setup)
   - [Client Sign up]()
-  
 - [JSON Web Token](#cognito-jason-web-token--construction)
   - [AWS Cognito Librairy](#flask-aws-cognito-librairy-)
-
-<br>
-
 - Environments
    - [GitHub Codespaces](#configuring-codespaces)
    - [Docker Desktop](#codespaces-down---moving-to-local)
