@@ -3,7 +3,6 @@
 
 ## Dashboard & Submissions
 
-The submissions section is where the student is required to submit weekly his To-Do tasks.
 
 <img src="assets/Student-Portal/0 overvirew tasks and annoucncements.png">
 
@@ -16,7 +15,7 @@ This is where the important links for the student to identify and navigate are l
 
 
 ## Submissions
-This section is where the student is required to submit weekly his To-Do tasks.
+This section is where the student is required to submit weekly To-Do tasks.
 
 <img src="assets/Student-Portal/2 submissions.png">
 
@@ -37,4 +36,4 @@ Students must also complete and submit weekly quizzes on the practical subject m
 
 Along the way, students will need to check other resources & documents in order to keep up with weekly challenges.
 
-> I'm good with my email being exposed. Feel free to email me if you require help. Ill be more then happy to assist.
+> I'm good with my email being exposed. Feel free to email me if you require help. Ill be more than happy to assist.

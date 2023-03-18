@@ -249,7 +249,50 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 ---
 
+# Install Psycopg V.Three
 
+<img src="assets/week4/4- Driver and query/1 install psql driver psychopg.png">
+
+
+<img src="assets/week4/4- Driver and query/2 we dont need this static data anymore.png">
+
+## Connect with the LIB:
+<img src="assets/week4/4- Driver and query/3 instead connect with the lib.png">
+
+## Add the query here:
+<img src="assets/week4/4- Driver and query/4 and we can add our query here.png">
+
+## Fetchone or fetchall:
+<img src="assets/week4/4- Driver and query/5 this is required not fetchone.png">
+
+## Blank is perfectly fine:
+<img src="assets/week4/4- Driver and query/6 blank perfectly fine.png">
+
+## The way to get JSON:
+<img src="assets/week4/4- Driver and query/7 andrew way to get json.png">
+
+## Hm. Idk.
+<img src="assets/week4/4- Driver and query/8 idk .png">
+
+## Some cool traps:
+<img src="assets/week4/4- Driver and query/9 traps.png">
+
+## Queried data:
+<img src="assets/week4/4- Driver and query/10 our query data is showing.png">
+
+## From this:
+<img src="assets/week4/4- Driver and query/11 from this.png">
+
+## Doing the entire query:
+<img src="assets/week4/4- Driver and query/12 what about from this getting the entire query.png">
+
+## Result:
+<img src="assets/week4/4- Driver and query/13 boom here it is.png">
+
+
+---
+
+# RDS Gitpod Connection - Loading
 
 
 
@@ -258,15 +301,35 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 ## Week 4 Tasks & Student Status
 | Task | Stats |
 | :--- | :---: |
-| Have a lecture about data modelling in (3rd Normal Form) 3NF for SQL |⌛  |
-| Launch Postgres locally via a container |  ⌛|
-| Seed our Postgres Database table with data | ⌛ |
-| Write a Postgres adapter |⌛  |
-| Write a DDL (for creating schema) | ⌛ |
-| Write an SQL read query | ⌛ |
-| Write an SQL write query |⌛  |
-| Provision an RDS Postgres instance | ⌛ |
-| Configure VPC Security Groups | ⌛ |
-| Configure local backend application to use production connection URL |⌛  |
+| Have a lecture about data modelling in (3rd Normal Form) 3NF for SQL |✅  |
+ |Watched Ashish's Week 4 - Security Considerations |✅|
+| Launch Postgres locally via a container |  ✅|
+| Seed our Postgres Database table with data | ✅ |
+| Write a DDL (for creating schema) | ✅ |
+| Write an SQL read query | ✅ |
+| Write an SQL write query |✅  |
+| Provision an RDS Postgres instance | ✅ |
+| Configure local backend application to use production connection URL ( Connect Gitpod to RDS Instance) |⌛  |
+| Configure VPC Security Groups | ✅ |
 | Add a caching layer using Momento Serverless Cache | ⌛ |
-| Propagate metrics from DDB to an RDS metrics table |⌛  |
+| Propagate metrics from DDB to an RDS metrics table |⌛
+
+
+---
+
+
+| **Security Quiz**  | Answer |
+| --- | --- |
+| Which of the following databases would you NOT find available as an option on the AWS RDS service? | DynamoDB |
+| Which of the following CIDR notations means you want to target any/all possible addresses? | 0.0.0.0/0 |
+| Which AWS Service can be used in conjunction with RDS to help rotate access keys regularly? | Secrets Manager |
+| When creating security group rules for your RDS instance, which of the following would be considered best practice? | Only allow private network access with rules targeting specific security groups |
+| True or False, best practice dictates your RDS instance should never be publicly available on the internet | TRUE |  |
+
+
+| Alternatives and Considerations                              |
+|-------------------------------------------------------------|
+| We require a Postgres service if we plan into AuthN which will rely on Postgres to store users for authentication. |
+| I want both an OnLine Transaction Processing (OLTP) and an OLAP in this project. |
+| Redshift Serverless could be used as an OLAP.                |
+| DDB Streams to S3 and then Athena caching to Momento could have been possible as well for our OLAP like solution. |

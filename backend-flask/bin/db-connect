@@ -1,3 +1,10 @@
 #! /usr/bin/bash
 
-psql $CONNECTION_URL
+if [ "$1" = "prod" ]; then
+  echo "using production"
+  URL=$PRODUCTION_URL
+else
+  URL=$CONNECTION_URL
+fi
+
+psql $URL
