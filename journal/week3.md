@@ -727,10 +727,3 @@ We are back to the exact error before running out of credit in gitpod as well as
 | In practice a social media platform would likely roll its own decentralized authentication service |
 | AuthN would have put on a good technical path to roll own decentralized authentication service however it requires Postgres and Redis so it would be too many extra moving parts and costs considerations for the scope of this bootcamp |
 | Azure AD B2C is another possible solution. Its low cost has support for many Identity Providers (IpDs) |
-
-| Alternatives and Considerations                              |
-|-------------------------------------------------------------|
-| We require a Postgres service if we plan into AuthN which will rely on Postgres to store users for authentication. |
-| I want both an OnLine Transaction Processing (OLTP) and an OLAP in this project. |
-| Redshift Serverless could be used as an OLAP.                |
-| DDB Streams to S3 and then Athena caching to Momento could have been possible as well for our OLAP like solution. |
