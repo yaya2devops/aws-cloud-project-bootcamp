@@ -30,13 +30,13 @@
 ## RDS READY:
 <img src="assets/week4/1-ProdDB/8 db ready.png">
 
-## Consult RDS Dashboad:
+## RDS Dashboad:
 <img src="assets/week4/1-ProdDB/9 overviw rds itruns ontop of ec2.png">
 
 ## Stop tempo:
 <img src="assets/week4/1-ProdDB/10 stop it tempo for costs.png">
 
-## Confirm Stop tempo:
+## Confirm Stop:
 <img src="assets/week4/1-ProdDB/11 stop confirm.png">
 
 ## Stopped:
@@ -304,6 +304,7 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 | Have a lecture about data modelling in (3rd Normal Form) 3NF for SQL |✅  |
  |Watched Ashish's Week 4 - Security Considerations |✅|
 | Launch Postgres locally via a container |  ✅|
+|Bash scripting for common database actions|✅|
 | Seed our Postgres Database table with data | ✅ |
 | Write a DDL (for creating schema) | ✅ |
 | Write an SQL read query | ✅ |
@@ -312,24 +313,26 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 | Configure local backend application to use production connection URL ( Connect Gitpod to RDS Instance) |⌛  |
 | Configure VPC Security Groups | ✅ |
 | Add a caching layer using Momento Serverless Cache | ⌛ |
-| Propagate metrics from DDB to an RDS metrics table |⌛
+| Propagate metrics from DDB to an RDS metrics table |⌛|
+|Create Congito Trigger to insert user into database|⌛|
+|Create new activities with a database insert|⌛|
 
 
 ---
 
 
 | **Security Quiz**  | Answer |
-| --- | --- |
+| :--- | :--- |
 | Which of the following databases would you NOT find available as an option on the AWS RDS service? | DynamoDB |
 | Which of the following CIDR notations means you want to target any/all possible addresses? | 0.0.0.0/0 |
 | Which AWS Service can be used in conjunction with RDS to help rotate access keys regularly? | Secrets Manager |
-| When creating security group rules for your RDS instance, which of the following would be considered best practice? | Only allow private network access with rules targeting specific security groups |
 | True or False, best practice dictates your RDS instance should never be publicly available on the internet | TRUE |  |
 
 
 | Alternatives and Considerations                              |
-|-------------------------------------------------------------|
+|:-------------------------------------------------------------|
 | We require a Postgres service if we plan into AuthN which will rely on Postgres to store users for authentication. |
 | I want both an OnLine Transaction Processing (OLTP) and an OLAP in this project. |
 | Redshift Serverless could be used as an OLAP.                |
 | DDB Streams to S3 and then Athena caching to Momento could have been possible as well for our OLAP like solution. |
+| When creating security group rules for your RDS instance, only allow private network access with rules targeting specific security groups  |
