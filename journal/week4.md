@@ -24,6 +24,7 @@
 <img src="assets/week4/1-ProdDB/6 done.png">
 
 
+
 ## RDS Loading:
 <img src="assets/week4/1-ProdDB/7 rds creating.png">
 
@@ -277,6 +278,9 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 ## Some cool traps:
 <img src="assets/week4/4- Driver and query/9 traps.png">
 
+## And this:
+<img src="assets/week4/5- Establish RDS-Connection/and the FFF bro.png">
+
 ## Queried data:
 <img src="assets/week4/4- Driver and query/10 our query data is showing.png">
 
@@ -292,7 +296,7 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 ---
 
-# RDS Gitpod Connection - Loading
+# RDS Gitpod Connection
 
 <img src="assets/week4/5- Establish RDS-Connection/1 we back to RDS.png">
 
@@ -360,6 +364,7 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 <img src="assets/week4/5- Establish RDS-Connection/28 using it directly like god.png">
 
 ---
+
 # Automate RDS Security Rule
 
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/1 we need to export the rule id.png">
@@ -398,6 +403,98 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/12 looking good its applied.png">
 
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/13 making it a requirement in every init gitpo.png">
+
+---
+
+# Lambda Post Confirmation
+<img src="assets/week4/6- Lambda Time/1- Create new function.png">
+
+<img src="assets/week4/6- Lambda Time/2- create function.png">
+<img src="assets/week4/6- Lambda Time/3- create.png">
+<img src="assets/week4/6- Lambda Time/4 created.png">
+<img src="assets/week4/6- Lambda Time/5 we can do stuff here but we are dev lets do it from vscode.png">
+<img src="assets/week4/6- Lambda Time/6 create a lambda like a dev from here.png">
+<img src="assets/week4/6- Lambda Time/7 coding the function.png">
+<img src="assets/week4/6- Lambda Time/8 jk lets test it here to save ourself some troubles.png">
+<img src="assets/week4/6- Lambda Time/9- console function deploy they mean save lmao.png">
+<img src="assets/week4/6- Lambda Time/10 neew env var setup for connection.png">
+
+<img src="assets/week4/6- Lambda Time/11 specify the value.png">
+<img src="assets/week4/6- Lambda Time/12 it is our prod.png">
+<img src="assets/week4/6- Lambda Time/13 add region reference in lambda layers.png">
+<img src="assets/week4/6- Lambda Time/14 trigger is required.png">
+<img src="assets/week4/6- Lambda Time/15 lambda trigger.png">
+<img src="assets/week4/6- Lambda Time/16 setting trigger with lambda.png">
+<img src="assets/week4/6- Lambda Time/17 lets add.png">
+<img src="assets/week4/6- Lambda Time/18 the proxy incase u thought to go prod for real and security et.png">
+<img src="assets/week4/6- Lambda Time/19 the proxy will require secret manager money brother.png">
+
+
+<img src="assets/week4/6- Lambda Time/20 go back to lambda and check for logs.png">
+<img src="assets/week4/6- Lambda Time/21 nothing here because it never ran.png">
+<img src="assets/week4/6- Lambda Time/22 let me delete myself to trigger lambda and logs.png">
+<img src="assets/week4/6- Lambda Time/23 joining frech.png">
+<img src="assets/week4/6- Lambda Time/24 CONFIRMED BUT.png">
+<img src="assets/week4/6- Lambda Time/25 going back to cloudwatch.png">
+<img src="assets/week4/6- Lambda Time/26 we have something in here.png">
+<img src="assets/week4/6- Lambda Time/27 investigate and look carefully.png">
+<img src="assets/week4/6- Lambda Time/28 lets delete again.png">
+
+<img src="assets/week4/6- Lambda Time/29 another code...png">
+<img src="assets/week4/6- Lambda Time/30 still.png">
+<img src="assets/week4/6- Lambda Time/31 so lets now start to connect the fuinctions to vpc.png">
+<img src="assets/week4/6- Lambda Time/32 vpc specificiation.png">
+<img src="assets/week4/6- Lambda Time/33 before we require the error.png">
+<img src="assets/week4/6- Lambda Time/33 we require this stuf fin our lambda.png">
+<img src="assets/week4/6- Lambda Time/34 checking permissions.png">
+<img src="assets/week4/6- Lambda Time/35 only have basic roles.png">
+<img src="assets/week4/6- Lambda Time/36 attach policy but bayko did one it said customer managed gj.png">
+
+<img src="assets/week4/6- Lambda Time/37 lets go create ours too.png">
+<img src="assets/week4/6- Lambda Time/38 picking ops or.png">
+<img src="assets/week4/6- Lambda Time/39 lets do it json.png">
+<img src="assets/week4/6- Lambda Time/40 policy creatted.png">
+<img src="assets/week4/6- Lambda Time/41 attach policy .png">
+<img src="assets/week4/6- Lambda Time/42 attached.png">
+<img src="assets/week4/6- Lambda Time/43 here.png">
+<img src="assets/week4/6- Lambda Time/44 permission applied to lambda.png">
+
+## Trying the VPC NOW:
+<img src="assets/week4/6- Lambda Time/45 re doing the vpc again.png">
+
+# Worked:
+<img src="assets/week4/6- Lambda Time/46 finger crossed its creatinggggg.png">
+
+<img src="assets/week4/6- Lambda Time/47 vpc created.png">
+
+
+## Updating the functions
+<img src="assets/week4/6- Lambda Time/52 deployed the new version.png">
+
+# Re-doing a user:
+
+## One:
+<img src="assets/week4/6- Lambda Time/48 lets try it and delete the user again.png">
+
+## Two
+<img src="assets/week4/6- Lambda Time/49 sign up.png">
+
+## Three
+<img src="assets/week4/6- Lambda Time/50 code.png">
+
+## Confirmed but still ERROR:
+<img src="assets/week4/6- Lambda Time/53 still error.png">
+
+# ERRORED. Pause.
+
+
+
+---
+
+> Later moves:
+<img src="assets/week4/6- Lambda Time/55 further issue solved -left lambda error.png">
+<img src="assets/week4/6- Lambda Time/56 ready to check  current users.png">
+<img src="assets/week4/6- Lambda Time/57 this is our end goal.png">
 
 
 

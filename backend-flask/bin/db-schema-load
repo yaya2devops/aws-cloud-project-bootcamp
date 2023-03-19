@@ -12,7 +12,7 @@ echo $schema_path
 
 if [ "$1" = "prod" ]; then
   echo "using production"
-  CONNECTION_URL=$PROD_CONNECTION_URL
+  CONNECTION_URL=$PRODUCTION_URL
 else
   CONNECTION_URL=$CONNECTION_URL
 fi

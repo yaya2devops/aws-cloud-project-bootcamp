@@ -1,0 +1,1 @@
+rds proxy is required in ur lmabda functions if u have thousands of urself sign in ssame timeee
