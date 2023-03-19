@@ -1,0 +1,164 @@
+This is some of my notes alon sql databases work-week, i'm days late as of today 19/03/2023 week4 of unrelational db with dynamo has started.
+I had much exams going in last week and i'm wrapping up my bachelor. 
+
+So i'm totally free now and i'll ace all. 
+
+give me give me.
+
+
+ruby on rails have the shceme
+flask dont we have to write our schema by hand
+
+it will contain all the structure to set up our db
+
+
+--- i changed the pw tho
+
+
+aws rds create-db-instance \
+  --db-instance-identifier cruddur-db-instance \
+  --db-instance-class db.t3.micro \
+  --engine postgres \
+  --engine-version  14.6 \
+  --master-username root \
+  --master-user-password NEWSTRONGlets10 \
+  --allocated-storage 20 \
+  --availability-zone ca-central-1a \
+  --backup-retention-period 0 \
+  --port 5432 \
+  --no-multi-az \
+  --db-name cruddur \
+  --storage-type gp2 \
+  --publicly-accessible \
+  --storage-encrypted \
+  --enable-performance-insights \
+  --performance-insights-retention-period 7 \
+  --no-deletion-protection
+
+---
+
+Connect to db without pw:
+
+psql postgresql://postgres:password@localhost:5432/cruddur // for testing
+
+export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur" // for applying var
+
+gp env CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur" // for gitpod everytime
+
+
+27.0.0.1 or localhost depends of what works
+
+
+-- prod
+
+
+psql postgresql://root:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com:5432/cruddur
+
+psql postgresql://root:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com:5432/cruddur
+
+gp env PRODUCTION_URL="postgresql://root:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com:5432/cruddur"
+export PRODUCTION_URL="postgresql://root:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com:5432/cruddur"
+
+
+
+NEWSTRONGPWFORTHEFCKINGWIN*1000000
+                                                                     cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com
+
+
+---
+new
+
+postgresql://cruddurroot:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com/cruddur
+
+export PROD_CONNECTION_URL="postgresql://root:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com/cruddur"
+
+gp env PROD_CONNECTION_URL="postgresql://cruddurroot:NEWSTRONGlets10@cruddur-db-instance.cnhihd0duf8p.ca-central-1.rds.amazonaws.com/cruddur"
+
+---- before postgre local pic 18
+
+
+sed part
+
+
+sed 's/\/cruddur//g'
+
+# what was said is:
+# to get rid of / do \ infront
+# for this /cruddur//
+# It will take it and change it with empty 'the //'
+
+
+## now let's feed it to our connection string:
+
+sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
+
+# WRAPPING in dollar sign so we can assign it to our env var
+
+NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL")
+
+
+---
+echo $0
+
+
+echo "ARG---"
+echo $0
+echo $1
+echo "ARG---"
+
+
+
+
+
+if [ "$env" = "prod" ]; then
+  echo "This is the production environment."
+else 
+  echo "This is not the production environement."
+fi
+
+
+
+
+---
+drivers: a way to configure work for postgres they have psychopg version 3
+*
+
+
+query run
+establish connection
+
+
+
+---
+
+
+aws ec2 modify-security-group-rules \
+    --group-id $DB_SG_ID \
+    --security-group-rules "SecurityGroupRuleId=$DB_SG_RULE_ID,SecurityGroupRule={Description=Gitpod,IpProtocol=tcp,FromPort=5432,ToPort=5432,CidrIpv4=$GITPOD_IP/32}"
+
+
+
+
+---
+
+
+script to update the security groups
+
+export DB_SG_ID="sg-0a209a3ea9ce199de"
+gp env DB_SG_ID="sg-0a209a3ea9ce199de"
+
+
+export DB_SG_RULE_ID="sgr-04d42d9c8578e105c"
+gp env DB_SG_RULE_ID="sgr-04d42d9c8578e105c"
+
+---
+
+whats left:
+
+- check the connection to RDS 
+- export and env the variable for the 2 rules
+- include the "f" trap in the journal
+- check table in week 4 make it :-- sided
+- there is more tasks missing from week4
+Keep up with other 2 vids
+	

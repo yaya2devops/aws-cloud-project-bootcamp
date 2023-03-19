@@ -294,6 +294,111 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 # RDS Gitpod Connection - Loading
 
+<img src="assets/week4/5- Establish RDS-Connection/1 we back to RDS.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/2 lets start it.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/3 i have mine set i did env lmao.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/4 fixed this.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/5 here it is.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/6 it is hanging because we require gitpod ipadress.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/7 the solution will be to configure a security rule to allow trafic from gitpod postgre to aws.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/8 u can also do directly postgre and it will map the port.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/9 to get the ip this command help dig it into env var tho.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/10 it is here safe.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/11 include it here.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/12 overview.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/13 running of an issue.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/14 i set new pw and made new co.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/15 is port is mising..png">
+
+<img src="assets/week4/5- Establish RDS-Connection/16 trying  connect after adding to script.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/16 updated port as required.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/17 added new gitpod ip.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/18 trying all inbound.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/19- still mhh.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/20 delete and do again.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/21 doing the delete.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/22 done.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/23 re creation.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/24 still not working.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/25 pw new.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/26 lets go.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/27 listing rds db.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/28 using it directly like god.png">
+
+---
+# Automate RDS Security Rule
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/1 we need to export the rule id.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/2 and security groups id.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/3 setting them export and env forgitpod.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/4 testing manually changing the inbound ip.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/5 applied it.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/6 hey applied perfect ready to include it in a script.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/7 added description ofc.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/8 what can i say just amazing.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/9 making the script and makin it exe the up rds sg rule.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/10 changed this manually for test.png">
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/11 applied the script.png">
+
+
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/12 looking good its applied.png">
+
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/13 making it a requirement in every init gitpo.png">
+
 
 
 ---
@@ -310,7 +415,7 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 | Write an SQL read query | ✅ |
 | Write an SQL write query |✅  |
 | Provision an RDS Postgres instance | ✅ |
-| Configure local backend application to use production connection URL ( Connect Gitpod to RDS Instance) |⌛  |
+| Configure local backend application to use production connection URL ( Connect Gitpod to RDS Instance) |✅  |
 | Configure VPC Security Groups | ✅ |
 | Add a caching layer using Momento Serverless Cache | ⌛ |
 | Propagate metrics from DDB to an RDS metrics table |⌛|
