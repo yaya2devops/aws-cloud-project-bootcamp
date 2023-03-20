@@ -1,10 +1,28 @@
 # Week 4 — SQL Databases
 
+
+## Table Of Contents
+
+- [AWS RDS Setup](#amazon-relational-database-service)
+- [Setup PostgreSQL - DEV](#postgresql-local-dev-environment)
+   - [Setting DEV/PROD Connections](#setting-service-connection)
+   - [Create DB Shell Scripts](#shebang-and-path)
+   - [Create Tables ](#create-table-explicit-public)
+   - [Create Seed](#create-seed)
+      - [Results](#select--from-table)
+   - [Setup All Script](#setup-all-script)
+- [Install PostgreSQL Driver](#install-psycopg-vthree)
+   - [Queried Data](#queried-data)
+- [Connecting Gitpod to RDS](#rds-gitpod-connection)
+   - [Automate RDS Rule](#automate-rds-security-rule)
+- [Lambda Post Confirmation](#lambda-post-confirmation)
+   - [Debugging](#errored---lambda-debug)
+   - [Sign up Users](#rds-users)
+
 ---
 
 # Amazon Relational Database Service
 
-## Setup RDS:
 <img src="assets/week4/1-ProdDB/1 go to rds in aws console.png">
 
 ## Create DB:
@@ -489,15 +507,103 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 # ERRORED - Lambda Debug
 
 
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/0 cloud logs.png">
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/1 code changes.png">
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/2- delete user again.png">
 
 
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/3 code.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/4 confirming.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/5 still.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/6 cloudwatch loggs.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/7 i took the b .png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/8 and added this rule.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/9 doing it again.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/10 confirming.png">
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/10 sounds good.png">
+
+<img src="assets/week4/6- Lambda Time/55 further issue solved -left lambda error.png">
+
+<img src="assets/week4/6- Lambda Time/56 ready to check  current users.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/11 this page appeared nice.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/12 latest logs.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/13 why.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/14 reload schema.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/15 bye again.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/16 do it again the user.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/17 verify.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/18 finger crossed.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/19 done here lets go logs.png">
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/20 this one i believe xD.png">
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/21 pfff.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/22 deploy the code after coding etc.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/23 deleing mysel.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/24 again.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/25 code.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/27 lets go.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/28 latest login.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/29 perfect again.png">
+
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/30 lambda worked.png">
+
+## RDS Users
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/31 new users looking good after cleaning data.png">
 
 ---
 
-> Later moves:
-<img src="assets/week4/6- Lambda Time/55 further issue solved -left lambda error.png">
-<img src="assets/week4/6- Lambda Time/56 ready to check  current users.png">
-<img src="assets/week4/6- Lambda Time/57 this is our end goal.png">
+
 
 
 
