@@ -8,6 +8,7 @@
 <img src="assets/week4/1-ProdDB/1 go to rds in aws console.png">
 
 ## Create DB:
+
 <img src="assets/week4/1-ProdDB/2 create db.png">
 
 
@@ -485,7 +486,9 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 ## Confirmed but still ERROR:
 <img src="assets/week4/6- Lambda Time/53 still error.png">
 
-# ERRORED. Pause.
+# ERRORED - Lambda Debug
+
+
 
 
 
