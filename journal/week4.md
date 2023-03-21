@@ -317,69 +317,110 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 # RDS Gitpod Connection
 
+
+## Restart RDS:
 <img src="assets/week4/5- Establish RDS-Connection/1 we back to RDS.png">
 
+## Getting started:
 <img src="assets/week4/5- Establish RDS-Connection/2 lets start it.png">
 
 
+## Env Var set:
 <img src="assets/week4/5- Establish RDS-Connection/3 i have mine set i did env lmao.png">
 
-
+## Fixing this:
 <img src="assets/week4/5- Establish RDS-Connection/4 fixed this.png">
 
 
+# Here:
 <img src="assets/week4/5- Establish RDS-Connection/5 here it is.png">
 
 
+## Gitpod IPadress required:
 <img src="assets/week4/5- Establish RDS-Connection/6 it is hanging because we require gitpod ipadress.png">
 
 
+## Configure Security Rule:
 <img src="assets/week4/5- Establish RDS-Connection/7 the solution will be to configure a security rule to allow trafic from gitpod postgre to aws.png">
 
-
+## Also possible:
 <img src="assets/week4/5- Establish RDS-Connection/8 u can also do directly postgre and it will map the port.png">
 
-
+## Into env var:
 <img src="assets/week4/5- Establish RDS-Connection/9 to get the ip this command help dig it into env var tho.png">
 
+
+## Safe:
 <img src="assets/week4/5- Establish RDS-Connection/10 it is here safe.png">
 
+
+## Included:
 <img src="assets/week4/5- Establish RDS-Connection/11 include it here.png">
 
+
+## Overview:
 <img src="assets/week4/5- Establish RDS-Connection/12 overview.png">
 
+
+## Issue:
 <img src="assets/week4/5- Establish RDS-Connection/13 running of an issue.png">
 
+
+## Set new pw:
 <img src="assets/week4/5- Establish RDS-Connection/14 i set new pw and made new co.png">
 
+
+## Port missing:
 <img src="assets/week4/5- Establish RDS-Connection/15 is port is mising..png">
 
+
+## Connection after script:
 <img src="assets/week4/5- Establish RDS-Connection/16 trying  connect after adding to script.png">
 
+
+## Port Took effects:
 <img src="assets/week4/5- Establish RDS-Connection/16 updated port as required.png">
 
+
+## Add New GitPod Ip: 
 <img src="assets/week4/5- Establish RDS-Connection/17 added new gitpod ip.png">
 
+
+## Trying Inbound:
 <img src="assets/week4/5- Establish RDS-Connection/18 trying all inbound.png">
 
+
+## yet:
 <img src="assets/week4/5- Establish RDS-Connection/19- still mhh.png">
 
+## Delete and Again:
 <img src="assets/week4/5- Establish RDS-Connection/20 delete and do again.png">
 
+
+## Doing the delete:
 <img src="assets/week4/5- Establish RDS-Connection/21 doing the delete.png">
 
+## Done:
 <img src="assets/week4/5- Establish RDS-Connection/22 done.png">
 
+## Re creation:
 <img src="assets/week4/5- Establish RDS-Connection/23 re creation.png">
 
+
+## Still:
 <img src="assets/week4/5- Establish RDS-Connection/24 still not working.png">
 
+## New pw:
 <img src="assets/week4/5- Establish RDS-Connection/25 pw new.png">
 
+## Great!
 <img src="assets/week4/5- Establish RDS-Connection/26 lets go.png">
 
+
+## Listing RDS Databases
 <img src="assets/week4/5- Establish RDS-Connection/27 listing rds db.png">
 
+## Usage:
 <img src="assets/week4/5- Establish RDS-Connection/28 using it directly like god.png">
 
 ---
@@ -388,117 +429,209 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/1 we need to export the rule id.png">
 
+## Getting security groups id:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/2 and security groups id.png">
 
 
+## Setting export and gitpodip env:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/3 setting them export and env forgitpod.png">
 
-
+## Manual Test:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/4 testing manually changing the inbound ip.png">
 
 
+## Application:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/5 applied it.png">
 
-
+## Applied and ready to automate:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/6 hey applied perfect ready to include it in a script.png">
 
 
+## Description for clarity:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/7 added description ofc.png">
 
-
+## Looking Amazing:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/8 what can i say just amazing.png">
 
 
+## Creating the exe script:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/9 making the script and makin it exe the up rds sg rule.png">
 
 
+## Manual changes:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/10 changed this manually for test.png">
 
-
+## Reloading:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/11 applied the script.png">
 
 
-
+## Applied:
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/12 looking good its applied.png">
+
+## Required at Init:
+> automated.
 
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/13 making it a requirement in every init gitpo.png">
 
 ---
 
 # Lambda Post Confirmation
+
 <img src="assets/week4/6- Lambda Time/1- Create new function.png">
 
+## Create Function:
 <img src="assets/week4/6- Lambda Time/2- create function.png">
+
+## Creating:
 <img src="assets/week4/6- Lambda Time/3- create.png">
+
+## Created:
 <img src="assets/week4/6- Lambda Time/4 created.png">
+
+## Function Space:
 <img src="assets/week4/6- Lambda Time/5 we can do stuff here but we are dev lets do it from vscode.png">
+
+## Create from dev space:
 <img src="assets/week4/6- Lambda Time/6 create a lambda like a dev from here.png">
+
+## Coding the function:
 <img src="assets/week4/6- Lambda Time/7 coding the function.png">
+
+## Testing:
 <img src="assets/week4/6- Lambda Time/8 jk lets test it here to save ourself some troubles.png">
+
+## Deploy equals SAVE:
 <img src="assets/week4/6- Lambda Time/9- console function deploy they mean save lmao.png">
+
+## New ENV VAR:
 <img src="assets/week4/6- Lambda Time/10 neew env var setup for connection.png">
 
+## Value specify:
 <img src="assets/week4/6- Lambda Time/11 specify the value.png">
+
+## Our prod:
 <img src="assets/week4/6- Lambda Time/12 it is our prod.png">
+
+## Region Ref:
 <img src="assets/week4/6- Lambda Time/13 add region reference in lambda layers.png">
+
+## Trigger required:
 <img src="assets/week4/6- Lambda Time/14 trigger is required.png">
+
 <img src="assets/week4/6- Lambda Time/15 lambda trigger.png">
+
+## Settin a trigger:
 <img src="assets/week4/6- Lambda Time/16 setting trigger with lambda.png">
+
+## Adding:
 <img src="assets/week4/6- Lambda Time/17 lets add.png">
+
+## Proxy for production considerations:
 <img src="assets/week4/6- Lambda Time/18 the proxy incase u thought to go prod for real and security et.png">
+
+## Requires secret manager:
 <img src="assets/week4/6- Lambda Time/19 the proxy will require secret manager money brother.png">
 
-
+## Back to Lambda for logs:
 <img src="assets/week4/6- Lambda Time/20 go back to lambda and check for logs.png">
+
+## Nothing here(never ran):
 <img src="assets/week4/6- Lambda Time/21 nothing here because it never ran.png">
+
+## Delete myself to trigger lambda:
 <img src="assets/week4/6- Lambda Time/22 let me delete myself to trigger lambda and logs.png">
+
+## Joinig fresh:
 <img src="assets/week4/6- Lambda Time/23 joining frech.png">
+
+## Confirmed BUT:
 <img src="assets/week4/6- Lambda Time/24 CONFIRMED BUT.png">
+
+## Cloudwatch Logs:
 <img src="assets/week4/6- Lambda Time/25 going back to cloudwatch.png">
+
+## We have something:
 <img src="assets/week4/6- Lambda Time/26 we have something in here.png">
+
+## Looking careful:
 <img src="assets/week4/6- Lambda Time/27 investigate and look carefully.png">
+
+## Delete again:
 <img src="assets/week4/6- Lambda Time/28 lets delete again.png">
 
+## Code:
 <img src="assets/week4/6- Lambda Time/29 another code...png">
+
+
+## Still: 
 <img src="assets/week4/6- Lambda Time/30 still.png">
+
+## Connect to VPC:
 <img src="assets/week4/6- Lambda Time/31 so lets now start to connect the fuinctions to vpc.png">
+
+## VPC Specification:
 <img src="assets/week4/6- Lambda Time/32 vpc specificiation.png">
+
+## Error
 <img src="assets/week4/6- Lambda Time/33 before we require the error.png">
+
+## Required for LAMBDA:
 <img src="assets/week4/6- Lambda Time/33 we require this stuf fin our lambda.png">
+
+## Checking permissions:
 <img src="assets/week4/6- Lambda Time/34 checking permissions.png">
+
+## Limited:
 <img src="assets/week4/6- Lambda Time/35 only have basic roles.png">
+
+## Attaching policy:
 <img src="assets/week4/6- Lambda Time/36 attach policy but bayko did one it said customer managed gj.png">
 
+## Creating one:
 <img src="assets/week4/6- Lambda Time/37 lets go create ours too.png">
+
+## Picking:
 <img src="assets/week4/6- Lambda Time/38 picking ops or.png">
+
+## Going JSON:
 <img src="assets/week4/6- Lambda Time/39 lets do it json.png">
+
+## Done:
 <img src="assets/week4/6- Lambda Time/40 policy creatted.png">
+
+## Attachin the policy:
 <img src="assets/week4/6- Lambda Time/41 attach policy .png">
+
+## Attached:
 <img src="assets/week4/6- Lambda Time/42 attached.png">
+
+## Here:
 <img src="assets/week4/6- Lambda Time/43 here.png">
+
+## Permission Applied:
 <img src="assets/week4/6- Lambda Time/44 permission applied to lambda.png">
 
 ## Trying the VPC NOW:
 <img src="assets/week4/6- Lambda Time/45 re doing the vpc again.png">
 
-# Worked:
+## Worked:
 <img src="assets/week4/6- Lambda Time/46 finger crossed its creatinggggg.png">
 
+## VPC Created:
 <img src="assets/week4/6- Lambda Time/47 vpc created.png">
 
 
 ## Updating the functions
 <img src="assets/week4/6- Lambda Time/52 deployed the new version.png">
 
-# Re-doing a user:
+## Re-doing a user, 1:
 
-## One:
 <img src="assets/week4/6- Lambda Time/48 lets try it and delete the user again.png">
 
-## Two
+## Two:
 <img src="assets/week4/6- Lambda Time/49 sign up.png">
 
-## Three
+## Three:
 <img src="assets/week4/6- Lambda Time/50 code.png">
 
 ## Confirmed but still ERROR:
@@ -506,96 +639,129 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 # ERRORED - Lambda Debug
 
-
+## Cloudwatch Logs:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/0 cloud logs.png">
 
+
+## Code changes:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/1 code changes.png">
 
+## Delete user again:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/2- delete user again.png">
 
 
+## Code EMAIL:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/3 code.png">
 
 
+
+## Confirming
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/4 confirming.png">
 
 
+## Still:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/5 still.png">
 
 
+## Cloudwatch Logs Again:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/6 cloudwatch loggs.png">
 
 
+## Taking B:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/7 i took the b .png">
 
 
+## Added this rule:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/8 and added this rule.png">
 
-
+## Doing it again:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/9 doing it again.png">
 
 
+## Confirming:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/10 confirming.png">
 
+## Sounds good:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/10 sounds good.png">
 
+
+## Left Lambda Error:      
 <img src="assets/week4/6- Lambda Time/55 further issue solved -left lambda error.png">
 
+
+## Checking current user:
 <img src="assets/week4/6- Lambda Time/56 ready to check  current users.png">
 
 
+## Good step ahead:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/11 this page appeared nice.png">
 
 
+## Latest Logs:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/12 latest logs.png">
 
 
+## Hm, why:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/13 why.png">
 
 
+## Reload Schema:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/14 reload schema.png">
 
 
+## See you again:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/15 bye again.png">
 
 
+## User again:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/16 do it again the user.png">
 
 
+## VERIFYING:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/17 verify.png">
 
-
+## Finger CROSSED:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/18 finger crossed.png">
 
-
+## Okay here, lets logs:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/19 done here lets go logs.png">
 
+
+## This one:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/20 this one i believe xD.png">
 
+
+## Not yet:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/21 pfff.png">
 
 
+## Coding and re deploy the code:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/22 deploy the code after coding etc.png">
 
 
+## Deleting myself:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/23 deleing mysel.png">
 
 
+
+## Again!
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/24 again.png">
 
 
+## Code:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/25 code.png">
 
-
+## Lets:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/27 lets go.png">
 
 
+## Latest Login:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/28 latest login.png">
 
-
+## Perfect:
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/29 perfect again.png">
 
-
+## Lambda is Functioning!
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/30 lambda worked.png">
 
 ## RDS Users
