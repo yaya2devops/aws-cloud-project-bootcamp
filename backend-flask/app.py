@@ -135,7 +135,7 @@ def after_request(response):
 
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
-  user_handle  = 'andrewbrown'
+  user_handle  = 'yaya2devops'
   model = MessageGroups.run(user_handle=user_handle)
   if model['errors'] is not None:
     return model['errors'], 422
@@ -220,7 +220,7 @@ def data_show_activity(activity_uuid):
 @app.route("/api/activities", methods=['POST','OPTIONS'])
 @cross_origin()
 def data_activities():
-  user_handle  = 'andrewbrown'
+  user_handle  = 'yaya2devops'
   message = request.json['message']
   model = CreateActivity.run(message, user_handle)
   if model['errors'] is not None:
