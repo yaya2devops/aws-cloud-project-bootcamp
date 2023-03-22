@@ -44,13 +44,13 @@ import rollbar.contrib.flask
 from flask import got_request_exception
 
 # Configuring Logger to Use CloudWatch
-LOGGER = logging.getLogger(__name__)
-LOGGER.setLevel(logging.DEBUG)
-console_handler = logging.StreamHandler()
-cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
-LOGGER.addHandler(console_handler)
-LOGGER.addHandler(cw_handler)
-LOGGER.info("some message")
+#LOGGER = logging.getLogger(__name__)
+#LOGGER.setLevel(logging.DEBUG)
+#console_handler = logging.StreamHandler()
+#cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+#LOGGER.addHandler(console_handler)
+#LOGGER.addHandler(cw_handler)
+#LOGGER.info("some message")
 
 # HoneyComb things for reference 2-----
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -127,12 +127,12 @@ def rollbar_test():
     rollbar.report_message('Hello World!', 'warning')
     return "Hello World!"
 
-@app.after_request
-def after_request(response):
-    timestamp = strftime('[%Y-%b-%d %H:%M]')
-    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
-    return response
-
+#@app.after_request
+#def after_request(response):
+#    timestamp = strftime('[%Y-%b-%d %H:%M]')
+#    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+#    return response
+  
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
   user_handle  = 'yaya2devops'
@@ -217,17 +217,18 @@ def data_show_activity(activity_uuid):
   data = ShowActivity.run(activity_uuid=activity_uuid)
   return data, 200  
 
-@app.route("/api/activities", methods=['POST','OPTIONS'])
+@app.route("/api/activities", methods=["POST", "OPTIONS"])
 @cross_origin()
 def data_activities():
-  user_handle  = 'yaya2devops'
-  message = request.json['message']
-  model = CreateActivity.run(message, user_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
-  return
+    user_handle = "yaya2devops"
+    message = request.json["message"]
+    ttl = request.json["ttl"]
+    model = CreateActivity.run(message, user_handle, ttl)
+    if model["errors"] is not None:
+        return model["errors"], 422
+    else:
+        return model["data"], 200
+    return
 
 if __name__ == "__main__":
   app.run(debug=True)

@@ -6,6 +6,7 @@ import {ReactComponent as BombIcon} from './svg/bomb.svg';
 export default function ActivityForm(props) {
   const [count, setCount] = React.useState(0);
   const [message, setMessage] = React.useState('');
+  const [ttl, setTtl] = React.useState('7-days');
 
   const classes = []
   classes.push('count')
@@ -25,12 +26,19 @@ export default function ActivityForm(props) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          message: message
+          message: message,
+          ttl: ttl
         }),
       });
-      let activity = await res.json();
+      let data = await res.json();
       if (res.status === 200) {
-        props.setActivities(current => [activity,...current]);
+        // add activity to the feed
+        props.setActivities(current => [data,...current]);
+        // reset and close the form
+        setCount(0)
+        setMessage('')
+        setTtl('7-days')
+        props.setPopped(false)
       } else {
         console.log(res)
       }
@@ -42,6 +50,10 @@ export default function ActivityForm(props) {
   const textarea_onchange = (event) => {
     setCount(event.target.value.length);
     setMessage(event.target.value);
+  }
+
+  const ttl_onchange = (event) => {
+    setTtl(event.target.value);
   }
 
   if (props.popped === true) {
@@ -59,16 +71,19 @@ export default function ActivityForm(props) {
         <div className='submit'>
           <div className={classes.join(' ')}>{240-count}</div>
           <button type='submit'>Crud</button>
-          <div class='expires_at_field'>
+          <div className='expires_at_field'>
             <BombIcon className='icon' />
-            <select>
-              <option>30 days</option>
-              <option>7 days</option>
-              <option>3 days</option>
-              <option>1 day</option>
-              <option>12 hours</option>
-              <option>3 hours</option>
-              <option>1 hour </option>
+            <select
+              value={ttl}
+              onChange={ttl_onchange} 
+            >
+              <option value='30-days'>30 days</option>
+              <option value='7-days'>7 days</option>
+              <option value='3-days'>3 days</option>
+              <option value='1-day'>1 day</option>
+              <option value='12-hours'>12 hours</option>
+              <option value='3-hours'>3 hours</option>
+              <option value='1-hour'>1 hour </option>
             </select>
           </div>
         </div>
