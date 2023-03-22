@@ -73,7 +73,8 @@ export default function HomeFeedPage() {
     <article>
       <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
       <div className='content'>
-        <ActivityForm  
+        <ActivityForm 
+          user_handle={user}
           popped={popped}
           setPopped={setPopped} 
           setActivities={setActivities} 

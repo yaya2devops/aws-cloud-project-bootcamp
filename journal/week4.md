@@ -789,10 +789,10 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 | Provision an RDS Postgres instance | ✅ |
 | Configure local backend application to use production connection URL ( Connect Gitpod to RDS Instance) |✅  |
 | Configure VPC Security Groups | ✅ |
-| Add a caching layer using Momento Serverless Cache | ⌛ |
-| Propagate metrics from DDB to an RDS metrics table |⌛|
-|Create Congito Trigger to insert user into database|⌛|
-|Create new activities with a database insert|⌛|
+| Propagate metrics from DDB to an RDS metrics table |✅|
+|Create Congito Trigger to insert user into database|✅|
+|Create new activities with a database insert|✅|
+|||
 
 
 ---
