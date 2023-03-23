@@ -601,7 +601,7 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 ## Error
 <img src="assets/week4/6- Lambda Time/33 before we require the error.png">
 
-## Required for LAMBDA:
+## Custom Policy Setup
 <img src="assets/week4/6- Lambda Time/33 we require this stuf fin our lambda.png">
 
 ## Checking permissions:
@@ -813,12 +813,12 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/4- lambda 2.png">
 
 
-## Check mock Activities:
+## Check mock users:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/Local-seed/0 seed.png">
 
 
 
-## Users back:
+## Check real users (rds):
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/6- BACK 3.png">
 
 
