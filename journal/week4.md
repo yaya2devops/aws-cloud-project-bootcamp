@@ -120,6 +120,8 @@ To connect my work, please see the table of contents below!
 <img src="assets/week4/2- localwork/8 co url done.png">
 
 ## Prod Connection URL:
+> I shoudn't hide any pw in the first place, i changed all.
+
 <img src="assets/week4/2- localwork/9 set up prod connection.png">
 
 ## Shebang and path:
