@@ -21,7 +21,7 @@
 - [psql Seed](#seed-postgresql)
 - [Implement Creating Activities](#implementing-crud-activities)
    - [CRUD Test](#testing-activities-process)
-   - [Implementation PoC](#the-show)
+   - [Implementation PoC](#activities)
 
 
 ---
@@ -371,8 +371,6 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 <img src="assets/week4/5- Establish RDS-Connection/13 running of an issue.png">
 
 
-## Set new pw:
-<img src="assets/week4/5- Establish RDS-Connection/14 i set new pw and made new co.png">
 
 
 ## Port missing:
@@ -779,30 +777,43 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/1 this error.png">
 
+## Adding mock emails:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/2 adding their email.png">
 
 
+
+## Seeded!
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/3 seed solved.png">
 
+## Lambda Checks:
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/4- lambda 2.png">
 
 
-<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/5- deleting mock data.png">
-
-
-<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/6- BACK 3.png">
-
+## Check mock Activities:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/Local-seed/0 seed.png">
 
+
+
+## Users back:
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/6- BACK 3.png">
+
+
+## Mock Activities back:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/Local-seed/1 activity.png">
 
+
+## Delete mock data:
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/5- deleting mock data.png">
 
 ---
 
 # Implementing CRUD Activities
 
 <img src="assets/week4/7- DB Activities/1 re design db lib.png">
+
+
+## Workflow: 
 
 <img src="assets/week4/7- DB Activities/2 too much coding.png">
 
@@ -811,13 +822,15 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 <img src="assets/week4/7- DB Activities/4 cleaing home activity.png">
 
-
+## Analyzing:
 <img src="assets/week4/7- DB Activities/5 analyze this.png">
 
 
+## SQL Portability:
 <img src="assets/week4/7- DB Activities/6 take sql outside.png">
 
 
+## Home SQL:
 <img src="assets/week4/7- DB Activities/7 home sql.png">
 
 
@@ -825,11 +838,12 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 
 
 
-
+## Create Activity:
 <img src="assets/week4/7- DB Activities/8 for create activity.png">
 
 
 
+## Activity maker:
 <img src="assets/week4/7- DB Activities/9 activity maker.png">
 
 
@@ -837,219 +851,258 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 <img src="assets/week4/7- DB Activities/10 doing hard work.png">
 
 
+## Loading template:
 <img src="assets/week4/7- DB Activities/12 loading templates.png">
 
-
+## Creating the object:
 <img src="assets/week4/7- DB Activities/14 object sql.png">
 
 
+## Security over injections:
 <img src="assets/week4/7- DB Activities/15 security over injection.png">
 
 
+## Goin in here:
 <img src="assets/week4/7- DB Activities/16 going to this.png">
 
 
 
+## Lambda Para again:
 <img src="assets/week4/7- DB Activities/17 and parameteres to lamnbda.png">
 
 
-
+## Required dependency:
 <img src="assets/week4/7- DB Activities/18 adding db requird depe.png">
 
 
-
+## Code:
 <img src="assets/week4/7- DB Activities/19 create this template class.png">
 
 
-
+## Taking this:
 <img src="assets/week4/7- DB Activities/20 taking ths.png">
 
 
-
+## Including para:
 <img src="assets/week4/7- DB Activities/21 including para.png">
 
 
+## And this:
 <img src="assets/week4/7- DB Activities/22 now attacking tis part.png">
 
+## Multi2db query:
 <img src="assets/week4/7- DB Activities/23 multi to db quer.png">
 
 
+## That way:
 <img src="assets/week4/7- DB Activities/24 this way.png">
 
 
+## Then this:
 <img src="assets/week4/7- DB Activities/25 next attack.png">
 
 
+
+## As such:
 <img src="assets/week4/7- DB Activities/26 as such.png">
 
 
-
+## Testing:
 <img src="assets/week4/7- DB Activities/27 test on.png" >
 
 
-
+## Taking this:
 <img src="assets/week4/7- DB Activities/28 and take this.png">
 
 
 
+## Coloring for clarity:
 <img src="assets/week4/7- DB Activities/29 blue for fun.png">
 
 
 
+## Green in here:
 <img src="assets/week4/7- DB Activities/29 green for fun.png">
 
+This to help debug later.
 
 ---
 
 ## Testing Activities Process
 
+> Observing old lambda.
+
 <img src="assets/week4/7- DB Activities/CRUD-TEST/1- observe old lambda.png">
 
 
+
+## Secured:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/2 secure lambda.png">
 
 
+## Up:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/3 building our software.png">
 
-
+## Unable to crud:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/4 cant crudd.png">
 
 
+## Lambda error:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/5 coding lambda stuff missed thinking and find it.png">
 
 
+##  Function code:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/6 old lambda.png">
 
+
+## Applied  para:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/7 applied parameter.png">
 
+
+## Deployed - udpate:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/8 deployed.png">
 
 
-
+## Dunno:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/9 honestly idk.png">
 
 
+## Debugging:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/10 If you do not wish to make these changes, the simplest solution (for one user) would be to replace the hardcoded user_handle value with your own username.png">
 
 
+## Let's see:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/11 lets see.png">
 
 
 
+## Hm, why.
 <img src="assets/week4/7- DB Activities/CRUD-TEST/12 why.png">
 
 
-
+## Trying this:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/13 this is it maybe.png">
 
 
-
+## Critical thinking:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/14 critical thinking a lot a lot a lot.png">
 
 
-
+## Not yet:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/15 still.png">
 
 
-
+## Load:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/16 i want to sleep.png">
 
 
 
-
+## Troubleshoot:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/17 comment logger.png">
 
+
+## Fixing:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/18 fixedig.png">
 
+
+## This missed:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/19 this wass missing.png">
 
 
-
+## Yet:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/20 still.png">
 
 
-
+## Adjust ttl:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/21 ttl add.png">
 
 
-
+## And these:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/22 and this.png">
-
-
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/23 and tis.png">
 
 
 
+## Still:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/24 lmao.png">
 
 
-
+## Errored
 <img src="assets/week4/7- DB Activities/CRUD-TEST/25 error.png">
 
 
-
+## I've resolved this:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/26 m sure i did this.png">
 
+
+## Not applied here:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/27 ttl is not neded here.png">
 
+
+#### Only god knows:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/28 ONLY GODSknow.png">
 
+## Yet:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/29 not yet.png">
 
 
 
+## Looks ok:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/30 looking ok.png">
 
 
-
+## CRUD Not:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/31 why cant crud.png">
 
 
-
+## Better:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/32 getting better stuff ig.png">
 
 
-
+## Here:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/33 here.png">
 
 
-
+## n here:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/34 and this one over here.png">
 
 
-
+## Brand new:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/35 this is new good.png">
 
 
-
+## Never!
 <img src="assets/week4/7- DB Activities/CRUD-TEST/36 lets go.png">
 
 
+## Changing handler:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/37 me and not andrew.png">
+
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/38.png">
 
+
+## Pointer required:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/39 got it we still poinitng to local.png">
 
-
-
+## Point to RDS:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/39 X another .png">
 
 
-
+## Mock
 <img src="assets/week4/7- DB Activities/CRUD-TEST/40 mock data.png">
 
 
-
+## redoing:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/41 Screenshot 2023-03-22 154152.png41 AGAIN.png">
 
 
-## CRUD Data
+# CRUD Data - worked
 <img src="assets/week4/7- DB Activities/CRUD-TEST/42 love the show.png">
 
 
-
+## The Show
 <img src="assets/week4/7- DB Activities/CRUD-TEST/43 MORE SHOW.png">
 
 
@@ -1061,11 +1114,29 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 <img src="assets/week4/7- DB Activities/CRUD-TEST/45 crudding.png">
 
 
-<img src="assets/week4/7- DB Activities/CRUD-TEST/46 soon byebye gitpod.png">
-
-
-
+## resolving the handler:
 <img src="assets/week4/7- DB Activities/CRUD-TEST/47 visual instructions.png">
+
+# Activities:
+
+<img src="assets/week4/7- DB Activities/new cruds/1 delete previoous.png">
+
+
+## Starting fresh:
+<img src="assets/week4/7- DB Activities/new cruds/2 clean.png">
+
+
+## Crud one:
+<img src="assets/week4/7- DB Activities/new cruds/3 CRUDD.png">
+
+
+## Another Crud:
+<img src="assets/week4/7- DB Activities/new cruds/4 this one.png">
+
+
+## Result:
+<img src="assets/week4/7- DB Activities/new cruds/hello.png">
+
 
 
 ---
