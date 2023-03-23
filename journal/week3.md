@@ -672,9 +672,12 @@ We are back to the exact error before running out of credit in gitpod as well as
 
 <img src="assets/Week3/Last-part/2- got it back.png">
 
-## BACK:
+## we r BACK:
 <img src="assets/Week3/Last-part/3 solved the cors error.png">
 
+## Jwt verification:
+
+<img src="assets/Week3/Last-part/5 WEEK 3jwt  proof.png">
 
 ## Wrapup Week 3: Improving UI
 
