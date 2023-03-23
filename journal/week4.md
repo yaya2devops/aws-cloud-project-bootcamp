@@ -17,9 +17,7 @@ I whereupon updated my scripts to check for the prod arg and connect to the  req
 
 Eventually, I worked on deploying Python-based function to AWS Lambda, and used CloudWatch logs for clear troubleshooting.
 
-The CRUD activities were completed successfully, and I published three excellent posts, which I tracked using RDS on Gitpod and in the product UI.
-
-The CRUD activities were done properly, and I posted three great posts, which I tracked using RDS on Gitpod and in the product UI.
+The CRUD activities were done properly, and I posted Two great posts, which I tracked using RDS on Gitpod and in the product UI.
 
 
 To connect my work, please see the table of contents below!
