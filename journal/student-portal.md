@@ -32,8 +32,18 @@ Being transparent and saying exactly what you did and not making it difficult fo
 Students must also complete and submit weekly quizzes on the practical subject matter.
 
 
+### Current Stats; I'm on track:
+
+<img src="assets/Student-Portal/sql week.png">
+<img src="assets/Student-Portal/latest stats.png">
+
+
+
+
+
 ---
 
+### Notice
 Along the way, students will need to check other resources & documents in order to keep up with weekly challenges.
 
 > I'm good with my email being exposed. Feel free to email me if you require help. Ill be more than happy to assist.
