@@ -1,6 +1,28 @@
 # Week 4 — SQL Databases
 
+In week four, I had the opportunity to delve into the powerful open-source relational database management system. PostgreSQL.
+
+
 <img src="assets/week4/Week4 banner.png">
+
+I connected to Postgres locally and wrote scripts to automate tasks like table creation, seeding, schema, and database deletion.
+
+I then combined the init process into a single script with a visually appealing color to make it easier to set up the database in the next time.
+
+I also used the seed to query the user and activities data.
+
+After having completed the local tasks, I created an AWS RDS instance and connected to it from my development environment.
+
+I whereupon updated my scripts to check for the prod arg and connect to the  required db using conditional statement.
+
+Eventually, I worked on deploying Python-based function to AWS Lambda, and used CloudWatch logs for clear troubleshooting.
+
+The CRUD activities were completed successfully, and I published three excellent posts, which I tracked using RDS on Gitpod and in the product UI.
+
+The CRUD activities were done properly, and I posted three great posts, which I tracked using RDS on Gitpod and in the product UI.
+
+
+To connect my work, please see the table of contents below!
 
 ## Table Of Contents
 
@@ -1164,6 +1186,7 @@ This to help debug later.
 
 ---
 
+### Extra;
 
 | **Security Quiz**  | Answer |
 | :--- | :--- |
