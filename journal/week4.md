@@ -1,5 +1,6 @@
 # Week 4 — SQL Databases
 
+<img src="assets/week4/Week4 banner.png">
 
 ## Table Of Contents
 
@@ -1131,7 +1132,7 @@ This to help debug later.
 
 
 ## Another Crud:
-<img src="assets/week4/7- DB Activities/new cruds/4 this one.png">
+<img src="assets/week4/7- DB Activities/new cruds/5 here.png">
 
 
 ## Result:
