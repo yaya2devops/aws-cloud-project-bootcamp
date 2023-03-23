@@ -17,7 +17,12 @@
    - [Automate RDS Rule](#automate-rds-security-rule)
 - [Lambda Post Confirmation](#lambda-post-confirmation)
    - [Debugging](#errored---lambda-debug)
-   - [Sign up Users](#rds-users)
+   - [Query Sign up Users](#rds-users)
+- [psql Seed](#seed-postgresql)
+- [Implement Creating Activities](#implementing-crud-activities)
+   - [CRUD Test](#testing-activities-process)
+   - [Implementation PoC](#the-show)
+
 
 ---
 
@@ -770,7 +775,297 @@ NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 ---
 
 
+# Seed PostgreSQL
 
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/1 this error.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/2 adding their email.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/3 seed solved.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/4- lambda 2.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/5- deleting mock data.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/6- BACK 3.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/Local-seed/0 seed.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/seed touchpoint/Local-seed/1 activity.png">
+
+
+---
+
+# Implementing CRUD Activities
+
+<img src="assets/week4/7- DB Activities/1 re design db lib.png">
+
+<img src="assets/week4/7- DB Activities/2 too much coding.png">
+
+<img src="assets/week4/7- DB Activities/3 include this code.png">
+
+
+<img src="assets/week4/7- DB Activities/4 cleaing home activity.png">
+
+
+<img src="assets/week4/7- DB Activities/5 analyze this.png">
+
+
+<img src="assets/week4/7- DB Activities/6 take sql outside.png">
+
+
+<img src="assets/week4/7- DB Activities/7 home sql.png">
+
+
+<img src="assets/week4/7- DB Activities/7 b.png">
+
+
+
+
+<img src="assets/week4/7- DB Activities/8 for create activity.png">
+
+
+
+<img src="assets/week4/7- DB Activities/9 activity maker.png">
+
+
+
+<img src="assets/week4/7- DB Activities/10 doing hard work.png">
+
+
+<img src="assets/week4/7- DB Activities/12 loading templates.png">
+
+
+<img src="assets/week4/7- DB Activities/14 object sql.png">
+
+
+<img src="assets/week4/7- DB Activities/15 security over injection.png">
+
+
+<img src="assets/week4/7- DB Activities/16 going to this.png">
+
+
+
+<img src="assets/week4/7- DB Activities/17 and parameteres to lamnbda.png">
+
+
+
+<img src="assets/week4/7- DB Activities/18 adding db requird depe.png">
+
+
+
+<img src="assets/week4/7- DB Activities/19 create this template class.png">
+
+
+
+<img src="assets/week4/7- DB Activities/20 taking ths.png">
+
+
+
+<img src="assets/week4/7- DB Activities/21 including para.png">
+
+
+<img src="assets/week4/7- DB Activities/22 now attacking tis part.png">
+
+<img src="assets/week4/7- DB Activities/23 multi to db quer.png">
+
+
+<img src="assets/week4/7- DB Activities/24 this way.png">
+
+
+<img src="assets/week4/7- DB Activities/25 next attack.png">
+
+
+<img src="assets/week4/7- DB Activities/26 as such.png">
+
+
+
+<img src="assets/week4/7- DB Activities/27 test on.png" >
+
+
+
+<img src="assets/week4/7- DB Activities/28 and take this.png">
+
+
+
+<img src="assets/week4/7- DB Activities/29 blue for fun.png">
+
+
+
+<img src="assets/week4/7- DB Activities/29 green for fun.png">
+
+
+---
+
+## Testing Activities Process
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/1- observe old lambda.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/2 secure lambda.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/3 building our software.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/4 cant crudd.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/5 coding lambda stuff missed thinking and find it.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/6 old lambda.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/7 applied parameter.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/8 deployed.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/9 honestly idk.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/10 If you do not wish to make these changes, the simplest solution (for one user) would be to replace the hardcoded user_handle value with your own username.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/11 lets see.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/12 why.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/13 this is it maybe.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/14 critical thinking a lot a lot a lot.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/15 still.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/16 i want to sleep.png">
+
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/17 comment logger.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/18 fixedig.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/19 this wass missing.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/20 still.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/21 ttl add.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/22 and this.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/23 and tis.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/24 lmao.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/25 error.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/26 m sure i did this.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/27 ttl is not neded here.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/28 ONLY GODSknow.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/29 not yet.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/30 looking ok.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/31 why cant crud.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/32 getting better stuff ig.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/33 here.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/34 and this one over here.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/35 this is new good.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/36 lets go.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/37 me and not andrew.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/38.png">
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/39 got it we still poinitng to local.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/39 X another .png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/40 mock data.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/41 Screenshot 2023-03-22 154152.png41 AGAIN.png">
+
+
+## CRUD Data
+<img src="assets/week4/7- DB Activities/CRUD-TEST/42 love the show.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/43 MORE SHOW.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/44 SHOW MORE.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/45 crudding.png">
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/46 soon byebye gitpod.png">
+
+
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/47 visual instructions.png">
 
 
 ---
