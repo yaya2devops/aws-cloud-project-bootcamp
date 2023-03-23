@@ -7,11 +7,11 @@
 - Cohort: 2023-A1
 
 
-<img src="_docs/assets/cruddur-screenshot.png" width="600" align="right">
+<img src="_docs/assets/yayaoncruddur.png" width="600" align="right">
 
 # Bootcamp Goal: Overview of Objectives and Difficulty
 
-<img src="GOAL.png">
+<img src="_docs/assets/GOAL.png">
 
 | | Target |
 | ---: | :--- |
@@ -45,5 +45,5 @@
 |  [Week 12](journal/week12.md) | Modern APIs | May 6, 2023 |Coming|
 
 
-<img src="_docs/assets/cruddur-banner.jpg" width="600">
+<img src="_docs/assets/rounded-banner.png" width="600" align="center">
 
