@@ -1,0 +1,135 @@
+ Load SQL Template: /backend-flask/db/sql/activities/object.sql 
+ SQL STATEMENT-[json]------
+SELECT
+  activities.uuid,
+  users.display_name,
+  users.handle,
+  activities.message,
+  activities.created_at,
+  activities.expires_at
+FROM public.activities
+INNER JOIN public.users ON users.uuid = activities.user_uuid 
+WHERE 
+  activities.uuid = %(uuid)s
+ SQL Params:
+uuid : None
+
+
+ Load SQL Template: /backend-flask/db/sql/activities/create.sql 
+ SQL STATEMENT-[commit with returning]------
+INSERT INTO public.activities (
+  user_uuid,
+  message,
+  expires_at
+)
+VALUES (
+  (SELECT uuid 
+    FROM public.users 
+    WHERE users.handle = %(handle)s
+    LIMIT 1
+  ),
+  %(message)s,
+  %(expires_at)s
+) RETURNING uuid;
+
+
+ Load SQL Template: /backend-flask/db/sql/activities/create.sql 
+ SQL STATEMENT-[commit with returning]------
+INSERT INTO public.activities (
+  user_uuid,
+  message,
+  expires_at
+)
+VALUES (
+  (SELECT uuid 
+    FROM public.users 
+    WHERE users.handle = %(handle)s
+    LIMIT 1
+  ),
+  %(message)s,
+  %(expires_at)s
+) RETURNING uuid;
+
+psycopg ERROR: null value in column "user_uuid" of relation "activities" violates not-null constraint
+DETAIL:  Failing row contains (4014cf2b-7396-4454-b8ff-7d374e51366f, null, azeae, 0, 0, 0, null, 2023-03-29 14:51:46.668057, 2023-03-22 14:51:46.70845). on line number: 52
+192.168.148.77 - - [22/Mar/2023 14:51:47] "POST /api/activities HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2551, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/site-packages/opentelemetry/instrumentation/flask/__init__.py", line 344, in _wrapped_app
+    result = wsgi_app(wrapped_app_environ, _start_response)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/usr/local/lib/python3.10/site-packages/flask_cors/decorator.py", line 128, in wrapped_function
+    resp = make_response(f(*args, **kwargs))
+  File "/usr/local/lib/python3.10/site-packages/flask/helpers.py", line 209, in make_response
+    return current_app.make_response(args)  # type: ignore
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2137, in make_response
+    raise TypeError(
+TypeError: The view function for 'data_activities' did not return a valid response. The function either returned None or ended without a return statement.
+192.168.148.77 - - [22/Mar/2023 14:51:47] "POST /api/activities HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2551, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.10/site-packages/opentelemetry/instrumentation/flask/__init__.py", line 344, in _wrapped_app
+    result = wsgi_app(wrapped_app_environ, _start_response)
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2531, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.10/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/usr/local/lib/python3.10/site-packages/flask_cors/decorator.py", line 128, in wrapped_function
+    resp = make_response(f(*args, **kwargs))
+  File "/usr/local/lib/python3.10/site-packages/flask/helpers.py", line 209, in make_response
+    return current_app.make_response(args)  # type: ignore
+  File "/usr/local/lib/python3.10/site-packages/flask/app.py", line 2137, in make_response
+    raise TypeError(
+TypeError: The view function for 'data_activities' did not return a valid response. The function either returned None or ended without a return statement.
+192.168.148.77 - - [22/Mar/2023 15:03:26] "OPTIONS /api/activities/home HTTP/1.1" 200 -
+[2023-03-22 15:03:26,551] DEBUG in app: authenicated
+[2023-03-22 15:03:26,552] DEBUG in app: {'sub': '097aecfc-74e2-4621-8fab-1d5dfa8f5431', 'iss': 'https://cognito-idp.ca-central-1.amazonaws.com/ca-central-1_RT6uZ6IkV', 'client_id': '5il3116qm0rh3ropspnirktnls', 'origin_jti': '2c5afecc-bf02-4c7e-a2db-afdb316a5e86', 'event_id': 'f5179c1a-8e0f-48f2-9b67-63af05160e9f', 'token_use': 'access', 'scope': 'aws.cognito.signin.user.admin', 'auth_time': 1679496171, 'exp': 1679499771, 'iat': 1679496171, 'jti': '5c758187-dde2-4c62-a7a0-8d40c6ea2419', 'username': '097aecfc-74e2-4621-8fab-1d5dfa8f5431'}
+[2023-03-22 15:03:26,552] DEBUG in app: 097aecfc-74e2-4621-8fab-1d5dfa8f5431
+192.168.148.77 - - [22/Mar/2023 15:03:26] "GET /api/activities/home HTTP/1.1" 200 -
+[2023-03-22 15:03:29,104] DEBUG in app: Error decoding token headers.
+[2023-03-22 15:03:29,104] DEBUG in app: unauthenicated
+192.168.148.77 - - [22/Mar/2023 15:03:29] "GET /api/activities/home HTTP/1.1" 200 -
+192.168.148.77 - - [22/Mar/2023 15:06:07] "OPTIONS /api/activities/home HTTP/1.1" 200 -
+[2023-03-22 15:06:07,518] DEBUG in app: Error decoding token headers.
+[2023-03-22 15:06:07,518] DEBUG in app: unauthenicated
+192.168.148.77 - - [22/Mar/2023 15:06:07] "GET /api/activities/home HTTP/1.1" 200 -
+192.168.148.77 - - [22/Mar/2023 15:07:10] "OPTIONS /api/activities/home HTTP/1.1" 200 -
+[2023-03-22 15:07:10,403] DEBUG in app: Error decoding token headers.
+[2023-03-22 15:07:10,403] DEBUG in app: unauthenicated
+192.168.148.77 - - [22/Mar/2023 15:07:10] "GET /api/activities/home HTTP/1.1" 200 -
+192.168.148.77 - - [22/Mar/2023 15:13:01] "OPTIONS /api/activities/home HTTP/1.1" 200 -
+[2023-03-22 15:13:01,875] DEBUG in app: Error decoding token headers.
+[2023-03-22 15:13:01,875] DEBUG in app: unauthenicated
+192.168.148.77 - - [22/Mar/2023 15:13:02] "GET /api/activities/home HTTP/1.1" 200 -
+192.168.148.77 - - [22/Mar/2023 15:14:31] "OPTIONS /api/activities/home HTTP/1.1" 200 -
+[2023-03-22 15:14:31,909] DEBUG in app: authenicated
+[2023-03-22 15:14:31,909] DEBUG in app: {'sub': 'ef1de525-1b9c-4e4b-b143-a071ed5a43b9', 'iss': 'https://cognito-idp.ca-central-1.amazonaws.com/ca-central-1_RT6uZ6IkV', 'client_id': '5il3116qm0rh3ropspnirktnls', 'origin_jti': '5349fbf0-17d5-4b0f-a0e4-c0d5f9a8453f', 'event_id': '2f2a0eb1-d120-48d2-90c3-b99edc30299e', 'token_use': 'access', 'scope': 'aws.cognito.signin.user.admin', 'auth_time': 1679498071, 'exp': 1679501671, 'iat': 1679498071, 'jti': '9a16a4c8-4414-42b0-9337-7edce10a926e', 'username': 'ef1de525-1b9c-4e4b-b143-a071ed5a43b9'}
+[2023-03-22 15:14:31,909] DEBUG in app: ef1de525-1b9c-4e4b-b143-a071ed5a43b9
+192.168.148.77 - - [22/Mar/2023 15:14:32] "GET /api/activities/home HTTP/1.1" 200 -
+192.168.148.77 - - [22/Mar/2023 15:14:36] "OPTIONS /api/activities HTTP/1.1" 200 -
+192.168.148.77 - - [22/Mar/2023 15:14:37] "POST /api/activities HTTP/1.1" 200 -
