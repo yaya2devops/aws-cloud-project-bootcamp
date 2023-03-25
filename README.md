@@ -9,6 +9,9 @@
 
 <img src="_docs/assets/objective.png" align="right">
 
+<br>
+
+
 # Bootcamp Goal: Overview of Objectives and Difficulty
 
 <img src="_docs/assets/yayaoncruddur.png" width="800" align="right">
