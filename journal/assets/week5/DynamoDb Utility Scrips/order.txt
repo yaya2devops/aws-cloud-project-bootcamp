@@ -1,0 +1,17 @@
+
+
+- load schema
+- seed
+- scan
+- get conversion (chmod and then exe) ( scan index forward false to true
+  - changfe year 2023 etc
+
+
+AFTER  getting the convo
+
+
+- list conversation
+   - go psql local , ./bin/db/connect
+   - SELECT uuid, handle from users;
+
+- go ahead and list as required ./bin/ddb/list-conversations
