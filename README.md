@@ -7,11 +7,11 @@
 - Cohort: 2023-A1
 
 
-<img src="_docs/assets/yayaoncruddur.png" width="800" align="right">
+<img src="_docs/assets/objective.png" align="right">
 
 # Bootcamp Goal: Overview of Objectives and Difficulty
 
-<img src="_docs/assets/objective.png" align="right">
+<img src="_docs/assets/yayaoncruddur.png" width="800" align="right">
 
 | | Target |
 | ---: | :--- |
