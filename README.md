@@ -27,7 +27,7 @@
 | **Deployment** | The web application will be deployed on AWS and take advantage of modern cloud services |
 | **Cost Optimization** | The startup company wants to keep cloud provider costs as low as possible to maximize their investment. |
 
-# Bootcamp Student Progress Tracker
+# Cloud Engineer Progress Tracker
 | My Journal  | Technologies   | Start Date | Status|
 | :---: | :--- | --- |:---: |
 | [Week 0](journal/week0.md) | Bootcamp Overview and Introduction to Cloud Spend | Feb 11, 2023 |✅|
