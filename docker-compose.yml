@@ -2,7 +2,10 @@ version: "3.8"
 services:
   backend-flask:
     environment:
-      CONNECTION_URL: "${PRODUCTION_URL}"     
+      #RDSConnectionBelow
+      #CONNECTION_URL: "${PRODUCTION_URL}" 
+      CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
+      AWS_ENDPOINT_URL: "http://dynamodb-local:8000"   
       #FRONTEND_URL: "http://localhost:3000"
       #BACKEND_URL: "http://localhost:4567"
       #FRONTEND_URL: "https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"

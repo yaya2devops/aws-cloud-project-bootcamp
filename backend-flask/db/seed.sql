@@ -17,7 +17,13 @@ VALUES (
         'bayko@exampro.co',
         'bayko',
         'MOCK'
+    ), (
+        'Yahya Abulhaj',
+        'yahyaabulhaj@outlook.com',
+        'yaya',
+        'MOCK'
     );
+    
 
 INSERT INTO
     public.activities (user_uuid, message, expires_at)
