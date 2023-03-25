@@ -11,7 +11,7 @@
 
 # Bootcamp Goal: Overview of Objectives and Difficulty
 
-<img src="_docs/assets/GOAL.png">
+<img src="_docs/assets/objective.png" align="right">
 
 | | Target |
 | ---: | :--- |
