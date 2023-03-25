@@ -7,7 +7,7 @@
 - Cohort: 2023-A1
 
 
-<img src="_docs/assets/yayaoncruddur.png" width="600" align="right">
+<img src="_docs/assets/yayaoncruddur.png" width="800" align="right">
 
 # Bootcamp Goal: Overview of Objectives and Difficulty
 
@@ -45,5 +45,8 @@
 |  [Week 12](journal/week12.md) | Modern APIs | May 6, 2023 |Coming|
 
 
-<img src="_docs/assets/rounded-banner.png" width="600" align="center">
+<p align="center">
+    <img src="_docs/assets/rounded-banner.png" width="800">
+</p>
+
 
