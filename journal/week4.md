@@ -991,7 +991,7 @@ This to help debug later.
 
 
 ## Debugging:
-<img src="assets/week4/7- DB Activities/CRUD-TEST/10 If you do not wish to make these changes, the simplest solution (for one user) would be to replace the hardcoded user_handle value with your own username.png">
+<img src="assets/week4/7- DB Activities/CRUD-TEST/10 would be to replace the hardcoded user_handle value with your own username.png">
 
 
 ## Let's see:
