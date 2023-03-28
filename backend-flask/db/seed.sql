@@ -8,6 +8,11 @@ INSERT INTO
         cognito_user_id
     )
 VALUES (
+        'Yahya Abulhaj',
+        'yahyaincloud@gmail.com',
+        'yaya2devops',
+        'MOCK'
+    ), (
         'Andrew Brown',
         'andrewb@exampro.co',
         'andrewbrown',
@@ -16,11 +21,6 @@ VALUES (
         'Andrew Bayko',
         'bayko@exampro.co',
         'bayko',
-        'MOCK'
-    ), (
-        'Yahya Abulhaj',
-        'yahyaabulhaj@outlook.com',
-        'yaya',
         'MOCK'
     );
     
@@ -31,7 +31,7 @@ VALUES ( (
             SELECT uuid
             from public.users
             WHERE
-                users.handle = 'andrewbrown'
+                users.handle = 'yaya2devops'
             LIMIT
                 1
         ), 'This was imported as seed data!', current_timestamp + interval '10 day'
