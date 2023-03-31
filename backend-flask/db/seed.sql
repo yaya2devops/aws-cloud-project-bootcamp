@@ -22,6 +22,11 @@ VALUES (
         'bayko@exampro.co',
         'bayko',
         'MOCK'
+    ), (
+        'Londo Mollari',
+        'lmollari@centari.com',
+        'londo',
+        'MOCK'
     );
     
 
