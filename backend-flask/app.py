@@ -16,6 +16,7 @@ from services.messages import *
 from services.create_message import *
 from services.show_activity import *
 
+#Authorization JWT
 from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
 
 # HoneyComb ---------
@@ -25,7 +26,7 @@ from opentelemetry.instrumentation.requests import RequestsInstrumentor
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor 
 
 # AWS Xray for reference----
 from aws_xray_sdk.core import xray_recorder
@@ -35,9 +36,9 @@ from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 # Cloudwatch logs
 import watchtower
 import logging
-
-# Rollbar ------
 from time import strftime
+
+# Rollbar ------------
 import os
 import rollbar
 import rollbar.contrib.flask
@@ -58,6 +59,9 @@ provider = TracerProvider()
 processor = BatchSpanProcessor(OTLPSpanExporter())
 provider.add_span_processor(processor)
 
+# x-ray ----------------
+xray_url = os.getenv("AWS_XRAY_URL")
+xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 # AWS Xray for reference2 for starting the recorder----
@@ -75,6 +79,7 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
+# Authorization JWT
 cognito_jwt_token = CognitoJwtToken(
   user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
   user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
