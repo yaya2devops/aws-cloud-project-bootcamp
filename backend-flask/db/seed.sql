@@ -13,11 +13,6 @@ VALUES (
         'yaya2devops',
         'MOCK'
     ), (
-        'Andrew Brown',
-        'andrewb@exampro.co',
-        'andrewbrown',
-        'MOCK'
-    ), (
         'Andrew Bayko',
         'bayko@exampro.co',
         'bayko',
