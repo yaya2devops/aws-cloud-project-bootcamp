@@ -13,14 +13,14 @@ VALUES (
         'yaya2devops',
         'MOCK'
     ), (
-        'Andrew Brown',
-        'andrewb@exampro.co',
-        'andrewbrown',
-        'MOCK'
-    ), (
         'Andrew Bayko',
         'bayko@exampro.co',
         'bayko',
+        'MOCK'
+    ), (
+        'Londo Mollari',
+        'lmollari@centari.com',
+        'londo',
         'MOCK'
     );
     

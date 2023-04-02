@@ -1,0 +1,104 @@
+- create ddb.py (add the required)
+- IF EXISTS cruddur in db seed again
+- list convo updates
+
+
+- create a script to populate user ID to MOCK seed.sql(db)
+     - under bin/ 
+             -create cognito/list-users (make sure to have export AWS_COGNITO_USER_POOL_ID=etc from coginito AND GP ENV
+             - go to docker composer and assign the value of env var "${}"
+             - finaly chmod it and run it
+     - the script to update is called: db/update/cognito-user-ids and exe it
+     - another param to the lib db.py
+
+- add script to the setup
+  line 7 print ("----db cognito chbyh why why")
+
+- seed our data ./bin/db/seed
+
+(error with update rule) - solu
+
+- get the connection url to local in docker compose
+- adjust app.py
+- message-groups.py services code required
+- create db/users/uuid_from_handle.sql - very simple query
+
+---
+update msg= no results [ERROR 401]AT THIS POINT WE HAVE PROBLEM WITH THE TOKEN BEING EXPIRED
+---
+
+
+inspecter les element=> NETWORK TAB - go message groups headers and anayze
+
+solved we got to update our client side javascript:
+
+- go to homefeed.js 
+    - take cookie we dont do it anymore 
+    - copy the syntax for header token to pages/messagegroupSpagejs and pages/messageGrouPpagejs and components/MessageForm.js
+
+
+--
+stil no message data but 500 error still better then 400
+---
+
+to test:
+
+try to go to postgre local
+and select * from users; if its still mock so the uuid didnt get updated
+
+try the update-uuid command again and then go back to psql and select again
+
+
+---
+still error
+--
+
+we try to get the auth function solo from homefeedpage
+and go import it there instead and check authorization after loading it
+DO THE SAME FOR messagegroup and message groups
+
+
+next:
+
+- ddb schema load
+- dddb seeed
+
+---
+troubleshooting the empty []
+----
+
+
+HAHA AWS_ENDPOINT_URL include in compose
+
+----
+
+After that we should see our seed conversation. :D
+
+---
+
+now instead of @handler at the top we should have the UUID url in the message so in app.js
+
+this must be passed to messagegroup.py	 
+now lib ddb time steps
+
+
+-----
+NEXT STEP MESSAGE IMPLEMENTATION  AFTER MESSAGE GROUPS
+-----
+
+-----
+NEXT STEP CREATE MESSAGE IMPLEMENTATION  AFTER MESSAGE GROUPS
+-----
+
+ddb
+
+
+--
+wORK WITH HANDLER:
+
+up sedsql
+USERSHORTpy
+
+new componenet
+
+ajouty london
