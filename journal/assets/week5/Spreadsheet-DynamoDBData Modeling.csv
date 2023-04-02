@@ -1,0 +1,6 @@
+pk,sk (created_at or last_reply_at),data (data key),uuid,display_name (aka other_user_display_name),handle (aka other_user_handle),message (aka last_message),user_uuid,message_group_uuid
+MSG#{message_group_uuid},MSG#{created_at},,32423432-235325-3525-325235352-235235,Yahya ABULHAJ,yaya2devops,Hey Bayko,232cfd0f-3841-47bc-ad8b-44d9d3b7264f,23523532-6433634643-234234234-23423525
+GRP#{my_user_uuid},GRP#{last_reply_at},,,Andrew Bayko,bayko,"Hey - Yaya, The legend.",2342342-52353252-23523523-23424,23523532-6433634643-234234234-23423525
+GRP#{my_user_uuid},GRP#{last_reply_at},,,Yahya ABULHAJ,yaya2devops,Ty. Love the cloud!,232cfd0f-3841-47bc-ad8b-44d9d3b7264f,23523532-6433634643-234234234-23423525
+       ,,,,,,,,
+, ,,,,,,,

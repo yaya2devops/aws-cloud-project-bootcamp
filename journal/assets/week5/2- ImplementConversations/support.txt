@@ -1,0 +1,3 @@
+aws cognito-idp list-users --user-pool-id=ca-central-1_RT6uZ6IkV
+
+aws cog pool id en var
