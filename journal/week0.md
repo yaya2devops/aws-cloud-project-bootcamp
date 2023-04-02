@@ -1,7 +1,8 @@
 # Week 0 — Billing and Architecture
 
-- [Bootcamp Introduction](#first-week-introduction)
 - [Cloudnative Architectures](#cloudnative-architecture)
+  - [Create Napkin Design](#creating-conceptual-design)
+  - [Create Logical Design](#creating-logical-diagram)
 - [Security Considerations](#security-considerations)
   - [Applying MFA](#applying-mfa)
   - [Creating Admin IAM user](#iam-user)
@@ -13,8 +14,6 @@
 - [Installed AWS CLI](#install-aws-cli)
    - [Setting SNS](#setting-sns)
 - [Contact AWS Support](#open-support-ticket)
-
-
 
 ---
 
@@ -58,10 +57,20 @@ The shapes are built in, from file → import data:
 
 - [Here](https://aws.amazon.com/fr/architecture/icons/) you can find additional diagramming tools, and AWS icons.
 
+#### **Creating Conceptual Design:**
+<img src="assets/week0/media/cruddur-napkin.png">
+
+<br>
 
 
 #### **Creating Logical Diagram:**
+- Diagram to help in visualizing the flow of data and interactions between the product and other systems.
+- Illustrate the use of Rest APIs in the connection going between the front and the backend.
+
 <img src="assets/week0/media/logical-design.png">
+
+This also highlight the various components of the Cruddur product ecosystem.
+<br>
 
 #### **Creating CICD Flow:**
 
@@ -286,7 +295,12 @@ gp env instead of export
 
 **AWS CLI auto-prompt**
 
+**In Git Terminal:** <br>
+
 - adding these lines to `.bashrc`
+
+<img src="assets/week0/media/adding-aws-partial.png">
+
 
 ```BASH
 export AWS_CLI_AUTO_PROMPT=on
@@ -294,11 +308,15 @@ export PS1="\[\033[38;5;247m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)
 
 ```
 
-<img src="assets/week0/media/adding-aws-partial.png">
 
 - the auto-prompt enables you to use the 'Enter' to complete the command.
 
 <img src="assets/week0/media/adding-aws-partial2.png">
+
+
+**In Gitpod:** <br>
+
+<img src="assets/week0/media/week0-extension-on-gitpod.png">
 
 
 ## Install AWS CLI
