@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "npm",
+            "script": "install",
+            "path": "frontend-react-js",
+            "group": "build",
+            "problemMatcher": [],
+            "label": "npm: install - frontend-react-js",
+            "detail": "install dependencies from package",
+            "presentation": {
+                                "reveal": "always",
+                                "group": "develop",
+                                "panel": "new"
+                         },
+                "runOptions": {
+                                "runOn": "folderOpen"
+                        }
+        }
+        ]
+}
