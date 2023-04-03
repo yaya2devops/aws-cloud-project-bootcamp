@@ -4,10 +4,8 @@ This initially started as a thread by [Jason](https://twitter.com/LinuxTekCanada
 
 <img src="assets/week4/Discord/Acknowledged/threadwjason.png">
 
-> Thanks Jason !
 
-
-Here it is, so all of us reap the benefits:
+**Here it is**, so all of us reap the benefits:
 
 ```
 git tag -a weekx <commit hash> -m "Week X PR Merge"
@@ -28,6 +26,14 @@ git push --tags
 | [week2](#week-2) | b541ecba4f4c8e125e4d5171dcfc4fa141c375d0 | Week2: Articulation Journal |
 | [week3](#week-3) | 2439b040922d219bc3a2cfc0e57644cff26b8c1e | Week3: Relational Database |
 | [week4](#week-4) | 12dae757bec2464a6309f68093165deb2e92988a | Week4: Discord Assets |
+
+
+## Commits & Hash
+
+The item below summarizes a commit, including the location of the hash:
+
+<img src="assets/week4/Discord/Acknowledged/explain-tags-and-hash.png">
+
 
 ## Application
 
@@ -58,3 +64,9 @@ git tag -a week3 2439b040922d219bc3a2cfc0e57644cff26b8c1e -m "Tagging for week3"
 git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 ```
 
+
+## Desired outcomes
+
+<img src="assets/week4/Discord/Acknowledged/my-tags.png">
+
+> Great!
