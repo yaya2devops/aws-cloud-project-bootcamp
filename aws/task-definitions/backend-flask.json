@@ -34,7 +34,7 @@
         "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-              "awslogs-group": "cruddur",
+              "awslogs-group": "/cruddur/fargate-cluster",
               "awslogs-region": "ca-central-1",
               "awslogs-stream-prefix": "backend-flask"
           }
