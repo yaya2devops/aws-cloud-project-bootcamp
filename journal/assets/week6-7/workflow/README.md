@@ -1,0 +1,1 @@
+**These series of captures represent the workflow made for pushing backend image to ECS fargate.**
