@@ -1,0 +1,131 @@
+timestamp,message
+1680465688725,"INIT_START Runtime Version: python:3.9.v18	Runtime Version ARN: arn:aws:lambda:ca-central-1::runtime:edb5a058bfa782cb9cedc6d534ac8b8c193bc28e9a9879d9f5ebaaf619cd0fc0
+"
+1680465689042,"START RequestId: 9498d8c0-9ca4-4a57-ba82-01504aac06b9 Version: $LATEST
+"
+1680465689042,"event-data {'Records': [{'eventID': '53a3c6cefaaeec770d1d982e9ccaf0fd', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465688.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}}, 'NewImage': {'user_uuid': {'S': '432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'message_group_uuid': {'S': 'de844689-91bf-4641-8323-e283c097c90e'}, 'user_handle': {'S': 'yaya2devops'}, 'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}, 'message': {'S': 'HEEEEEEEEEEEEEEEEEEEEELLO'}, 'user_display_name': {'S': 'Yahya Abulhaj'}}, 'SequenceNumber': '4000000000004169672027', 'SizeBytes': 335, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689043,"END RequestId: 9498d8c0-9ca4-4a57-ba82-01504aac06b9
+"
+1680465689043,"REPORT RequestId: 9498d8c0-9ca4-4a57-ba82-01504aac06b9	Duration: 1.35 ms	Billed Duration: 2 ms	Memory Size: 128 MB	Max Memory Used: 64 MB	Init Duration: 316.83 ms	
+"
+1680465689070,"START RequestId: cad21140-0997-44ab-83fe-e25651abc637 Version: $LATEST
+"
+1680465689071,"event-data {'Records': [{'eventID': '7ebc3c843782fe45dc8ca12bbf29faea', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465688.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}}, 'NewImage': {'user_uuid': {'S': 'a1d19386-18bd-4756-bf55-7a4d9a6bd814'}, 'message_group_uuid': {'S': 'de844689-91bf-4641-8323-e283c097c90e'}, 'user_handle': {'S': 'bayko'}, 'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'message': {'S': 'HEEEEEEEEEEEEEEEEEEEEELLO'}, 'user_display_name': {'S': 'Andrew Bayko'}}, 'SequenceNumber': '4100000000004169672103', 'SizeBytes': 328, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689072,"END RequestId: cad21140-0997-44ab-83fe-e25651abc637
+"
+1680465689072,"REPORT RequestId: cad21140-0997-44ab-83fe-e25651abc637	Duration: 1.75 ms	Billed Duration: 2 ms	Memory Size: 128 MB	Max Memory Used: 64 MB	
+"
+1680465689084,"START RequestId: a57d5a2c-85d0-493b-af79-d8f153d12e93 Version: $LATEST
+"
+1680465689084,"event-data {'Records': [{'eventID': '72c87cc79d9f5b08545fa20754bfa4ba', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465688.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'MSG#de844689-91bf-4641-8323-e283c097c90e'}}, 'NewImage': {'user_uuid': {'S': '432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'user_handle': {'S': 'yaya2devops'}, 'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'message_uuid': {'S': '0a130e0d-b45e-4bd8-a3cf-c2453b2faa9b'}, 'pk': {'S': 'MSG#de844689-91bf-4641-8323-e283c097c90e'}, 'message': {'S': 'HEEEEEEEEEEEEEEEEEEEEELLO'}, 'user_display_name': {'S': 'Yahya Abulhaj'}}, 'SequenceNumber': '4200000000004169672104', 'SizeBytes': 329, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689085,"GRUP ===> de844689-91bf-4641-8323-e283c097c90e HEEEEEEEEEEEEEEEEEEEEELLO
+"
+1680465689221,"RESP ===> [{'user_handle': 'yaya2devops', 'user_uuid': '432fd9c7-0a30-40c6-8efd-e6badb86c7df', 'user_display_name': 'Yahya Abulhaj', 'sk': '2023-04-02T20:01:27.463551+00:00', 'message': 'HEEEEEEEEEEEEEEEEEEEEELLO', 'pk': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814', 'message_group_uuid': 'de844689-91bf-4641-8323-e283c097c90e'}, {'user_handle': 'bayko', 'user_uuid': 'a1d19386-18bd-4756-bf55-7a4d9a6bd814', 'user_display_name': 'Andrew Bayko', 'sk': '2023-04-02T20:01:27.463551+00:00', 'message': 'HEEEEEEEEEEEEEEEEEEEEELLO', 'pk': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df', 'message_group_uuid': 'de844689-91bf-4641-8323-e283c097c90e'}]
+"
+1680465689252,"DELETE ===> {'ResponseMetadata': {'RequestId': 'CSBS4FC25P0RV3DN3AEPUA67GJVV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': 'CSBS4FC25P0RV3DN3AEPUA67GJVV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:01:28 GMT'}, 'RetryAttempts': 0}}
+"
+1680465689292,"CREATE ===> {'ResponseMetadata': {'RequestId': '5MH5G3B645983R9KAMO3SV29D7VV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': '5MH5G3B645983R9KAMO3SV29D7VV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:01:28 GMT'}, 'RetryAttempts': 0}}
+"
+1680465689332,"DELETE ===> {'ResponseMetadata': {'RequestId': '4F3QPAS5AVP8FPEGKM8B35C147VV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': '4F3QPAS5AVP8FPEGKM8B35C147VV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:01:28 GMT'}, 'RetryAttempts': 0}}
+"
+1680465689359,"CREATE ===> {'ResponseMetadata': {'RequestId': 'EV1GUL7GF9B9G4OCHQ0AIQ12HRVV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': 'EV1GUL7GF9B9G4OCHQ0AIQ12HRVV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:01:28 GMT'}, 'RetryAttempts': 0}}
+"
+1680465689372,"END RequestId: a57d5a2c-85d0-493b-af79-d8f153d12e93
+"
+1680465689372,"REPORT RequestId: a57d5a2c-85d0-493b-af79-d8f153d12e93	Duration: 287.94 ms	Billed Duration: 288 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465689715,"START RequestId: d373faaf-6542-4327-b35b-96e696eb078d Version: $LATEST
+"
+1680465689716,"event-data {'Records': [{'eventID': '532c9ea97ba4703713e066e3f66053d6', 'eventName': 'REMOVE', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465689.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}}, 'SequenceNumber': '4300000000004169672608', 'SizeBytes': 76, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689716,"skip REMOVE event
+"
+1680465689716,"END RequestId: d373faaf-6542-4327-b35b-96e696eb078d
+"
+1680465689716,"REPORT RequestId: d373faaf-6542-4327-b35b-96e696eb078d	Duration: 0.99 ms	Billed Duration: 1 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465689725,"START RequestId: 1cdd2256-1018-47b9-878e-5d331b04bf26 Version: $LATEST
+"
+1680465689726,"event-data {'Records': [{'eventID': 'df409d7df33d176e92253af41dbaadd1', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465689.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}}, 'NewImage': {'user_uuid': {'S': '432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'message_group_uuid': {'S': 'de844689-91bf-4641-8323-e283c097c90e'}, 'user_handle': {'S': 'yaya2devops'}, 'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}, 'message': {'S': 'HEEEEEEEEEEEEEEEEEEEEELLO'}, 'user_display_name': {'S': 'Yahya Abulhaj'}}, 'SequenceNumber': '4400000000004169672609', 'SizeBytes': 335, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689732,"END RequestId: 1cdd2256-1018-47b9-878e-5d331b04bf26
+"
+1680465689732,"REPORT RequestId: 1cdd2256-1018-47b9-878e-5d331b04bf26	Duration: 6.31 ms	Billed Duration: 7 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465689743,"START RequestId: 1b7e1dff-0e8b-4a41-b3bf-0eb04d5d69b3 Version: $LATEST
+"
+1680465689743,"event-data {'Records': [{'eventID': 'e54153ff34bdee741d7af69b8d01ab15', 'eventName': 'REMOVE', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465689.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}}, 'SequenceNumber': '4500000000004169672672', 'SizeBytes': 76, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689743,"skip REMOVE event
+"
+1680465689744,"END RequestId: 1b7e1dff-0e8b-4a41-b3bf-0eb04d5d69b3
+"
+1680465689744,"REPORT RequestId: 1b7e1dff-0e8b-4a41-b3bf-0eb04d5d69b3	Duration: 0.92 ms	Billed Duration: 1 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465689756,"START RequestId: 9868ce45-689b-4cb8-8f7e-0310b07004e2 Version: $LATEST
+"
+1680465689756,"event-data {'Records': [{'eventID': 'ca06e0371cdd4494709cfe5f0b4b09d5', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465689.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}}, 'NewImage': {'user_uuid': {'S': 'a1d19386-18bd-4756-bf55-7a4d9a6bd814'}, 'message_group_uuid': {'S': 'de844689-91bf-4641-8323-e283c097c90e'}, 'user_handle': {'S': 'bayko'}, 'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'message': {'S': 'HEEEEEEEEEEEEEEEEEEEEELLO'}, 'user_display_name': {'S': 'Andrew Bayko'}}, 'SequenceNumber': '4600000000004169672673', 'SizeBytes': 328, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465689756,"END RequestId: 9868ce45-689b-4cb8-8f7e-0310b07004e2
+"
+1680465689756,"REPORT RequestId: 9868ce45-689b-4cb8-8f7e-0310b07004e2	Duration: 0.88 ms	Billed Duration: 1 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465754438,"START RequestId: 9826eba8-e7fb-4682-bdb4-dbb0685a848c Version: $LATEST
+"
+1680465754440,"event-data {'Records': [{'eventID': 'e7fdc8f32eb0d0bd25843e1e60ef462d', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465754.0, 'Keys': {'sk': {'S': '2023-04-02T20:02:34.038623+00:00'}, 'pk': {'S': 'MSG#de844689-91bf-4641-8323-e283c097c90e'}}, 'NewImage': {'user_uuid': {'S': '432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'user_handle': {'S': 'yaya2devops'}, 'sk': {'S': '2023-04-02T20:02:34.038623+00:00'}, 'message_uuid': {'S': '356a3283-5773-4a2c-b2c0-f6945b9755a8'}, 'pk': {'S': 'MSG#de844689-91bf-4641-8323-e283c097c90e'}, 'message': {'S': 'This actually going to prod.'}, 'user_display_name': {'S': 'Yahya Abulhaj'}}, 'SequenceNumber': '4700000000004169707802', 'SizeBytes': 332, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465754440,"GRUP ===> de844689-91bf-4641-8323-e283c097c90e This actually going to prod.
+"
+1680465754478,"RESP ===> [{'user_handle': 'yaya2devops', 'user_uuid': '432fd9c7-0a30-40c6-8efd-e6badb86c7df', 'user_display_name': 'Yahya Abulhaj', 'sk': '2023-04-02T20:01:27.463551+00:00', 'message': 'HEEEEEEEEEEEEEEEEEEEEELLO', 'pk': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814', 'message_group_uuid': 'de844689-91bf-4641-8323-e283c097c90e'}, {'user_handle': 'bayko', 'user_uuid': 'a1d19386-18bd-4756-bf55-7a4d9a6bd814', 'user_display_name': 'Andrew Bayko', 'sk': '2023-04-02T20:01:27.463551+00:00', 'message': 'HEEEEEEEEEEEEEEEEEEEEELLO', 'pk': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df', 'message_group_uuid': 'de844689-91bf-4641-8323-e283c097c90e'}]
+"
+1680465754506,"DELETE ===> {'ResponseMetadata': {'RequestId': 'NL6TKPILCQFP25PSPGKBOEFK2RVV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': 'NL6TKPILCQFP25PSPGKBOEFK2RVV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:02:34 GMT'}, 'RetryAttempts': 0}}
+"
+1680465754533,"CREATE ===> {'ResponseMetadata': {'RequestId': '6C0R46HE4CT9HEJ9V7U4MLPI9NVV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': '6C0R46HE4CT9HEJ9V7U4MLPI9NVV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:02:34 GMT'}, 'RetryAttempts': 0}}
+"
+1680465754553,"DELETE ===> {'ResponseMetadata': {'RequestId': '1M9S5LJ6OLA6NIOSG2DB91NPMBVV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': '1M9S5LJ6OLA6NIOSG2DB91NPMBVV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:02:34 GMT'}, 'RetryAttempts': 0}}
+"
+1680465754593,"CREATE ===> {'ResponseMetadata': {'RequestId': 'C61URJLOC8A7107PU8HIRQS4BFVV4KQNSO5AEMVJF66Q9ASUAAJG', 'HTTPStatusCode': 200, 'HTTPHeaders': {'x-amzn-requestid': 'C61URJLOC8A7107PU8HIRQS4BFVV4KQNSO5AEMVJF66Q9ASUAAJG', 'x-amz-crc32': '2745614147', 'content-type': 'application/x-amz-json-1.0', 'content-length': '2', 'date': 'Sun, 02 Apr 2023 20:02:34 GMT'}, 'RetryAttempts': 0}}
+"
+1680465754594,"END RequestId: 9826eba8-e7fb-4682-bdb4-dbb0685a848c
+"
+1680465754594,"REPORT RequestId: 9826eba8-e7fb-4682-bdb4-dbb0685a848c	Duration: 155.57 ms	Billed Duration: 156 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465754679,"START RequestId: fa032cfd-96f1-4f36-ac57-3e93ae6da525 Version: $LATEST
+"
+1680465754680,"event-data {'Records': [{'eventID': '705bd8e5091611f9c979f63deb0bc749', 'eventName': 'REMOVE', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465754.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}}, 'SequenceNumber': '4800000000004169707883', 'SizeBytes': 76, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465754680,"skip REMOVE event
+"
+1680465754680,"END RequestId: fa032cfd-96f1-4f36-ac57-3e93ae6da525
+"
+1680465754680,"REPORT RequestId: fa032cfd-96f1-4f36-ac57-3e93ae6da525	Duration: 1.07 ms	Billed Duration: 2 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465754697,"START RequestId: da3c72db-746f-4346-9d56-e8062fe17f97 Version: $LATEST
+"
+1680465754698,"event-data {'Records': [{'eventID': '2e1567ab4e2d56e768b74b82efeb34b1', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465754.0, 'Keys': {'sk': {'S': '2023-04-02T20:02:34.038623+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}}, 'NewImage': {'user_uuid': {'S': '432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'message_group_uuid': {'S': 'de844689-91bf-4641-8323-e283c097c90e'}, 'user_handle': {'S': 'yaya2devops'}, 'sk': {'S': '2023-04-02T20:02:34.038623+00:00'}, 'pk': {'S': 'GRP#a1d19386-18bd-4756-bf55-7a4d9a6bd814'}, 'message': {'S': 'This actually going to prod.'}, 'user_display_name': {'S': 'Yahya Abulhaj'}}, 'SequenceNumber': '4900000000004169707884', 'SizeBytes': 338, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465754698,"END RequestId: da3c72db-746f-4346-9d56-e8062fe17f97
+"
+1680465754698,"REPORT RequestId: da3c72db-746f-4346-9d56-e8062fe17f97	Duration: 0.99 ms	Billed Duration: 1 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465754715,"START RequestId: 61ab3e80-4d6a-4f31-9399-854013ef607f Version: $LATEST
+"
+1680465754716,"event-data {'Records': [{'eventID': '2c8039b456bb1efd28c38e7bfed578e2', 'eventName': 'REMOVE', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465754.0, 'Keys': {'sk': {'S': '2023-04-02T20:01:27.463551+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}}, 'SequenceNumber': '5000000000004169707885', 'SizeBytes': 76, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465754716,"skip REMOVE event
+"
+1680465754716,"END RequestId: 61ab3e80-4d6a-4f31-9399-854013ef607f
+"
+1680465754716,"REPORT RequestId: 61ab3e80-4d6a-4f31-9399-854013ef607f	Duration: 1.30 ms	Billed Duration: 2 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"
+1680465754729,"START RequestId: 18600fb8-8fe8-4bb2-bcaa-5fa6e7195424 Version: $LATEST
+"
+1680465754729,"event-data {'Records': [{'eventID': '10b5b6d9162d7d6d41b24f187a74298a', 'eventName': 'INSERT', 'eventVersion': '1.1', 'eventSource': 'aws:dynamodb', 'awsRegion': 'ca-central-1', 'dynamodb': {'ApproximateCreationDateTime': 1680465754.0, 'Keys': {'sk': {'S': '2023-04-02T20:02:34.038623+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}}, 'NewImage': {'user_uuid': {'S': 'a1d19386-18bd-4756-bf55-7a4d9a6bd814'}, 'message_group_uuid': {'S': 'de844689-91bf-4641-8323-e283c097c90e'}, 'user_handle': {'S': 'bayko'}, 'sk': {'S': '2023-04-02T20:02:34.038623+00:00'}, 'pk': {'S': 'GRP#432fd9c7-0a30-40c6-8efd-e6badb86c7df'}, 'message': {'S': 'This actually going to prod.'}, 'user_display_name': {'S': 'Andrew Bayko'}}, 'SequenceNumber': '5100000000004169707906', 'SizeBytes': 331, 'StreamViewType': 'NEW_IMAGE'}, 'eventSourceARN': 'arn:aws:dynamodb:ca-central-1:598485450821:table/cruddur-messages/stream/2023-04-02T19:07:28.816'}]}
+"
+1680465754732,"END RequestId: 18600fb8-8fe8-4bb2-bcaa-5fa6e7195424
+"
+1680465754732,"REPORT RequestId: 18600fb8-8fe8-4bb2-bcaa-5fa6e7195424	Duration: 3.24 ms	Billed Duration: 4 ms	Memory Size: 128 MB	Max Memory Used: 66 MB	
+"

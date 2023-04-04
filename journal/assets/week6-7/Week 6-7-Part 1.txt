@@ -1,0 +1,238 @@
+## 1- did test script
+
+## 2- did health check imlpementation in app py and script
+
+## 3- create new cloudwatch log group:
+
+aws logs create-log-group --log-group-name "/cruddur/fargate-cluster"
+<capture sans rentation>
+
+aws logs put-retention-policy --log-group-name "/cruddur/fargate-cluster" --retention-in-days 5
+<capture avec rentation>
+
+
+## 4- create our ECS cluster
+
+we are doing much using apis (terminal) because ui can change refernce: Cloudscape AWS (dont like)
+
+- azure - goodjob utility
+- gcp simplicity
+
+
+aws ecs create-cluster \
+--cluster-name cruddur \
+--service-connect-defaults namespace=cruddur
+
+the namespace using cloudmap service
+
+
+- if we using ec2 we would be attaching ec2 instances.
+
+> we dont need the security rules for fargate, it was meant for ec2.
+
+
+
+## Create ECR Repo and push Images to Elastic Container registery ESR
+
+
+- create repo based img for PYTHON, FLASK, REACT: 
+
+
+
+aws ecr create-repository \
+  --repository-name cruddur-python \
+  --image-tag-mutability MUTABLE
+
+<proof in registery>
+
+
+
+- aws login:
+aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
+
+
+- set url:
+
+export ECR_PYTHON_URL="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/cruddur-python"
+echo $ECR_PYTHON_URL
+
+- pull img 
+docker pull python:3.10-slim-buster
+
+- tag img
+docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster
+
+- push img
+Push Image
+
+---
+
+- additional commands:
+
+docker image rm <OPTIONS>:<tag>
+ 
+- Init process for context:
+login: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com"
+run: docker compose up backend-flask db
+
+change backend dockerfile from ENV FLASK_ENV=development to ENV FLASK_DEBUG=1
+
+
+---
+
+
+touchpoint:
+
+you can use it and a lot of tutorials do use "gunicorn" it because when you are running a container you can only have one process right and so these things allow you to run multiple processes and have some additional features. if you Google any generic advice they say don't ever use the basic one always do this because you need to have something in front of it  but me building web apps for years the thing is that I know is the thing that's in front of it that's going to make it secure and safe is all the cloud stuff the ALB all the other stuff that's there so I'm not concerned about running this here we can ask the AWS da what their opinion.
+
+
+## Do the same for flask 
+
+create repo in ECR same
+
+export env 
+
+build it ( make sure in backend dir); tag it and push it.
+
+
+--
+we pause for frontend for now - to get more debugging skills
+--
+
+
+## BACK TO ECS
+- go back to ECS and create a service and not a task.
+
+why? because a task kills itself when its done - service always running;
+
+touchpoint µservice: in theory you could create two containers in here you could have one which is the back end and the front end you don't want that because you'd be coupling those two together and every time you deploy them they're going together when really what you want to do is be able to scale out just the front
+
+- copy paste the task definition from aws dir and create it:
+
+then:
+you have to change this with yours obviously all these values you have to change for yours please (env var etc)
+
+secrets, we're going to store those in parameter store AWS has two different Services Secrets manager parameter store
+Secrets manager is easier to use it integrates with a lot more services with ease but it costs money it starts at least a dollar I don't want to spend any money parameter store is not that harder to use and in this case it integrates very easily not in all cases when we get to cloudformation and other services you'll see what I mean but for this we're going to keep it very simple so we have to make sure that these exist first we have to make sure that these two
+ 
+
+IM roles exist first so that's the that's what we're gonna have to do first
+
+
+---
+
+## Create Role, policy and attach policy:
+
+
+we have to make sure that executionRoleArn and taskRoleArn exisits
+
+
+### Secret manager:
+
+- export all required env var first
+export OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=${HONEYCOMB_API_KEY}"
+env grep OTEL_EXPORTER_OTLP_HEADERS="x-honeycomb-team=${HONEYCOMB_API_KEY}"
+
+
+then:
+- go to secret manager => Parameter store => create parametres => add secrets
+
+- using cli one by one: 
+
+
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/AWS_ACCESS_KEY_ID" --value $AWS_ACCESS_KEY_ID
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY" --value $AWS_SECRET_ACCESS_KEY
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/CONNECTION_URL" --value $PROD_CONNECTION_URL
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" --value $ROLLBAR_ACCESS_TOKEN
+aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
+
+Week 6-7: ECS Fargate Backend Container
+
+
+
+
+and then run the asume file and then the execution file.
+
+aws iam create-role --role-name CruddurServiceExecutionPolicy --assume-role-policy-document file://aws/policies/service-assume-role-execution-policy.json
+
+
+"" 
+
+aws iam put-role-policy \
+  --policy-name CruddurServiceExecutionPolicy \
+  --role-name CruddurServiceExecutionRole \
+  --policy-document file://aws/policies/service-execution-policy.json
+
+THEN ATTACH it:
+
+aws iam attach-role-policy --policy-arn POLICY_ARN --role-name CruddurServiceExecutionRole
+
+or using UI - attach policy, 
+service as service manager, 
+actions as Getparameter and Getsparameter
+resource as specific ADD ARN: region as region, id as id, cruddur/backend-flask/* for paraname then click add 
+name it as: CruddurServiceExecutionRole
+
+
+----
+
+
+- create task role
+
+aws iam create-role \
+    --role-name CruddurTaskRole \
+    --assume-role-policy-document "{
+  \"Version\":\"2012-10-17\",
+  \"Statement\":[{
+    \"Action\":[\"sts:AssumeRole\"],
+    \"Effect\":\"Allow\",
+    \"Principal\":{
+      \"Service\":[\"ecs-tasks.amazonaws.com\"]
+    }
+  }]
+}"
+
+
+
+Policy:
+
+aws iam put-role-policy \
+  --policy-name SSMAccessPolicy \
+  --role-name CruddurTaskRole \
+  --policy-document "{
+  \"Version\":\"2012-10-17\",
+  \"Statement\":[{
+    \"Action\":[
+      \"ssmmessages:CreateControlChannel\",
+      \"ssmmessages:CreateDataChannel\",
+      \"ssmmessages:OpenControlChannel\",
+      \"ssmmessages:OpenDataChannel\"
+    ],
+    \"Effect\":\"Allow\",
+    \"Resource\":\"*\"
+  }]
+}
+
+
+attach:
+
+
+aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/CloudWatchFullAccess --role-name CruddurTaskRole
+aws iam attach-role-policy --policy-arn arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess --role-name CruddurTaskRole
+
+
+we should be ready to create task definition:
+adjust values.
+
+run  the file:
+
+aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json
+
+
+
+
+
+
+
+
+
