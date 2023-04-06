@@ -4,7 +4,7 @@ import psycopg
 import os
 import sys
 
-connection_url = os.getenv("PRODUCTION_URL")
+connection_url = os.getenv("CONNECTION_URL")
 
 conn = None
 try:
