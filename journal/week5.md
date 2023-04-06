@@ -1,21 +1,27 @@
 # Week 5 — DynamoDB and Serverless Caching
 
 
-- [Data Modelling and Patterns]()
+- [Data Modelling and Patterns](#dynamodb-data-modeling)
 
 - **Implement Setup Scripts**
-  - [Implement Schema Load Script]()
-  - [Implement Seed Script]()
-  - [Implement Scan Script]()
+  - [Implement Schema Load Script](#dynamo-loading-schema-script)
+  - [Implement Seed Script](#implement-seed-script)
+  - [Implement Scan Script](#implement-scan-script)
 
 - **DynamoDB Patterns**
-  - [Implement Pattern Scripts]()
-  - [Automate Cognito ID ]()
-  - [Implement Pattern A]()
-  - [Implement Pattern B]()
-  - [Implement Pattern C]()
-  - [Implement Pattern D]()
-  - [Implement Pattern E]()
+  - [Implement Pattern Scripts](#dynamodb-patterns)
+  - [Automate Cognito ID ](#update-cognito-id-script-for-postgres)
+  - [Implement Pattern A](#implement-pattern-a)
+  - [Implement Pattern B](#implement-pattern-b)
+  - [Implement Pattern C](#implement-pattern-c)
+  - [Implement Pattern D](#implement-pattern-d)
+  - [Implement Pattern E](#implement-pattern-e)
+
+
+
+
+
+
 
 
 
@@ -25,33 +31,16 @@
 
 # DynamoDB Data Modeling
 
-The NoSQL data modeling approach in DynamoDB  varies and here i summarized it in the below ten bullet points:
+The NoSQL data modeling approach in DynamoDB  varies and here i summarized it in the below bullet points:
 
 
-**Single table design:** All related data should be stored in a single table to simplify data access and reduce complexity.
-
-**Denormalization:** Data is duplicated across multiple items to reduce the number of queries required to retrieve information.
-
-**Access patterns(our-case):** Data modeling should take into account the most common access patterns to ensure efficient and performant data retrieval.
-
-**Partitioning:** Data is partitioned across multiple nodes for horizontal scalability, with partition keys chosen carefully to avoid hotspots.
-
-**Partition keys and sort keys:** Every item has a unique partition key, and sort keys can be used to refine the sort order of items within a partition and support range queries.
-
-**Global secondary indexes:** Additional indexes can be created on different partition and sort keys to support additional query patterns.
-
+**Single table design:** All related data should be stored in a single table to simplify data access and reduce complexity.<br>
+**Access patterns(our-case):** Data modeling should take into account the most common access patterns to ensure efficient and performant data retrieval.<br>
+**Partitioning:** Data is partitioned across multiple nodes for horizontal scalability, with partition keys chosen carefully to avoid hotspots.<br>
+**Global secondary indexes:** Additional indexes can be created on different partition and sort keys to support additional query patterns.<br>
 **Local secondary indexes:** Additional sort keys can be created within a partition to support specific query patterns.
 
-**Provisioned throughput:** Maximum number of reads and writes that can be performed on the table per second is specified and can be scaled up or down as needed.
-
-**Item size and attributes:** Careful consideration of item size and number of attributes is necessary to ensure efficient query performance.
-
-**Data relationships:** Relationships between data should be carefully considered and may need to be denormalized to optimize data retrieval.
-
-
-<br>
-
-### **CRUDDUR Spreadsheet Data Modeling** 
+## **CRUDDUR Spreadsheet Data Modeling** 
 This tabluar data modeling represent  our use case to retrieve the messages from the MG.
 
 | pk                | sk                   | data                       | uuid                                | display_name    | handle       | message               | user_uuid                            | message_group_uuid                   |
@@ -76,10 +65,7 @@ This Model describe the different ways in which we will access and query data fr
 <img src="assets/week5/DynamoDB Modelling-Patterns.svg">
 
 
-
----
-
-### Implement DynamoDB Local
+## Implement DynamoDB Local
 
 <img src="assets/week5/1- DynamoDb Utility Scrips/6 our db back.png">
 
@@ -88,8 +74,7 @@ This Model describe the different ways in which we will access and query data fr
 - Create a new folder ddb inside backend-flask/bin/ddb
 - Add schema-load script to this folder and make it executable
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/7 our python based dynamodb schema.png
-">
+<img src="assets/week5/1- DynamoDb Utility Scrips/7 our python based dynamodb schema.png">
 
 
 - make it exe using:
@@ -123,8 +108,8 @@ Do the same for scripts to:
 <img src="assets/week5/1- DynamoDb Utility Scrips/13 dropping db file.png">
 
 Performing the drop:
-<img src="assets/week5/1- DynamoDb Utility Scrips/16 that is what we called it - deleting it.png
-">
+
+<img src="assets/week5/1- DynamoDb Utility Scrips/16 that is what we called it - deleting it.png">
 
 #### **Implement Seed Script**
 
@@ -212,7 +197,7 @@ Create `backend-flask/bin/ddb/patterns/get-conversation` and make it executable.
 - Create `backend-flask/bin/ddb/patterns/list-conversation` and make it exe
 
 
-Get it from [here.](../backend-flask/bin/ddb/patterns/get-conversations)
+Get it from [here.](../backend-flask/bin/ddb/patterns/list-conversations)
 
 
 - Update `print_sql` function and prereq in `db.py` to pass params.
@@ -649,7 +634,7 @@ GlobalSecondaryIndexes=[
 ./backend-flask/bin/ddb/schema-load prod
 ```
 
-<img src="">
+<img src="assets/week5/1- DynamoDb Utility Scrips/9 it outputs our table.png">
 
 - From **Exports and streams** tab turn on **DynamoDB stream details** with **New Image** attribute.
 
@@ -759,20 +744,13 @@ def lambda_handler(event, context):
 }
 ```
 
-Or using the console:
+**Or using the console:**
 
-**Fill in the table:**
-- For the index specify region
+| Account       | Region       | Table Name         | Index Name              |
+|---------------|--------------|--------------------|-------------------------|
+| ur aws ID     | Yours        | cruddur-messages   | message-group-sk-index  |
+| Your aws ID   | Yours        | cruddur-messages   | message-group-sk-index  |
 
-- Account:  ur aws ID 
-- Table name: cruddur-messages <br>
-Get the index from ur dynamo:
-Index name: message-group-sk-index
-
-**For the table**
-- Region: Yours
-- Account: Your aws ID
-- Table name: cruddur-messages
 
 <img src="assets/week5/3- NeatDelivery/streams/6 custom policy.png">
 
