@@ -59,11 +59,15 @@ we also used indexes for retrieving messages by the message_group_uuid.
 For your convenience, the model is available in [CSV](assets/week5/Spreadsheet-DynamoDBData%20Modeling.csv) or [PDF](assets/week5/Spreadsheet-DynamoDBData%20Modeling.pdf).
 
 ### **DynamoDB Modeling Patterns** -  [SVG](assets/week5/DynamoDB%20Modelling-Patterns.svg)
-This Model describe the different ways in which we will access and query data from the DynamoDB table.
+This Model describe the different ways in which we will access and query data using the NoSQL approach.
 
 
+Menaing, we are developing a messaging application that offers diverse communication options to users. 
+
+We have **5 patterns**:
 <img src="assets/week5/DynamoDB Modelling-Patterns.svg">
 
+The application will allow users to view grouped messages (A) and navigate between different conversations using message groups (B). Users will be able to add new messages to an existing conversation (C) or start a new conversation (D) to connect with other users in novel ways. Additionally, we will use DynamoDB Streams (E) to track changes to message groups, providing real-time updates when messages are added, edited, or deleted.
 
 ## Implement DynamoDB Local
 
@@ -789,10 +793,11 @@ http://3000-URL/messages/new/bayko
 <img src="assets/week5/3- NeatDelivery/streams/8 pattern E.png">
 
 **Streams Data in DynamoDB:**
+
 <img src="assets/week5/3- NeatDelivery/streams/9 patternE-Dynamo.png">
 
 
-**Streams Logs In Cloudwatch::**
+**Streams Logs In Cloudwatch:**
 <img src="assets/week5/3- NeatDelivery/streams/10- patternE-Cloudwatch.png">
 
 Traceability of logs is available in [CSV](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.csv) and [JSON](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.json).
