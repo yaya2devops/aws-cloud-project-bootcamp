@@ -1,5 +1,8 @@
 
-# Backend Task Definition
+# Task Definition
+
+**Requirements:** [Create Task and Exection Roles](../policies)
+
 
 **Set Credentials to AWS Parameter Store:**
 
@@ -22,4 +25,9 @@ aws ecs register-task-definition --cli-input-json file://aws/task-definitions/ba
 
 
 
-# Frontend Task Definition
+**Run or update the `frontend-react-js.json:`**
+
+
+```sh
+aws ecs register-task-definition --cli-input-json file://aws/task-definitions/frontend-react-js.json
+```
