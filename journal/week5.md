@@ -18,15 +18,6 @@
   - [Implement Pattern E](#implement-pattern-e)
 
 
-
-
-
-
-
-
-
-
-
 ---
 
 # DynamoDB Data Modeling
@@ -59,12 +50,12 @@ we also used indexes for retrieving messages by the message_group_uuid.
 For your convenience, the model is available in [CSV](assets/week5/Spreadsheet-DynamoDBData%20Modeling.csv) or [PDF](assets/week5/Spreadsheet-DynamoDBData%20Modeling.pdf).
 
 ### **DynamoDB Modeling Patterns** -  [SVG](assets/week5/DynamoDB%20Modelling-Patterns.svg)
-This Model describe the different ways in which we will access and query data using the NoSQL approach.
+This below representation of patterns describe the different ways in which we will access and query data using the NoSQL approach.
 
 
-Menaing, we are developing a messaging application that offers diverse communication options to users. 
+Meaning, we are developing a messaging application that offers diverse communication options to users. 
 
-We have **5 patterns**:
+We have **Five patterns**:
 <img src="assets/week5/DynamoDB Modelling-Patterns.svg">
 
 The application will allow users to view grouped messages (A) and navigate between different conversations using message groups (B). Users will be able to add new messages to an existing conversation (C) or start a new conversation (D) to connect with other users in novel ways. Additionally, we will use DynamoDB Streams (E) to track changes to message groups, providing real-time updates when messages are added, edited, or deleted.

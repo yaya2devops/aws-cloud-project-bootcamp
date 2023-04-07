@@ -1,0 +1,4 @@
+#! /usr/bin/bash
+
+
+docker build -t backend-flask-prod -f Dockerfile.prod .
