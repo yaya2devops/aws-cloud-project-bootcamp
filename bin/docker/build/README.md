@@ -33,7 +33,7 @@ echo $dir
 ```
 
 ```sh
-/home/user/Documents
+/home/user/YAYA-WORK
 ```
 
 **Output 2:**
