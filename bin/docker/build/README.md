@@ -1,5 +1,6 @@
 
-## The absolute path
+## The absolute path - Didactic purpose
+> the workload is migrated to `bin/frontend` and `bin/backend` directories
 
 **Command:**
 
