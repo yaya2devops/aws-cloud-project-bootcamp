@@ -1,3 +1,7 @@
+**Connect To service**
+
+
+```sh
 #! /usr/bin/bash
 
 
@@ -22,3 +26,4 @@ aws ecs execute-command  \
 --container $CONTAINER_NAME \
 --command "/bin/bash" \
 --interactive
+```
