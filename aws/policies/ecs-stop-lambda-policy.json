@@ -1,0 +1,32 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "ecs:ListServices",
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "ecs:UpdateService",
+                "logs:CreateLogGroup"
+            ],
+            "Resource": [
+                "arn:aws:logs:ca-central-1:598485450821:*",
+                "arn:aws:ecs:ca-central-1:598485450821:service/cruddur/backend-flask"
+            ]
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:eu-south-1:<your-user-id>:log-group:/aws/lambda/stop-ecs-service:*"
+        }
+    ]
+}
