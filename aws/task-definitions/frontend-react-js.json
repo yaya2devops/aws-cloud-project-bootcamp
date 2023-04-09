@@ -1,44 +1,57 @@
 {
-    "family": "frontend-react-js",
+  "family": "frontend-react-js",
     "executionRoleArn": "arn:aws:iam::598485450821:role/CruddurServiceExecutionRole",
     "taskRoleArn": "arn:aws:iam::598485450821:role/CruddurTaskRole",
-    "networkMode": "awsvpc",
-    "cpu": "256",
-    "memory": "512",
-    "requiresCompatibilities": [ 
-      "FARGATE" 
-    ],
-    "containerDefinitions": [
-      {
-        "name": "frontend-react-js",
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "requiresCompatibilities": [ 
+    "FARGATE" 
+  ],
+  "containerDefinitions": [
+    {
+      "name": "xray",
+      "image": "public.ecr.aws/xray/aws-xray-daemon" ,
+      "essential": true,
+      "user": "1337",
+      "portMappings": [
+        {
+          "name": "xray",
+          "containerPort": 2000,
+          "protocol": "udp"
+        }
+      ]
+    },
+    {
+      "name": "frontend-react-js",
         "image": "598485450821.dkr.ecr.ca-central-1.amazonaws.com/frontend-react-js",
-        "essential": true,
-        "healthCheck": {
-          "command": [
-            "CMD-SHELL",
-            "curl -f http://localhost:3000 || exit 1"
-          ],
-          "interval": 30,
-          "timeout": 5,
-          "retries": 3
-        },
-        "portMappings": [
-          {
-            "name": "frontend-react-js",
-            "containerPort": 3000,
-            "protocol": "tcp", 
-            "appProtocol": "http"
-          }
+      "essential": true,
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:3000 || exit"
         ],
-  
-        "logConfiguration": {
-          "logDriver": "awslogs",
-          "options": {
-              "awslogs-group": "cruddur",
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3
+      },
+      "portMappings": [
+        {
+          "name": "frontend-react-js",
+          "containerPort": 3000,
+          "protocol": "tcp", 
+          "appProtocol": "http"
+        }
+      ],
+
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+            "awslogs-group": "cruddur",
               "awslogs-region": "ca-central-1",
-              "awslogs-stream-prefix": "frontend-react-js"
-          }
+            "awslogs-stream-prefix": "frontend-react-js"
         }
       }
-    ]
-  }
+    }
+  ]
+}

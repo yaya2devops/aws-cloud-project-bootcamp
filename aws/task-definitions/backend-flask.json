@@ -8,7 +8,7 @@
   "requiresCompatibilities": [ 
     "FARGATE" 
   ],
-  "containerDefinitions": [ 
+  "containerDefinitions": [
     {
       "name": "xray",
       "image": "public.ecr.aws/xray/aws-xray-daemon" ,
@@ -23,51 +23,51 @@
       ]
     },
     {
-    "name": "backend-flask",
+      "name": "backend-flask",
     "image": "598485450821.dkr.ecr.ca-central-1.amazonaws.com/backend-flask",
-    "essential": true,
-    "healthCheck": {
-      "command": [
-        "CMD-SHELL",
-        "python /backend-flask/bin/health-check"
+      "essential": true,
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "python /backend-flask/bin/health-check"
+        ],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 60
+      },
+      "portMappings": [
+        {
+          "name": "backend-flask",
+          "containerPort": 4567,
+          "protocol": "tcp", 
+          "appProtocol": "http"
+        }
       ],
-      "interval": 30,
-      "timeout": 5,
-      "retries": 3,
-      "startPeriod": 60
-    },
-    "portMappings": [
-      {
-        "name": "backend-flask",
-        "containerPort": 4567,
-        "protocol": "tcp", 
-        "appProtocol": "http"
-      }
-    ],
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
           "awslogs-group": "/cruddur/fargate-cluster",
           "awslogs-region": "ca-central-1",
-          "awslogs-stream-prefix": "backend-flask"
-      }
-    },
-    "environment": [
-      {"name": "OTEL_SERVICE_NAME", "value": "backend-flask"},
-      {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
+            "awslogs-stream-prefix": "backend-flask"
+        }
+      },
+      "environment": [
+        {"name": "OTEL_SERVICE_NAME", "value": "backend-flask"},
+        {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
       {"name": "AWS_COGNITO_USER_POOL_ID", "value": "ca-central-1_RT6uZ6IkV"},
       {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "5il3116qm0rh3ropspnirktnls"},
       {"name": "FRONTEND_URL", "value": "*"},
       {"name": "BACKEND_URL", "value": "*"},
       {"name": "AWS_DEFAULT_REGION", "value": "ca-central-1"}
-    ],
-    "secrets": [
+      ],
+      "secrets": [
       {"name": "AWS_ACCESS_KEY_ID"    , "valueFrom": "arn:aws:ssm:ca-central-1:598485450821:parameter/cruddur/backend-flask/AWS_ACCESS_KEY_ID"},
       {"name": "AWS_SECRET_ACCESS_KEY", "valueFrom": "arn:aws:ssm:ca-central-1:598485450821:parameter/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY"},
       {"name": "CONNECTION_URL"       , "valueFrom": "arn:aws:ssm:ca-central-1:598485450821:parameter/cruddur/backend-flask/CONNECTION_URL" },
       {"name": "ROLLBAR_ACCESS_TOKEN" , "valueFrom": "arn:aws:ssm:ca-central-1:598485450821:parameter/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" },
       {"name": "OTEL_EXPORTER_OTLP_HEADERS" , "valueFrom": "arn:aws:ssm:ca-central-1:598485450821:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" }
-     ]
-   }
- ]  
+      ]
+    }
+  ]
 }

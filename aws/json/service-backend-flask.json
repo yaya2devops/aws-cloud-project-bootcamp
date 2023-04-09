@@ -10,7 +10,7 @@
         "containerName": "backend-flask",
         "containerPort": 4567
     }
-  ],
+],
   "networkConfiguration": {
     "awsvpcConfiguration": {
       "assignPublicIp": "ENABLED",
@@ -25,15 +25,15 @@
     }
   },
   "serviceConnectConfiguration": {
-    "enabled": true,
-    "namespace": "cruddur",
-    "services": [
-      {
-        "portName": "backend-flask",
-        "discoveryName": "backend-flask",
-        "clientAliases": [{"port": 4567}]
-      }
-    ]
+      "enabled": true,
+      "namespace": "cruddur",
+      "services": [
+        {
+          "portName": "backend-flask",
+          "discoveryName": "backend-flask",
+          "clientAliases": [{"port": 4567}]
+        }
+      ]
   },
   "propagateTags": "SERVICE",
   "serviceName": "backend-flask",
