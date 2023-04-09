@@ -8,14 +8,28 @@
   "requiresCompatibilities": [ 
     "FARGATE" 
   ],
-  "containerDefinitions": [ {
+  "containerDefinitions": [ 
+    {
+      "name": "xray",
+      "image": "public.ecr.aws/xray/aws-xray-daemon" ,
+      "essential": true,
+      "user": "1337",
+      "portMappings": [
+        {
+          "name": "xray",
+          "containerPort": 2000,
+          "protocol": "udp"
+        }
+      ]
+    },
+    {
     "name": "backend-flask",
     "image": "598485450821.dkr.ecr.ca-central-1.amazonaws.com/backend-flask",
     "essential": true,
     "healthCheck": {
       "command": [
         "CMD-SHELL",
-        "python /backend-flask/bin/flask/health-check"
+        "python /backend-flask/bin/health-check"
       ],
       "interval": 30,
       "timeout": 5,

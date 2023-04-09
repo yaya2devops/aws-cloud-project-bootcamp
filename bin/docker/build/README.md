@@ -52,8 +52,8 @@ echo $parent_dir
 
 ## PoC Implementation:
 
-- [`bin/docker/build/frontend-react-js`](frontend-react-js) 
-- [`bin/docker/build/backend-flask-prod`](backend-flask-prod) 
+- [`bin/docker/build/frontend-react-js`](../../frontend/build) 
+- [`bin/docker/build/backend-flask-prod`](../../backend/build) 
 - [`bin/db/schema-load`](../../db/schema-load) 
 - [`bin/db/seed`](../../db/seed) 
 - [`bin/db/setup`](../../db/setup) 
