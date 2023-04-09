@@ -1,0 +1,22 @@
+-----This file was auto generated-----------------------------------------------
+-----Values deleted by the developer--------------------------------------------
+-----Extension modified `.env` to `.envo`to avoid gitignore this time-----------
+
+AWS_ENDPOINT_URL=
+CONNECTION_URL=
+FRONTEND_URL=
+BACKEND_URL=
+OTEL_SERVICE_NAME=
+OTEL_EXPORTER_OTLP_ENDPOINT=
+OTEL_EXPORTER_OTLP_HEADERS=x-honeycomb-team=
+AWS_XRAY_URL=
+AWS_XRAY_DAEMON_ADDRESS=
+AWS_DEFAULT_REGION=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+ROLLBAR_ACCESS_TOKEN=
+AWS_COGNITO_USER_POOL_ID=
+AWS_COGNITO_USER_POOL_CLIENT_ID=
+
+
+this was possible thanks to the `generate-env` ruby script.
