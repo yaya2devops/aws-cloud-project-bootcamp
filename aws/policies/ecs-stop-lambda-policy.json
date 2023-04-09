@@ -26,7 +26,7 @@
                 "logs:CreateLogStream",
                 "logs:PutLogEvents"
             ],
-            "Resource": "arn:aws:logs:eu-south-1:<your-user-id>:log-group:/aws/lambda/stop-ecs-service:*"
+            "Resource": "arn:aws:logs:eu-south-1:598485450821:log-group:/aws/lambda/stop-ecs-service:*"
         }
     ]
 }
