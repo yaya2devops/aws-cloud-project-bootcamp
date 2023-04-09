@@ -1,0 +1,108 @@
+Create service within the created cluster in ECS:
+
+
+Terminal work:
+
+export DEFAULT_VPC_ID=$(aws ec2 describe-vpcs \
+--filters "Name=isDefault, Values=true" \
+--query "Vpcs[0].VpcId" \
+--output text)
+echo $DEFAULT_VPC_ID
+
+
+export CRUD_SERVICE_SG=$(aws ec2 create-security-group \
+  --group-name "crud-srv-sg" \
+  --description "Security group for Cruddur services on ECS" \
+  --vpc-id $DEFAULT_VPC_ID \
+  --query "GroupId" --output text)
+echo $CRUD_SERVICE_SG
+
+
+aws ec2 authorize-security-group-ingress \
+  --group-id $CRUD_SERVICE_SG \
+  --protocol tcp \
+  --port 80 \
+  --cidr 0.0.0.0/0
+
+---
+
+service backend:
+
+{
+    "cluster": "cruddur",
+    "launchType": "FARGATE",
+    "desiredCount": 1,
+    "enableECSManagedTags": true,
+    "enableExecuteCommand": true,
+    "networkConfiguration": {
+      "awsvpcConfiguration": {
+        "assignPublicIp": "ENABLED",
+        "securityGroups": [
+          "sg-0cd656f6311309ed0"
+        ],
+        "subnets": [
+          "subnet-095cf777f9bfdc50d",
+          "subnet-0c6ead51b52d4c54a",
+          "subnet-06ab2b2dfd7c93f0b"
+        ]
+      }
+    },
+    "propagateTags": "SERVICE",
+    "serviceName": "backend-flask",
+    "taskDefinition": "backend-flask",
+    "serviceConnectConfiguration": {
+      "enabled": true,
+      "namespace": "cruddur",
+      "services": [
+        {
+          "portName": "backend-flask",
+          "discoveryName": "backend-flask",
+          "clientAliases": [{"port": 4567}]
+        }
+      ]
+    }
+  }
+
+
+sg-0cd656f6311309ed0 subnet-095cf777f9bfdc50d,subnet-0c6ead51b52d4c54a,subnet-06ab2b2dfd7c93f0b
+
+
+we dont need this part for now its for later when using service mech:
+
+    "serviceConnectConfiguration": {
+      "enabled": true,
+      "namespace": "cruddur",
+      "services": [
+        {
+          "portName": "backend-flask",
+          "discoveryName": "backend-flask",
+          "clientAliases": [{"port": 4567}]
+        }
+      ]
+    }
+
+
+create service:
+
+aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
+
+
+----
+
+
+i'm left out in:
+
+- create task within ECS => Cluster => CRUDDUR
+- then run the command to enter the container
+
+
+i need my task id there:
+
+aws ecs execute-command  \
+--region $AWS_DEFAULT_REGION \
+--cluster cruddur \
+--task dceb2ebdc11c49caadd64e6521c6b0c7 \
+--container backend-flask \
+--command "/bin/bash" \
+--interactiv
+

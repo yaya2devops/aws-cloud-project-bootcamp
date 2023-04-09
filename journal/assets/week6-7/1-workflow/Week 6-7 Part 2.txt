@@ -1,0 +1,79 @@
+arn:aws:ecs:ca-central-1:598485450821:task/cruddur/ded6a5a5aa68429691228cdb3a9668c4
+
+
+
+aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
+
+
+list task:  aws ecs list-tasks --cluster cruddur
+
+return:
+
+{
+    "taskArns": [
+        "arn:aws:ecs:ca-central-1:598485450821:task/cruddur/ded6a5a5aa68429691228cdb3a9668c4"
+    ]
+}
+
+
+./bin/ecs/connect-to-service ded6a5a5aa68429691228cdb3a9668c4 backend-flask
+
+
+
+connect to the ecs container:
+
+aws ecs execute-command  \
+--region $AWS_DEFAULT_REGION \
+--cluster cruddur \
+--task ded6a5a5aa68429691228cdb3a9668c4 \
+--container backend-flask \
+--command "/bin/bash" \
+--interactive
+
+ls:
+pwd:
+
+
+
+what's missing now:
+
+after the above, 
+- use the script to connect to container.
+- run the healthcheck script (its set) http://15.156.89.105:4567/api/health-check
+- run the test script (its set) => susccess
+
+
+go to http://15.156.89.105:4567/api/activities/home => get data back ( this thing is coming raw, ther is no protection, anyone can hit/target this endpoint => protect api but this does work )
+
+
+
+i think we could create aws aliases for aws clis but bash scripts are ok
+
+
+
+--
+security groups
+
+IP addresses
+
+
+cruddur-lb-target-backend-flask
+
+
+Protocol
+
+HTTP
+:
+Port
+4567
+
+
+----
+
+
+
+cruddur-alb-1019408750.ca-central-1.elb.amazonaws.com
+
+
+
+

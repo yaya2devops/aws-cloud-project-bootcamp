@@ -1,2 +1,6 @@
 docker/**/*
 awscliv2.zip
+frontend-react-js/build/*
+session-manager-plugin.deb
+backend-flask/session-manager-plugin.deb
+*.env

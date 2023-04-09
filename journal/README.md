@@ -8,7 +8,9 @@
 ### Resources
 
 - [Gitpod Migration](new-gitpod.md)
-- [Weekly Tagging](student-portal.md)
+- [Weekly Tagging](tagging.md)
 - [Student Portal](student-portal.md)
+- [Discord Issues](assets/week4/Discord/README.md)
+
 
 

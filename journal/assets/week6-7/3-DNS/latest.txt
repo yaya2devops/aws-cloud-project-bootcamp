@@ -1,0 +1,57 @@
+
+
+
+
+- route53 because u need to add record for load ballancer and map allias 
+
+
+
+
+
+test it:
+curl https://api.yahya-abulhaj.dev/api/health-check
+
+should be secure using the certificate
+
+GO manage rules in LB and change api.aejjzae to backendapi.yahya
+go to backend flask task defeniiton and change the exposed front and backend url to https:cruddur.yahay and https cruddurbackend.yahay...
+
+then register task BACK
+
+
+AND GO REBUILD FRONT IMG
+-sign in first
+-export
+-cd frontend
+
+
+and build diff
+
+
+docker build \
+--build-arg REACT_APP_BACKEND_URL="https://backend-cruddur.yahya-abulhaj.Dev" \
+--build-arg REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+--build-arg REACT_APP_AWS_USER_POOLS_ID="MINE" \
+--build-arg REACT_APP_CLIENT_ID="MINE" \
+-t frontend-react-js \
+-f Dockerfile.prod \
+.
+
+
+tag and push nrml
+
+
+
+
+once finish go check health and force deployemen with last for backend.
+
+front end just forrce deplployement
+
+
+
+FLASK CORS
+
+whats cors for god sake
+
+
