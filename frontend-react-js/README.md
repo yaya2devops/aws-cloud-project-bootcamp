@@ -1,7 +1,7 @@
 
 ### Production
 
-[sign-in](../backend-flask/bin/ecr/sign-in)
+[sign-in](../bin/ecr/sign-in)
 
 ```sh
 export ECR_FRONTEND_REACT_URL="598485450821.dkr.ecr.canada-central-1.amazonaws.com/frontend-react-js"
@@ -17,7 +17,7 @@ npm run build
 ```
 
 
-**Create repo in fargate:**
+**Create repo in ECR:**
 
 ```sh
 aws ecr create-repository \
