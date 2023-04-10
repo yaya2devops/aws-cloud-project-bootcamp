@@ -1,7 +1,7 @@
-# Project Librairy
+# Creative Compilation
 
 
-This image depicts the initial project-goal deliverable:
+The asset below illustrates the initial deliverable that the project aims to achieve.
 
 <img src="GOAL.png">
 
@@ -23,6 +23,7 @@ To view and edit this file, use [DRAWIO](aware.drawio)
 
 
 ## Assets Progression
+
 After creating 16 creative essays, here are four potential changes:
 
 
@@ -46,7 +47,7 @@ The official screenshot with seed data showcases the application's initial state
 
 ## Cruddur On PostgreSQL CRUD Activity in Week 4
 
-This screenshot represents my progress in developing and improving the CRUDDUR's UI/UX functionality  , and serves as a testament to my skills in NoSQL and implementing psql with success:
+This screenshot represents my progress in developing and improving the CRUDDUR's UI/UX functionality, and serves as a testament to my skills in mySQL and implementing psql with success:
 
 <img src="yayaoncruddur.png">
 

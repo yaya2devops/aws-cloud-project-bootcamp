@@ -5,12 +5,13 @@ Devcontainer and [`.gitpod.yml`](../.gitpod.yml) are both used to define the dev
 
 ### Comparison Features
 
-| Feature               | Devcontainer                         | .gitpod.yml                             |
+| Feature               | Devcontainer                         | Gitpod                             |
 |-----------------------|--------------------------------------|-----------------------------------------|
-| Defines development environment | Yes | Yes |
-| Runs on local machine | Yes | No  |
+| Defines dev environment | Yes | Yes |
+| Runs on local e.g. vscode | Yes | No  |
+| Runs in the cloud via **URL** | No | Yes  |
 |Extension configuration|Yes|Yes|	
-|User management	|Yes|No|
+|User management	|Yes|Yes|
 ### Decontainer Custom Settings
 
 You have complete flexibility to adjust and customize the [`devcontainer.json`](devcontainer.json) file according to your preferences.
