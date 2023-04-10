@@ -1,29 +1,52 @@
 {
-	"name": "Cruddur Configuration",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"name": "Free AWS Cloud Bootcamp Development Environment",
+	"build": { "dockerfile": "Dockerfile" },
 	"features": {
-		"ghcr.io/devcontainers/features/aws-cli:1": {}
+	  "ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
-    // auto complete aws commands:
 	"remoteEnv": {
-		"AWS_CLI_AUTO_PROMPT": "on-partial"
-	},	
+	  "AWS_CLI_AUTO_PROMPT": "on-partial"
+	},
+	"forwardPorts": [3000, 4567, 2000],
+	"portsAttributes": {
+	  "3000": {
+		"label": "Cruddur Frontend",
+		"onAutoForward": "notify"
+	  },
+	  "4567": {
+		"label": "Cruddur Backend",
+		"onAutoForward": "notify"
+	  },
+	  "2000": {
+		"label": "AWS X-Ray Daemon",
+		"onAutoForward": "notify"
+	  }
+	},
 	"customizations": {
-		"vscode": {
-			"extensions": [
-				"ms-azuretools.vscode-docker",
-				"ms-python.python",
-				"vscodevim.vim"
-			],
-			"settings": {
-				"terminal.integrated.fontSize": 20,
-				"editor.fontSize": 20,
-				"workbench.colorTheme": "Default Dark+ Experimental"
-			}
-		}
-		
-
-
-	}
-
-}
+	  "vscode": {
+		"extensions": [
+		  "42Crunch.vscode-openapi",
+		  "ms-azuretools.vscode-docker",
+		  "ms-python.python",
+		  "hashicorp.terraform",
+		  "redhat.ansible",
+		  "redhat.vscode-yaml",
+		  "amazonwebservices.aws-toolkit-vscode",
+		  "vscodevim.vim"
+		]
+	  }
+	},
+	"containerEnv": {
+	  "AWS_ACCESS_KEY_ID": "${localEnv:AWS_ACCESS_KEY_ID}",
+	  "AWS_ACCOUNT_ID": "${localEnv:AWS_ACCOUNT_ID}",
+	  "AWS_DEFAULT_REGION": "${localEnv:AWS_DEFAULT_REGION}",
+	  "AWS_SECRET_ACCESS_KEY": "${localEnv:AWS_SECRET_ACCESS_KEY}",
+	  "DOCKER_USERNAME": "${localEnv:DOCKER_USERNAME}",
+	  "DOCKER_PASSWORD": "${localEnv:DOCKER_PASSWORD}",
+	  "HONEYCOMB_API_KEY": "${localEnv:HONEYCOMB_API_KEY}",
+	  "ROLLBAR_ACCESS_TOKEN": "${localEnv:ROLLBAR_ACCESS_TOKEN}"
+	},
+	"remoteUser": "bootcamp",
+	"postAttachCommand": "cd ./frontend-react-js && npm install && cd ../backend-flask && pip install -r requirements.txt"
+  }
+  
