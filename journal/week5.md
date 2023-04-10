@@ -1,5 +1,9 @@
-# Week 5 — DynamoDB and Serverless Caching
+# Week 5 — NoSQL with Amazon DynamoDB
 
+<img src="assets/week5/week5-banner.png">
+
+
+## Table Of Contents
 
 - [Data Modelling and Patterns](#dynamodb-data-modeling)
 
@@ -633,7 +637,7 @@ GlobalSecondaryIndexes=[
 
 - From **Exports and streams** tab turn on **DynamoDB stream details** with **New Image** attribute.
 
-### VPC Endpoint
+**VPC Endpoint:**
 
 - Go to **VPC** console.
 - Click on **Endpoints** tab in main window
@@ -789,9 +793,16 @@ http://3000-URL/messages/new/bayko
 
 
 **Streams Logs In Cloudwatch:**
-<img src="assets/week5/3- NeatDelivery/streams/10- patternE-Cloudwatch.png">
 
 Traceability of logs is available in [CSV](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.csv) and [JSON](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.json).
+
+<img src="assets/week5/3- NeatDelivery/streams/10- patternE-Cloudwatch.png">
+
+
+
+
+Access All Week Five Catalog from [this location](assets/week5/)
+
 
 ---
 
@@ -799,9 +810,10 @@ Traceability of logs is available in [CSV](assets/week5/%5BLOGS%5Dmessanging-str
 
 **DynamoDB Reference:**
 
-I have a solid dev with dynamo thnx to my [AWS experience](https://www.credly.com/badges/e3006b62-c8ee-430d-8dec-5da2a75b2c32).
+Thanks to my experience with AWS, I have developed a strong foundation in Dynamo, as evidenced by my proficiency badge [here.](https://www.credly.com/badges/e3006b62-c8ee-430d-8dec-5da2a75b2c32)
 
 
+Additionally, I also...
 - [Read about DynamoDB in Official website](https://aws.amazon.com/fr/dynamodb/?trk=94bf4df1-96e1-4046-a020-b07a2be0d712&sc_channel=ps&s_kwcid=AL!4422!3!610000101513!e!!g!!dynamodb&ef_id=Cj0KCQjwwtWgBhDhARIsAEMcxeDoOTqTBoS97XAHp4vUA5eci9pKGYnVyneMfNsopppX474j1f_e8X8aAjVCEALw_wcB:G:s&s_kwcid=AL!4422!3!610000101513!e!!g!!dynamodb)
 - [Learned more how Dynamo works](https://docs.getcommandeer.com/docs/DynamoDB/viewing-your-dynamodb-er-diagram/#viewing-your-dynamodb-er-diagram)
 - [Watched this playlist from Serverless Land](https://www.youtube.com/playlist?list=PLJo-rJlep0EDNtcDeHDMqsXJcuKMcrC5F)
