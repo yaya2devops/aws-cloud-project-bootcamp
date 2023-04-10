@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Enter the directory path as an argument
+DIRECTORY=$1
+
+# Use the 'find' command to count the number of files in the directory and its subdirectories
+NUM_FILES=$(find "$DIRECTORY" -type f | wc -l)
+
+# Print the result
+echo "The number of files in the directory $DIRECTORY and its subdirectories is $NUM_FILES"
