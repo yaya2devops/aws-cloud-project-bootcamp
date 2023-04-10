@@ -1,7 +1,8 @@
 # Project Librairy
 
 
-This image represents the initial project goal deliverable
+This image depicts the initial project-goal deliverable:
+
 <img src="GOAL.png">
 
 
@@ -43,7 +44,7 @@ I decided to take the initiative to improve the banner  by rounding its edges.
 The official screenshot with seed data showcases the application's initial state and functionality.
 <img src="cruddur-screenshot.png">
 
-## Cruddur On PostgreSQL CRUD Activity in Week 5
+## Cruddur On PostgreSQL CRUD Activity in Week 4
 
 This screenshot represents my progress in developing and improving the CRUDDUR's UI/UX functionality  , and serves as a testament to my skills in NoSQL and implementing psql with success:
 
