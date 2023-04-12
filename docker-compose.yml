@@ -8,6 +8,8 @@ services:
       - "4567:4567"
     volumes:
       - ./backend-flask:/backend-flask
+    networks:
+      - cruddur-net
   frontend-react-js:
     env_file:
       - frontend-react-js.env
