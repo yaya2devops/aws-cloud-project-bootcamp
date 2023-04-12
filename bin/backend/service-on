@@ -1,0 +1,12 @@
+#! /usr/bin/bash
+
+GREEN='\033[1;32m'
+NO_COLOR='\033[0m'
+LABEL="--Fargate:Flask.Service=Launch"
+printf "${GREEN}ON: ${LABEL}${NO_COLOR}\n"
+
+
+aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
+
+
+

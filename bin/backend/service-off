@@ -1,0 +1,9 @@
+#! /usr/bin/bash
+
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+LABEL="--Fargate:Flask.Service=Shut"
+printf "${YELLOW}==== WARNING: ${LABEL}${NO_COLOR}\n"
+
+
+aws ecs delete-service --cluster cruddur --service backend-flask --force
