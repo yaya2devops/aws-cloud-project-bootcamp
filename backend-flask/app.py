@@ -4,6 +4,9 @@ from flask_cors import CORS, cross_origin
 import os
 import sys
 
+#  Middleware for JWT
+from lib.middleware import middleware  # for middleware auth
+
 from services.users_short import *
 from services.home_activities import *
 from services.notifications_activities import *
@@ -79,12 +82,16 @@ tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
 
+app.wsgi_app = middleware(app.wsgi_app)
+
 # Authorization JWT
-cognito_jwt_token = CognitoJwtToken(
-  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
-  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
-  region=os.getenv("AWS_DEFAULT_REGION")
-)
+#cognito_jwt_token = CognitoJwtToken(
+#  user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"), 
+#  user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+#  region=os.getenv("AWS_DEFAULT_REGION")
+#)
+
+
 
 # X-RAY ----------
 #XRayMiddleware(app, xray_recorder)
