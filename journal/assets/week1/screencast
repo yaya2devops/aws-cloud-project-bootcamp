@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Generate image tags for root directory
+echo "# Week 1: Screencast" > README.md
+
+# Find all PNG images in the root directory and its subdirectories, and sort them numerically
+find . -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for CLI-WORK directory
+echo "<br>" >> README.md
+echo "## PSQL" >> README.md
+
+# Find all PNG images in the CLI-WORK directory and its subdirectories, and sort them numerically
+find "./Postgre" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for media directory
+echo "<br>" >> README.md
+echo "## DynamoDB" >> README.md
+
+# Find all PNG images in the media directory and its subdirectories, and sort them numerically
+find "./dynamo work" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done

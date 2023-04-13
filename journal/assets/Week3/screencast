@@ -1,0 +1,89 @@
+#!/bin/bash
+
+# Generate image tags for root directory
+echo "# Week 3: Screencast" > README.md
+
+# Find all PNG images in the root directory and its subdirectories, and sort them numerically
+find . -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for Amplify directory
+echo "<br>" >> README.md
+echo "## Amplify" >> README.md
+
+# Find all PNG images in the Amplify directory and its subdirectories, and sort them numerically
+find "./Amplify" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for Codespaces directory
+echo "<br>" >> README.md
+echo "## Codespaces" >> README.md
+
+# Find all PNG images in the Codespaces directory and its subdirectories, and sort them numerically
+find "./Codespaces" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for cognito directory
+echo "<br>" >> README.md
+echo "## cognito" >> README.md
+
+# Find all PNG images in the cognito directory and its subdirectories, and sort them numerically
+find "./cognito" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for Cognito JWT directory
+echo "<br>" >> README.md
+echo "## Cognito JWT" >> README.md
+
+# Find all PNG images in the Cognito JWT directory and its subdirectories, and sort them numerically
+find "./Cognito JWT" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for Complete directory
+echo "<br>" >> README.md
+echo "## Complete" >> README.md
+
+# Find all PNG images in the Complete directory and its subdirectories, and sort them numerically
+find "./Complete" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for docker-local directory
+echo "<br>" >> README.md
+echo "## docker-local" >> README.md
+
+# Find all PNG images in the docker-local directory and its subdirectories, and sort them numerically
+find "./docker-local" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for last-part directory
+echo "<br>" >> README.md
+echo "## last-part" >> README.md
+
+# Find all PNG images in the last-part directory and its subdirectories, and sort them numerically
+find "./Last-part" -type f -name "*.png

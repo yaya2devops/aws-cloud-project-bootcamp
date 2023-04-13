@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Generate image tags for root directory
+echo "# Week 2: Screencast" > README.md
+
+# Find all PNG images in the root directory and its subdirectories, and sort them numerically
+find . -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for heyhoney directory
+echo "<br>" >> README.md
+echo "## HeyHoney" >> README.md
+
+# Find all PNG images in the heyhoney directory and its subdirectories, and sort them numerically
+find "./heyhoney" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for rollbar directory
+echo "<br>" >> README.md
+echo "## Rollbar" >> README.md
+
+# Find all PNG images in the rollbar directory and its subdirectories, and sort them numerically
+find "./rollbar" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for XRAY directory
+echo "<br>" >> README.md
+echo "## XRAY" >> README.md
+
+# Find all PNG images in the XRAY directory and its subdirectories, and sort them numerically
+find "./XRAY" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done

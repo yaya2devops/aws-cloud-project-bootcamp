@@ -21,7 +21,7 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
 aws ecs register-task-definition --cli-input-json file://aws/task-definitions/backend-flask.json
 ```
 
-**Reference - [Fargate backend-flask:1](backend-flask-revision1.json)** 
+**Reference - [Fargate backend-flask:1](console/backend-flask-revision1.json)** 
 
 
 

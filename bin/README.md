@@ -9,8 +9,14 @@ The following scripts were manually written using Python, Bash, and Ruby. The cr
 ./bin/
 ├── backend
 │   ├── build
+│   ├── connect
 │   ├── deploy
-│   └── push
+│   ├── generate-env
+│   ├── push
+│   ├── register
+│   ├── run
+│   ├── service-off
+│   └── service-on
 ├── cognito
 │   └── list-users
 ├── db
@@ -37,14 +43,16 @@ The following scripts were manually written using Python, Bash, and Ruby. The cr
 │   │   └── not-real-path
 ├── ecr
 │   └── login
-├── ecs
-│   ├── connect-to-service
-│   ├── delete-services
-│   └── launch-services
 ├── frontend
 │   ├── build
+│   ├── connect
 │   ├── deploy
-│   └── push
+│   ├── generate-env
+│   ├── push
+│   ├── register
+│   ├── run
+│   ├── service-off
+│   └── service-on
 ├── rds
 │   └── update-sg-rule
 ├── busybox

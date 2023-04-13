@@ -1,4 +1,4 @@
-## Snapshot Archive — Capturing Progress
+## Gallery Archive — Capturing Progress
 
 | Week | Technology Focus  | Collection of goods|
 |------|-------------------------|-------------------------|

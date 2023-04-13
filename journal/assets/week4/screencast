@@ -1,0 +1,119 @@
+#!/bin/bash
+
+# Generate image tags for root directory
+echo "# Week 4: Screencast" > README.md
+
+# Find all PNG images in the root directory and its subdirectories, and sort them numerically
+find . -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for 1-ProdDB directory
+echo "<br>" >> README.md
+echo ""
+echo "## 1-ProdDB" >> README.md
+
+# Find all PNG images in the 1-ProdDB directory and its subdirectories, and sort them numerically
+find "./1-ProdDB" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for 2- localwork directory
+echo "<br>" >> README.md
+echo ""
+
+echo "## 2- localwork" >> README.md
+
+# Find all PNG images in the 2- localwork directory and its subdirectories, and sort them numerically
+find "./2- localwork" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for 3- psqlquery directory
+echo "<br>" >> README.md
+echo ""
+
+echo "## 3- psqlquery" >> README.md
+
+# Find all PNG images in the 3- psqlquery directory and its subdirectories, and sort them numerically
+find "./3- psqlquery" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for 4- Driver and query directory
+echo "<br>" >> README.md
+echo ""
+
+echo "## 4- Driver and query" >> README.md
+
+# Find all PNG images in the 4- Driver and query directory and its subdirectories, and sort them numerically
+find "./4- Driver and query" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for 5- Establish RDS-Connetion directory
+echo "<br>" >> README.md
+echo ""
+
+echo "## 5- Establish RDS-Connetion" >> README.md
+
+# Find all PNG images in the 5- Establish RDS-Connetion directory and its subdirectories, and sort them numerically
+find "./5- Establish RDS-Connetion" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+  # Generate image tags for subdirectories of 5- Establish RDS-Connetion directory
+  if [[ "$file" == *"/5- Establish RDS-Connetion/"* ]]; then
+    directory=$(dirname "$file")
+    subdirectory=$(echo $directory | awk -F '/' '{print $(NF-1)}')
+    echo "<br>" >> README.md
+    echo "### $subdirectory"
+
+
+# Generate image tags for 6- Lambda Time directory
+echo "<br>" >> README.md
+echo "## 6- Lambda Time" >> README.md
+
+# Find all PNG images in the 6- Lambda Time directory and its subdirectories, and sort them numerically
+find "6- Lambda Time/" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+
+# Generate image tags for Discord directory
+echo "<br>" >> README.md
+echo "## Discord" >> README.md
+
+# Find all PNG images in the Discord directory and its subdirectories, and sort them numerically
+find "./Discord" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
+
+# Generate image tags for Discord subdirectory
+echo "<br>" >> README.md
+echo "### Discord Subdirectory" >> README.md
+
+# Find all PNG images in the Discord subdirectory and its subdirectories, and sort them numerically
+find "./Discord/Subdirectory" -type f -name "*.png" | sort -t '-' -k 2n | while read file
+do
+  echo "<img src=\"$file\">" >> README.md
+  echo "" >> README.md
+done
