@@ -1,9 +1,0 @@
------This file was auto generated-----------------------------------------------
------Values deleted by the developer--------------------------------------------
------Extension modified `.env` to `.envo`to avoid gitignore this time-----------
-
-REACT_APP_BACKEND_URL=
-REACT_APP_AWS_PROJECT_REGION=ca-central-1
-REACT_APP_AWS_COGNITO_REGION=ca-central-1
-REACT_APP_AWS_USER_POOLS_ID=
-REACT_APP_CLIENT_ID=
