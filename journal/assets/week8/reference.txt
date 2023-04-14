@@ -1,0 +1,85 @@
+
+
+cdk synth
+cdk bootstrap "aws://598485450821/ca-central-1"
+cdk deploy
+
+
+If anyone else wants to block select and replace code like Andrew does at 36:01 use SHIFT+ALT when selecting the text.
+
+
+
+---
+
+AWS SAM investged so much by aws
+
+
+
+purposes is that we want to process image procssing (avatr image processing)
+- we have 3 buccket and that needs to go to lamnbda that will process it.
+
+
+
+import the requird:
+import * as s3 from 'aws-cdk-lib/aws-s3';
+
+created bucket:
+
+
+  createBucket(bucketName: string): s3.IBucket{
+    const bucket =  new s3.Bucket(this, 'ThumbingBucket', {
+    bucketName: bucketName,
+    removalPolicy: cdk.RemovalPolicy.DESTROY,
+    });
+    return bucket;
+    }
+
+
+---
+import the required
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+
+created lambda:
+
+
+
+
+---
+
+synth error
+
+
+added this lines
+
+const dotenv= require('dotenv')
+dotenv.config();
+
+
+and configured the env to take
+
+THUMBING_BUCKET_NAME="cruddur-thumbs-buck"
+THUMBING_FUNCTION_PATH="/workspace/aws-cloud-project-bootcamp/aws/lambdas"
+
+
+
+----
+
+
+
+reference:
+
+https://aws.amazon.com/fr/cdk/
+
+https://docs.aws.amazon.com/cdk/api/v1/docs/aws-construct-library.html
+
+https://docs.aws.amazon.com/cdk/v2/guide/home.html
+
+https://cdkpatterns.com/
+
+https://www.thecdkbook.com/
+
+https://www.cdkday.com/
+
+
+typescript free code environment online
+https://www.typescriptlang.org/play?#code/PTAEHUFMBsGMHsC2lQBd5oBYoCoE8AHSAZVgCcBLA1UABWgEM8BzM+AVwDsATAGiwoBnUENANQAd0gAjQRVSQAUCEmYKsTKGYUAbpGF4OY0BoadYKdJMoL+gzAzIoz3UNEiPOofEVKVqAHSKymAAmkYI7NCuqGqcANag8ABmIjQUXrFOKBJMggBcISGgoAC0oACCbvCwDKgU8JkY7p7ehCTkVDQS2E6gnPCxGcwmZqDSTgzxxWWVoASMFmgYkAAeRJTInN3ymj4d-jSCeNsMq-wuoPaOltigAKoASgAywhK7SbGQZIIz5VWCFzSeCrZagNYbChbHaxUDcCjJZLfSDbExIAgUdxkUBIursJzCFJtXydajBBCcQQ0MwAUVWDEQC0gADVHBQGNJ3KAALygABEAAkYNAMOB4GRonzFBTBPB3AERcwABS0+mM9ysygc9wASmCKhwzQ8ZC8iHFzmB7BoXzcZmY7AYzEg-Fg0HUiQ58D0Ii8fLpDKZgj5SWxfPADlQAHJhAA5SASPlBFQAeS+ZHegmdWkgR1QjgUrmkeFATjNOmGWH0KAQiGhwkuNok4uiIgMHGxCyYrA4PCCJSAA
