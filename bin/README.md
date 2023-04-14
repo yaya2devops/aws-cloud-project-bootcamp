@@ -1,7 +1,9 @@
 
 ## Scripts Library for Developers
 
-The following scripts were manually written using Python, Bash, and Ruby. The creation was independently and in a specific order to achieve a desired outcome.
+The following scripts were manually written using **Python**, **Bash**, and **Ruby**. 
+
+The creation was independently and in a specific order to achieve a desired outcome.
 
 
 
@@ -42,7 +44,8 @@ The following scripts were manually written using Python, Bash, and Ruby. The cr
 │   ├── build
 │   │   └── not-real-path
 ├── ecr
-│   └── login
+│   ├── sign-in
+│   └── create-repo
 ├── frontend
 │   ├── build
 │   ├── connect
@@ -55,6 +58,5 @@ The following scripts were manually written using Python, Bash, and Ruby. The cr
 │   └── service-on
 ├── rds
 │   └── update-sg-rule
-├── busybox
-└── health-check
+└── busybox
 ```

@@ -1,0 +1,5 @@
+#! /usr/bin/bash
+
+aws ecr create-repository \
+  --repository-name IMG_NAME \
+  --image-tag-mutability MUTABLE
