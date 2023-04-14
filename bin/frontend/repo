@@ -1,0 +1,10 @@
+#! /usr/bin/bash
+
+BLUE='\033[1;34m'
+NO_COLOR='\033[0m'
+LABEL="--Fargate:React-Js.Repo=Create"
+printf "${BLUE}ON: ${LABEL}${NO_COLOR}\n"
+
+aws ecr create-repository \
+  --repository-name frontend-react-js \
+  --image-tag-mutability MUTABLE

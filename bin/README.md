@@ -1,9 +1,7 @@
 
 ## Scripts Library for Developers
 
-The following scripts were manually written using **Python**, **Bash**, and **Ruby**. 
-
-The creation was independently and in a specific order to achieve a desired outcome.
+The following scripts were manually written using **Python**, **Bash**, and **Ruby**. The creation was independently and in a specific order to achieve a desired outcome.
 
 
 
@@ -16,6 +14,7 @@ The creation was independently and in a specific order to achieve a desired outc
 │   ├── generate-env
 │   ├── push
 │   ├── register
+│   ├── repo
 │   ├── run
 │   ├── service-off
 │   └── service-on
@@ -45,7 +44,7 @@ The creation was independently and in a specific order to achieve a desired outc
 │   │   └── not-real-path
 ├── ecr
 │   ├── sign-in
-│   └── create-repo
+│   └── repo
 ├── frontend
 │   ├── build
 │   ├── connect
@@ -53,6 +52,7 @@ The creation was independently and in a specific order to achieve a desired outc
 │   ├── generate-env
 │   ├── push
 │   ├── register
+│   ├── repo
 │   ├── run
 │   ├── service-off
 │   └── service-on

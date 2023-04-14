@@ -1,9 +1,12 @@
 
-### Developer Guide
+### Base-Images Guidelines
+- [Python ](repo)
+- [Backend Flask ](../backend/repo)
+- [Frontend ReactJs ](../frontend/repo)
 
-- Sign ins, incl. when building and pushing images
-- Create Repos
-- Set URL
+
+> create , set, pull, tag, push 
+----
 
 ```sh
 export ECR_IMG_NAME="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/IMG_NAME"
