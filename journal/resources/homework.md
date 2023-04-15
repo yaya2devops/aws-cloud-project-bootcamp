@@ -1,8 +1,8 @@
-# Homework Tracker
+# Homework Challenges Check-ins
 
-As I proceed with my tasks, I will give priority to completing my homework and ensure that it is at the top of my to-do list.
+As I complete my tasks, my homework will always take precedence, ensuring that it is at the top of my to-do list.
 
-> current catch - 17/03/2023
+> Current catch - 15/04/2023
 
 ---
 
@@ -48,4 +48,28 @@ As I proceed with my tasks, I will give priority to completing my homework and e
 | Decouple the JWT verify process by using Envoy as a sidecar                                      | Hard       |       ⌛ |
 | Implement a IdP login (e.g. Login with Amazon or Facebook or Apple)                               | Hard       |    ⌛    |
 | Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ⌛     |
+
+
+---
+
+|  Week 4 Challenges                                                                               | Difficulty | Status |
+|---------------------------------------------------------------------------------------------------|------------|--------|
+|        No homework challenges provided 	         |   N/A   | N/A|   
+
+---
+
+|  Week 5 Challenges                                                                               | Difficulty | Status |
+|---------------------------------------------------------------------------------------------------|------------|--------|
+|        No homework challenges provided 	          |     N/A | N/A|   
+---
+
+|  Week 6 and 7 Challenges                                                                               | Difficulty | Status |
+|---------------------------------------------------------------------------------------------------|------------|--------|
+| Try and host your frontend application on Static Website Hosting with CloudFront     |     Medium | ⌛| 
+
+| This challenge could count for both Week 4 and 5 because you will have to deal with CORS as well. |
+|--------|
+
+---
+
 

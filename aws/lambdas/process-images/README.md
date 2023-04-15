@@ -1,10 +1,5 @@
-## Developer Guide
 
-|               | AWS SDK                                           | AWS CDK                                                    |
-|---------------|---------------------------------------------------|------------------------------------------------------------|
-| Programming   | Available in multiple languages (Node.js, Java, Python, Ruby, .NET, etc.) | Limited number of languages (TypeScript, JavaScript, Python, Java, C#, Go) |
-| Abstraction   | Low-level API for configuring and managing resources | Higher-level abstraction that allows you to define resources using code |
-| Deployment    | Does not provide built-in deployment capabilities   | Provides a deployment framework using AWS CloudFormation    |
+## Developer Guide
 
 **Create an empty Package**
 

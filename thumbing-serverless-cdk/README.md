@@ -1,4 +1,13 @@
-### Quickstart
+## Guidelines: SDK — CDK
+
+|               | AWS SDK                                           | AWS CDK                                                    |
+|---------------|---------------------------------------------------|------------------------------------------------------------|
+| Programming   | Node.js, Java, Python, Ruby, .NET, etc | TypeScript, JavaScript, Python, Java, C#, Go |
+| Abstraction   | Low-level API for configuring and managing resources | Higher-level abstraction that allows you to define resources using code |
+| Deployment    | Does not provide built-in deployment capabilities   | Provides a deployment framework using AWS CloudFormation    |
+
+
+
 
 ```sh
 npm install aws-cdk -g
@@ -20,7 +29,7 @@ cdk bootstrap "aws://598485450821/ca-central-1"
 ```sh
 cdk deploy
 ```
-
+[**Developer Guide**](../aws/lambdas/process-images/README.md)
 
 
 ### Welcome to your CDK TypeScript project

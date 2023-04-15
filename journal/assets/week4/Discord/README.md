@@ -1,8 +1,10 @@
-# Community Exchange - Acknowledged
+## Community Exchange
 
 
 
-## Issue 1, Abdassalam:
+<details>
+<summary><b>Issue 1 — PSQL<b></summary>
+
 <img src="Acknowledged/1.jpg">
 
 <img src="Acknowledged/2.jpg">
@@ -22,13 +24,18 @@
 <img src="Acknowledged/9.jpg">
 
 <img src="Acknowledged/10.jpg">
-
-
-## Issue2, Jason:
-<img src="Acknowledged/threadwjason.png">
-
-You can learn more about tagging from [here.](../../../tagging.md)
-
-## Issue 3:
+</details>
+<details>
+<summary><b>Issue 2 — Prod Connetion<b></summary>
 
 <img src="Community Exchange/Screenshot 2023-03-22 164306.png">
+</details>
+
+<details>
+<summary><b>Issue 3 — Tagging<b></summary>
+<img src="Acknowledged/threadwjason.png">
+
+You can learn more about tagging from [here.](../../../resources/tagging.md)
+
+</details>
+
