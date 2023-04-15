@@ -1,0 +1,15 @@
+create codepipe
+ - created prod branch
+ - sync github
+
+stage bake-img
+- create build using codebuild
+  - prepare the buildspec required
+  - generate the build - failed- cruddur-backend-flask-bake-image:a559a5ee-486d-4633-9087-f38fb952c3bb
+
+
+
+ref tools
+- codebuild
+- Amazon CodeCatalyst
+- buildspec: https://gist.github.com/omenking/7ea4905eea4fcb16d8cccee10e15b9d3
