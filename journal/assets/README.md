@@ -1,5 +1,5 @@
 ## Gallery Archive — Capturing Progress
-
+>
 | Week | Technology Focus  | Collection of goods|
 |------|-------------------------|-------------------------|
 | 0    |        [Cloud Architecture & AWS](week0)                  |60|
