@@ -6,7 +6,7 @@
 
 This initially started as a thread by [Jason](https://twitter.com/LinuxTekCanada/), and he quickly figured out how to do it :D !
 
-<img src="assets/week4/Discord/Acknowledged/threadwjason.png">
+<img src="../assets/week4/Discord/Acknowledged/threadwjason.png">
 
 **Here it is**, so all of us reap the benefits:
 
@@ -41,7 +41,7 @@ git push --tags
 <summary><b>This item</b> summarizes a commit, including the location of the hash.</summary>
 
 
-<img src="assets/week4/Discord/Acknowledged/explain-tags-and-hash.png">
+<img src="../assets/week4/Discord/Acknowledged/explain-tags-and-hash.png">
 </details>
 
 ## Application
@@ -77,7 +77,7 @@ git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 <summary><b>Desired outcomes:</b></summary>
 
 
-<img src="assets/week4/Discord/Acknowledged/my-tags.png">
+<img src="../assets/week4/Discord/Acknowledged/my-tags.png">
 
 > Great!
 

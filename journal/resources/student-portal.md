@@ -1,49 +1,93 @@
 # Student Portal Tour
 
+The student portal is where we can access information about weekly tasks and assignments that need to be completed and submitted.
 
-## Dashboard & Submissions
+The student portal is also a valuable source of information, providing access to resources, special discounts, and a wide range of materials that can enhance our learning experience.
+
+The student portal also serves as a centralized hub for bootcamp organizers to track enrolled students and gain direction to the work they're doing. This includes links to GitHub projects, AWS IDs, Discord handles, domain names, and other essential resources.
+
+I took this opportunity to provide you with a brief tour of what's happening on the inside. Have fun!
 
 
-<img src="assets/Student-Portal/0 overvirew tasks and annoucncements.png">
+## Landing page
+<img src="../assets/Student-Portal/student-portal-main.png">
 
+<details>
 
+<summary>
+Expand Student Portal Dashboard
+</summary>
 
-## Dashboard 
 This is where the important links for the student to identify and navigate are located.
 
-<img src="assets/Student-Portal/1 important res section.png">
+<img src="../assets/Student-Portal/1 important res section.png">
+
+</details>
 
 
-## Submissions
+
+
+<details>
+
+<summary>
+Expand Student Portal Submissions
+</summary>
+
 This section is where the student is required to submit weekly To-Do tasks.
 
-<img src="assets/Student-Portal/2 submissions.png">
+<img src="../assets/Student-Portal/2 submissions.png">
 
-### E.g. Week 3
+</details>
+
+
+<details>
+
+<summary>
+E.g. Week 3 submission
+</summary>
+
 In here, student can find guidance and direction what he should complete and get done.
 
-<img src="assets/Student-Portal/3 sample for week 3.png">
+<img src="../assets/Student-Portal/3 sample for week 3.png">
 
 A good portion of each week is spent explaining a summary of the work completed. 
 
-Being transparent and saying exactly what you did and not making it difficult for yourself and your supervisor, whether Andrew or Bayko.
-<img src="assets/Student-Portal/4 to do-s list and quizes section.png">
 
-Students must also complete and submit weekly quizzes on the practical subject matter.
+<img src="../assets/Student-Portal/4 to do-s list and quizes section.png">
+
+Being transparent and saying exactly what you practiced and not making it difficult for yourself and your supervisor to grade you.
+
+<details>
+
+<summary>
+Bonus, Week 4 
+</summary>
+
+<img src="../assets/Student-Portal/sql week.png">
+
+**Overall:**
+<img src="../assets/Student-Portal/latest stats.png">
+
+</details>
 
 
-### Current Stats; I'm on track:
-
-<img src="assets/Student-Portal/sql week.png">
-<img src="assets/Student-Portal/latest stats.png">
 
 
+### Directive
+During the learning journey, students will need to refer to additional resources and documents to stay on top of the weekly challenges.
+
+[Bootcamp Outlines](https://docs.google.com/document/d/19XMyd5zCk7S9QT2q1_Cg-wvbnBwOge7EgzgvtVCgcz0/mobilebasic#h.phh8kngo2rl7)
+
+<details>
+
+<summary>
+Looking for Support?
+</summary>
+
+I'm always here to help out friends, and I'd be happy to receive an email from you !<br>
+
+If you have any questions or concerns, please do not hesitate to contact me.<br>
 
 
-
----
-
-### Notice
-Along the way, students will need to check other resources & documents in order to keep up with weekly challenges.
-
-> I'm good with my email being exposed. Feel free to email me if you require help. Ill be more than happy to assist.
+You can connect with me on LinkedIn as well from [here](https://www.linkedin.com/in/yahya-abulhaj/).
+</details>
