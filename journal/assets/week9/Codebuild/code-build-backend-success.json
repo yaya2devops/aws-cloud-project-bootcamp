@@ -1,0 +1,802 @@
+[
+ {
+   "timestamp": 1681601913497,
+   "message": "433875ea4139: Pull complete\n"
+ },
+ {
+   "timestamp": 1681601913497,
+   "message": "Digest: sha256:1b501f9aa621df27078adcd19ba769c09cb1c4f2e797bfaba0c66553db16923b\n"
+ },
+ {
+   "timestamp": 1681601913497,
+   "message": "Status: Downloaded newer image for python:3.10-slim-buster\n"
+ },
+ {
+   "timestamp": 1681601913497,
+   "message": " ---> 6f74f1480ab7\n"
+ },
+ {
+   "timestamp": 1681601913497,
+   "message": "Step 2/7 : WORKDIR /backend-flask\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": " ---> Running in af21b329eb4d\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": "Removing intermediate container af21b329eb4d\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": " ---> 39c4f7b30297\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": "Step 3/7 : COPY requirements.txt requirements.txt\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": " ---> eb2cd77242e2\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": "Step 4/7 : RUN pip3 install -r requirements.txt\n"
+ },
+ {
+   "timestamp": 1681601915513,
+   "message": " ---> Running in ae80faaa949b\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting flask\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading Flask-2.2.3-py3-none-any.whl (101 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.8/101.8 kB 1.9 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting flask-cors\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading Flask_Cors-3.0.10-py2.py3-none-any.whl (14 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting opentelemetry-api\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading opentelemetry_api-1.17.0-py3-none-any.whl (57 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 kB 6.1 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting opentelemetry-sdk\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading opentelemetry_sdk-1.17.0-py3-none-any.whl (100 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0/100.0 kB 6.9 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting opentelemetry-exporter-otlp-proto-http\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading opentelemetry_exporter_otlp_proto_http-1.17.0-py3-none-any.whl (21 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting opentelemetry-instrumentation-flask\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading opentelemetry_instrumentation_flask-0.38b0-py3-none-any.whl (13 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting opentelemetry-instrumentation-requests\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading opentelemetry_instrumentation_requests-0.38b0-py3-none-any.whl (11 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting aws-xray-sdk\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading aws_xray_sdk-2.12.0-py2.py3-none-any.whl (102 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 102.5/102.5 kB 10.1 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting watchtower\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading watchtower-3.0.1-py3-none-any.whl (17 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting blinker\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading blinker-1.6.2-py3-none-any.whl (13 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting rollbar\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading rollbar-0.16.3-py3-none-any.whl (98 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.1/98.1 kB 10.3 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting Flask-AWSCognito\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading Flask_AWSCognito-1.3-py3-none-any.whl (12 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "Collecting psycopg[binary]\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "  Downloading psycopg-3.1.8-py3-none-any.whl (167 kB)\n"
+ },
+ {
+   "timestamp": 1681601917535,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 167.4/167.4 kB 8.2 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting boto3\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading boto3-1.26.114-py3-none-any.whl (135 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.6/135.6 kB 15.7 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting Jinja2>=3.0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 15.7 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting Werkzeug>=2.2.2\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading Werkzeug-2.2.3-py3-none-any.whl (233 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 233.6/233.6 kB 17.8 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting itsdangerous>=2.0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading itsdangerous-2.1.2-py3-none-any.whl (15 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting click>=8.0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading click-8.1.3-py3-none-any.whl (96 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 kB 14.4 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting Six\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Requirement already satisfied: setuptools>=16.0 in /usr/local/lib/python3.10/site-packages (from opentelemetry-api->-r requirements.txt (line 5)) (65.5.1)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting deprecated>=1.2.6\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading Deprecated-1.2.13-py2.py3-none-any.whl (9.6 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting importlib-metadata~=6.0.0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading importlib_metadata-6.0.1-py3-none-any.whl (21 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting opentelemetry-semantic-conventions==0.38b0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading opentelemetry_semantic_conventions-0.38b0-py3-none-any.whl (26 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting typing-extensions>=3.7.4\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading typing_extensions-4.5.0-py3-none-any.whl (27 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting opentelemetry-proto==1.17.0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading opentelemetry_proto-1.17.0-py3-none-any.whl (52 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.6/52.6 kB 13.5 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting requests~=2.7\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading requests-2.28.2-py3-none-any.whl (62 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 17.7 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting googleapis-common-protos~=1.52\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading googleapis_common_protos-1.59.0-py2.py3-none-any.whl (223 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 223.6/223.6 kB 24.2 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting backoff<3.0.0,>=1.10.0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading backoff-2.2.1-py3-none-any.whl (15 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting protobuf<5.0,>=3.19\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading protobuf-4.22.3-cp37-abi3-manylinux2014_x86_64.whl (302 kB)\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 302.4/302.4 kB 22.7 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "Collecting opentelemetry-util-http==0.38b0\n"
+ },
+ {
+   "timestamp": 1681601919551,
+   "message": "  Downloading opentelemetry_util_http-0.38b0-py3-none-any.whl (6.7 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting opentelemetry-instrumentation==0.38b0\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading opentelemetry_instrumentation-0.38b0-py3-none-any.whl (24 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting opentelemetry-instrumentation-wsgi==0.38b0\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading opentelemetry_instrumentation_wsgi-0.38b0-py3-none-any.whl (12 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting wrapt<2.0.0,>=1.0.0\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading wrapt-1.15.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (78 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.4/78.4 kB 21.6 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting botocore>=1.11.3\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading botocore-1.29.114-py3-none-any.whl (10.6 MB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.6/10.6 MB 50.7 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting python-jose\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading python_jose-3.3.0-py2.py3-none-any.whl (33 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting psycopg-binary<=3.1.8,>=3.1.6\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading psycopg_binary-3.1.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 64.6 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting psycopg-pool\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading psycopg_pool-3.1.7-py3-none-any.whl (30 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting s3transfer<0.7.0,>=0.6.0\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading s3transfer-0.6.0-py3-none-any.whl (79 kB)\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.6/79.6 kB 24.0 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "Collecting jmespath<2.0.0,>=0.7.1\n"
+ },
+ {
+   "timestamp": 1681601921569,
+   "message": "  Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting urllib3<1.27,>=1.25.4\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading urllib3-1.26.15-py2.py3-none-any.whl (140 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.9/140.9 kB 33.4 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting python-dateutil<3.0.0,>=2.1\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 kB 8.4 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting zipp>=0.5\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting MarkupSafe>=2.0\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading MarkupSafe-2.1.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting charset-normalizer<4,>=2\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading charset_normalizer-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (199 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.3/199.3 kB 49.3 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting idna<4,>=2.5\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading idna-3.4-py3-none-any.whl (61 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.5/61.5 kB 1.2 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting certifi>=2017.4.17\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading certifi-2022.12.7-py3-none-any.whl (155 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.3/155.3 kB 39.6 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting rsa\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading rsa-4.9-py3-none-any.whl (34 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting pyasn1\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading pyasn1-0.4.8-py2.py3-none-any.whl (77 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.1/77.1 kB 24.5 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Collecting ecdsa!=0.15\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "  Downloading ecdsa-0.18.0-py2.py3-none-any.whl (142 kB)\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 142.9/142.9 kB 32.4 MB/s eta 0:00:00\n"
+ },
+ {
+   "timestamp": 1681601923590,
+   "message": "Installing collected packages: pyasn1, zipp, wrapt, urllib3, typing-extensions, Six, rsa, psycopg-binary, protobuf, opentelemetry-util-http, opentelemetry-semantic-conventions, MarkupSafe, jmespath, itsdangerous, idna, click, charset-normalizer, certifi, blinker, backoff, Werkzeug, requests, python-dateutil, psycopg-pool, psycopg, opentelemetry-proto, Jinja2, importlib-metadata, googleapis-common-protos, ecdsa, deprecated, rollbar, python-jose, opentelemetry-api, flask, botocore, s3transfer, opentelemetry-sdk, opentelemetry-instrumentation, flask-cors, Flask-AWSCognito, aws-xray-sdk, opentelemetry-instrumentation-wsgi, opentelemetry-instrumentation-requests, opentelemetry-exporter-otlp-proto-http, boto3, watchtower, opentelemetry-instrumentation-flask\n"
+ },
+ {
+   "timestamp": 1681601927615,
+   "message": "Successfully installed Flask-AWSCognito-1.3 Jinja2-3.1.2 MarkupSafe-2.1.2 Six-1.16.0 Werkzeug-2.2.3 aws-xray-sdk-2.12.0 backoff-2.2.1 blinker-1.6.2 boto3-1.26.114 botocore-1.29.114 certifi-2022.12.7 charset-normalizer-3.1.0 click-8.1.3 deprecated-1.2.13 ecdsa-0.18.0 flask-2.2.3 flask-cors-3.0.10 googleapis-common-protos-1.59.0 idna-3.4 importlib-metadata-6.0.1 itsdangerous-2.1.2 jmespath-1.0.1 opentelemetry-api-1.17.0 opentelemetry-exporter-otlp-proto-http-1.17.0 opentelemetry-instrumentation-0.38b0 opentelemetry-instrumentation-flask-0.38b0 opentelemetry-instrumentation-requests-0.38b0 opentelemetry-instrumentation-wsgi-0.38b0 opentelemetry-proto-1.17.0 opentelemetry-sdk-1.17.0 opentelemetry-semantic-conventions-0.38b0 opentelemetry-util-http-0.38b0 protobuf-4.22.3 psycopg-3.1.8 psycopg-binary-3.1.8 psycopg-pool-3.1.7 pyasn1-0.4.8 python-dateutil-2.8.2 python-jose-3.3.0 requests-2.28.2 rollbar-0.16.3 rsa-4.9 s3transfer-0.6.0 typing-extensions-4.5.0 urllib3-1.26.15 watchtower-3.0.1 wrapt-1.15.0 zipp-3.15.0\n"
+ },
+ {
+   "timestamp": 1681601927615,
+   "message": "[91mWARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv\n"
+ },
+ {
+   "timestamp": 1681601927615,
+   "message": "[0m[91m\n"
+ },
+ {
+   "timestamp": 1681601927615,
+   "message": "[notice] A new release of pip is available: 23.0.1 -> 23.1\n"
+ },
+ {
+   "timestamp": 1681601927615,
+   "message": "[notice] To update, run: pip install --upgrade pip\n"
+ },
+ {
+   "timestamp": 1681601929636,
+   "message": "[0mRemoving intermediate container ae80faaa949b\n"
+ },
+ {
+   "timestamp": 1681601929636,
+   "message": " ---> abe43a1993cd\n"
+ },
+ {
+   "timestamp": 1681601929636,
+   "message": "Step 5/7 : COPY . .\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": " ---> 8712a06b79aa\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Step 6/7 : EXPOSE ${PORT}\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": " ---> Running in a01e57edd0e6\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Removing intermediate container a01e57edd0e6\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": " ---> 1c1fdf5550bb\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Step 7/7 : CMD [ \"python3\", \"-m\" , \"flask\", \"run\", \"--host=0.0.0.0\", \"--port=4567\", \"--debug\"]\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": " ---> Running in a8087588b3db\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Removing intermediate container a8087588b3db\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": " ---> a76bc418f53d\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Successfully built a76bc418f53d\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Successfully tagged backend-flask:latest\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:49 Running command docker tag $REPO_NAME $IMAGE_URL/$REPO_NAME\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:50 Phase complete: BUILD State: SUCCEEDED\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:50 Phase context status code:  Message: \n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:50 Entering phase POST_BUILD\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:50 Running command echo Build completed on `date`\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Build completed on Sat Apr 15 23:38:50 UTC 2023\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:50 Running command echo Pushing the Docker image..\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "Pushing the Docker image..\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "[Container] 2023/04/15 23:38:50 Running command docker push $IMAGE_URL/$REPO_NAME\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "The push refers to repository [598485450821.dkr.ecr.ca-central-1.amazonaws.com/backend-flask]\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "446d12ec7170: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "c19b370b58b0: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "e4ecf0e46572: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "efedb8d81bb2: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "7f2fe4cb548a: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "c7787300a586: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "039e9922562b: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "ccc60df26c61: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "61a5c84a1270: Preparing\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "c7787300a586: Waiting\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "039e9922562b: Waiting\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "ccc60df26c61: Waiting\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "61a5c84a1270: Waiting\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "efedb8d81bb2: Pushed\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "e4ecf0e46572: Pushed\n"
+ },
+ {
+   "timestamp": 1681601931652,
+   "message": "446d12ec7170: Pushed\n"
+ },
+ {
+   "timestamp": 1681601933668,
+   "message": "7f2fe4cb548a: Pushed\n"
+ },
+ {
+   "timestamp": 1681601933668,
+   "message": "c7787300a586: Pushed\n"
+ },
+ {
+   "timestamp": 1681601933668,
+   "message": "ccc60df26c61: Pushed\n"
+ },
+ {
+   "timestamp": 1681601935693,
+   "message": "039e9922562b: Pushed\n"
+ },
+ {
+   "timestamp": 1681601937710,
+   "message": "c19b370b58b0: Pushed\n"
+ },
+ {
+   "timestamp": 1681601937710,
+   "message": "61a5c84a1270: Pushed\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "latest: digest: sha256:27220b36301a71986171e012edd27e18b3bec22f8ae8574e2cb98715f457c3a8 size: 2205\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "[Container] 2023/04/15 23:38:58 Running command echo \"imagedefinitions.json > [{\\\"name\\\":\\\"$CONTAINER_NAME\\\",\\\"imageUri\\\":\\\"$IMAGE_URL/$REPO_NAME\\\"}]\" > imagedefinitions.json\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "[Container] 2023/04/15 23:38:58 Running command printf \"[{\\\"name\\\":\\\"$CONTAINER_NAME\\\",\\\"imageUri\\\":\\\"$IMAGE_URL/$REPO_NAME\\\"}]\" > imagedefinitions.json\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "[Container] 2023/04/15 23:38:58 Phase complete: POST_BUILD State: SUCCEEDED\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "[Container] 2023/04/15 23:38:58 Phase context status code:  Message: \n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "[Container] 2023/04/15 23:38:58 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED\n"
+ },
+ {
+   "timestamp": 1681601940370,
+   "message": "[Container] 2023/04/15 23:38:58 Phase context status code:  Message: \n"
+ }
+]

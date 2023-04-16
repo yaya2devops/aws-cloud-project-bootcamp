@@ -1,0 +1,36 @@
+[Container] 2023/04/15 22:51:14 Waiting for agent ping
+[Container] 2023/04/15 22:51:15 Waiting for DOWNLOAD_SOURCE
+[Container] 2023/04/15 22:51:28 Phase is DOWNLOAD_SOURCE
+[Container] 2023/04/15 22:51:28 CODEBUILD_SRC_DIR=/codebuild/output/src515120113/src/github.com/yaya2devops/aws-cloud-project-bootcamp
+[Container] 2023/04/15 22:51:28 YAML location is /codebuild/readonly/buildspec.yml
+[Container] 2023/04/15 22:51:28 Setting HTTP client timeout to higher timeout for Github and GitHub Enterprise sources
+[Container] 2023/04/15 22:51:28 Processing environment variables
+[Container] 2023/04/15 22:51:28 Decrypting parameter store environment variables
+[Container] 2023/04/15 22:51:28 Selecting 'docker' runtime version '20' based on manual selections...
+[Container] 2023/04/15 22:51:28 Running command echo "Specifying docker version in buildspec is deprecated. Using docker $DOCKER_VERSION"
+Specifying docker version in buildspec is deprecated. Using docker 20.10.22
+
+[Container] 2023/04/15 22:51:30 Moving to directory /codebuild/output/src515120113/src/github.com/yaya2devops/aws-cloud-project-bootcamp
+[Container] 2023/04/15 22:51:30 Configuring ssm agent with target id: codebuild:6eb821d7-b0ee-4ea6-9877-5dfc21b8e68d
+[Container] 2023/04/15 22:51:30 Successfully updated ssm agent configuration
+[Container] 2023/04/15 22:51:30 Registering with agent
+[Container] 2023/04/15 22:51:30 Phases found in YAML: 3
+[Container] 2023/04/15 22:51:30  BUILD: 4 commands
+[Container] 2023/04/15 22:51:30  POST_BUILD: 5 commands
+[Container] 2023/04/15 22:51:30  INSTALL: 3 commands
+[Container] 2023/04/15 22:51:30 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2023/04/15 22:51:30 Phase context status code:  Message: 
+[Container] 2023/04/15 22:51:30 Entering phase INSTALL
+[Container] 2023/04/15 22:51:30 Running command echo "cd into $CODEBUILD_SRC_DIR/backend"
+cd into /codebuild/output/src515120113/src/github.com/yaya2devops/aws-cloud-project-bootcamp/backend
+
+[Container] 2023/04/15 22:51:30 Running command cd $CODEBUILD_SRC_DIR/backend-flask
+
+[Container] 2023/04/15 22:51:30 Running command aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL
+
+An error occurred (AccessDeniedException) when calling the GetAuthorizationToken operation: User: arn:aws:sts::598485450821:assumed-role/codebuild-cruddur-backend-flask-bake-image-service-role/AWSCodeBuild-6eb821d7-b0ee-4ea6-9877-5dfc21b8e68d is not authorized to perform: ecr:GetAuthorizationToken on resource: * because no identity-based policy allows the ecr:GetAuthorizationToken action
+Error: Cannot perform an interactive login from a non TTY device
+
+[Container] 2023/04/15 22:51:40 Command did not exit successfully aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL exit status 1
+[Container] 2023/04/15 22:51:40 Phase complete: INSTALL State: FAILED
+[Container] 2023/04/15 22:51:40 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL. Reason: exit status 1

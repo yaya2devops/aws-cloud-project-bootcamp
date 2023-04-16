@@ -1,0 +1,11 @@
+[Container] 2023/04/15 22:23:36 Waiting for agent ping
+[Container] 2023/04/15 22:23:37 Waiting for DOWNLOAD_SOURCE
+[Container] 2023/04/15 22:23:49 Phase is DOWNLOAD_SOURCE
+[Container] 2023/04/15 22:23:49 CODEBUILD_SRC_DIR=/codebuild/output/src273521609/src/github.com/yaya2devops/aws-cloud-project-bootcamp
+[Container] 2023/04/15 22:23:49 YAML location is /codebuild/readonly/buildspec.yml
+[Container] 2023/04/15 22:23:49 Setting HTTP client timeout to higher timeout for Github and GitHub Enterprise sources
+[Container] 2023/04/15 22:23:49 Processing environment variables
+[Container] 2023/04/15 22:23:49 Decrypting parameter store environment variables
+[Container] 2023/04/15 22:23:51 Phase complete: DOWNLOAD_SOURCE State: FAILED
+[Container] 2023/04/15 22:23:51 Phase context status code: Decrypted Variables Error Message: AccessDeniedException: User: arn:aws:sts::598485450821:assumed-role/codebuild-cruddur-backend-flask-bake-image-service-role/AWSCodeBuild-61f90df8-cdd6-4d83-97ca-0523c4664b21 is not authorized to perform: ssm:GetParameters on resource: arn:aws:ssm:ca-central-1:598485450821:parameter/cruddur/backend-flask/CONNECTION_URL because no identity-based policy allows the ssm:GetParameters action
+    status code: 400, request id: 64162bbf-4ebe-413a-8a3e-9aa05ddfa835

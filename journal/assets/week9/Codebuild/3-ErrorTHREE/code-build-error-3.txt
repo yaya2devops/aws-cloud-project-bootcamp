@@ -1,0 +1,515 @@
+[Container] 2023/04/15 23:19:15 Waiting for agent ping
+[Container] 2023/04/15 23:19:16 Waiting for DOWNLOAD_SOURCE
+[Container] 2023/04/15 23:19:28 Phase is DOWNLOAD_SOURCE
+[Container] 2023/04/15 23:19:28 CODEBUILD_SRC_DIR=/codebuild/output/src135136056/src/github.com/yaya2devops/aws-cloud-project-bootcamp
+[Container] 2023/04/15 23:19:28 YAML location is /codebuild/readonly/buildspec.yml
+[Container] 2023/04/15 23:19:28 Found possible syntax errors in buildspec: 
+In the section BUILD
+    The following keys cannot be identified:
+        debug
+[Container] 2023/04/15 23:19:28 Setting HTTP client timeout to higher timeout for Github and GitHub Enterprise sources
+[Container] 2023/04/15 23:19:28 Processing environment variables
+[Container] 2023/04/15 23:19:28 Decrypting parameter store environment variables
+[Container] 2023/04/15 23:19:29 Selecting 'docker' runtime version '20' based on manual selections...
+[Container] 2023/04/15 23:19:29 Running command echo "Specifying docker version in buildspec is deprecated. Using docker $DOCKER_VERSION"
+Specifying docker version in buildspec is deprecated. Using docker 20.10.22
+
+[Container] 2023/04/15 23:19:31 Moving to directory /codebuild/output/src135136056/src/github.com/yaya2devops/aws-cloud-project-bootcamp
+[Container] 2023/04/15 23:19:31 Configuring ssm agent with target id: codebuild:085761dd-8a53-4425-a129-0a9ba86fb9dc
+[Container] 2023/04/15 23:19:31 Successfully updated ssm agent configuration
+[Container] 2023/04/15 23:19:31 Registering with agent
+[Container] 2023/04/15 23:19:31 Phases found in YAML: 3
+[Container] 2023/04/15 23:19:31  INSTALL: 3 commands
+[Container] 2023/04/15 23:19:31  BUILD: 4 commands
+[Container] 2023/04/15 23:19:31  POST_BUILD: 5 commands
+[Container] 2023/04/15 23:19:31 Phase complete: DOWNLOAD_SOURCE State: SUCCEEDED
+[Container] 2023/04/15 23:19:31 Phase context status code:  Message: 
+[Container] 2023/04/15 23:19:31 Entering phase INSTALL
+[Container] 2023/04/15 23:19:31 Running command echo "cd into $CODEBUILD_SRC_DIR/backend"
+cd into /codebuild/output/src135136056/src/github.com/yaya2devops/aws-cloud-project-bootcamp/backend
+
+[Container] 2023/04/15 23:19:31 Running command cd $CODEBUILD_SRC_DIR/backend-flask
+
+[Container] 2023/04/15 23:19:31 Running command aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $IMAGE_URL
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+
+[Container] 2023/04/15 23:19:41 Phase complete: INSTALL State: SUCCEEDED
+[Container] 2023/04/15 23:19:41 Phase context status code:  Message: 
+[Container] 2023/04/15 23:19:41 Entering phase PRE_BUILD
+[Container] 2023/04/15 23:19:41 Phase complete: PRE_BUILD State: SUCCEEDED
+[Container] 2023/04/15 23:19:41 Phase context status code:  Message: 
+[Container] 2023/04/15 23:19:41 Entering phase BUILD
+[Container] 2023/04/15 23:19:41 Running command echo Build started on `date`
+Build started on Sat Apr 15 23:19:42 UTC 2023
+
+[Container] 2023/04/15 23:19:42 Running command echo Building the Docker image...
+Building the Docker image...
+
+[Container] 2023/04/15 23:19:42 Running command docker build -t backend-flask .
+Sending build context to Docker daemon  92.16kB
+
+Step 1/7 : FROM python:3.10-slim-buster
+3.10-slim-buster: Pulling from library/python
+9fbefa337077: Pulling fs layer
+a25702e0699e: Pulling fs layer
+adf6e8027509: Pulling fs layer
+a68430a46d9d: Pulling fs layer
+433875ea4139: Pulling fs layer
+a68430a46d9d: Waiting
+433875ea4139: Waiting
+a25702e0699e: Verifying Checksum
+a25702e0699e: Download complete
+adf6e8027509: Verifying Checksum
+adf6e8027509: Download complete
+a68430a46d9d: Verifying Checksum
+a68430a46d9d: Download complete
+433875ea4139: Verifying Checksum
+433875ea4139: Download complete
+9fbefa337077: Verifying Checksum
+9fbefa337077: Download complete
+9fbefa337077: Pull complete
+a25702e0699e: Pull complete
+adf6e8027509: Pull complete
+a68430a46d9d: Pull complete
+433875ea4139: Pull complete
+Digest: sha256:1b501f9aa621df27078adcd19ba769c09cb1c4f2e797bfaba0c66553db16923b
+Status: Downloaded newer image for python:3.10-slim-buster
+ ---> 6f74f1480ab7
+Step 2/7 : WORKDIR /backend-flask
+ ---> Running in bbea042998ab
+Removing intermediate container bbea042998ab
+ ---> 6c5276b89539
+Step 3/7 : COPY requirements.txt requirements.txt
+ ---> 88dd6a8b4170
+Step 4/7 : RUN pip3 install -r requirements.txt
+ ---> Running in 9bef7a933e2b
+Collecting flask
+  Downloading Flask-2.2.3-py3-none-any.whl (101 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.8/101.8 kB 1.9 MB/s eta 0:00:00
+Collecting flask-cors
+  Downloading Flask_Cors-3.0.10-py2.py3-none-any.whl (14 kB)
+Collecting opentelemetry-api
+  Downloading opentelemetry_api-1.17.0-py3-none-any.whl (57 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 kB 5.7 MB/s eta 0:00:00
+Collecting opentelemetry-sdk
+  Downloading opentelemetry_sdk-1.17.0-py3-none-any.whl (100 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.0/100.0 kB 7.1 MB/s eta 0:00:00
+Collecting opentelemetry-exporter-otlp-proto-http
+  Downloading opentelemetry_exporter_otlp_proto_http-1.17.0-py3-none-any.whl (21 kB)
+Collecting opentelemetry-instrumentation-flask
+  Downloading opentelemetry_instrumentation_flask-0.38b0-py3-none-any.whl (13 kB)
+Collecting opentelemetry-instrumentation-requests
+  Downloading opentelemetry_instrumentation_requests-0.38b0-py3-none-any.whl (11 kB)
+Collecting aws-xray-sdk
+  Downloading aws_xray_sdk-2.12.0-py2.py3-none-any.whl (102 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 102.5/102.5 kB 11.0 MB/s eta 0:00:00
+Collecting watchtower
+  Downloading watchtower-3.0.1-py3-none-any.whl (17 kB)
+Collecting blinker
+  Downloading blinker-1.6.2-py3-none-any.whl (13 kB)
+Collecting rollbar
+  Downloading rollbar-0.16.3-py3-none-any.whl (98 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.1/98.1 kB 11.1 MB/s eta 0:00:00
+Collecting Flask-AWSCognito
+  Downloading Flask_AWSCognito-1.3-py3-none-any.whl (12 kB)
+Collecting psycopg[binary]
+  Downloading psycopg-3.1.8-py3-none-any.whl (167 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 167.4/167.4 kB 11.3 MB/s eta 0:00:00
+Collecting boto3
+  Downloading boto3-1.26.114-py3-none-any.whl (135 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 135.6/135.6 kB 20.6 MB/s eta 0:00:00
+Collecting Werkzeug>=2.2.2
+  Downloading Werkzeug-2.2.3-py3-none-any.whl (233 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 233.6/233.6 kB 17.9 MB/s eta 0:00:00
+Collecting itsdangerous>=2.0
+  Downloading itsdangerous-2.1.2-py3-none-any.whl (15 kB)
+Collecting Jinja2>=3.0
+  Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 kB 24.2 MB/s eta 0:00:00
+Collecting click>=8.0
+  Downloading click-8.1.3-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 kB 22.5 MB/s eta 0:00:00
+Collecting Six
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Collecting deprecated>=1.2.6
+  Downloading Deprecated-1.2.13-py2.py3-none-any.whl (9.6 kB)
+Requirement already satisfied: setuptools>=16.0 in /usr/local/lib/python3.10/site-packages (from opentelemetry-api->-r requirements.txt (line 5)) (65.5.1)
+Collecting importlib-metadata~=6.0.0
+  Downloading importlib_metadata-6.0.1-py3-none-any.whl (21 kB)
+Collecting typing-extensions>=3.7.4
+  Downloading typing_extensions-4.5.0-py3-none-any.whl (27 kB)
+Collecting opentelemetry-semantic-conventions==0.38b0
+  Downloading opentelemetry_semantic_conventions-0.38b0-py3-none-any.whl (26 kB)
+Collecting opentelemetry-proto==1.17.0
+  Downloading opentelemetry_proto-1.17.0-py3-none-any.whl (52 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 52.6/52.6 kB 14.5 MB/s eta 0:00:00
+Collecting backoff<3.0.0,>=1.10.0
+  Downloading backoff-2.2.1-py3-none-any.whl (15 kB)
+Collecting requests~=2.7
+  Downloading requests-2.28.2-py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.8/62.8 kB 20.7 MB/s eta 0:00:00
+Collecting googleapis-common-protos~=1.52
+  Downloading googleapis_common_protos-1.59.0-py2.py3-none-any.whl (223 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 223.6/223.6 kB 23.7 MB/s eta 0:00:00
+Collecting protobuf<5.0,>=3.19
+  Downloading protobuf-4.22.3-cp37-abi3-manylinux2014_x86_64.whl (302 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 302.4/302.4 kB 24.2 MB/s eta 0:00:00
+Collecting opentelemetry-instrumentation==0.38b0
+  Downloading opentelemetry_instrumentation-0.38b0-py3-none-any.whl (24 kB)
+Collecting opentelemetry-util-http==0.38b0
+  Downloading opentelemetry_util_http-0.38b0-py3-none-any.whl (6.7 kB)
+Collecting opentelemetry-instrumentation-wsgi==0.38b0
+  Downloading opentelemetry_instrumentation_wsgi-0.38b0-py3-none-any.whl (12 kB)
+Collecting wrapt<2.0.0,>=1.0.0
+  Downloading wrapt-1.15.0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (78 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 78.4/78.4 kB 22.8 MB/s eta 0:00:00
+Collecting botocore>=1.11.3
+  Downloading botocore-1.29.114-py3-none-any.whl (10.6 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.6/10.6 MB 51.3 MB/s eta 0:00:00
+Collecting python-jose
+  Downloading python_jose-3.3.0-py2.py3-none-any.whl (33 kB)
+Collecting psycopg-binary<=3.1.8,>=3.1.6
+  Downloading psycopg_binary-3.1.8-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 68.2 MB/s eta 0:00:00
+Collecting psycopg-pool
+  Downloading psycopg_pool-3.1.7-py3-none-any.whl (30 kB)
+Collecting jmespath<2.0.0,>=0.7.1
+  Downloading jmespath-1.0.1-py3-none-any.whl (20 kB)
+Collecting s3transfer<0.7.0,>=0.6.0
+  Downloading s3transfer-0.6.0-py3-none-any.whl (79 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 79.6/79.6 kB 26.5 MB/s eta 0:00:00
+Collecting urllib3<1.27,>=1.25.4
+  Downloading urllib3-1.26.15-py2.py3-none-any.whl (140 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 140.9/140.9 kB 41.7 MB/s eta 0:00:00
+Collecting python-dateutil<3.0.0,>=2.1
+  Downloading python_dateutil-2.8.2-py2.py3-none-any.whl (247 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 247.7/247.7 kB 11.3 MB/s eta 0:00:00
+Collecting zipp>=0.5
+  Downloading zipp-3.15.0-py3-none-any.whl (6.8 kB)
+Collecting MarkupSafe>=2.0
+  Downloading MarkupSafe-2.1.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (25 kB)
+Collecting certifi>=2017.4.17
+  Downloading certifi-2022.12.7-py3-none-any.whl (155 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 155.3/155.3 kB 43.4 MB/s eta 0:00:00
+Collecting charset-normalizer<4,>=2
+  Downloading charset_normalizer-3.1.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (199 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.3/199.3 kB 54.7 MB/s eta 0:00:00
+Collecting idna<4,>=2.5
+  Downloading idna-3.4-py3-none-any.whl (61 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.5/61.5 kB 21.6 MB/s eta 0:00:00
+Collecting ecdsa!=0.15
+  Downloading ecdsa-0.18.0-py2.py3-none-any.whl (142 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 142.9/142.9 kB 43.4 MB/s eta 0:00:00
+Collecting rsa
+  Downloading rsa-4.9-py3-none-any.whl (34 kB)
+Collecting pyasn1
+  Downloading pyasn1-0.4.8-py2.py3-none-any.whl (77 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 77.1/77.1 kB 21.3 MB/s eta 0:00:00
+Installing collected packages: pyasn1, zipp, wrapt, urllib3, typing-extensions, Six, rsa, psycopg-binary, protobuf, opentelemetry-util-http, opentelemetry-semantic-conventions, MarkupSafe, jmespath, itsdangerous, idna, click, charset-normalizer, certifi, blinker, backoff, Werkzeug, requests, python-dateutil, psycopg-pool, psycopg, opentelemetry-proto, Jinja2, importlib-metadata, googleapis-common-protos, ecdsa, deprecated, rollbar, python-jose, opentelemetry-api, flask, botocore, s3transfer, opentelemetry-sdk, opentelemetry-instrumentation, flask-cors, Flask-AWSCognito, aws-xray-sdk, opentelemetry-instrumentation-wsgi, opentelemetry-instrumentation-requests, opentelemetry-exporter-otlp-proto-http, boto3, watchtower, opentelemetry-instrumentation-flask
+Successfully installed Flask-AWSCognito-1.3 Jinja2-3.1.2 MarkupSafe-2.1.2 Six-1.16.0 Werkzeug-2.2.3 aws-xray-sdk-2.12.0 backoff-2.2.1 blinker-1.6.2 boto3-1.26.114 botocore-1.29.114 certifi-2022.12.7 charset-normalizer-3.1.0 click-8.1.3 deprecated-1.2.13 ecdsa-0.18.0 flask-2.2.3 flask-cors-3.0.10 googleapis-common-protos-1.59.0 idna-3.4 importlib-metadata-6.0.1 itsdangerous-2.1.2 jmespath-1.0.1 opentelemetry-api-1.17.0 opentelemetry-exporter-otlp-proto-http-1.17.0 opentelemetry-instrumentation-0.38b0 opentelemetry-instrumentation-flask-0.38b0 opentelemetry-instrumentation-requests-0.38b0 opentelemetry-instrumentation-wsgi-0.38b0 opentelemetry-proto-1.17.0 opentelemetry-sdk-1.17.0 opentelemetry-semantic-conventions-0.38b0 opentelemetry-util-http-0.38b0 protobuf-4.22.3 psycopg-3.1.8 psycopg-binary-3.1.8 psycopg-pool-3.1.7 pyasn1-0.4.8 python-dateutil-2.8.2 python-jose-3.3.0 requests-2.28.2 rollbar-0.16.3 rsa-4.9 s3transfer-0.6.0 typing-extensions-4.5.0 urllib3-1.26.15 watchtower-3.0.1 wrapt-1.15.0 zipp-3.15.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 23.1
+[notice] To update, run: pip install --upgrade pip
+Removing intermediate container 9bef7a933e2b
+ ---> 4a2e80078abe
+Step 5/7 : COPY . .
+ ---> a8831932a18e
+Step 6/7 : EXPOSE ${PORT}
+ ---> Running in 305d807fda26
+Removing intermediate container 305d807fda26
+ ---> 656fd2be0300
+Step 7/7 : CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567", "--debug"]
+ ---> Running in 25e48fc8253d
+Removing intermediate container 25e48fc8253d
+ ---> d5d544058e40
+Successfully built d5d544058e40
+Successfully tagged backend-flask:latest
+
+[Container] 2023/04/15 23:20:03 Running command docker tag $REPO_NAME $IMAGE_URL/$REPO_NAME
+
+[Container] 2023/04/15 23:20:03 Phase complete: BUILD State: SUCCEEDED
+[Container] 2023/04/15 23:20:03 Phase context status code:  Message: 
+[Container] 2023/04/15 23:20:03 Entering phase POST_BUILD
+[Container] 2023/04/15 23:20:03 Running command echo Build completed on `date`
+Build completed on Sat Apr 15 23:20:03 UTC 2023
+
+[Container] 2023/04/15 23:20:03 Running command echo Pushing the Docker image..
+Pushing the Docker image..
+
+[Container] 2023/04/15 23:20:03 Running command docker push $IMAGE_URL/$REPO_NAME
+The push refers to repository [598485450821.dkr.ecr.ca-central-1.amazonaws.com/backend-flask]
+85e00678e008: Preparing
+bf754ddbb62e: Preparing
+c4fc35c377ae: Preparing
+7da8ff82f2f9: Preparing
+7f2fe4cb548a: Preparing
+c7787300a586: Preparing
+039e9922562b: Preparing
+ccc60df26c61: Preparing
+61a5c84a1270: Preparing
+c7787300a586: Waiting
+039e9922562b: Waiting
+ccc60df26c61: Waiting
+61a5c84a1270: Waiting
+7da8ff82f2f9: Retrying in 5 seconds
+85e00678e008: Retrying in 5 seconds
+bf754ddbb62e: Retrying in 5 seconds
+c4fc35c377ae: Retrying in 5 seconds
+7f2fe4cb548a: Retrying in 5 seconds
+7da8ff82f2f9: Retrying in 4 seconds
+85e00678e008: Retrying in 4 seconds
+bf754ddbb62e: Retrying in 4 seconds
+c4fc35c377ae: Retrying in 4 seconds
+7f2fe4cb548a: Retrying in 4 seconds
+7da8ff82f2f9: Retrying in 3 seconds
+85e00678e008: Retrying in 3 seconds
+bf754ddbb62e: Retrying in 3 seconds
+c4fc35c377ae: Retrying in 3 seconds
+7f2fe4cb548a: Retrying in 3 seconds
+7da8ff82f2f9: Retrying in 2 seconds
+85e00678e008: Retrying in 2 seconds
+bf754ddbb62e: Retrying in 2 seconds
+c4fc35c377ae: Retrying in 2 seconds
+7f2fe4cb548a: Retrying in 2 seconds
+7da8ff82f2f9: Retrying in 1 second
+85e00678e008: Retrying in 1 second
+bf754ddbb62e: Retrying in 1 second
+c4fc35c377ae: Retrying in 1 second
+7f2fe4cb548a: Retrying in 1 second
+7da8ff82f2f9: Retrying in 10 seconds
+c4fc35c377ae: Retrying in 10 seconds
+bf754ddbb62e: Retrying in 10 seconds
+85e00678e008: Retrying in 10 seconds
+7f2fe4cb548a: Retrying in 10 seconds
+7da8ff82f2f9: Retrying in 9 seconds
+c4fc35c377ae: Retrying in 9 seconds
+bf754ddbb62e: Retrying in 9 seconds
+85e00678e008: Retrying in 9 seconds
+7f2fe4cb548a: Retrying in 9 seconds
+7da8ff82f2f9: Retrying in 8 seconds
+c4fc35c377ae: Retrying in 8 seconds
+bf754ddbb62e: Retrying in 8 seconds
+85e00678e008: Retrying in 8 seconds
+7f2fe4cb548a: Retrying in 8 seconds
+7da8ff82f2f9: Retrying in 7 seconds
+c4fc35c377ae: Retrying in 7 seconds
+85e00678e008: Retrying in 7 seconds
+bf754ddbb62e: Retrying in 7 seconds
+7f2fe4cb548a: Retrying in 7 seconds
+7da8ff82f2f9: Retrying in 6 seconds
+c4fc35c377ae: Retrying in 6 seconds
+85e00678e008: Retrying in 6 seconds
+bf754ddbb62e: Retrying in 6 seconds
+7f2fe4cb548a: Retrying in 6 seconds
+7da8ff82f2f9: Retrying in 5 seconds
+c4fc35c377ae: Retrying in 5 seconds
+bf754ddbb62e: Retrying in 5 seconds
+85e00678e008: Retrying in 5 seconds
+7f2fe4cb548a: Retrying in 5 seconds
+7da8ff82f2f9: Retrying in 4 seconds
+c4fc35c377ae: Retrying in 4 seconds
+bf754ddbb62e: Retrying in 4 seconds
+85e00678e008: Retrying in 4 seconds
+7f2fe4cb548a: Retrying in 4 seconds
+7da8ff82f2f9: Retrying in 3 seconds
+c4fc35c377ae: Retrying in 3 seconds
+85e00678e008: Retrying in 3 seconds
+bf754ddbb62e: Retrying in 3 seconds
+7f2fe4cb548a: Retrying in 3 seconds
+7da8ff82f2f9: Retrying in 2 seconds
+c4fc35c377ae: Retrying in 2 seconds
+bf754ddbb62e: Retrying in 2 seconds
+85e00678e008: Retrying in 2 seconds
+7f2fe4cb548a: Retrying in 2 seconds
+7da8ff82f2f9: Retrying in 1 second
+c4fc35c377ae: Retrying in 1 second
+85e00678e008: Retrying in 1 second
+bf754ddbb62e: Retrying in 1 second
+7f2fe4cb548a: Retrying in 1 second
+7da8ff82f2f9: Retrying in 15 seconds
+c4fc35c377ae: Retrying in 15 seconds
+85e00678e008: Retrying in 15 seconds
+bf754ddbb62e: Retrying in 15 seconds
+7f2fe4cb548a: Retrying in 15 seconds
+7da8ff82f2f9: Retrying in 14 seconds
+c4fc35c377ae: Retrying in 14 seconds
+85e00678e008: Retrying in 14 seconds
+bf754ddbb62e: Retrying in 14 seconds
+7f2fe4cb548a: Retrying in 14 seconds
+7da8ff82f2f9: Retrying in 13 seconds
+c4fc35c377ae: Retrying in 13 seconds
+bf754ddbb62e: Retrying in 13 seconds
+85e00678e008: Retrying in 13 seconds
+7f2fe4cb548a: Retrying in 13 seconds
+7da8ff82f2f9: Retrying in 12 seconds
+c4fc35c377ae: Retrying in 12 seconds
+85e00678e008: Retrying in 12 seconds
+bf754ddbb62e: Retrying in 12 seconds
+7f2fe4cb548a: Retrying in 12 seconds
+7da8ff82f2f9: Retrying in 11 seconds
+c4fc35c377ae: Retrying in 11 seconds
+85e00678e008: Retrying in 11 seconds
+bf754ddbb62e: Retrying in 11 seconds
+7f2fe4cb548a: Retrying in 11 seconds
+7da8ff82f2f9: Retrying in 10 seconds
+c4fc35c377ae: Retrying in 10 seconds
+85e00678e008: Retrying in 10 seconds
+bf754ddbb62e: Retrying in 10 seconds
+7f2fe4cb548a: Retrying in 10 seconds
+7da8ff82f2f9: Retrying in 9 seconds
+c4fc35c377ae: Retrying in 9 seconds
+bf754ddbb62e: Retrying in 9 seconds
+85e00678e008: Retrying in 9 seconds
+7f2fe4cb548a: Retrying in 9 seconds
+7da8ff82f2f9: Retrying in 8 seconds
+c4fc35c377ae: Retrying in 8 seconds
+85e00678e008: Retrying in 8 seconds
+bf754ddbb62e: Retrying in 8 seconds
+7f2fe4cb548a: Retrying in 8 seconds
+7da8ff82f2f9: Retrying in 7 seconds
+c4fc35c377ae: Retrying in 7 seconds
+85e00678e008: Retrying in 7 seconds
+bf754ddbb62e: Retrying in 7 seconds
+7f2fe4cb548a: Retrying in 7 seconds
+7da8ff82f2f9: Retrying in 6 seconds
+c4fc35c377ae: Retrying in 6 seconds
+bf754ddbb62e: Retrying in 6 seconds
+85e00678e008: Retrying in 6 seconds
+7f2fe4cb548a: Retrying in 6 seconds
+7da8ff82f2f9: Retrying in 5 seconds
+c4fc35c377ae: Retrying in 5 seconds
+85e00678e008: Retrying in 5 seconds
+bf754ddbb62e: Retrying in 5 seconds
+7f2fe4cb548a: Retrying in 5 seconds
+7da8ff82f2f9: Retrying in 4 seconds
+c4fc35c377ae: Retrying in 4 seconds
+85e00678e008: Retrying in 4 seconds
+bf754ddbb62e: Retrying in 4 seconds
+7f2fe4cb548a: Retrying in 4 seconds
+7da8ff82f2f9: Retrying in 3 seconds
+c4fc35c377ae: Retrying in 3 seconds
+85e00678e008: Retrying in 3 seconds
+bf754ddbb62e: Retrying in 3 seconds
+7f2fe4cb548a: Retrying in 3 seconds
+7da8ff82f2f9: Retrying in 2 seconds
+c4fc35c377ae: Retrying in 2 seconds
+bf754ddbb62e: Retrying in 2 seconds
+85e00678e008: Retrying in 2 seconds
+7f2fe4cb548a: Retrying in 2 seconds
+7da8ff82f2f9: Retrying in 1 second
+c4fc35c377ae: Retrying in 1 second
+bf754ddbb62e: Retrying in 1 second
+85e00678e008: Retrying in 1 second
+7f2fe4cb548a: Retrying in 1 second
+7da8ff82f2f9: Retrying in 20 seconds
+c4fc35c377ae: Retrying in 20 seconds
+bf754ddbb62e: Retrying in 20 seconds
+85e00678e008: Retrying in 20 seconds
+7f2fe4cb548a: Retrying in 20 seconds
+7da8ff82f2f9: Retrying in 19 seconds
+c4fc35c377ae: Retrying in 19 seconds
+bf754ddbb62e: Retrying in 19 seconds
+85e00678e008: Retrying in 19 seconds
+7f2fe4cb548a: Retrying in 19 seconds
+7da8ff82f2f9: Retrying in 18 seconds
+c4fc35c377ae: Retrying in 18 seconds
+bf754ddbb62e: Retrying in 18 seconds
+85e00678e008: Retrying in 18 seconds
+7f2fe4cb548a: Retrying in 18 seconds
+7da8ff82f2f9: Retrying in 17 seconds
+c4fc35c377ae: Retrying in 17 seconds
+bf754ddbb62e: Retrying in 17 seconds
+85e00678e008: Retrying in 17 seconds
+7f2fe4cb548a: Retrying in 17 seconds
+7da8ff82f2f9: Retrying in 16 seconds
+c4fc35c377ae: Retrying in 16 seconds
+bf754ddbb62e: Retrying in 16 seconds
+85e00678e008: Retrying in 16 seconds
+7f2fe4cb548a: Retrying in 16 seconds
+7da8ff82f2f9: Retrying in 15 seconds
+c4fc35c377ae: Retrying in 15 seconds
+bf754ddbb62e: Retrying in 15 seconds
+85e00678e008: Retrying in 15 seconds
+7f2fe4cb548a: Retrying in 15 seconds
+7da8ff82f2f9: Retrying in 14 seconds
+c4fc35c377ae: Retrying in 14 seconds
+85e00678e008: Retrying in 14 seconds
+bf754ddbb62e: Retrying in 14 seconds
+7f2fe4cb548a: Retrying in 14 seconds
+7da8ff82f2f9: Retrying in 13 seconds
+c4fc35c377ae: Retrying in 13 seconds
+bf754ddbb62e: Retrying in 13 seconds
+85e00678e008: Retrying in 13 seconds
+7f2fe4cb548a: Retrying in 13 seconds
+7da8ff82f2f9: Retrying in 12 seconds
+c4fc35c377ae: Retrying in 12 seconds
+bf754ddbb62e: Retrying in 12 seconds
+85e00678e008: Retrying in 12 seconds
+7f2fe4cb548a: Retrying in 12 seconds
+7da8ff82f2f9: Retrying in 11 seconds
+c4fc35c377ae: Retrying in 11 seconds
+85e00678e008: Retrying in 11 seconds
+bf754ddbb62e: Retrying in 11 seconds
+7f2fe4cb548a: Retrying in 11 seconds
+7da8ff82f2f9: Retrying in 10 seconds
+c4fc35c377ae: Retrying in 10 seconds
+bf754ddbb62e: Retrying in 10 seconds
+85e00678e008: Retrying in 10 seconds
+7f2fe4cb548a: Retrying in 10 seconds
+7da8ff82f2f9: Retrying in 9 seconds
+c4fc35c377ae: Retrying in 9 seconds
+bf754ddbb62e: Retrying in 9 seconds
+85e00678e008: Retrying in 9 seconds
+7f2fe4cb548a: Retrying in 9 seconds
+7da8ff82f2f9: Retrying in 8 seconds
+c4fc35c377ae: Retrying in 8 seconds
+85e00678e008: Retrying in 8 seconds
+bf754ddbb62e: Retrying in 8 seconds
+7f2fe4cb548a: Retrying in 8 seconds
+7da8ff82f2f9: Retrying in 7 seconds
+c4fc35c377ae: Retrying in 7 seconds
+bf754ddbb62e: Retrying in 7 seconds
+85e00678e008: Retrying in 7 seconds
+7f2fe4cb548a: Retrying in 7 seconds
+7da8ff82f2f9: Retrying in 6 seconds
+c4fc35c377ae: Retrying in 6 seconds
+bf754ddbb62e: Retrying in 6 seconds
+85e00678e008: Retrying in 6 seconds
+7f2fe4cb548a: Retrying in 6 seconds
+7da8ff82f2f9: Retrying in 5 seconds
+c4fc35c377ae: Retrying in 5 seconds
+bf754ddbb62e: Retrying in 5 seconds
+85e00678e008: Retrying in 5 seconds
+7f2fe4cb548a: Retrying in 5 seconds
+7da8ff82f2f9: Retrying in 4 seconds
+c4fc35c377ae: Retrying in 4 seconds
+85e00678e008: Retrying in 4 seconds
+bf754ddbb62e: Retrying in 4 seconds
+7f2fe4cb548a: Retrying in 4 seconds
+7da8ff82f2f9: Retrying in 3 seconds
+c4fc35c377ae: Retrying in 3 seconds
+bf754ddbb62e: Retrying in 3 seconds
+85e00678e008: Retrying in 3 seconds
+7f2fe4cb548a: Retrying in 3 seconds
+7da8ff82f2f9: Retrying in 2 seconds
+c4fc35c377ae: Retrying in 2 seconds
+85e00678e008: Retrying in 2 seconds
+bf754ddbb62e: Retrying in 2 seconds
+7f2fe4cb548a: Retrying in 2 seconds
+7da8ff82f2f9: Retrying in 1 second
+c4fc35c377ae: Retrying in 1 second
+bf754ddbb62e: Retrying in 1 second
+85e00678e008: Retrying in 1 second
+7f2fe4cb548a: Retrying in 1 second
+EOF
+
+[Container] 2023/04/15 23:20:53 Command did not exit successfully docker push $IMAGE_URL/$REPO_NAME exit status 1
+[Container] 2023/04/15 23:20:53 Phase complete: POST_BUILD State: FAILED
+[Container] 2023/04/15 23:20:53 Phase context status code: COMMAND_EXECUTION_ERROR Message: Error while executing command: docker push $IMAGE_URL/$REPO_NAME. Reason: exit status 1
+[Container] 2023/04/15 23:20:53 Phase complete: UPLOAD_ARTIFACTS State: SUCCEEDED
+[Container] 2023/04/15 23:20:53 Phase context status code:  Message: 
