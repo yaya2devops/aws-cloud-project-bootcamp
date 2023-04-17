@@ -1,12 +1,19 @@
 
 ## Scripts Library for Developers
 
-The following scripts were manually written using **Python**, **Bash**, and **Ruby**. The creation was independently and in a specific order to achieve a desired outcome.
 
+The following scripts were manually written using **Python**, **Bash**, and **Ruby**. 
 
+The creation was developed systematically and strategically to meet the challenges and needs of the project, with the ultimate goal of automating tasks. 
+
+The process involved a deliberate and thoughtful approach, with each step taken in a specific order to achieve a desired outcome.
 
 ```sh
 ./bin/
+├── serverless
+│   ├── build
+│   ├── clear
+│   └── upload
 ├── backend
 │   ├── build
 │   ├── connect
@@ -58,9 +65,7 @@ The following scripts were manually written using **Python**, **Bash**, and **Ru
 │   └── service-on
 ├── rds
 │   └── update-sg-rule
-├── serverless
-│   ├── build
-│   ├── clear
-│   └── upload
-└── busybox
+├── busybox
+└── bootstrap
+
 ```
