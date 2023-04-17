@@ -40,7 +40,7 @@
 | [Week 6](journal/week6.md) | Deploying Serverless Containers (Part 1/2) | Mar 25, 2023 |Doing|
 | [Week 7](journal/week7.md)  | Solving CORS with a Custom Domain and Load Balancing (Part 2/2) | Apr 1, 2023 |Doing|
 | [Week 8](journal/week8.md) | Serverless Image Processing | Apr 8, 2023 |Doing|
-|  [Week 9](journal/week9.md) | CI/CD | Apr 15, 2023 |Coming|
+|  [Week 9](journal/week9.md) | CI/CD | Apr 15, 2023 |Doing|
 |  [Week 10](journal/week10.md) | CloudFormation (Part 1/2) | Apr 22, 2023 |Coming|
 | [Week 11](journal/week11.md)| CloudFormation (Part 2) | Apr 29, 2023 |Coming|
 |  [Week 12](journal/week12.md) | Modern APIs | May 6, 2023 |Coming|
