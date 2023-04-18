@@ -5,13 +5,13 @@ Weeks 6 and 7 were consolidated into a two-week period of harmony, in here i'll 
 This will primarily involve onboarding the project to AWS, creating three repositories, building and pushing the Python container, back and front to ECR, and running the project in Fargate using **loadbalancer**.
 
 ## Main Week Six Tasks
-- [Provision ECS Cluster]()
-- [Create ECR repo and push image for backend-flask]()
-- [Deploy Backend Flask app as a service to Fargate]()
-- [Create ECR repo and push image for fronted-react-js]()
-- [Deploy Frontend React JS app as a service to Fargate]()
-- [Provision and configure Application Load Balancer along with target groups]()
-- [Rebuild containers with custom dockerfiles for prod]()
+- [Provision ECS Cluster](#ecs-cluster-creation)
+- [Create ECR repo and push image for backend-flask](#backend-health-check)
+- [Deploy Backend Flask app as a service to Fargate](#deploy-to-fargate)
+- [Create ECR repo and push image for fronted-react-js](#ecr-frontend)
+- [Deploy Frontend React JS app as a service to Fargate](#frontend-task)
+- [Provision and configure Application Load Balancer along with target groups](#setup-load-balancer)
+- [Rebuild containers with custom dockerfiles for prod](#react-static-assets-serve-using-nginx)
 
  
 ### ECS Cluster Creation
@@ -82,6 +82,9 @@ except Exception as e:
 [OK] Flask server is running
 ```
 
+
+
+
 ### Python Image
 
 1- Create a new repository named cruddur-python using the following command:
@@ -109,6 +112,10 @@ echo $ECR_PYTHON_URL
 docker pull python:3.10-slim-buster
 ```
 
+<img src="assets/week6-7/1-workflow/16 work proof.png">
+
+
+
 5- Tag it
 
 ```sh
@@ -120,14 +127,19 @@ docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster
 ```sh
 docker push $ECR_PYTHON_URL:3.10-slim-buster
 ```
+<img src="assets/week6-7/1-workflow/8-python-image-container-resgitry.png
+">
 
+7 load-balancer.png
 This is the process to containerize any project of your wish.
 
 
 #### ECR [Backend](../backend-flask#readme)
 
 
-#### ECR [Frontend](bin/frontend/)
+#### ECR [Frontend](../bin/frontend/)
+
+Bin is restructured in week 7 - [check from now.](../bin/README.md)
 
 
 ---
@@ -155,10 +167,17 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLB
 aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
 ```
 
+<img src="assets/week6-7/1-workflow/20 parameter store.png
+">
+
+**Fargate Environment:**
+<img src="assets/week6-7/1-workflow/31 task-definition-env.png">
+
+Project Assets can be [found here.](assets/README.md)
 
 ### Policies & Permissions
 - Set [Execution Cruddur Role](../aws/policies/README.md)
-- Set [Task Role](aws/policies/task-role#readme)
+- Set [Task Role](../aws/policies/task-role#readme)
 ---
 
 ### Deploy to fargate:
@@ -180,6 +199,8 @@ export DEFAULT_SUBNET_IDS=$(aws ec2 describe-subnets  \
 echo $DEFAULT_SUBNET_IDS
 ```
 
+<img src="assets/week6-7/1-workflow/34backend-service-flask.png">
+
 - Create service
 
 ```bash
@@ -200,6 +221,8 @@ sudo dpkg -i session-manager-plugin.deb
 ```bash
 session-manager-plugin
 ```
+<img src="assets/week6-7/1-workflow/33 sys manager .png">
+
 
 - Replace ARN and run 
 
@@ -217,7 +240,11 @@ aws ecs execute-command  \
 The Session Manager plugin was installed successfully. Use the AWS CLI to start a session.
 ```
 
-- Add this to `.gitpod.yml` to auto install session manager.
+**Connect:**
+
+<img src="assets/week6-7/2-Fargate/13-connect-backend-container.png">
+
+- Add this to `.gitpod.yml` to auto install session manager auto.
 
 ```bash
 - name: fargate
@@ -226,6 +253,12 @@ The Session Manager plugin was installed successfully. Use the AWS CLI to start 
       sudo dpkg -i session-manager-plugin.deb
       cd backend-flask
 ```
+
+**Make sure Containers are healthy:**
+<img src="assets/week6-7/Containers-Stats/both-services-inc-container-insights.png
+">
+
+
 
 ## curl is bad practice in docker. Potential threat.
 
@@ -243,6 +276,11 @@ The Session Manager plugin was installed successfully. Use the AWS CLI to start 
 ```bash
 ./backend-flask/bin/ecs/connect-to-service backend-flask
 ```
+
+From **Bash**
+<img src="assets/week6-7/2-Fargate/14-connect-using-bash.png">
+
+
 
 - Run this command to check connection to RDS.
 
@@ -283,7 +321,6 @@ aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.js
 
 - check service accessibility.
 
-
 ---
 
 ### Frontend Task
@@ -317,7 +354,8 @@ Create a log group to check logs and help you troubleshoot fargate related error
 aws logs create-log-group --log-group-name cruddur
 aws logs put-retention-policy --log-group-name cruddur --retention-in-days 1
 ```
-
+<img src="assets/week6-7/1-workflow/5-capture-sans-rentation-cloudwatch-fargate.png
+">
 ---
 
 ## Setup Load Balancer
@@ -329,6 +367,9 @@ Create a new Security Group named "cruddur-alb-sg" <br>
 → inbound rules for HTTP  <br>
 → HTTPS traffic from any source.<br>
 
+<img src="assets/week6-7/2-Fargate/7 load-balancer.png">
+
+
 Listeners and routing: <br>
 → create a target group backend and another. <br>
 → create a target group backendthe frontend.
@@ -338,7 +379,9 @@ Listeners and routing: <br>
 Change "crud-srv-sg" security group inbound rule:<br>
 → create a new rule that allows traffic from "cruddur-alb-sg" on port 4567.<br>
 → delete the old rule that allowed direct access to the backend Flask server.<br>
-That way requests can only go through the magic of the lb and get played.
+
+<img src="assets/week6-7/2-Fargate/8 cruddur LB.png">
+
 
 ### Create Target Group
 
@@ -363,6 +406,7 @@ That way requests can only go through the magic of the lb and get played.
 → Set the default action to use the "cruddur-backend-flask-tg" target group with port 4567.<br>
 → Create an additional listener for port 3000 with the default action set to use the "cruddur-frontend-react-js" target group.
 
+<img src="assets/week6-7/2-Fargate/9 load-balancer-setup-target-group.png">
 
 ### ECS Loadbalancer
 
