@@ -127,8 +127,8 @@ docker tag python:3.10-slim-buster $ECR_PYTHON_URL:3.10-slim-buster
 ```sh
 docker push $ECR_PYTHON_URL:3.10-slim-buster
 ```
-<img src="assets/week6-7/1-workflow/8-python-image-container-resgitry.png
-">
+
+<img src="assets/week6-7/1-workflow/8-python-image-container-resgitry.png">
 
 7 load-balancer.png
 This is the process to containerize any project of your wish.
@@ -167,10 +167,10 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLB
 aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
 ```
 
-<img src="assets/week6-7/1-workflow/20 parameter store.png
-">
+<img src="assets/week6-7/1-workflow/20 parameter store.png">
 
 **Fargate Environment:**
+
 <img src="assets/week6-7/1-workflow/31 task-definition-env.png">
 
 Project Assets can be [found here.](assets/README.md)
@@ -255,8 +255,7 @@ The Session Manager plugin was installed successfully. Use the AWS CLI to start 
 ```
 
 **Make sure Containers are healthy:**
-<img src="assets/week6-7/Containers-Stats/both-services-inc-container-insights.png
-">
+<img src="assets/week6-7/Containers-Stats/both-services-inc-container-insights.png">
 
 
 
@@ -354,8 +353,8 @@ Create a log group to check logs and help you troubleshoot fargate related error
 aws logs create-log-group --log-group-name cruddur
 aws logs put-retention-policy --log-group-name cruddur --retention-in-days 1
 ```
-<img src="assets/week6-7/1-workflow/5-capture-sans-rentation-cloudwatch-fargate.png
-">
+<img src="assets/week6-7/1-workflow/5-capture-sans-rentation-cloudwatch-fargate.png">
+
 ---
 
 ## Setup Load Balancer
