@@ -4,13 +4,14 @@
 
 The following scripts were manually written using **Python**, **Bash**, and **Ruby**. 
 
-The creation was developed systematically and strategically to meet the challenges and needs of the project, with the ultimate goal of automating tasks. 
+<img src="bin-dir-banner.png">
 
-The process involved a deliberate and thoughtful approach, with each step taken in a specific order to achieve a desired outcome.
+The creation was developed systematically, strategically and in a thoughtful approach with the ultimate goal of automating the repetitive tasks tasks.
+
 
 ```sh
 ./bin/
-├── serverless
+├── avatar
 │   ├── build
 │   ├── clear
 │   └── upload
@@ -69,3 +70,5 @@ The process involved a deliberate and thoughtful approach, with each step taken 
 └── bootstrap
 
 ```
+
+> [Build](../aws/README.md#lets-talk-about-trees) a tree?

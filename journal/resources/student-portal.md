@@ -36,12 +36,10 @@ Expand Student Portal Submissions
 This section is where the student is required to submit weekly To-Do tasks.
 
 <img src="../assets/Student-Portal/2 submissions.png">
-
 </details>
 
 
 <details>
-
 <summary>
 E.g. Week 3 submission
 </summary>
@@ -57,8 +55,9 @@ A good portion of each week is spent explaining a summary of the work completed.
 
 Being transparent and saying exactly what you practiced and not making it difficult for yourself and your supervisor to grade you.
 
-<details>
+</details>
 
+<details>
 <summary>
 Bonus, Week 4 
 </summary>
@@ -79,10 +78,8 @@ During the learning journey, students will need to refer to additional resources
 [Bootcamp Outlines](https://docs.google.com/document/d/19XMyd5zCk7S9QT2q1_Cg-wvbnBwOge7EgzgvtVCgcz0/mobilebasic#h.phh8kngo2rl7)
 
 <details>
-
 <summary>
-Looking for Support?
-</summary>
+Can i assist you?</summary>
 
 I'm always here to help out friends, and I'd be happy to receive an email from you !<br>
 

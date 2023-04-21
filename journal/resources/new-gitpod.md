@@ -1,6 +1,8 @@
 
 ## From Gitpod to Gitpod
 
+This started as my attempt to assist a member of the community [here](week6-7/4-bin-refacor/Thread/1-discord-env-var-1.png) and [here.](week6-7/4-bin-refacor/Thread/2-discord-env-var.png)
+
 I wrote this command on like 12 credit on gitpod to get all env var.
 ```bash
 for var in $(printenv); do printf "%s\n" "$var"; done > env_variables.txt 

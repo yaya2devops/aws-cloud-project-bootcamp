@@ -12,3 +12,5 @@ BIN_DIR=$(dirname $ABS_PATH)
 source "$BIN_DIR/db/setup"
 source "$BIN_DIR/ddb/schema-load"
 source "$BIN_DIR/ddb/seed"
+source "$BIN_DIR/ecr/login"
+

@@ -79,6 +79,6 @@ git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 
 <img src="../assets/week4/Discord/Acknowledged/my-tags.png">
 
-> Great!
+> [Developer Reference](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tags)
 
 </details>

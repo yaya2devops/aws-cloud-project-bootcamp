@@ -1,19 +1,24 @@
 
-## VS Code Dependency Automation
+## Managing Dependencies Locally
 
-Automate npm on vscode using task definitions for the product frontend dependency.
+Working on the product frontend and using VS Code, you can automate npm using this task definitions.
 
-> In gitpod - we can do this using .gitpod
->
-> 
-This reference is for local dev.
-Create a folder called 
+
+
+- Create a folder in the root of your project called `.vscode`.
+- Inside the `.vscode` folder, create a file called `tasks.json`.
+- Add the necessary code to tasks.json to define your tasks.
 
 ```
 .root
 --└── .vscode 
 -----└── tasks.json
 ```
+
+
+- Please note that the following reference is intended for local development. 
+- If you're using Gitpod, you can achieve the same effect using `.gitpod`
+
 
 
 **tasks.json:**
@@ -50,4 +55,11 @@ from the command palette or CTRL+SHIFT+P -> Tasks: Run Task -> npm: install - fr
 
 
 
-> .devcontainer is used for container-specific settings
+> [.devcontainer](../.devcontainer/README.md) is used for container-specific settings
+
+
+
+**Developer Reference:**
+- [Tasks in Vscode](https://code.visualstudio.com/docs/editor/tasks#:~:text=Tasks%20in%20VS%20Code%20can,vscode%20folder%20for%20a%20workspace.)
+- [Tasks Provider](https://code.visualstudio.com/api/extension-guides/task-provider)
+- [Environment Variables](https://code.visualstudio.com/docs/editor/variables-reference)
