@@ -7,7 +7,7 @@
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
 | [Discord Issues](assets/week4/Discord/README.md)  | Troubleshooting guide for Discord issues |
-
+| [Instagram Stories](resources/instagram-stories.md)  | Bootcamp Assets shared to community on instagram |
 
 ---
 

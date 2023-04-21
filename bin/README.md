@@ -6,7 +6,7 @@ The following scripts were manually written using **Python**, **Bash**, and **Ru
 
 <img src="bin-dir-banner.png">
 
-The creation was developed systematically, strategically and in a thoughtful approach with the ultimate goal of automating the repetitive tasks tasks.
+The creation was developed systematically, strategically and in a thoughtful approach with the ultimate goal of automating the repetitive tasks.
 
 
 ```sh
