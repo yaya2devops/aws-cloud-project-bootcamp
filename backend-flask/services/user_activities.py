@@ -13,10 +13,10 @@ class UserActivities:
         'data': None
       }
 
-      now = datetime.now(timezone.utc).astimezone()
-      dict = {
-        "now": now.isoformat()
-      }
+      #now = datetime.now(timezone.utc).astimezone()
+      #dict = {
+      #  "now": now.isoformat()
+      #}
       if user_handle == None or len(user_handle) < 1:
         model['errors'] = ['blank_user_handle']
       else:
