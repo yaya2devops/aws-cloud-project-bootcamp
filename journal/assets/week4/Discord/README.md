@@ -39,3 +39,12 @@ You can learn more about tagging from [here.](../../../resources/tagging.md)
 
 </details>
 
+<details>
+<summary><b>Issue 4 — Env Variables<b></summary>
+<img src="../../week6-7/4-bin-refacor/Thread/1-discord-env-var-1.png">
+
+<img src="../../week6-7/4-bin-refacor/Thread/2-discord-env-var.png">
+
+</details>
+
+

@@ -5,6 +5,7 @@ The asset below illustrates the initial deliverable that the project aims to ach
 
 <img src="GOAL.png">
 
+[**Design Use-Case**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week4#readme)
 
 ## Reworked Project Objective <small>v2</small>
 
@@ -13,12 +14,15 @@ To view and edit this file, use [DRAWIO](objective.drawio)
 <img src="objective.png">
 
 
+[**Design Use-Case**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week5#readme)
 
 ## Recently Released Design  <small>v4.4</small>
 
 To view and edit this file, use [DRAWIO](aware.drawio)
 
 <img src="aware.drawio.png">
+
+[**Design Use-Case**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week6-7#readme)
 
 
 
