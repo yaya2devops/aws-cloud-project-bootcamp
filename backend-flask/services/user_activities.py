@@ -1,14 +1,13 @@
-from datetime import datetime, timedelta, timezone
+from lib.db import db
 
 #from aws_xray_sdk.core import xray_recorder
 
 
 class UserActivities:
   def run(user_handle):
-    try:
-        # xray ---
-      segment = xray_recorder.begin_segment('user_activities')
-
+      # xray ---
+      #segment = xray_recorder.begin_segment('user_activities')
+      #try:
       model = {
         'errors': None,
         'data': None
@@ -21,13 +20,9 @@ class UserActivities:
       if user_handle == None or len(user_handle) < 1:
         model['errors'] = ['blank_user_handle']
       else:
-        results = [{
-          'uuid': '248959df-3079-4947-b847-9e0892d1bab4',
-          'handle':  'Andrew Brown',
-          'message': 'Cloud is fun!',
-          'created_at': (now - timedelta(days=1)).isoformat(),
-          'expires_at': (now + timedelta(days=31)).isoformat()
-        }]
+        print("else:")
+        sql = db.template('users','show')
+        results = db.query_object_json(sql,{'handle': user_handle})
         model['data'] = results
 
       # xray ---
@@ -41,6 +36,6 @@ class UserActivities:
 
       ## SOLVING
       #xray_recorder.end_subsegment()
-    finally:
+    #finally:
       #xray_recorder.end_subsegment()
       return model
