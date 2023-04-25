@@ -5,7 +5,7 @@ export default function SuggestedUsersSection(props) {
   return (
     <div className="suggested_users">
       <div className='suggested_users_title'>
-        Suggested Users
+        Connect with Developer
       </div>
       {props.users.map(user => {
         return <SuggestedUserItem display_name={user.display_name} handle={user.handle} />

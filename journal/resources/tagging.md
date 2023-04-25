@@ -44,6 +44,25 @@ git push --tags
 <img src="../assets/week4/Discord/Acknowledged/explain-tags-and-hash.png">
 </details>
 
+- Get recent 5 commits, their hashes, and associated designations:
+
+```sh
+git log -5 --pretty=format:"%h - %s"
+```
+
+- output:
+
+<pre>
+```console
+gitpod /workspace/aws-cloud-project-bootcamp (main) $ git log -5 --pretty=format:"%h - %s"
+a6a44d5 - Typo: Even the Smallest Things Count
+d414fbe - Week 8: Minor Fixes
+0b64b39 - Developer Experience
+7ea1c93 - Week 9: Instagram Assets
+ccc16cf - Week 8: Implement User Edit Functionality
+```
+</pre>
+
 ## Application
 
 ### Week 0:
