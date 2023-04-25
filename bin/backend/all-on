@@ -1,0 +1,33 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+CLUSTER_NAME="cruddur"
+FRONTEND_SERVICE_NAME="frontend-react-js"
+FRONTEND_TASK_DEFINITION_FAMILY="frontend-react-js"
+BACKEND_SERVICE_NAME="backend-flask"
+BACKEND_TASK_DEFINITION_FAMILY="backend-flask"
+RDS_INSTANCE="cruddur-db-instance"
+
+GREEN='\033[1;32m'
+NO_COLOR='\033[0m'
+LABEL="--STARTING FRONTEND TASK"
+printf "${GREEN}ON: ${LABEL}${NO_COLOR}\n"
+aws ecs update-service \
+--cluster $CLUSTER_NAME \
+--service $FRONTEND_SERVICE_NAME \
+--task-definition $FRONTEND_TASK_DEFINITION_FAMILY --desired-count 1 --no-cli-pager
+
+GREEN='\033[1;32m'
+NO_COLOR='\033[0m'
+LABEL="--STARTING BACKEND TASK"
+printf "${GREEN}ON: ${LABEL}${NO_COLOR}\n"
+aws ecs update-service \
+--cluster $CLUSTER_NAME \
+--service $BACKEND_SERVICE_NAME \
+--task-definition $BACKEND_TASK_DEFINITION_FAMILY --desired-count 1 --no-cli-pager
+
+GREEN='\033[1;32m'
+NO_COLOR='\033[0m'
+LABEL="--STARTING RDS"
+printf "${GREEN}ON: ${LABEL}${NO_COLOR}\n"
+aws rds start-db-instance --db-instance-identifier $RDS_INSTANCE --no-cli-pager

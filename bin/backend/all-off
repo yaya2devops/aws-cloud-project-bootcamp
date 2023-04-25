@@ -1,0 +1,34 @@
+#! /usr/bin/bash
+set -e # stop if it fails at any point
+
+CLUSTER_NAME="cruddur"
+FRONTEND_SERVICE_NAME="frontend-react-js"
+FRONTEND_TASK_DEFINITION_FAMILY="frontend-react-js"
+BACKEND_SERVICE_NAME="backend-flask"
+BACKEND_TASK_DEFINITION_FAMILY="backend-flask"
+RDS_INSTANCE="cruddur-db-instance"
+
+
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+LABEL="--STOPPING FRONTEND TASK"
+printf "${YELLOW}==== WARNING: ${LABEL}${NO_COLOR}\n"
+aws ecs update-service \
+--cluster $CLUSTER_NAME \
+--service $FRONTEND_SERVICE_NAME \
+--task-definition $FRONTEND_TASK_DEFINITION_FAMILY --desired-count 0 --no-cli-pager
+
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+LABEL="--STOPPING BACKEND TASK"
+printf "${YELLOW}==== WARNING: ${LABEL}${NO_COLOR}\n"
+aws ecs update-service \
+--cluster $CLUSTER_NAME \
+--service $BACKEND_SERVICE_NAME \
+--task-definition $BACKEND_TASK_DEFINITION_FAMILY --desired-count 0 --no-cli-pager
+
+YELLOW='\033[1;33m'
+NO_COLOR='\033[0m'
+LABEL="--STOPPING RDS"
+printf "${YELLOW}==== WARNING: ${LABEL}${NO_COLOR}\n"
+aws rds stop-db-instance --db-instance-identifier $RDS_INSTANCE --no-cli-pager

@@ -18,7 +18,32 @@
 
 More libraries are now supporting this, which can help keep your codebase lean and efficient.
 
+### Script
 
+```bash
+/bin/avatar/sharp
+
+#!/bin/bash
+
+cd /workspace/aws-bootcamp-cruddur-2023/aws/lambdas/process-images
+
+# Install dependencies
+npm install
+
+# Remove the sharp directory
+rm -rf node_modules/sharp
+
+# Install sharp with specific arch, platform, and libc flags
+SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install --arch=x64 --platform=linux --libc=glibc sharp
+```
+
+#### Automated
+
+```yml
+  - name: sharp
+    command: |
+      source  "$THEIA_WORKSPACE_ROOT/bin/avatar/sharp"
+```
 
 **Developer Reference:**
 - [Sharp Package](https://sharp.pixelplumbing.com/install#aws-lambda)

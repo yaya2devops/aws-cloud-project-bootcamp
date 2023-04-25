@@ -16,10 +16,13 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   ├── clear
 │   └── upload
 ├── backend
+│   ├── all-off
+│   ├── all-on
 │   ├── build
 │   ├── connect
 │   ├── deploy
 │   ├── generate-env
+│   ├── para-store
 │   ├── push
 │   ├── register
 │   ├── repo
@@ -32,6 +35,9 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   ├── connect
 │   ├── create
 │   ├── drop
+│   ├── kill-all
+│   ├── migrate
+│   ├── rollback
 │   ├── schema-load
 │   ├── seed
 │   ├── sessions
@@ -64,10 +70,13 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   ├── run
 │   ├── service-off
 │   └── service-on
+├── generate
+│   └── migration
 ├── rds
 │   └── update-sg-rule
 ├── busybox
-└── bootstrap
+├── bootstrap
+└── prepare
 
 ```
 
