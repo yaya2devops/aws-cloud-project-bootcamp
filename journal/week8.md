@@ -1,7 +1,27 @@
 # Week 8 — Serverless Image Processing
 
+
 > the missing architecture in here
 
+
+
+## Main Week Eight Tasks
+
+- Implement CDK Stack
+- Serve Avatars via CloudFront
+- Implement Users Profile Page
+- Implement Users Profile Form
+- Implement Backend Migrations
+- Presigned URL generation via Ruby Lambda
+- HTTP API Gateway with Lambda Authorizer
+- Create JWT Lambda Layer	https
+- Render Avatars in App via CloudFront
+
+
+
+---
+
+## Implement CDK Stack
 
 Along the lifestream, i created 2 functions within `thumbing-serverless-cdk-stack.ts`.
 

@@ -1,0 +1,7 @@
+aws CodeWhisperer
+ - aws toolkit
+
+
+aws bedrock ( build ai app) incl stability ai 
+titan
+ec2 INF2

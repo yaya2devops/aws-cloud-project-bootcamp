@@ -96,13 +96,13 @@ chmod u+x backend-flask/bin/ddb/schema-load
 
 Do the same for scripts to:
 
-→ [**list-tables**](../backend-flask/bin/ddb/list-tables)
+- [**list-tables**](../bin/ddb/list-tables)
 
 <img src="assets/week5/1- DynamoDb Utility Scrips/11 listed.png">
 
  <br>
 
-→ [**drop**](../backend-flask/bin/ddb/drop)
+-  [**drop**](../bin/ddb/drop)
 
 <img src="assets/week5/1- DynamoDb Utility Scrips/13 dropping db file.png">
 
@@ -181,7 +181,6 @@ Create `backend-flask/bin/ddb/patterns/get-conversation` and make it executable.
 - Add this to function to db.py
 
 ```python
-# when we want to return a a single value
   def query_value(self, sql, params={}):
       self.print_sql("value", sql, params)
 
@@ -196,7 +195,7 @@ Create `backend-flask/bin/ddb/patterns/get-conversation` and make it executable.
 - Create `backend-flask/bin/ddb/patterns/list-conversation` and make it exe
 
 
-Get it from [here.](../backend-flask/bin/ddb/patterns/list-conversations)
+Get it from [here.](../bin/ddb/patterns/list-conversations)
 
 
 - Update `print_sql` function and prereq in `db.py` to pass params.
@@ -221,7 +220,7 @@ Run the command:
 <img src="assets/week5/1- DynamoDb Utility Scrips/32 listed validation.png">
 
 
-### **Update Cognito ID** Script for Postgres:
+### **Update Cognito ID** Script for Postgre:
 
 - Create  `backend-flask/bin/cognito/list-users` and make it exe using `chmod`
 
@@ -299,7 +298,7 @@ def data_message_groups():
 
 
 
-**Authorization Portability:**
+**Authorization Portability:**<br>
 Start with including this in the required code files and eliminate any cookies:
 
 ```jsx
@@ -396,7 +395,7 @@ const classes = () => {
     <Link className={classes()} to={`/messages/` + props.message_group.uuid}>
 ```
 
-
+**Bayko Message Group:**
 
 <img src="assets/week5/3- NeatDelivery/pattern A (without seed).png">
 
@@ -412,6 +411,7 @@ Listing Messages Group into Application:
 - Update `backend-flask/services/messages.py`
 - Update `backend-flask/services/create_message.py`
 
+**Seed data from DynamoDB local:**
 
 <img src="assets/week5/3- NeatDelivery/pattern B.png">
 
@@ -446,7 +446,7 @@ WHERE
 - Update `onsubmit` in `frontend-react-js/src/components/MessageForm.js`
 - Update `data_create_message()` in `app.py`
 
-- Posting message is successful.
+**Posting message to a message group:**
 
 <img src="assets/week5/3- NeatDelivery/pattern C.png">
 
@@ -587,6 +587,8 @@ console.log(err);
 ```
 
 - When you send a message to the new user, it should now send and redirect the user to this page.
+
+**Sending message to Londo message group - NEW MG:**
 
 <img src="assets/week5/3- NeatDelivery/patternABCD.png">
 

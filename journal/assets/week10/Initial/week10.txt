@@ -1,0 +1,26 @@
+cloudformation can be written in json or yaml
+
+
+nested stacks are good but not our case?
+
+
+to seach for a service, search for snippet: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/quickref-ecs.html#quickref-ecs-example-1.yaml
+
+https://docs.aws.amazon.com/cli/latest/reference/emr/create-cluster.html
+
+
+aws map the api to both cfn and cli THE SAME API dude
+
+
+cloudformer 2 helps
+
+
+( cloudscape design ui - this design for code catalyst and soon will go all over)
+
+
+if u use SAM
+
+Required focus:
+- cloudformation guard cli github project
+- use cloudformation designer
+

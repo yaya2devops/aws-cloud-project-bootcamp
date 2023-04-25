@@ -1,0 +1,16 @@
+access tokens! https://www.oauth.com/oauth2-servers/access-tokens/?_ga=2.143041589.1828655193.1681940285-750741918.1681940285
+
+https://developer.okta.com/blog/2020/12/21/beginners-guide-to-jwt
+
+
+
+play with jwt: https://jwt.io/#debugger-io
+
+https://www.iana.org/assignments/jwt/jwt.xhtml
+
+https://developer.okta.com/blog/2018/06/20/what-happens-if-your-jwt-is-stolen
+
+Why JWTs Suck as Session Tokens https://developer.okta.com/blog/2017/08/17/why-jwts-suck-as-session-tokens
+
+secure docker: https://www.youtube.com/playlist?list=PLBf0hzazHTGNv0-GVWZoveC49pIDHEHbn
+cdk vs cloudfor!https://www.tinystacks.com/blog-post/aws-cdk-vs-cloudformation/
