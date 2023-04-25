@@ -163,6 +163,40 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Activity'
+  /api/profile/update:
+    post:
+      description: 'Updates the user profile information'
+      tags:
+        - profile
+      responses:
+        '200':
+          description: 'Returns the updated user profile data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: 'The updated user profile data'
+                  errors:
+                    type: array
+                    description: 'The errors, if any'
+                    items:
+                      type: string
+                example:
+                  data:
+                    bio: 'API documentation is a lot like flossing. everyone knows they should do it, but few actually enjoy the process. But not Yaya! Documenting APIs is his jam! '
+                    display_name: 'Yahya Abulhaj'
+                  errors: null
+        '401':
+          description: 'Unauthorized request'
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Empty response'
+                example: {}
 components:
   schemas:
     Activity:
