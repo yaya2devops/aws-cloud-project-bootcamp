@@ -2,19 +2,24 @@
 
 <img src="assets/week2/welcome.png">
 
-Awareness continues with another productive week.
 
-This past days was a great dive into the world of observability.
+## Brief Considerations
+Awareness continues with another productive week. This past days was a great dive into the world of observability.
+- I acknowledged the importance of seeing things clearly and tracing its roots.
+- I started by learning about the three main observability pillars: metrics¹, traces², and logs³. 
+- I gained a deeper understanding of how each of these pillars can provide valuable insights into the performance of software applications & aid to identify issues.
+- I successfully setup CRUDDUR to four different observability tools: Honeycomb, AWS X-Ray, CloudWatch, and Rollbar.
 
-I acknowledged the importance of seeing things clearly and tracing its roots.
+## Week Two Main Tasks
 
-I started by learning about the three main observability pillars: metrics¹, traces², and logs³. 
+- Instrument **Honeycomb** with OTEL
+- Instrument **AWS X-Ray**
+- Configure custom logger to send to **CloudWatch** Logs
+- Integrate **Rollbar** and capture and error
+- Observability Security Considerations
+- Observability Spending Considerations- 
 
-I gained a deeper understanding of how each of these pillars can provide valuable insights into the performance of software applications & aid to identify issues.
-
-I successfully setup CRUDDUR to four different observability tools: Honeycomb, AWS X-Ray, CloudWatch, and Rollbar.
-
-Here is a brief on the tools, if you consider learning more.
+Here is a brief on the tools, if you consider learning more and direction to my work.
 
 |  Tools         | Description                                          |
 |-------------| -----------------------------------------------------|
@@ -46,11 +51,11 @@ Come join me and, take a look at the work done thus far below.
 
 ## A- Set Honeycomb API Env Var
 
-```
+```sh
 export HONEYCOMB_API_KEY="Kk4cyhQ9zhCxNKg1BzyCyA"
 ```
 
-```
+```sh
 gp env HONEYCOMB_API_KEY="Kk4cyhQ9zhCxNKg1BzyCyA"
 ```
 
@@ -62,11 +67,12 @@ gp env HONEYCOMB_API_KEY="Kk4cyhQ9zhCxNKg1BzyCyA"
 
 You may ask why not these and gg?
 
+```sh
+export HONEYCOMB_SERVICE_NAME="Cruddur" 
 ```
-export HONEYCOMB_SERVICE_NAME="Cruddur" //cruddur Service name in span 
-```
+> //cruddur Service name in span 
 
-```
+```sh
 gp env HONEYCOMB_SERVICE_NAME="Cruddur"
 ```
 
@@ -75,8 +81,8 @@ gp env HONEYCOMB_SERVICE_NAME="Cruddur"
 
 ## C- Configure Open Telemetry to send for honeycomb
 
-```
-      OTEL_SERVICE_NAME: "backend-flask" 
+```sh
+OTEL_SERVICE_NAME: "backend-flask" 
 ```
 
 Automatic Instrumentation isnt as good in the frontend.
@@ -88,18 +94,19 @@ Automatic Instrumentation isnt as good in the frontend.
 
 go to backend
 
-```
+```sh
 cd backend-flask
 ```
 
 Run
 
-```
+```sh
 pip install opentelemetry-api 
 ```
 <img src="assets/week2/heyhoney/3honey.png">
 
 Include all the packages in requirement.txt
+
 ```
 opentelemetry-api
 opentelemetry-sdk 
@@ -111,7 +118,7 @@ opentelemetry-instrumentation-requests
 
 Run requirement txt to get the packages installed since python isnt that good in package management ;)
 
-```
+```sh
 pip install -r requirements.txt
 ```
 <img src="assets/week2/heyhoney/4 installed them from txt file.png">
@@ -123,7 +130,7 @@ add this to app.py
 
 - This before main 
 
-```
+```py
 # HoneyComb things for reference 1-----
 from opentelemetry import trace
 from opentelemetry.instrumentation.flask import FlaskInstrumentor
@@ -145,7 +152,7 @@ tracer = trace.get_tracer(__name__)
 A this should be after main `app = Flask(__name__)`
 
 
-```
+```py
 # HoneyComb things for reference 3-----
 FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
@@ -174,14 +181,16 @@ ERROR!
 <img src="assets/week2/heyhoney/8 troubleshoot solution.png">
 
 Added this 
-```
+
+```py
 # Show this in the logs within the backend-flask app (STDOUT)
 simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
 provider.add_span_processor(simple_processor)
 ```
 
 and imported its library
-```
+
+```py
 from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
 ```
 
@@ -258,13 +267,13 @@ Go to an api endpoint like the home_activites.py endpoint & add this:
 
 This will help using only the opentelemetryAPI, cause there is fat pack of import.
 
-```
+```py
 from opentelemetry import trace
 tracer = trace.get_tracer("home.activities")
 ```
 - 2: Creating Spans afte def run():
 
-```
+```py
 with tracer.start_as_current_span("home-activities-mock"):
 ```
 
@@ -333,7 +342,7 @@ This error happened cause i called the endpoint after running docker compose wit
 
 <img src="assets/week2/XRAY/2 json.png">
 
-```
+```sh
 aws xray create-group \
    --group-name "Cruddur" \
    --filter-expression "service(\"backend-flask\")
@@ -350,7 +359,7 @@ aws xray create-group \
 
 a good way to ask it to show you what you really need.
 
-```
+```sh
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 
@@ -488,25 +497,6 @@ Rollbar is a great product indeed. Simply put it's a way to investigate any kind
 
 
 
-
----
-# Week Two To-Do & Student Status
-
-| Tasks                                             | Status |
-|:---------------------------------------------------|:--------:|
-| Watch Week 2 Live-Stream Video                    | ✅     |
-| Watch Chirag Week 2 - Spending Considerations     | ✅     |
-|Watched  Github Codespaces Crash Course|✅|
-| Watched Ashish's Week 2 - Observability Security Considerations | ✅     |
-| Instrument Honeycomb with OTEL                     | ✅     |
-|Run queries to explore traces within Honeycomb.io|✅|
-| Instrument AWS X-Ray                              | ✅     |
-|Configure and provision X-Ray daemon within docker-compose and send data back to X-Ray API|✅|
-|Observe X-Ray traces within the AWS Console|✅|
-| Instrument AWS X-Ray Subsegments                   | ✅     |
-|Install WatchTower & Onboard to Cloudwatch|✅|
-| Configure custom logger to send to CloudWatch Logs |  ✅    |
-| Integrate Rollbar and capture an error             |   ✅   |
 
 
 ---

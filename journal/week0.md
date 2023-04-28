@@ -1,8 +1,17 @@
 # Week 0 — Billing and Architecture
+| Requirements                              | Platform/Service        |
+|-------------------------------------|------------------------|
+| Adding credit    | [AWS](https://aws.amazon.com/fr/console/)                    |
+| Get in codespaces              | [GitHub](https://github.com/)                 |
+| Created Gitpod account              | [Gitpod](https://www.gitpod.io/)                   |
+| Created Momento Account             | [Momento](https://www.gomomento.com/)                  |
+| Signed up for Lucid Charts          | [Lucid Charts](https://www.lucidchart.com/)             |
+| Signed up for HoneyComb         | [HoneyComb.io](https://www.honeycomb.io/)            |
+| Signed up for Rollbar               | [Rollbar](https://rollbar.com/)                  |
 
+
+## Week Zero Main Tasks
 - [Cloudnative Architectures](#cloudnative-architecture)
-  - [Create Napkin Design](#creating-conceptual-design)
-  - [Create Logical Design](#creating-logical-diagram)
 - [Security Considerations](#security-considerations)
   - [Applying MFA](#applying-mfa)
   - [Creating Admin IAM user](#iam-user)
@@ -14,22 +23,13 @@
 - [Installed AWS CLI](#install-aws-cli)
    - [Setting SNS](#setting-sns)
 - [Contact AWS Support](#open-support-ticket)
-
+- [AWS CLI Auto Prompt](#aws-cli-auto-prompt)
+- [Design CI/CD Pipeline](#creating-cicd-flow-for-week-9)
+- [EventBridge Health Dashboard](#hookup-health-dashboard-to-sns-using-eventbridge)
 ---
 
-## Quick Start
-I started by completing any prerequisite tasks that I didn't already have:
-- Adding credit to my  AWS account.
-- Created Gitpod account.
-- Created Momento Account.
-- Signed up for Lucid Charts.
-- Signed up for HoneyComb.io.
-- Signed up for Rollbar.
-
-
-
 # Cloudnative Architecture 
-first requirement is the discussions with both the technical and business team to ensure that the project's objectives are met in its entirety. It is also important to consider the risks, assumptions, and constraints that may be involved in the project.
+First step towards great ideas is the discussions with both the technical and business team to ensure that the project's objectives are met in its entirety. It is also important to consider the risks, assumptions, and constraints that may be involved in the project.
 
 It is also necessary to consider the dangers, presumptions, and limitations associated with the project.
 
@@ -57,11 +57,6 @@ The shapes are built in, from file → import data:
 
 - [Here](https://aws.amazon.com/fr/architecture/icons/) you can find additional diagramming tools, and AWS icons.
 
-#### **Creating Conceptual Design:**
-<img src="assets/week0/media/cruddur-napkin.png">
-
-<br>
-
 
 #### **Creating Logical Diagram:**
 - Diagram to help in visualizing the flow of data and interactions between the product and other systems.
@@ -69,10 +64,9 @@ The shapes are built in, from file → import data:
 
 <img src="assets/week0/media/logical-design.png">
 
-This also highlight the various components of the Cruddur product ecosystem.
-<br>
+This also highlight the various components of the Cruddur product ecosystem
 
-#### **Creating CICD Flow:**
+#### **Creating CI/CD Flow for week 9**
 
 Here is my go with CI/CD pipeline:
 - Developer commits code to GitHub repository.
@@ -88,6 +82,11 @@ Here is my go with CI/CD pipeline:
 **Reference:**
 - [Twitter System Architecture](https://lucid.app/lucidchart/3dd58bb4-27dc-440d-9dc0-9bcd0154a346/edit?viewport_loc=224%2C471%2C1939%2C867%2Cu~1sbYNXU9q3&invitationId=inv_b811bc56-a51b-4481-a306-2f347e725dc5)
 - [Diagrams Design](https://lucid.app/lucidchart/f03569ad-27eb-435d-a81e-4c0d404e5951/edit?viewport_loc=-513%2C135%2C2720%2C1216%2CwcSxugjtXe~j&invitationId=inv_d8a1495b-87a4-4031-80bf-08a7067c8e12)
+
+<details>
+<summary> Creating Conceptual Design </summary>
+<img src="assets/week0/media/cruddur-napkin.png">
+</details>
 
 ## Frameworks
 Frameworks are simply key to reduce complexity,  the risk of errors and making the design process easier. 
@@ -208,6 +207,92 @@ A type of organization policy that you can use to manage permissions in your org
 - Shared Responsibility of Threat Detection
 - Incident Response Plans to include Cloud
 
+
+### **Hookup Health Dashboard to SNS using EventBridge**
+
+**Configure Sub/Pub**
+
+- Create SNS Topic
+```sh
+aws sns create-topic --name eventbridge-alert
+```
+
+Returning
+
+```JSON
+{
+    "TopicArn": "arn:aws:sns:ca-central-1:598485450821:eventbridge-alert"
+}
+```
+- Subs to topic using the arn above
+
+```sh
+aws sns subscribe \
+--topic-arn arn:aws:sns:<REGION>:<ACCOUNTID>:eventbridge-alert \
+--protocol <email> \
+--notification-endpoint <EMAIL>
+```
+
+Returning
+```JSON
+{
+    "SubscriptionArn": "pending confirmation"
+}
+```
+**Emailed**
+```txt
+You have chosen to subscribe to the topic: 
+arn:aws:sns:ca-central-1:598485450821:eventbridge-alert
+To confirm this subscription, click or visit the link below (If this was in error no action is necessary): 
+Confirm subscription
+```
+
+Confirmation:
+
+<img src="assets/week0/subs-to-topic.png">
+
+
+**Simple Notification Service:**
+
+<img src="assets/week0/sns-for-event-bridge.png">
+
+
+
+
+**Create EventBridge Rule**
+
+- Use [this file.](../aws/) and create **Event Rule**
+```sh
+aws events put-rule --name "sns-eventbridge-health" \
+--event-pattern file://aws/json/sns-eventbridge.json
+```
+
+Returning
+```JSON
+{
+    "RuleArn": "arn:aws:events:ca-central-1:598485450821:rule/sns-eventbridge-health"
+}
+```
+<img src="assets/week0/sns-eventbridge-health.png">
+
+**Add a target**
+```sh
+aws events put-targets --rule sns-eventbridge-health --targets "Id"="1","Arn"="arn:aws:sns:us-east-1:<REDACTED>7434:eventbridge-alert"
+```
+
+Returning, no failure
+```JSON
+{
+    "FailedEntryCount": 0,
+    "FailedEntries": []
+}
+```
+
+**Console Overview:**
+
+<img src="assets/week0/sns-eventbridge-health-target.png">
+
+
 ---
 # Spend Considerations
 The costs of services can vary depending on the type of service and the region in which it is being offered.
@@ -293,7 +378,7 @@ gp env instead of export
 <img src="assets/week0/CLI-WORK/6 setting the aws cli env var in gitpod auto.png">
 
 
-**AWS CLI auto-prompt**
+### **AWS CLI auto-prompt**
 
 **In Git Terminal:** <br>
 

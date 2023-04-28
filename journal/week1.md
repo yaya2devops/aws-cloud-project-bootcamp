@@ -2,53 +2,71 @@
 
 <img src="assets/week1/week1.png">
 
-This week was jam-packed of hands-on. 
-
-
-I created a `Dockerfiles` and built the Docker containers for both the front end & the backend. 
-
-I then ran each individually before configuring Docker Compose to run both containers // with `docker-compose up`.
-
-In the front end, I installed required dependencies and packages, such as `react-scripts`, and made certain that package installations were correctly directory-targeted. 
-
-In addition, I learned more about React components and patterns, which were relatively simple in comparison to the backend.
-
-
-Moving on to the backend with Flask on top of the great Python, I installed some packages and added 'em to the backend directory's gitignore file. 
-
-I also learned more about APIs & the services features towards a microservice architecture, and `README.IO` proved to be a useful tool for creating API documentation.
-
-With the above said, I worked on adding the notification feature to the website. 
-
-Wrapping, I configured Postgres in `.gitpod` along AWS CLI required commands  which is included in [Week0 journal](week0.md), connecting to the database, and performed basic database operations.
-
-I also installed DynamoDB using AWS CLI and performed additional database operations such as table creation and listing
-
-Overall, it was a fantastic week filled with invaluable practical learning opportunities.
-
-Have a look below, But first let me know?
-
-### New to DOCKER? Check DOCKER 101 👇
-[<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="500">](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
 
 
 
+| Objective           | Description                                                                 |
+|---------------------|-----------------------------------------------------------------------------|
+| **Backend**  | Learn how to use Flask framework to create web applications                 |
+| **Docker for 1container**  | Learned how to Dockerize applications using Dockerfile                         |
+| **Mutiple Containers**  | Learned how to use Docker Compose to run containers //                   |
+| **Problem Solving**  | Learned how to troubleshoot using the debugger and error codes                |
+
+
+---
+
+## Brief Considerations
+
+This week was jam-packed of learning experiences. 
+
+
+- I created a `Dockerfiles` and built the Docker containers for both the front end & the backend. 
+- I then ran each individually before configuring Docker Compose to run both containers // with `docker-compose up`.
+- In the front end, I installed required dependencies and packages, such as `react-scripts`, and made certain that package installations were correctly directory-targeted. 
+- In addition, I learned more about React components and patterns, which were relatively simple in comparison to the backend.
+- Moving on to the backend with Flask on top of the great Python, I installed some packages and added 'em to the backend directory's gitignore file. 
+- I also learned more about APIs & the services features towards a microservice architecture, and `README.IO` proved to be a useful tool for creating API documentation.
+- I worked on adding the notification feature to the website. 
+- I  installed DynamoDB using AWS CLI and performed additional database operations such as table creation and listing
+- I configured Postgres in `.gitpod` along AWS CLI required commands incl. in [journal zero](week0.md), connecting to the database, and performed basic database operations.
+
+
+
+---
+
+## Week One Main Tasks
+> week two if we started counting from one.
+
+- Containerize Application
+- Document the Notification Endpoint
+Flask Endpoint for Notifications
+- React Page for Notifications  
+- Run DynamoDB Local Container
+- Run Postgres Container
+- Run the Dockerfile CMD as an external script
+- Running container on local machine
+- Multi-Stage Docker Build
+- Health check in Docker Compose
+- Push and tag image to DockerHub
+- Launch Docker Container on EC2
+
+
+---
+Do you know, i wrote an article about Docker last year? <br>**Click**.
+
+[<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="200">](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
+---
 
 
 
 
-### Week objectives:
-- work with flask 
-- dockerize using dockerfile
-- docker-compose for running more than a container //
-- troubleshoot using debugger, the error code and everything in between
 
 
-
-#### Prereq 
-- Docker extension
-- Install Flask on top of py
-- NPM for reactjs to use react-scripts
+| Prerequisites           | Description                                                                 |
+|---------------------|-----------------------------------------------------------------------------|
+| **Project**    | Install [Docker ](../.gitpod.yml#L49) extension                                         |
+| **Backend**    | Install Flask and its [dependencies](../backend-flask/requirements.txt)                                         |
+| **Frontend**    | Install NPM for ReactJS to use react-scripts                                |
 
 
 ## Backend work:
@@ -337,30 +355,13 @@ to see templates:
 
 <img src="assets/week1/Postgre/5 quit postgre.png">
 
----
 
-# Week One To-Do & Student Status
 
-| Task                                                 | Status |
-| :---------------------------------------------------- | :------: |
-| Watch How to Ask for Technical Help                  |  ✅    |
-| Watched Grading Homework Summaries                    |  ✅    |
-| Watched Week 1 - Live Streamed Video                  |  ✅    |
-| Remember to Commit Your Code                          |  ✅    |
-| Watcked Chirag's Week 1 - Spending Considerations     |  ✅    |
-| Watched Ashish's Week 1 - Container Security Considerations |  ✅    |
-| Containerize Application (Dockerfiles, Docker Compose) |  ✅    |
-| Document the Notification Endpoint for the OpenAI Document |      |
-| Write a Flask Backend Endpoint for Notifications      |  ✅    |
-| Write a React Page for Notifications                   |  ✅    |
-| Run DynamoDB Local Container and ensure it works       |  ✅    |
-| Run Postgres Container and ensure it works             |  ✅    |
 
 ---
 
+### Concluding
 
-
-
-
+This week provided an abundance of invaluable, hands-on learning opportunities. Overall, it was another fantastic week that left me eager to continue building on the practical skills I gained. Even weeks later, I am back and so excited to learn more! 😊
 
 
