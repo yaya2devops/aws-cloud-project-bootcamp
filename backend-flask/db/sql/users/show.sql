@@ -3,6 +3,7 @@ SELECT
     SELECT
       users.uuid,
       users.handle,
+      users.cognito_user_id as cognito_user_uuid,
       users.display_name,
       users.bio,
       (

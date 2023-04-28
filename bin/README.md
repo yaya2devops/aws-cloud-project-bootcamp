@@ -72,6 +72,8 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   └── service-on
 ├── generate
 │   └── migration
+├── lambda-layers
+│   └── ruby-jwt
 ├── rds
 │   └── update-sg-rule
 ├── busybox
