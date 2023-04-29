@@ -1,11 +1,16 @@
 
+<div align="center">
+
 # Ultimate Resource Hub
 
-The resources listed below were compiled out of intellectual curiosity and are provided here for your reference. Conveniently located in one place.
+The resources listed below were compiled out of intellectual curiosity and are provided here for your reference. 
+
+Conveniently located in one place.
+
 | Resource | Description | 
 | --- | --- | 
-| [Project Assets](assets/README.md)  | Bonus tasks for those seeking more homework challenges|
-| [Project Scenario](resources/project-scenario.md)  | Bonus tasks for those seeking more homework challenges|
+| [Project Assets](assets/README.md)  | the author's collection of resources and screenshots for the bootcamp|
+| [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the scope|
 | [Gitpod Migration](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [AWS Handbook](../aws/README.md) | Developer references for AWS Console resources | 
@@ -14,10 +19,16 @@ The resources listed below were compiled out of intellectual curiosity and are p
 | [Discord Issues](assets/week4/Discord/README.md)  | Troubleshooting guide for Discord issues |
 | [Instagram Stories](resources/instagram-stories.md)  | Bootcamp Assets shared to community on instagram |
 
+</div>
+
 
 ---
 
+<div align="center">
+
 ## Cloud Engineer Progress Tracker
+
+
 | My Journal  | Technologies   | Start Date | Status|
 | :---: | :--- | --- |:---: |
 | [Week 0](journal/week0.md) | Bootcamp Overview and Introduction to Cloud Spend | Feb 11, 2023 |✘|
@@ -33,6 +44,10 @@ The resources listed below were compiled out of intellectual curiosity and are p
 |  [Week 10](journal/week10.md) | CloudFormation (Part 1/2) | Apr 22, 2023 |Coming|
 | [Week 11](journal/week11.md)| CloudFormation (Part 2) | Apr 29, 2023 |Coming|
 |  [Week 12](journal/week12.md) | Modern APIs | May 6, 2023 |Coming|
+
+</div>
+
+
 
 
 
