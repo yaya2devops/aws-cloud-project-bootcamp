@@ -63,6 +63,73 @@ ccc16cf - Week 8: Implement User Edit Functionality
 ```
 </pre>
 
+
+<details>
+<summary><b>Remove Tags</b> </summary>
+<br>
+
+**Check Available tags**
+```
+git tag
+```
+
+- returning
+
+```sh
+gitpod /workspace/aws-cloud-project-bootcamp (main) $ git tag
+week0
+week1
+week2
+week3
+week4
+week5
+week6
+week6-7
+```
+
+I want to have week6 and 7 seperate so?
+
+**Remove week6-7**
+
+```sh
+git tag -d <tag-name>
+```
+- Returning
+
+```
+Deleted tag 'week6-7' (was 02579ac)
+```
+
+**Push removal from GitHub**
+
+```
+git push --delete origin <tagname>
+```
+- Returning
+```
+To https://github.com/yaya2devops/aws-cloud-project-bootcamp.git
+ - [deleted]         week6-7
+```
+
+**List Tags again:**
+```
+gitpod /workspace/aws-cloud-project-bootcamp (main) $ git tag
+week0
+week1
+week2
+week3
+week4
+week5
+week6
+```
+
+
+
+Ps: you can delete it directly from [github/username/repo-name/tags](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tags)
+
+
+</details>
+
 ## Application
 
 ### Week 0:

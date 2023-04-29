@@ -1,0 +1,7 @@
+{
+    "source": ["aws.health"],
+    "detail-type": ["AWS Health Event"],
+    "detail": {
+        "service": ["EC2"]
+    }
+}
