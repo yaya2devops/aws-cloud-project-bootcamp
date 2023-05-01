@@ -355,6 +355,135 @@ to see templates:
 
 <img src="assets/week1/Postgre/5 quit postgre.png">
 
+---
+
+### Docker Local
+
+**Codespaces:**
+<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
+
+
+**Docker Desktop:**
+<img src="assets/Week3/docker-local/15 containers stats.png">
+
+**Local Work:**
+<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
+
+> [Cause](week3.md#codespaces-down---moving-to-local)
+
+
+
+### Cruddur Imgs To Dockerhub
+
+**Push & tag images**
+
+
+
+
+- Push to dockerhub
+```
+docker push yaya2devops/cruddur-frontend:latest
+docker push yaya2devops/cruddur-backend:latest
+```
+
+**Building and pushing Backend:**
+
+```
+docker build -t dockerhub-username/cruddur-backend:a-good-tag .
+docker push dockerhub-username/cruddur-backend:a-good-tag
+```
+
+
+<img src="assets/week1/dockerhub/backend-build-push-dockerhub.png">
+
+**The image in Dockerhub w/ Instructions:**
+<img src="assets/week1/dockerhub/backend-dockerhub-public-view.png">
+
+**Frontend built and pushed:**
+```
+docker build -t dockerhub-username/cruddur-frontend:a-good-tag .
+docker push dockerhub-username/cruddur-frontend:latest
+```
+
+<img src="assets/week1/dockerhub/built-push-frontend-dockerhub.png">
+
+**Managing frontend Image**
+<img src="assets/week1/dockerhub/frontend-image-dockerhub.png">
+
+
+In case you wanted to push a newer image
+
+- Updates
+
+```
+docker tag my_username/my_image_name:a-good-tag my_username/my_image_name:latest
+docker push my_username/my_image_name:latest
+```
+
+Find my images on Dockerhub from [here.](https://hub.docker.com/u/yaya2devops)
+
+### External CMD Script
+
+**Frontend**
+```
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["/bin/bash", "./script.sh"]
+```
+
+
+**The external script:**
+```
+#!/bin/bash
+npm start
+```
+
+<img src="assets/week1/dockerhub/dockerfile-external-cmd.png">
+
+
+For backend, i thought to add ENTRYPOINT. These cannot be overtitten, while we could use cmd but we could change e.g. in this case another script.
+
+
+I added this `ENTRYPOINT [""]` and directed my `external-script.sh` path
+
+```
+FROM python:3.10-slim-buster
+
+WORKDIR /backend-flask
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+EXPOSE ${PORT}
+
+ENV PYTHONUNBUFFERED=1
+cd de
+ENTRYPOINT ["/backend-flask/external-script.sh"]
+```
+
+
+`External-cmd.sh`
+
+```
+#!/bin/bash
+python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
+```
+
+
+
+
+
+
+
 
 
 
