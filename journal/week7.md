@@ -1,6 +1,11 @@
 # Week 7 — Solving CORS with a Load Balancer and Custom Domain
 In this, we will continue from last week by focusing on maintaining equilibrium. 
 
+<img src="assets/week6-7/ArchitectStuff/2-app-via-lb.jpg">
+
+- [Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)
+
+
 Our technical responsibility for the week involves provisioning and operating containers to execute load balancing tasks, configuring our custom domain and mapping it to the load balancer's URL for seamless functionality.
 
 Our domain, on the other hand, will be fully onboarded to route53 and will be issued the necessary SSL certificate.
