@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+   ECS Fargate Cluster
+Resources:
+  ECSCluster: #importantNAME
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+       ClusterName: MyCluster
+       CapacityProviders: 
+          - FARGATE
+
+
+#Properties
+#Parameters:
+#Mappings:
+#Outputs:
+#Metadata:
