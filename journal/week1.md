@@ -1,8 +1,6 @@
-# Week 1 — App Containerization
+# Week 1 — App Containerization 🐳
 
 <img src="assets/week1/week1.png">
-
-
 
 
 | Objective           | Description                                                                 |
@@ -37,17 +35,16 @@ This week was jam-packed of learning experiences.
 ## Week One Main Tasks
 > week two if we started counting from one.
 
-- Containerize Application
-- Document the Notification Endpoint
-Flask Endpoint for Notifications
-- React Page for Notifications  
-- Run DynamoDB Local Container
-- Run Postgres Container
-- Run the Dockerfile CMD as an external script
-- Running container on local machine
-- Multi-Stage Docker Build
-- Health check in Docker Compose
-- Push and tag image to DockerHub
+- [Containerize Application](#application-containerization)
+- [Document the Notification Flask Endpoint for Notifications](#document-notification-api)
+- [React Page for Notifications](#notification-endpoint)  
+- [Run DynamoDB Local Container](#dynamo-local)
+- [Run Postgres Container](#postgresql-overview)
+- [Run the Dockerfile CMD as an external script](#external-cmd-script)
+- [Running container on local machine](#docker-desktop)
+- [Multi-Stage Docker Build](#multi-stage-containerization)
+- [Health check in Docker Compose](#flask-health-check)
+- [Push and tag image to DockerHub](#cruddur-imgs-to-dockerhub)
 - Launch Docker Container on EC2
 
 
@@ -69,8 +66,7 @@ Do you know, i wrote an article about Docker last year? <br>**Click**.
 | **Frontend**    | Install NPM for ReactJS to use react-scripts                                |
 
 
-## Backend work:
-### Install Flask
+### Backend, Install Flask
 <img src="assets/week1/install%20flask.png">
 
 ### Install Flask Core
@@ -78,7 +74,7 @@ Do you know, i wrote an article about Docker last year? <br>**Click**.
 
 
 
-### Docker Run issue, Env Variable
+### Docker Run, Env Variable
 <img src="assets/week1/docker run didnt work first because we didnt set envi variable.png">
 
 ### Logs Troubleshoot
@@ -177,11 +173,10 @@ This didnt work cause i forgot to install npm which itself will require the reac
 | cd062d6c1188   | amazon/dynamodb-local:latest                   | "java -jar DynamoDBL…"   | 4 hours ago      | Up 4 hours             | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   | dynamodb-local    |           
 
 
-## Docker Compose Success
+## Application Containerization
 
 <img src="assets/week1/WORKS PERFECT.png">
 
-## I'm there! Welcome To the App
 
 <img src="assets/week1/THE FRONT CONNECTED TO THE BACKEND.png">
 
@@ -216,12 +211,12 @@ READMEDOTIO For APIs
 
 
 
-## Checking it, works JSON
+#### JSON Pass
 
 <img src="assets/week1/endpoint is back!.png">
 
 
-## UI NOTIF EFFECTS
+### Notification Endpoint
 
 
 
@@ -230,73 +225,10 @@ READMEDOTIO For APIs
 
 
 
-# Dynamo Local
-
-
-AWS check to use for dynamoDB
-
-<img src="assets/week1/1-aws is here.png">
-
-## Create DB
-```
-aws dynamodb create-table \
-    --endpoint-url http://localhost:8000 \
-    --table-name Music \
-    --attribute-definitions \
-        AttributeName=Artist,AttributeType=S \
-        AttributeName=SongTitle,AttributeType=S \
-    --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
-    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-    --table-class STANDARD
-```
-
-
-<img src="assets/week1/dynamo work/1 dynamo table created.png">
-
-<img src="assets/week1/dynamo work/2.png">
 
 
 
-## Create an Item
-```
-
-aws dynamodb put-item \
-    --endpoint-url http://localhost:8000 \
-    --table-name Music \
-    --item \
-        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
-    --return-consumed-capacity TOTAL  
-```
-
-
-
-<img src="assets/week1/dynamo work/3 create item.png">
-
-
-
-## list Tables
-
-
-```
-aws dynamodb list-tables --endpoint-url http://localhost:8000
-```
-
-<img src="assets/week1/dynamo work/4 list tables.png">
-
-
-
-## Get Records
-
-```
-aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http://localhost:8000
-```
-
-<img src="assets/week1/dynamo work/5 get records.png">
-
-
-
-
-# Postgres
+### Postgres
 
 Have it in `.gitpod`:
 
@@ -322,7 +254,7 @@ psql -Upostgres --host localhost
 
 - This will get you into Postgres
 
-### Database Stuff
+#### Database Ops
 to find relations:
 ```
 \d
@@ -348,30 +280,97 @@ to see templates:
 \l
 ```
 
+#### PostgreSQL Overview
 <img src="assets/week1/Postgre/4 perform postgre.png">
 
 
-## Finished work? Quit DB
+#### Quitting Database
 
 <img src="assets/week1/Postgre/5 quit postgre.png">
 
+
+### Dynamo Local
+
+
+AWS check to use for dynamoDB
+
+<img src="assets/week1/1-aws is here.png">
+
+#### Create DB
+```
+aws dynamodb create-table \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --attribute-definitions \
+        AttributeName=Artist,AttributeType=S \
+        AttributeName=SongTitle,AttributeType=S \
+    --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --table-class STANDARD
+```
+
+
+<img src="assets/week1/dynamo work/1 dynamo table created.png">
+
+<img src="assets/week1/dynamo work/2.png">
+
+
+
+#### Create an Item
+```
+
+aws dynamodb put-item \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --item \
+        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
+    --return-consumed-capacity TOTAL  
+```
+
+
+
+<img src="assets/week1/dynamo work/3 create item.png">
+
+
+
+#### list Tables
+
+
+```
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
+
+<img src="assets/week1/dynamo work/4 list tables.png">
+
+
+
+#### Get Records
+
+```
+aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http://localhost:8000
+```
+
+<img src="assets/week1/dynamo work/5 get records.png">
+
+
+
 ---
 
-### Docker Local
-
-**Codespaces:**
+**Codespaces**
 <img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
-
-
-**Docker Desktop:**
-<img src="assets/Week3/docker-local/15 containers stats.png">
-
-**Local Work:**
-<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
-
 > [Cause](week3.md#codespaces-down---moving-to-local)
 
+#### Docker Desktop 
 
+<img src="assets/Week3/docker-local/15 containers stats.png">
+
+**Localhost:**
+<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
+
+
+## Document Notification API
+
+<img src="assets/week1/dockerhub/document-notification-api.png">
 
 ### Cruddur Imgs To Dockerhub
 
@@ -422,9 +421,9 @@ docker push my_username/my_image_name:latest
 
 Find my images on Dockerhub from [here.](https://hub.docker.com/u/yaya2devops)
 
-### External CMD Script
+### **External CMD Script**
 
-**Frontend**
+Frontend
 ```
 FROM node:16.18
 
@@ -477,6 +476,47 @@ ENTRYPOINT ["/backend-flask/external-script.sh"]
 #!/bin/bash
 python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 ```
+#### Flask Health check
+
+- Added a new endpoint in `app.py`
+
+<img src="assets/week1/dockerhub/backend-health-check.png">
+
+#### Multi-Stage Containerization
+
+- building the application with multistaged dockerfile:
+```
+gitpod /workspace/aws-cloud-project-bootcamp/backend-flask (main) $ docker build -t backend -f Dockerfile.stage .
+[+] Building 33.1s (15/15) FINISHED                                                                                         
+ => [internal] load .dockerignore                                                                                      0.0s
+ => => transferring context: 44B                                                                                       0.0s
+ => [internal] load build definition from Dockerfile.stage                                                             0.0s
+ => => transferring dockerfile: 862B                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/python:3.10-slim-buster                                             0.7s
+ => [internal] load build context                                                                                      0.0s
+ => => transferring context: 96.01kB                                                                                   0.0s
+ => CACHED [build 1/7] FROM docker.io/library/python:3.10-slim-buster@sha256:02874255d484428c9412db98923b387ac73822cb  0.0s
+ => CACHED [stage-1 2/4] WORKDIR /backend-flask                                                                        0.0s
+ => [build 2/7] RUN apt update                                                                                         2.7s
+ => [build 3/7] RUN apt install -y --no-install-recommends     build-essential gcc                                     9.4s
+ => [build 4/7] WORKDIR /backend-flask                                                                                 0.0s 
+ => [build 5/7] RUN python3 -m venv /backend-flask/venv                                                                4.5s 
+ => [build 6/7] COPY requirements.txt .                                                                                0.0s
+ => [build 7/7] RUN pip3 install -r requirements.txt                                                                  10.6s
+ => [stage-1 3/4] COPY --from=build /backend-flask/venv ./venv                                                         0.6s
+ => [stage-1 4/4] COPY . .                                                                                             0.0s
+ => exporting to image                                                                                                 3.9s
+ => => exporting layers                                                                                                3.9s
+ => => writing image sha256:4af2988118c434aea7ecf21dd750de0fec67442e83c35e6f63071c12eaa98cd1                           0.0s
+ => => naming to docker.io/library/backend       
+ ```
+
+- Make use of our Health check to "check" app running
+
+<img src="assets/week1/dockerhub/docker-multi-stage-test-with-health-check.png">
+
+
+
 
 
 
@@ -491,6 +531,8 @@ python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 
 ### Concluding
 
-This week provided an abundance of invaluable, hands-on learning opportunities. Overall, it was another fantastic week that left me eager to continue building on the practical skills I gained. Even weeks later, I am back and so excited to learn more! 😊
+This week provided an abundance of invaluable, hands-on learning opportunities. Overall, it was another fantastic week that left me eager to continue building on the practical skills I gained. 
+
+Even weeks later, I am back and so excited to learn more Docker! 😊🐳
 
 
