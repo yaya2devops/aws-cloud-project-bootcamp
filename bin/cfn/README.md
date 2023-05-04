@@ -16,7 +16,7 @@ rustc 1.68.1 (8460ca823 2023-03-20)
 cargo install cfn-guard
 ```
 
-- Create task Definition Policy under `bin/cfn/task-definition.guard`
+- Create task Definition Policy under `aws/cfn/task-definition.guard`
 
 - Generate Cloudformation Template
 ```
@@ -27,4 +27,4 @@ e.g.
 cfn-guard rulegen --template aws/cfn/template.yaml
 ``` 
 
-> Output directed to [`bin/cfn/ecs_cluster.guard`](ecs_cluster.guard) 
+> Output directed to [`ecs_cluster.guard`](../../aws/cfn/ecs_cluster.guard) 

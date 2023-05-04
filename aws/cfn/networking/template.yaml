@@ -1,5 +1,16 @@
 AWSTemplateFormatVersion: 2010-09-09
-
+Description: |
+ This YAML file defines the foundational networking components for our stack, including:
+  - VPC
+    - configures DNS hostnames for EC2 instances
+    - only allows2 traffic from IPV4, IPV6 is disabled
+  - InternetGateway
+  - Route Table that enables routing to the InternetGateway and local resources
+    - route to the IGW
+    - route to Local
+  - Six subnets, each explicitly associated with the Route Table:
+    - 3 Public Subnets numbered 1 to 3
+    - 3 Private Subnets numbered 1 to 3
 Parameters:
   VpcCidrBlock:
     Type: String
@@ -169,15 +180,15 @@ Outputs:
   VpcId:
     Value: !Ref VPC
     Export:
-      Name: VpcId
+      Name: !Sub "${AWS::StackName}VpcId"
   VpcCidrBlock:
     Value: !GetAtt VPC.CidrBlock
     Export:
-      Name: VpcCidrBlock
+      Name: !Sub "${AWS::StackName}VpcCidrBlock"
   SubnetCidrBlocks:
     Value: !Join [",", !Ref SubnetCidrBlocks]
     Export:
-      Name: SubnetCidrBlocks
+      Name: !Sub "${AWS::StackName}SubnetCidrBlocks"
   SubnetIds:
     Value: !Join 
       - ","
@@ -188,7 +199,7 @@ Outputs:
         - !Ref SubnetPriv2
         - !Ref SubnetPriv3
     Export:
-      Name: SubnetIds
+      Name: !Sub "${AWS::StackName}SubnetIds"
   AvailabilityZones:
     Value: !Join 
       - ","
@@ -196,4 +207,4 @@ Outputs:
         - !Ref Az2
         - !Ref Az3
     Export:
-      Name: AvailabilityZones
+      Name: !Sub "${AWS::StackName}AvailabilityZones"

@@ -45,3 +45,11 @@ gp env CFN_BUCKET="cfn-artifacts-111"
 
 
 [**Developer Reference**](../../bin/cfn/README.md)
+
+
+```
+$ export CFN_BUCKET="cfn-artifacts-111"
+$ gp env CFN_BUCKET="cfn-artifacts-111"
+
+CFN_BUCKET=cfn-artifacts-111
+```
