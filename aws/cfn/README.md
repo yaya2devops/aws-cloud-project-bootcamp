@@ -1,16 +1,26 @@
-## Cloudformation Guide
+## AWS Cloudformation
 
-**Describe deployed**
+| Template Name | Description |
+| --- | --- |
+| [ECS Cluster](cluster/template.yaml) | This CloudFormation template deploys an ECS Cluster  |
+| [Netowrking layer](networking/template.yaml) | CFN temp configure network settings, IP addresses, subnets, and routing |
+| AWS Fargate Service | Deploys an AWS Fargate service with ALB and TG|
+
+---
+
+## Developer Guide
+
+- Describe Deployed Template
 ```sh
 aws cloudformation describe-change-set --change-set-name arn:aws:cloudformation:ca-central-1:598485450821:changeSet/awscli-cloudformation-package-deploy-1682182625/998f47cd-5c22-4d84-a8aa-27943fb6a8bf
 ```
 
-**Validate Template:**
+- Validate Template
 ```sh
 ​aws cloudformation validate-template --template-body file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml
 ```
 
-Install [Linter](https://github.com/aws-cloudformation/cfn-lint)
+- Install [Linter](https://github.com/aws-cloudformation/cfn-lint)
 ```sh
 pip install cfn-lint
 ```

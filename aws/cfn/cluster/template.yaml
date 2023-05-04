@@ -7,6 +7,7 @@ Description: |
     - ipv4 only
     - internet facing
   - ALB Security Group
+  - certificate attached from Amazon Certification Manager (ACM)
   - HTTPS Listerner
     - send naked domain to frontend Target Group
     - send api. subdomain to backend Target Group
