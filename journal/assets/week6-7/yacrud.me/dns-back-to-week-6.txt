@@ -1,0 +1,52 @@
+----
+
+Noting
+
+go to route 53
+
+create hosted public zone with ur domain
+add the name servers
+
+<img>
+
+<img>
+
+
+wait, while waiting check this website: https://www.whatsmydns.net/
+
+type domain on ns
+
+
+
+while waiting create ssl certificate in the certificate manager
+
+- public cert and add this:
+
+<img>
+
+
+ENTER UR cert and create the record in route53 => button that streamline the process
+
+
+
+---
+
+- lb create 443 record, set the forward for api to backend tg
+and leave other for front
+- streamline 2 records from lb to route53
+
+test::
+
+$ ping api.yacrud.me   
+PING api.yacrud.me (52.60.164.156) 56(84) bytes of data.
+--- api.yacrud.me ping statistics ---
+13 packets transmitted, 0 received, 100% packet loss, time 12271ms
+
+
+also:
+
+$ curl https://api.yacrud.me/api/health-check
+{
+  "success": true
+}
+

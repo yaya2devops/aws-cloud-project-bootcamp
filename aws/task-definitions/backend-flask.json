@@ -53,12 +53,12 @@
         }
       },
       "environment": [
-        {"name": "OTEL_SERVICE_NAME", "value": "backend-flask"},
-        {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
+      {"name": "OTEL_SERVICE_NAME", "value": "backend-flask"},
+      {"name": "OTEL_EXPORTER_OTLP_ENDPOINT", "value": "https://api.honeycomb.io"},
       {"name": "AWS_COGNITO_USER_POOL_ID", "value": "ca-central-1_RT6uZ6IkV"},
       {"name": "AWS_COGNITO_USER_POOL_CLIENT_ID", "value": "5il3116qm0rh3ropspnirktnls"},
-      {"name": "FRONTEND_URL", "value": "*"},
-      {"name": "BACKEND_URL", "value": "*"},
+      {"name": "FRONTEND_URL", "value": "https://yacrud.me/"},
+      {"name": "BACKEND_URL", "value": "https://api.yacrud.me/"},
       {"name": "AWS_DEFAULT_REGION", "value": "ca-central-1"}
       ],
       "secrets": [
