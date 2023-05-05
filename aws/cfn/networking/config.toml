@@ -1,0 +1,4 @@
+[deploy]
+bucket = 'cfn-artifacts-111'
+region = 'ca-central-1'
+stack_name = 'CrdNet'

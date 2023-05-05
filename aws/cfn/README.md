@@ -51,8 +51,19 @@ Cluster Template URI: `s3://cfn-artifacts-111/f4c0adbebb70b0b6c337105b4f151492.t
 aws s3 mk s3://cfn-artifacts-111
 export CFN_BUCKET="cfn-artifacts-111"
 gp env CFN_BUCKET="cfn-artifacts-111"
+
+
+export STACK_NAME="CrdCluster"
+gp env STACK_NAME="CrdCluster"
 ```
 
+```
+export BUCKET="cfn-artifacts-111"
+gp env BUCKET="cfn-artifacts-111"
+
+export REGION="ca-central-1"
+gp env REGION="ca-central-1"
+```
 
 [**Developer Reference**](../../bin/cfn/README.md)
 

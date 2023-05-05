@@ -31,7 +31,8 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   └── service-on
 ├── cfn
 │   ├── cluster-deploy
-│   └── networking-deploy
+│   ├── networking-deploy
+│   └── service-deploy
 ├── cognito
 │   └── list-users
 ├── db
