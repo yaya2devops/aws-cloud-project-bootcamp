@@ -1,17 +1,19 @@
 # Week 0 — Billing and Architecture
 | Requirements                              | Platform/Service        |
 |-------------------------------------|------------------------|
-| Adding credit    | [AWS](https://aws.amazon.com/fr/console/)                    |
-| Get in codespaces              | [GitHub](https://github.com/)                 |
-| Created Gitpod account              | [Gitpod](https://www.gitpod.io/)                   |
-| Created Momento Account             | [Momento](https://www.gomomento.com/)                  |
-| Signed up for Lucid Charts          | [Lucid Charts](https://www.lucidchart.com/)             |
-| Signed up for HoneyComb         | [HoneyComb.io](https://www.honeycomb.io/)            |
-| Signed up for Rollbar               | [Rollbar](https://rollbar.com/)                  |
+| [Adding](#aws-credit)   credit  | [AWS](https://aws.amazon.com/fr/console/)                    |
+| [Get](https://github.com/features/codespaces)  in codespaces             | [GitHub](https://github.com/)                 |
+| [Created](https://gitpod.io/workspaces/)      Gitpod account         | [Gitpod](https://www.gitpod.io/)                   |
+| [Created](https://login.gomomento.com/u/login/identifier?state=hKFo2SBydW5CS2FYZ3pyREZZYnpjR25WcDN4cHBNQ1hjSnRfUqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIGszTWt4MEpyeGxmWS1DQmFqRHRrZW1OYzdpVjFBWTV3o2NpZNkgaTVkbWN4OU9ab1ZNSkFMbm1KSXJGM1pwTUJMTW5tN0Q)  Momento Account             | [Momento](https://www.gomomento.com/)                  |
+| [Signed up](https://lucid.app/pricing/lucidchart?km_CPC_AdGroupID=60168113511&utm_source=google&km_CPC_CampaignId=1484560204&_gl=1*91j79g*_ga*MTgwNTUzMzQ0OS4xNjgzNDkyMzcy*_ga_MPV5H3XMB5*MTY4MzQ5MjM3NC4xLjAuMTY4MzQ5MjM3NC42MC4wLjA.*_gcl_aw*R0NMLjE2ODM0OTIzNzYuRUFJYUlRb2JDaE1JcDUzNTVJbmtfZ0lWbGdHTENoMUxjUUVtRUFBWUFTQUFFZ0ttTGZEX0J3RQ..&km_CPC_MatchType=b&km_CPC_Country=9075947&km_CPC_Keyword=%2Blucidchart+%2Bsign+%2Bup&gclid=EAIaIQobChMIp5355Ink_gIVlgGLCh1LcQEmEAAYASAAEgKmLfD_BwE&km_CPC_Creative=442433233598&sessionDate=2023-05-07T20%3A46%3A11.871Z&km_CPC_TargetID=kwd-336567026148&referer=https%3A%2F%2Fwww.lucidchart.com%2Fpages%2Flanding&utm_medium=cpc&km_CPC_target=&km_CPC_Device=c&anonId=0.45d5ec4b187f7f6fd97&km_CPC_AdPosition=&km_CPC_ExtensionID=&km_CPC_Network=g&sessionId=0.12a98969187f7f6fd9c&utm_campaign=_chart_en_tier3_mixed_search_brand_bmm_&km_CPC_placement=#/createAccount)   for Lucid Charts       | [Lucid Charts](https://www.lucidchart.com/)             |
+| [Signed up](https://ui.honeycomb.io/signup) for HoneyComb        | [HoneyComb.io](https://www.honeycomb.io/)            |
+| [Signed up](https://rollbar.com/signup/) for Rollbar               | [Rollbar](https://rollbar.com/)                  |
 
 
 ## Week Zero Main Tasks
 - [Cloudnative Architectures](#cloudnative-architecture)
+  - [Logical Design](#creating-logical-diagram)
+  - [Conceptual Design](#creating-conceptual-design)
 - [Security Considerations](#security-considerations)
   - [Applying MFA](#applying-mfa)
   - [Creating Admin IAM user](#iam-user)
@@ -58,7 +60,7 @@ The shapes are built in, from file → import data:
 - [Here](https://aws.amazon.com/fr/architecture/icons/) you can find additional diagramming tools, and AWS icons.
 
 
-#### **Creating Logical Diagram:**
+### Creating **Logical Diagram**
 - Diagram to help in visualizing the flow of data and interactions between the product and other systems.
 - Illustrate the use of Rest APIs in the connection going between the front and the backend.
 
@@ -66,7 +68,19 @@ The shapes are built in, from file → import data:
 
 This also highlight the various components of the Cruddur product ecosystem
 
-#### **Creating CI/CD Flow for week 9**
+
+### Creating **Conceptual Design**
+<img src="assets/week0/Cruddur-Architecture/cruddur-architecture.jpg">
+
+[PDF Version](assets/week0/Cruddur-Architecture/cruddur-architecture.pdf)
+<details>
+
+<summary> Behind the scenes! </summary>
+
+<img src="assets/week0/Cruddur-Architecture/behind-the-scene.jpg">
+</details>
+
+### **Creating CI/CD Flow for week 9**
 
 Here is my go with CI/CD pipeline:
 - Developer commits code to GitHub repository.
@@ -83,10 +97,7 @@ Here is my go with CI/CD pipeline:
 - [Twitter System Architecture](https://lucid.app/lucidchart/3dd58bb4-27dc-440d-9dc0-9bcd0154a346/edit?viewport_loc=224%2C471%2C1939%2C867%2Cu~1sbYNXU9q3&invitationId=inv_b811bc56-a51b-4481-a306-2f347e725dc5)
 - [Diagrams Design](https://lucid.app/lucidchart/f03569ad-27eb-435d-a81e-4c0d404e5951/edit?viewport_loc=-513%2C135%2C2720%2C1216%2CwcSxugjtXe~j&invitationId=inv_d8a1495b-87a4-4031-80bf-08a7067c8e12)
 
-<details>
-<summary> Creating Conceptual Design </summary>
-<img src="assets/week0/media/cruddur-napkin.png">
-</details>
+
 
 ## Frameworks
 Frameworks are simply key to reduce complexity,  the risk of errors and making the design process easier. 
@@ -525,7 +536,9 @@ Instructions
 
 
 ## Takeaway
-Mirroring on my first week at this bootcamp, I can say with certainty that it was a steep learning curve for me. I was immersed in a variety of topics and concepts, ranging from desigining architectures, Linux going to the AWS operations hands on.
+Mirroring on my first week at this bootcamp, I can say with certainty that it was a steep learning curve for me. 
+
+I was immersed in a variety of topics and concepts, ranging from desigining architectures, Linux going to the AWS operations hands on.
 
 
 
