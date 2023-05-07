@@ -3,10 +3,13 @@
 | Template Name | Description |
 | --- | --- |
 | [ECS Cluster](cluster/template.yaml) | This CloudFormation template deploys an ECS Cluster  |
-| [Netowrking layer](networking/template.yaml) | CFN temp configure network settings, IP addresses, subnets, and routing |
-| AWS Fargate Service | Deploys an AWS Fargate service with ALB and TG|
+| [Netowrking Layer](networking/template.yaml) | CFN temp configure network settings, IP addresses, subnets, and routing |
+| [AWS Fargate Service](service/template.yaml) | Deploys an AWS Fargate service with ALB and TG|
+| AWS RDS | Provision AWS Relational Database for Crud Activity|
 
 ---
+
+> **Do you know** [yacrud.me](https://yacrud.me/) is derived from my nickname Yaya and the act of posting to Cruddur aka CRUD.
 
 ## Developer Guide
 
@@ -45,7 +48,7 @@ all of our artifacts for CloudFormation.
 
 
 
-Cluster Template URI: `s3://cfn-artifacts-111/f4c0adbebb70b0b6c337105b4f151492.template`
+YaCrud Cluster Template URI: `s3://cfn-artifacts-111/f4c0adbebb70b0b6c337105b4f151492.template`
 
 ```
 aws s3 mk s3://cfn-artifacts-111
