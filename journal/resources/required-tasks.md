@@ -143,7 +143,7 @@ Watched Ashish's Week 4 - Security Considerations                               
 ---
 
 
-| Required Tasks Week 8 — AWS CDK               |Stats |
+| ❗ Required Tasks Week 8 — AWS CDK               |Stats |
 |-----------------------------------------------|:---: |
 | Implement CDK Stack                           |✅|
 | Serve Avatars via CloudFront                  |❗|
@@ -167,12 +167,12 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ---
 
-| Required Tasks Week 10 — Cloudformation        |Stats |
+| ❗Required Tasks Week 10 — Cloudformation        |Stats |
 |------------------------------------            |:---: |
 | Implement Cluster Template                     |✅|
-| Implement Networking Layer Template            |✅|                                                                             
-| Implement RDS  Template                        |✅|
-| Implement Fargate Service Template             |✅|
+| Implement Networking Layer Template            |✅|                                                            
+| Implement RDS  Template                        |❗|
+| Implement Fargate Service Template             |❗|
 
 
 

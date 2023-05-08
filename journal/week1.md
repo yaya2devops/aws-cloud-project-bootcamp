@@ -45,7 +45,7 @@ This week was jam-packed of learning experiences.
 - [Multi-Stage Docker Build](#multi-stage-containerization)
 - [Health check in Docker Compose](#flask-health-check)
 - [Push and tag image to DockerHub](#cruddur-imgs-to-dockerhub)
-- Launch Docker Container on EC2
+- [Launch Docker Container on EC2](#docker-container-on-ec2)
 
 
 ---
@@ -378,7 +378,6 @@ aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http
 
 
 
-
 - Push to dockerhub
 ```
 docker push yaya2devops/cruddur-frontend:latest
@@ -476,10 +475,119 @@ ENTRYPOINT ["/backend-flask/external-script.sh"]
 #!/bin/bash
 python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 ```
+
+### Docker Container on EC2
+
+- Create EC2
+  
+<img src="assets/week1/EC2/1-config-ec2.png">
+
+- Add key-pair
+
+<img src="assets/week1/EC2/2-config-ec2.png">
+
+- allow ssh and HTTPS from internet
+
+
+
+**SSH Using PuTTy**
+
+<img src="assets/week1/EC2/3-ssh-to-ec2.png">
+
+- Add public IP, 
+- leave port 22, its standard for ssh
+- Expand on SSH -> Auth -> Credentials: Browse your .pem SK and add it
+- Click Open, ec2 will open
+
+<img src="assets/week1/EC2/4-puty-auth.png">
+
+
+> make sure the you chmod 600 or 400 ur "[rsa-key.pem](assets/week1/EC2/rsa-key.pem)"
+
+**SSH using AWS EC2 Connect**
+
+<img src="assets/week1/EC2/5-ssh-using-aws-connect.png">
+
+- Connect 
+- Update yum: `sudo yum update`
+- Get git with: `sudo yum install git`
+- Clone Project repo
+<img src="assets/week1/EC2/6-ec2-git-available.png">
+
+
+**Install docker**
+
+```
+sudo yum install docker
+```
+
+##### **Backend on EC2**
+
+- Pulling the image from dockerhb to EC2:
+
+```
+sudo docker pull yaya2devops/cruddur-backend:latest
+```
+
+<img src="assets/week1/EC2/7-docker-pull-ec2.png">
+
+- Run it
+
+```
+sudo docker run -p 4567:4567 yaya2devops/cruddur-backend:latest
+```
+<img src="assets/week1/EC2/8-docker-run-ec2.png">
+
+Nav to backend using `ec2-public-ip:port/endpoints`
+
+
+##### **Frontend on EC2**
+
+- Pull frontend Image
+- Install Docker Compose
+  
+##### **Run both on Docker compose**
+
+```yaml
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "http://IP:3000"
+      BACKEND_URL: "http://IP:4567"
+    image: yaya2devops/backend-flask:1.0
+    ports:
+      - "4567:4567"
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "http://I¨P:4567"
+    image: yaya2devops/frontend-react-js:1.0
+    ports:
+      - "3000:3000"
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
+
 #### Flask Health check
 
 - Added a new endpoint in `app.py`
+```py
+@app.route("/api/health-check", methods=["GET"])
+def health_check():
+    return {'success': True, 'ver': 1}, 200
+```
+- Config docker compose
 
+```yaml
+healthcheck:
+  test: curl --fail http://localhost:4567/api/health || exit 1
+  interval: 10s
+  timeout: 10s
+  start_period: 10s
+  retries: 3
+```
 <img src="assets/week1/dockerhub/backend-health-check.png">
 
 #### Multi-Stage Containerization
@@ -517,22 +625,16 @@ gitpod /workspace/aws-cloud-project-bootcamp/backend-flask (main) $ docker build
 
 
 
-
-
-
-
-
-
-
-
-
-
 ---
 
 ### Concluding
 
-This week provided an abundance of invaluable, hands-on learning opportunities. Overall, it was another fantastic week that left me eager to continue building on the practical skills I gained. 
+Docker skills was essential throughout the bootcamp period.
 
-Even weeks later, I am back and so excited to learn more Docker! 😊🐳
+This week(s) provided an abundance of invaluable, hands-on learning opportunities. 
+
+🐳I had to go back and accomplish every task because this tool is so amazing🐳
+
+
 
 

@@ -12,6 +12,7 @@ Conveniently located in one place.
 | [Project Assets](assets/README.md)  | the author's collection of resources and screenshots|
 | [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the scope|
 | [Project Beautify](../_docs/assets/README.md) | The author's  promotion of the marketing aspect of the project |
+| [Required Tasks](resources/required-tasks.md)  | My current standing with regard to the required bootcamp duties|
 | [Gitpod Migration](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
