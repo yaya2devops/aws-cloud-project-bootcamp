@@ -6,6 +6,7 @@
 | [Netowrking Layer](networking/template.yaml) | CFN temp configure network settings, IP addresses, subnets, and routing |
 | [AWS Fargate Service](service/template.yaml) | Deploys an AWS Fargate service with ALB and TG|
 | AWS RDS | Provision AWS Relational Database for Crud Activity|
+| AWS DynamoDB | This will be using [AWS Serverless Application Model!](https://aws.amazon.com/fr/serverless/sam/)|
 
 ---
 
