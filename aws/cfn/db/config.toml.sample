@@ -1,0 +1,9 @@
+[deploy]
+bucket = ''
+region = ''
+stack_name = ''
+
+[parameters]
+NetworkingStack = ''
+ClusterStack = ''
+MasterUsername = ''
