@@ -20,6 +20,7 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   ├── all-on
 │   ├── build
 │   ├── connect
+│   ├── create-service
 │   ├── deploy
 │   ├── generate-env
 │   ├── para-store
@@ -31,6 +32,8 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   └── service-on
 ├── cfn
 │   ├── cluster-deploy
+│   ├── db-deploy
+│   ├── ddb-deploy
 │   ├── networking-deploy
 │   └── service-deploy
 ├── cognito
@@ -80,8 +83,13 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   └── ruby-jwt
 ├── rds
 │   └── update-sg-rule
-├── busybox
+├── sam
+│   └── ddb
+│        ├── build
+│        ├── deploy
+│        └── package
 ├── bootstrap
+├── busybox
 └── prepare
 
 ```

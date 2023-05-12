@@ -32,3 +32,12 @@ cfn-guard rulegen --template aws/cfn/template.yaml
 ``` 
 
 > Output directed to [`ecs_cluster.guard`](../../aws/cfn/ecs_cluster.guard) 
+
+```sh
+-rwxr-xr-x 1 gitpod gitpod 677 May 12 20:52 cluster-deploy
+-rwxr--r-- 1 gitpod gitpod 779 May 12 20:52 db-deploy
+-rwxr--r-- 1 gitpod gitpod 743 May 12 20:55 ddb-deploy
+-rwxr-xr-x 1 gitpod gitpod 594 May 12 20:52 networking-deploy
+-rw-r--r-- 1 gitpod gitpod 667 May 12 20:52 README.md
+-rwxr-xr-x 1 gitpod gitpod 765 May 12 20:52 service-deploy
+```

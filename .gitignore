@@ -5,3 +5,5 @@ session-manager-plugin.deb
 backend-flask/session-manager-plugin.deb
 *.env
 node_modules
+.aws-sam
+build.toml
