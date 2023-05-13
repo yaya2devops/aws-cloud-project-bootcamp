@@ -2,18 +2,18 @@
 <div align="center">
 
 # Ultimate Resource Hub
-
 The resources listed below were compiled out of intellectual curiosity and are provided here for your reference. 
-
-<img src="res-hub-ban.png">
+<br>
 
 Conveniently located in one place.
+
+<img src="res-hub-ban.png">
 
 | Resource | Description | 
 | :---: | --- | 
 | [Project Assets](assets/README.md)  | the author's collection of resources and screenshots|
 | [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the scope|
-| [Project Beautify](../_docs/assets/README.md) | The author's  promotion of the marketing aspect of the project |
+| [ Beautify](../_docs/assets/README.md) | The author's  promotion of the marketing aspect of the project |
 | [Required Tasks](resources/required-tasks.md)  | My current standing with regard to the required bootcamp duties|
 | [Gitpod Migration](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
@@ -45,7 +45,7 @@ Conveniently located in one place.
 | [Week 4](week4.md) | SQL Database | Mar 11, 2023 |✘|
 |  [Week 5](week5.md) | NoSQL Database | Mar 18, 2023 |✘|
 | [Week 6](week6.md) | Deploying Serverless Containers (Part 1/2) | Mar 25, 2023 |✘|
-| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing (Part 2/2) | Apr 1, 2023 |Doing|
+| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing (Part 2/2) | Apr 1, 2023 |✘|
 | [Week 8](week8.md) | Serverless Image Processing | Apr 8, 2023 |Doing|
 |  [Week 9](week9.md) | CI/CD | Apr 15, 2023 |✘|
 |  [Week 10](week10.md) | CloudFormation (Part 1/2) | Apr 22, 2023 |Doing|

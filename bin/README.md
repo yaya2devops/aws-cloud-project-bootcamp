@@ -4,7 +4,7 @@
 
 The following scripts were manually written using **Python**, **Bash**, and **Ruby**. 
 
-<img src="bin-dir-banner.png">
+<img src="bin-dir-banner-v2.png">
 
 The creation was developed systematically, strategically and in a thoughtful approach with the ultimate goal of automating the repetitive tasks.
 
@@ -91,7 +91,6 @@ The creation was developed systematically, strategically and in a thoughtful app
 ├── bootstrap
 ├── busybox
 └── prepare
-
 ```
 
 > [Build](../aws/README.md#lets-talk-about-trees) a tree?
