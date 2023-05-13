@@ -2,11 +2,10 @@
 
 ![](https://codebuild.ca-central-1.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoiQ0VKYkxoWEVPajFjRlRaeGg3ZUJHMDJnQXpWSlg2NityVlZEVVhUZTBVbTR0OFgwUFlyMm1jZDhxU3F1bTFCRjBiTUZRazhFd2tWWWllbFlSUE1weUhFPSIsIml2UGFyYW1ldGVyU3BlYyI6IktNcGJRU1NaV3NiU3h5aFQiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)
 
-- Application: Cruddur
-- Cohort: 2023-A1
+- Application Re-brand: [Yacrud](https://yacrud.me/)
+- Cohort: 2023-A1 — [**Cruds**](yaYacrud.csv)
 
-<img src="_docs/assets/yayaoncruddur.png">
-
+<img src="_docs/assets/yacrud.png">
 
 ## Purposes and Adversities
 | | Target |

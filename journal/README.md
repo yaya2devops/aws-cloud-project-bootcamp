@@ -5,6 +5,8 @@
 
 The resources listed below were compiled out of intellectual curiosity and are provided here for your reference. 
 
+<img src="res-hub-ban.png">
+
 Conveniently located in one place.
 
 | Resource | Description | 
@@ -17,7 +19,7 @@ Conveniently located in one place.
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
 | [AWS Guidebook](../aws/README.md) | Developer references for AWS Console resources | 
-| [AWS CDK](../aws/README.md) | AWS CDK Provisioning Instructions  | 
+| [AWS CDK](../thumbing-serverless-cdk/README.md) | AWS CDK Provisioning Instructions  | 
 | [VS Code Tasks](../.vscode/README.md) | Use Tasks  to start processes and run scripts  | 
 | [Add. Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
 | [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
