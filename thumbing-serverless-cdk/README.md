@@ -7,6 +7,22 @@
 | Deployment    | Does not provide built-in deployment capabilities   | Provides a deployment framework using AWS CloudFormation    |
 
 
+**Quick Launch CDK**
+
+- Write your code
+- Check for errors w/ `cdk synth`
+
+**Init AWS CDK running**
+
+```
+cdk bootstrap aws://<AWSID>/<AWSREGION>"
+```
+
+This will create
+
+- S3 bucket e.g. `cdk-hnb659fds-assets-<AWSID>-<AWSREGION>`
+- CFN Toolkit for CDK e.g. CDKToolkit
+
 [**Provision with AWS CDK**](lib/README.md)
 
 
@@ -25,6 +41,9 @@ cdk synth
 
 ```sh
 cdk bootstrap "aws://598485450821/ca-central-1"
+
+aws s3api wait bucket-exists \
+    --bucket assets.cloudproject.uk
 ```
 
 ```sh
