@@ -1,8 +1,19 @@
-# Homework Challenges Check-ins
+# Homework Challenges — Check-ins
 
-As I complete my tasks, my homework will always take precedence, ensuring that it is at the top of my to-do list.
+Homework Challenges are additional tasks that are presented as an exciting opportunity for bootcampers to further enhance their learning experience.
 
-> Current catch - 30/04/2023
+<details>
+<summary>
+🤖
+</summary>
+
+<img src="assets/homework-challenges-gpt-prompt-engineer.png">
+
+</details>
+
+<img src="assets/homework-challenges.png">
+
+
 
 ---
 

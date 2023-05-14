@@ -1,18 +1,22 @@
 # Week 7 — Solving CORS with a Load Balancer and Custom Domain
 In this, we will continue from last week by focusing on maintaining equilibrium. 
 
+**[Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)**
+
 <img src="assets/week6-7/ArchitectStuff/2-app-via-lb.jpg">
 
-- [Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)
 
 
 Our technical responsibility for the week involves provisioning and operating containers to execute load balancing tasks, configuring our custom domain and mapping it to the load balancer's URL for seamless functionality.
 
-Our domain, on the other hand, will be fully onboarded to route53 and will be issued the necessary SSL certificate.
+Our domain, on the other hand, will be fully onboarded to route53 and will be issued the necessary SSL certificate from AWS Certificate Manager.
 
 
+We'll also tackle technical tasks like refreshing the JWT token from week 3, refactoring bin directory scripts incl. my design skills, and enhancing Docker networking, among others.
 
-We'll also tackle technical tasks like refreshing the JWT token from week 3, refactoring bin directory scripts, and enhancing Docker networking, among others.
+
+I took you on a tour of my primary domain and showed you the projects hosted there that could be beneficial to you.
+
 
 
 
@@ -37,22 +41,22 @@ We'll also tackle technical tasks like refreshing the JWT token from week 3, ref
 ## Setup Load Balancer
 
 Console → EC2 → Load Balancers <br>
-Create an Application Load Balancer named "cruddur-alb" → select 3 subnets.<br>
+Create an Application Load Balancer named **"cruddur-alb"** → select 3 subnets.<br>
+<br>
 
-Create a new Security Group named "cruddur-alb-sg" <br>
+Create a new Security Group named **"cruddur-alb-sg"**
 - inbound rules for HTTP  <br>
 -  HTTPS traffic from any source.<br>
 
 <img src="assets/week6-7/2-Fargate/7 load-balancer.png">
 
+**Listeners and routing**
+-  create a target group for the backend.
+-  create a target group for the frontend.
 
-Listeners and routing: <br>
--  create a target group backend and another. <br>
--  create a target group backendthe frontend.
 
-
-**Security Rules:**<br>
-Change "crud-srv-sg" security group inbound rule:<br>
+**Security Rules**
+<br> Change "crud-srv-sg" security group inbound rule
 -  create a new rule that allows traffic from "cruddur-alb-sg" on port 4567.<br>
 -  delete the old rule that allowed direct access to the backend Flask server.<br>
 
@@ -61,14 +65,14 @@ Change "crud-srv-sg" security group inbound rule:<br>
 
 ### Create Target Group
 
-**Backend:**<br>
+**Backend**<br>
 -  Navigate to Basic Configuration and select IP addresses for Fargate, ECS, or EC2.<br>
 -  Set the target group name as "cruddur-backend-flask-tg."<br>
 -  Configure the target group to use port 4567 and set "/api/health-check" as the health check path.<br>
 -  Under Advanced Health Check Settings, set the healthy threshold to 3.<br>
 → Click "Next" and then "Create Target Group."<br>
 
-**Frontend:**<br>
+**Frontend**<br>
 - Navigate to Basic Configuration and select IP addresses for Fargate, ECS, or EC2.<br>
 - Set the target group name as "cruddur-frontend-react-js."<br>
 - Configure the target group to use port 3000.<br>
@@ -76,7 +80,7 @@ Change "crud-srv-sg" security group inbound rule:<br>
 → Click "Next" and then "Create Target Group."<br>
 
 
-**Harmonize:**<br>
+**Harmonize**<br>
 - Remove the default Def SG only from LB  <br>
 - Set "cruddur-alb-sg SG"<br>
 - Set the default action to use the "cruddur-backend-flask-tg" target group with port 4567.<br>
@@ -93,7 +97,7 @@ Change "crud-srv-sg" security group inbound rule:<br>
 ```JSON
 "loadBalancers": [
       {
-          "targetGroupArn": "<cruddur-backend-flask-tg-ARN>",
+          "targetGroupArn": "<yacrud-backend-flask-target-group-ARN>",
           "containerName": "backend-flask",
           "containerPort": 4567
       }           ]
@@ -107,7 +111,7 @@ Recreate fargate service:
 aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
 ```
 
-> took me ages waiting for the drain. 
+> It took me ages waiting for the drain, we will force it later the road.
 
 Once finished ur new service will take place. <br>
 
@@ -118,8 +122,7 @@ You can simply go check the lb URL and add ur backend port and map to the health
 ```
 
 
-- Browser gave me:
-
+- Browser returned
 ```JSON
 { "success":true }
 ```
@@ -162,10 +165,9 @@ Once the changes are saved, you will need to wait for the changes to propagate a
 - Enter the domain name for which you want to create the SSL certificate:
    - In the **Fully qualified domain name** field, enter [`yacrud.me`]()
    - Click **Add another name to this certificate**, and add `*.yacrud.me`
-
-   <img src="assets/week6-7/yacrud.me/3-ssl-certificate.png">
-
 - click on the "Request" button.
+<img src="assets/week6-7/yacrud.me/3-ssl-certificate.png">
+
 - Follow the on-screen instructions to complete the domain validation process.
 - Check the required CNAME in Route 53
 
@@ -177,15 +179,16 @@ You can now use this SSL certificate route 53 when it returns as success.
 
 **OFF-CRUDDUR**
 
-- I took my main domain to Route53 as well.
+- I tried `sub` with my main domain to Route53 as well. It has been coupled with [Cloudflare](https://one.dash.cloudflare.com/onboarding) all the time and I like it too.
 
+**[DNS Configuration](assets/week6-7/3-DNS/DNS_Configuration.csv)**
 <img src="assets/week6-7/3-DNS/2- route.png">
 
 - Assigned the Certificate
+ <img src="assets/week6-7/3-DNS/3-certificate-after-cloudflare.png">
 
-<img src="assets/week6-7/3-DNS/3-certificate-after-cloudflare.png">
+**PostScript:** My Main domain is hosting many great projects that you may find helpful. Get started with [Linux](https://linux.yahya-abulhaj.dev/), [Sentinel](https://sentinel.yahya-abulhaj.dev/) and My [Blog](https://blog.yahya-abulhaj.dev/) to name few.
 
-Here are my [DNS Configuration](assets/week6-7/3-DNS/DNS_Configuration.csv)
 
 ## Configuring ALB Listeners and Routing for Frontend and API 
 
@@ -195,14 +198,14 @@ Here are my [DNS Configuration](assets/week6-7/3-DNS/DNS_Configuration.csv)
 - Add another listener and set the "Protocol" to "HTTPS" and the "Port" to "443."
 - In the "Default actions" field, select "Forward" and choose the "frontend-react-js" target group from the dropdown menu.
 - Choose the SSL/TLS certificate that you previously created from the "Default SSL/TLS certificate" dropdown, then click "Add."
-<img src="assets/week6-7/yacrud.me/6-443-rules-manage.png">
 - Delete the "HTTP:3000" and "HTTP:4567" listeners.
+  <img src="assets/week6-7/yacrud.me/8-listener-associated-with-cert.png">
 - Check the box for "HTTPS:443" and click the "Manage Rules" button.
 - Click on "Insert Rule" and then click "Add Condition" followed by "Host Header."
 - Set the "is" field to "api.yacrud.me" and click "Add Action" followed by "Forward to."
 - Select the "backend-flask" target group from the dropdown menu, then click "Save."
 Your backend API is now accessible via the "api.yacrud.me" in my case.
-<img src="assets/week6-7/yacrud.me/8-listener-associated-with-cert.png">
+<img src="assets/week6-7/yacrud.me/6-443-rules-manage.png">
 
 
 
@@ -212,18 +215,18 @@ Your backend API is now accessible via the "api.yacrud.me" in my case.
 
 
 
-- Check App on Loadbalancer
-<img src="assets/week6-7/yacrud.me/9-checking-load-balancer-rule.png">
+- Check App on Loadbalancer <br>
+  <img src="assets/week6-7/yacrud.me/9-checking-load-balancer-rule.png">
 - Open the Route53 console in your AWS account and select the domain you want to point to the ALB.
 - In the domain management section, click on the "Create Record" button to add a new record.
 - Under the record creation options, choose "Alias" and select "Alias to Application and Classic Load Balancer" from the dropdown menu for "Route traffic to."
 - Choose the "ca-central-1" region and select your target Application Load Balancer from the list of load balancers.
 - Click on the "Create Route" button to save the record.
-<img src="assets/week6-7/yacrud.me/7-create-alias-internal-resource-for-lb-record.png">
+  <img src="assets/week6-7/yacrud.me/7-create-alias-internal-resource-for-lb-record.png">
 - To create a subdomain for your API, click on "Create Record" again and this time set the "Record name" to "api."
 - Follow the same alias setup as above, choosing the same ALB target as the main domain.
 - Expect to have these records
-<img src="assets/week6-7/yacrud.me/14-route53-cruddur-records-overview-final.png">
+  <img src="assets/week6-7/yacrud.me/14-route53-cruddur-records-overview-final.png">
 - Wait for the DNS changes to propagate, which can take a few minutes or several hours.
 - Once the changes have taken effect, visit your custom domain in a web browser to view the frontend. 
 
@@ -415,9 +418,9 @@ Due to new innovations, both have now been moved to [`bin/frontend/push`](../bin
 
 ### Force Service Deploy with bash scripts
 
-- create backend-flask/bin/ecs/force-deploy-backend-flask and bin/ecs/force-deploy-frontend-react-js.
-- In backend-flask/bin/ecs/force-deploy-backend-flask, set the CLUSTER_NAME variable to the name of your ECS cluster, the SERVICE_NAME variable to the name of the backend-flask service, and the TASK_DEFINTION_FAMILY variable to the task definition family of your backend-flask service.
-- In bin/ecs/force-deploy-frontend-react-js, set the CLUSTER_NAME variable to the name of your ECS cluster, the SERVICE_NAME variable to the name of the frontend-react-js service, and the TASK_DEFINTION_FAMILY variable to the task definition family of your frontend-react-js service.
+- create `backend-flask/bin/ecs/force-deploy-backend-flask` and `bin/ecs/force-deploy-frontend-react-js`.
+- In `backend-flask/bin/ecs/force-deploy-backend-flask`, set the **CLUSTER_NAME** variable to the name of your ECS cluster, the **SERVICE_NAME** variable to the name of the backend-flask service, and the **TASK_DEFINTION_FAMILY** variable to the task definition family of your backend-flask service.
+- In `bin/ecs/force-deploy-frontend-react-js`, set the **CLUSTER_NAME** variable to the name of your ECS cluster, the **SERVICE_NAME** variable to the name of the `frontend-react-js service`, and the **TASK_DEFINTION_FAMILY** variable to the task definition family of your frontend-react-js service.
 - Run the scripts to update your services with the new changes. The scripts use the AWS CLI to obtain the latest task definition ARN and force a new deployment of the service with that task definition.
 
 Use this method only when necessary and during off-peak hours to minimize the impact on your users.
@@ -425,12 +428,12 @@ Use this method only when necessary and during off-peak hours to minimize the im
 **NOTE:** Scripts are now migrated under `bin/backend/deploy` and `bin/frontend/deploy`
 
 # [Refactor Bin Directory](../bin/README.md)
-This was one of the most enjoyable parts of my work. 
+This was particularly enjoyable.
 
-The [directory](../bin/README.md) should be consulted for potential experience as more scripts are being added to the project.
+Binairy has been updated and relocated to the top-level directory to make it easier to execute and run scripts as we continue to add more and more to the project. 
 
+The initial migration was made using the command `mv`. <br>
 <details>
-
 <summary>
 Check The Process Out
 </summary> 
@@ -452,6 +455,17 @@ Check The Process Out
 <img src="assets/week6-7/4-bin-refacor/4.png">
 
 </details>
+
+<br>
+
+I've gone ahead and designed a [slick BinBanner](../bin/bin-dir-banner-v2.png) that's sure to get you SCRIPTING fired up. Plus, I've included the complete bintree. 
+
+[Passé BinBanner](../bin/bin-dir-banner.png) below in case you're interested in the progress so far!
+
+
+<img src="../bin/bin-dir-banner.png">
+
+
 
 
 

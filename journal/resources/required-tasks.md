@@ -1,5 +1,6 @@
 # CRUDDUR Required Weekly Tasks
 
+<img src="assets/required-tasks.png">
 
 | Required Tasks Week 0 — AWS Operations and CLI              |Status  |
 | ---                                                         |:------:|

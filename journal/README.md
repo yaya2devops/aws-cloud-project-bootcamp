@@ -1,17 +1,16 @@
-
 <div align="center">
 
 # Ultimate Resource Hub
-The resources listed below were compiled out of intellectual curiosity and are provided here for your reference. 
-<br>
-
+The resources listed below were compiled out of intellectual curiosity and are provided here for your reference.<br> 
 Conveniently located in one place.
 
-<img src="res-hub-ban.png">
+<img src="res-hub-ban.png" width="640px">
 
+<br>
+    
 | Resource | Description | 
 | :---: | --- | 
-| [Project Assets](assets/README.md)  | the author's collection of resources and screenshots|
+| [Project Assets](assets/README.md)  | The author's collection of resources and screenshots|
 | [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the scope|
 | [ Beautify](../_docs/assets/README.md) | The author's  promotion of the marketing aspect of the project |
 | [Required Tasks](resources/required-tasks.md)  | My current standing with regard to the required bootcamp duties|
@@ -19,12 +18,12 @@ Conveniently located in one place.
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
 | [AWS Guidebook](../aws/README.md) | Developer references for AWS Console resources | 
-| [AWS CDK](../thumbing-serverless-cdk/README.md) | AWS CDK Provisioning Instructions  | 
-| [VS Code Tasks](../.vscode/README.md) | Use Tasks  to start processes and run scripts  | 
-| [Add. Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
+| [AWS CDK](../thumbing-serverless-cdk/README.md) |  Provisioning Cloud Resources with AWS CDK in Typescript  | 
+| [VS Code Tasks](../.vscode/README.md) |  Automate processes and run scripts using vscode tasks | 
+| [ Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
 | [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
 | [Discord Issues](assets/week4/Discord/README.md)  | Troubleshooting exchanged with community in Discord |
-| [Instagram Stories](resources/instagram-stories.md)  | Bootcamp Assets shared to community on instagram |
+| [ Stories](resources/instagram-stories.md)  | Bootcamp Assets shared to community on instagram |
 
 </div>
 
@@ -33,23 +32,23 @@ Conveniently located in one place.
 
 <div align="center">
 
-## [Builder](https://www.linkedin.com/posts/yahya-abulhaj_builders-aws-awscommunity-activity-7035019998116868096-Krvs?utm_source=share&utm_medium=member_desktop) Progress Tracker
+## [Builder](https://www.linkedin.com/feed/update/urn:li:activity:7060203832382808064/) Progress Tracker
 
 
 |  Journal  | Technologies   | Start Date | Status|
 | :---: | :--- | --- |:---: |
-| [Week 0](week0.md) | Bootcamp Overview and Introduction to Cloud Spend | Feb 11, 2023 |✘|
+| [Week 0](week0.md) | Billing and Architecture — Cloud Operations  | Feb 11, 2023 |✘|
 | [Week 1](week1.md) | Docker and App Containerization | Feb 18, 2023 |✘|
 | [Week 2](week2.md) | Distributed Tracing | Feb 25, 2023 |✘|
 | [Week 3](week3.md) | Decentralized Authentication | Mar 4, 2023 |✘|
-| [Week 4](week4.md) | SQL Database | Mar 11, 2023 |✘|
-|  [Week 5](week5.md) | NoSQL Database | Mar 18, 2023 |✘|
-| [Week 6](week6.md) | Deploying Serverless Containers (Part 1/2) | Mar 25, 2023 |✘|
-| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing (Part 2/2) | Apr 1, 2023 |✘|
+| [Week 4](week4.md) | SQL Database with PostgreSQL | Mar 11, 2023 |✘|
+|  [Week 5](week5.md) | NoSQL Database with AWS DynamoDB | Mar 18, 2023 |✘|
+| [Week 6](week6.md) | Deploying Serverless Containers  <br>(Part 1/2) | Mar 25, 2023 |✘|
+| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(Part 2/2) | Apr 1, 2023 |✘|
 | [Week 8](week8.md) | Serverless Image Processing | Apr 8, 2023 |Doing|
-|  [Week 9](week9.md) | CI/CD | Apr 15, 2023 |✘|
-|  [Week 10](week10.md) | CloudFormation (Part 1/2) | Apr 22, 2023 |Doing|
-| [Week 11](week11.md)| CloudFormation (Part 2) | Apr 29, 2023 |Doing|
+|  [Week 9](week9.md) | CI/CD with AWS CodeBuild and CodePipeline | Apr 15, 2023 |✘|
+|  [Week 10](week10.md) | CloudFormation <br> (Part 1/2) | Apr 22, 2023 |Doing|
+|  [Week 11](week11.md)| CloudFormation & SAM Templates <br> (Part 2/2) | Apr 29, 2023 |Doing|
 |  [Week 12](week12.md) | Modern APIs | May 6, 2023 |Coming|
 
 </div>

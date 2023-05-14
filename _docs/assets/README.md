@@ -24,6 +24,11 @@ To view and edit this file, use [DRAWIO](aware.drawio)
 
 [**Design Use-Case**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week6-7#readme)
 
+> The link is broken because it was linked to the "week6-7" tag, which no longer exists. I split it into two separate weeks for better organization.
+
+
+
+
 
 
 ## Assets Progression
@@ -56,3 +61,14 @@ This screenshot represents my progress in developing and improving the CRUDDUR's
 <img src="yayaoncruddur.png">
 
 Refer to PostgreSQL situational captures implementation from [here.](../../journal/week4.md)
+
+
+## [YACRUD](https://yacrud.me/) On RDS CRUD Activity in Week 7
+
+The assets below demonstrate my unwavering dedication to the app, as demonstrated by my successful implementation of a custom domain using Route53, Certificate Manager, and Porkbun.
+
+<img src="yacrud.png">
+
+
+These results prove my outstanding competence with AWS RDS specifically and point out my unwavering commitment to achieving excellence in all endeavors.
+
