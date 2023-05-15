@@ -4,7 +4,7 @@ ABS_PATH=$(readlink -f "$0")
 SERVERLESS_PATH=$(dirname $ABS_PATH)
 BIN_PATH=$(dirname $SERVERLESS_PATH)
 PROJECT_PATH=$(dirname $BIN_PATH)
-SERVERLESS_PROJECT_PATH="$PROJECT_PATH/backend-flask/thumbing-serverless-cdk"
+SERVERLESS_PROJECT_PATH="$PROJECT_PATH/thumbing-serverless-cdk"
 
 cd $SERVERLESS_PROJECT_PATH
 

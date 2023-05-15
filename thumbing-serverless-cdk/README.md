@@ -22,6 +22,13 @@ This will create
 
 - S3 bucket e.g. `cdk-hnb659fds-assets-<AWSID>-<AWSREGION>`
 - CFN Toolkit for CDK e.g. CDKToolkit
+- ECR Repo
+
+```SH
+
+export UPLOADS_BUCKET_NAME=yaya-cruddur-uploaded-avatars
+gp env UPLOADS_BUCKET_NAME=yaya-cruddur-uploaded-avatars
+```
 
 [**Provision with AWS CDK**](lib/README.md)
 

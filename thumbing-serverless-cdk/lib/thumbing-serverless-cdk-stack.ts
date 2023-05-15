@@ -57,6 +57,8 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
     const s3AssetsReadWritePolicy = this.createPolicyBucketAccess(assetsBucket.bucketArn)    //const snsPublishPolicy = this.createPolicySnSPublish(snsTopic.topicArn)
 
     // attach policies for permissions
+    const s3ReadWritePolicy = this.createPolicyBucketAccess(bucket.bucketArn)
+    lambda.addToRolePolicy(s3ReadWritePolicy);
     lambda.addToRolePolicy(s3UploadsReadWritePolicy);
     lambda.addToRolePolicy(s3AssetsReadWritePolicy);
     //lambda.addToRolePolicy(snsPublishPolicy);

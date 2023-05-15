@@ -1,7 +1,11 @@
 #! /usr/bin/bash
 
 ABS_PATH=$(readlink -f "$0")
-SERVERLESS_PATH=$(dirname $ABS_PATH)
-DATA_FILE_PATH="$SERVERLESS_PATH/files/data.jpg"
+AVATAR_PATH=$(dirname $ABS_PATH)
+DATA_FILE_PATH="$AVATAR_PATH/../avatar/files/data.jpg"
 
-aws s3 cp "$DATA_FILE_PATH" "s3://cruddur-uploaded-avatars/data.jpg"
+aws s3 cp "$DATA_FILE_PATH" "s3://yaya-cruddur-uploaded-avatars/data.jpg"
+aws s3 cp "$DATA_FILE_PATH" "s3://assets.yacrud.me/avatar/original/data.jpg"
+
+
+# aws s3 cp "abs-path" "s3://assets.yacrud.me/avatar/original/data.jpg"
