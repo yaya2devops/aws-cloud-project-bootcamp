@@ -1,8 +1,29 @@
 # CRUDDUR Required Weekly Tasks
 
+
 <img src="assets/required-tasks.png">
 
-| Required Tasks Week 0 — AWS Operations and CLI              |Status  |
+
+### Table Of Contents
+- [Week Zero](#week-0--aws-operations-and-cli)
+  - [Week One](#week-1--containerize-application-w-docker)
+    - [Week Two](#week-2--distributed-tracing)
+      - [Week Three](#week-3--decentralized-authenitication)
+         - [Week Four](#week-4--sql-databases-w-postgresql)
+           - [Week Five](#week-5--nosql-databases-w-dynamodb)
+             - [Week Six](#week-6--aws-ecs-fargate)
+                - [Week Seven](#week-7--aws-load-balancer--cors)
+                    - [Week Eight](#week-8--aws-cdk-w-typescript)
+                       - [Week Nine](#week-9--cicd-pipelines-w-codebuild-and-codepipelines)
+                             ∎ [Week Ten](#week-10--cloudformation)
+                                 ∎ [Week Eleven](#week-11--cloudformation)
+                                     ∎ [**Week X**](#week-x--cloudformation)
+
+
+
+
+### Week 0 — AWS Operations and CLI
+| Required Tasks                                              |Status  |
 | ---                                                         |:------:|
 | Watched Week 0 - Live Streamed Video                        | ✅     | 
 | Watched Chirag's Week 0 - Spend Considerations              | ✅     | 
@@ -18,7 +39,10 @@
 
 
 ----
-| Required Tasks Week 1 — Docker                              | Status  |
+
+### Week 1 — Containerize Application w/ Docker
+
+| Required Tasks                                              | Status  |
 | :----------------------------------------------------       |:------: |
 | Watch How to Ask for Technical Help                         |  ✅    |
 | Watched Grading Homework Summaries                          |  ✅    |
@@ -37,7 +61,9 @@
 
 ---
 
-| Required Tasks Week 2 — Distributed Tracing         | Status |
+###  Week 2 — Distributed Tracing 
+
+| Required Tasks                                       | Status |
 |:---------------------------------------------------  |:--------:|
 | Watch Week 2 Live-Stream Video                                                           |✅   |
 | Watch Chirag Week 2 - Spending Considerations                                            |✅   |
@@ -57,7 +83,9 @@
 
 ---
 
-| Required Tasks Week 3 — Decentralized Authenitication                                  | Status |
+### Week 3 — Decentralized Authenitication 
+
+| Required Tasks                                                                         | Status |
 |---------------------------------------------                                           |--------|
 | Watched Ashish's Week 3                                                                |✅  |
 | Provision via ClickOps a Amazon Cognito User Pool                                      |✅  |
@@ -72,8 +100,9 @@
 
 ---
 
+### Week 4 — SQL Databases w/ PostgreSQL
 
-| Required Tasks Week 4 — SQL Databases                                                                  | Stats |
+| Required Tasks                                                                                         | Stats |
 | :---                                                                                                   | :---: |
 | Have a lecture about data modelling in (3rd Normal Form) 3NF for SQL                                   |✅ |
 Watched Ashish's Week 4 - Security Considerations                                                        |✅ |
@@ -93,7 +122,9 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ---
 
-| Required Tasks Week 5 — NoSQL Databases                                                 | Stats |
+### Week 5 — NoSQL Databases w/ DynamoDB
+
+| Required Tasks                                                                          | Stats |
 | ---                                                                                     |:---: |
 | Watched Week 5 - Data Modelling (Live Stream)                                           |✅|
 | Watched Ashish's Week 5 - DynamoDB Considerations                                       |✅|
@@ -112,7 +143,9 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ---
 
-| Required Tasks Week 6 — AWS ECS Fargate                            | Stats |
+### Week 6 — AWS ECS Fargate   
+
+| Required Tasks                                                     | Stats |
 |------------------------------------------------------------------- |:---: |
 | Watch ECS Security by Ashish                                       |✅|
 | Watch Fargate Technical Questions with Maish                       |✅|
@@ -123,8 +156,9 @@ Watched Ashish's Week 4 - Security Considerations                               
 | Deploy Frontend React JS app as a service to Fargate               |✅|
 
 
+### Week 7 — AWS Load Balancer & CORS 
 
-| Required Tasks Week 7 — AWS Load Balancer & CORS                           | Stats |
+| Required Tasks                                                             | Stats |
 |-------------------------------------------------------------------         |:---: |
 | Provision and configure Application Load Balancer along with target groups |✅|
 | Manage your domain using Route53 via hosted zone                           |✅|
@@ -143,11 +177,12 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ---
 
+### Week 8 — AWS CDK w/ Typescript
 
 | ❗ Required Tasks Week 8 — AWS CDK               |Stats |
 |-----------------------------------------------|:---: |
 | Implement CDK Stack                           |✅|
-| Serve Avatars via CloudFront                  |❗|
+| Serve Avatars via CloudFront                  |✅|
 | Implement Users Profile Page                  |✅|
 | Implement Users Profile Form                  |✅|
 | Implement Backend Migrations                  |✅|
@@ -158,7 +193,9 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ---
 
-| Required Tasks Week 9 — CI/CD Pipelines   |Stats |
+### Week 9 — CI/CD Pipelines w/ CodeBuild and CodePipelines
+
+| Required Tasks                            |Stats |
 |------------------------------------       |:---: |
 | Implement CICD Pipeline Security B.P      |✅|
 | Configure CodeBuild Project               |✅|
@@ -168,12 +205,43 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ---
 
-| ❗Required Tasks Week 10 — Cloudformation        |Stats |
+### Week 10 — Cloudformation 
+
+| ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
 | Implement Cluster Template                     |✅|
-| Implement Networking Layer Template            |✅|                                                            
+| Implement Networking Layer Template            |✅| 
+| Diagramming Networking Layer                   |❗|
+| Diagramming Cluster Layer                      |❗|
 | Implement RDS  Template                        |❗|
+| Diagramming  RDS                               |❗|
 | Implement Fargate Service Template             |❗|
+| Diagramming Service                            |❗|
+
+
+### Week 11 — Cloudformation 
+
+| ❗Required Tasks                               |Stats |
+|------------------------------------            |:---: |
+| Implement Dynamo with SAM CFN                  |❗|
+| Diagramming Dynamo                             |❗|
+| Implement CFN CI/CD                            |❗|
+| Diagramming CI/CD                              |❗|
+| Implement CFN Static Website Hosting Frontend  |❗|
+| Diagramming  Static Frontend                   |❗|
+
+---
+
+### Week X — Cloudformation 
+
+| ❗Required Tasks                               |Stats |
+|------------------------------------            |:---: |
+| Loading                                        |⌛ |
+
+
+
+
+
 
 
 
