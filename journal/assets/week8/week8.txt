@@ -1,0 +1,33 @@
+
+in the last of serve via cloudfront
+
+no more orginal its not went to the upload bucket
+
+
+
+URLS:
+
+d36zdpm2d5ljdc.cloudfront.net/avatar/processed/data.jpg
+https://assets.yacrud.me/banners/yaya-aws-builder.jpg
+https://assets.yacrud.me/avatar/processed/..
+
+
+bundle install - i hope i didnt had to install a native extension
+
+native means intalling an underlining c lib
+
+install thunder client
+
+
+---
+
+created lifecycle in bucket avatar-upload
+
+---
+
+
+authorizer
+
+npm install aws-jwt-verify --save	(in lambda authrozizer)
+
+profileform invoke url 

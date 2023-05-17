@@ -1,6 +1,5 @@
 import './ProfileHeading.css';
 import EditProfileButton from '../components/EditProfileButton';
-import ProfileAvatar from 'components/ProfileAvatar'
 
 export default function ProfileHeading(props) {
   const backgroundImage = 'url("https://assets.yacrud.me/banners/yaya-aws-builder.png")';
@@ -14,7 +13,9 @@ export default function ProfileHeading(props) {
     <div className='title'>{props.profile.display_name}</div>
     <div className="cruds_count">{props.profile.cruds_count} Cruds</div>
     <div className="banner" style={styles} >
-    <ProfileAvatar id={props.profile.cognito_user_uuid} />
+      <div className="avatar">
+        <img src="https://assets.yacrud.me/avatars/cloud.jpg"></img>
+      </div>
     </div>
     <div className="info">
       <div className='id'>
@@ -24,6 +25,7 @@ export default function ProfileHeading(props) {
       <EditProfileButton setPopped={props.setPopped} />
     </div>
     <div className="bio">{props.profile.bio}</div>
+
   </div>
   );
 }
