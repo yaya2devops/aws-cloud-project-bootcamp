@@ -134,12 +134,12 @@ docker push $ECR_PYTHON_URL:3.10-slim-buster
 
 <img src="assets/week6-7/1-workflow/8-python-image-container-resgitry.png">
 
-7 load-balancer.png
-This is the process to containerize any project of your wish.
+
 
 
 #### ECR [Backend](../backend-flask#readme)
 
+Same workflow applied, refer to the hyperlink.
 
 #### ECR [Frontend](../bin/frontend/)
 
@@ -157,7 +157,8 @@ Bin is restructured in week 7 - [check from now.](../bin/README.md)
 | Parameter Store | Store secrets as key-value pairs or encrypted strings. | $ |
 
 
-Use something easy so u can call it somewhere [e.g.](../backend-flask/buildspec.yml#L33) Click.
+Use something easy so u can call it somewhere [e.g.](../backend-flask/buildspec.yml#L33)
+
 SecureString is a parameter type to store sensitive data such as passwords, API keys, and other secrets in an encrypted format.
 
 
@@ -170,6 +171,8 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/CONNE
 aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/ROLLBAR_ACCESS_TOKEN" --value $ROLLBAR_ACCESS_TOKEN
 aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS" --value "x-honeycomb-team=$HONEYCOMB_API_KEY"
 ```
+
+- This is now scripted into a [file.](../bin/backend/para-store)
 
 <img src="assets/week6-7/1-workflow/20 parameter store.png">
 
@@ -371,17 +374,28 @@ aws logs put-retention-policy --log-group-name cruddur --retention-in-days 1
   - run `docker build command` - it's [here](../bin/frontend/build)
 
 #### Resend 
-- Create a repo for front as [shown above](#ecr-backend).
-- Set URL, Login, pull, Tag img and push.
+- [Create a repo for front.](../bin/frontend/repo)
+- Set URL - [Login](../bin/ecr/sign-in)  pull - Tag img and [push](../bin/frontend/push). to ECR.
 
 
-#### Flask
+### Flask App
 
 For backend, now it's time to do a sperate prod for it as well.
 - Use the dockerfile for prod and incl the `FROM` command to use the py image from ECR.
-- Create a repo for front as shown above of the [above](#resend).
-- Set URL, Login, pull, Tag img and push.
+- [Create a repo for backend.](../bin/backend/repo)
+- Set URL - [Login](../bin/ecr/sign-in) - pull - Tag img and [push](../bin/backend/push).
 
 
 
 > I'm also good in Azure, wanna [see?](https://sentinel.yahya-abulhaj.dev/)
+
+
+
+**Containers Reference**
+
+I consulted the below sources to build up.
+- [Amazon Elastic Container Service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html)
+- [Amazon Elastic Container Registry](https://aws.amazon.com/fr/ecr/)
+- [EC2 vs Fargate?](https://containersonaws.com/introduction/ec2-or-aws-fargate/)
+- [Security and Assurance for AWS Fargate Containers](https://www.youtube.com/watch?v=FdiPiirOqfs&ab_channel=DevOpsTV)
+- [Fargate Task Definitions Considerations](https://docs.aws.amazon.com/AmazonECS/latest/userguide/fargate-task-defs.html)

@@ -33,16 +33,16 @@ I took you on a tour of my primary domain and showed you the projects hosted the
 - [Configure task definitions to contain x-ray and turn on Container Insights](#fargate---configuring-for-container-insights)
 - [Change Docker Compose to explicitly use a user-defined network](#docker-container-networks)
 - [Create Dockerfile specifically for production use case](#working-with-docker-images-in-production)
-- [Using ruby generate out env dot files for docker using erb templates](#env-var)
-- [How to securely host a website on AWS with custom domain](#frontend-application-on-cloudfront)
+- [Using ruby generate out env dot files for docker using erb templates](#dynamic-environment-variable-ruby)
+- [How to securely host a website on AWS with custom domain with AWS CloudFront](#frontend-application-on-cloudfront)
 
 ---
 
 ## Setup Load Balancer
 
 Console → EC2 → Load Balancers <br>
-Create an Application Load Balancer named **"cruddur-alb"** → select 3 subnets.<br>
-<br>
+Create an Application Load Balancer named **"cruddur-alb"** → select 3 subnets.
+
 
 Create a new Security Group named **"cruddur-alb-sg"**
 - inbound rules for HTTP  <br>
@@ -352,7 +352,7 @@ To use the backend-flask-prod image Update Docker Compose
 
 
 
-### ECR Sign-in
+### ECR Sign-in 
 Create a new file called `backend-flask/bin/ecr/sign-in` and make it executable. 
 
 Paste the following code into the file
@@ -432,7 +432,12 @@ This was particularly enjoyable.
 
 Binairy has been updated and relocated to the top-level directory to make it easier to execute and run scripts as we continue to add more and more to the project. 
 
-The initial migration was made using the command `mv`. <br>
+The initial migration was made using the command `mv` 
+```sh
+mv bin ..
+```
+<img src="assets/week6-7/4-bin-refacor/mv-bin.png">
+
 <details>
 <summary>
 Check The Process Out
@@ -456,23 +461,13 @@ Check The Process Out
 
 </details>
 
-<br>
+
 
 I've gone ahead and designed a [slick BinBanner](../bin/bin-dir-banner-v2.png) that's sure to get you SCRIPTING fired up. Plus, I've included the complete bintree. 
 
 [Passé BinBanner](../bin/bin-dir-banner.png) below in case you're interested in the progress so far!
 
-
 <img src="../bin/bin-dir-banner.png">
-
-
-
-
-
----
-To be Continued..
-
----
 
 ## Real Path Experiment
 
@@ -487,28 +482,112 @@ Get the backend onboard to ECR after this step.
 - Turn on container insights
 <img src="assets/week6-7/Container-Insights/turn-on-container-insights.png">
 
-- XRAY daemon
+- Add this to backend task definition
+```sh
+{
+      "name": "xray",
+      "image": "public.ecr.aws/xray/aws-xray-daemon" ,
+      "essential": true,
+      "user": "1337",
+      "portMappings": [
+        {
+          "name": "xray",
+          "containerPort": 2000,
+          "protocol": "udp"
+        }
+      ]
+    },
+```
+
+Run the register script. I made it [here](../bin/backend/register)
+
+- Check it in fargate
 <img src="assets/week6-7/Container-Insights/containers stats.png">
 
 
-- Use case
+- Make use of container insights 
 <img src="assets/week6-7/Container-Insights/container-insights.png">
 
 
 
 
 ## Docker Container Networks
-- Debug using [Busybox](../bin/busybox)
+- add this config to `docker-compose.yml`
+
+```yml
+networks:
+  cruddur-net:
+    driver: bridge
+    name: cruddur-net
+ ```
+ 
+ - And name the network attribute
+```yml
+networks:
+  - cruddur-net
+```
+
+**Debug using Busybox**
+
+- Create the [script](../bin/busybox)
+
+- Operate debug e.g. liste network
+```
+docker network list
+```
+
+**Debug with iputils-ping**
+
+- Add this too `Dockerfile.prod`
+```sh
+RUN apt update && apt install -y iputils-ping
+```
 - Redefined the networking in [docker compose](../docker-compose.yml)
 
 
-## Env Var
+## Dynamic Environment Variable Ruby
 
----
+A magical transmit to use in conjunction with your environment variable.
 
-## Homework Challenges
 
-### Frontend Application on CloudFront
-### Updated `connect-to-service`
+Create ruby scripts to read your environment variables and map it for app function.
+- [Ruby file to read frontend environment variables](../bin/frontend/generate-env)
+- [Ruby fil to read backend environment variables](../bin/backend/generate-env)
+
+
+Create the actual files that hold the required env variables of ur app
+
+- **Backend** environment variables [erb/backend-flask.env.erb](../erb/frontend-react-js.env.erb)
+- **Backend** environment variables [erb/frontend-react-js.env.erb](../erb/frontend-react-js.env.erb)
+
+Run the scripts to generate the magical environment variables.
+
+- **Frontend**
+```sh
+./bin/frontend/generate-env
+```
+
+- **Backend**
+```sh
+./bin/backend/generate-env
+```
+
+### Frontend Application on CloudFront ⚠️
+      
+      
 ### Service On - Service Off
+I created script to force deleting and creating service in fargate.
+- [Start Service](../bin/backend/service-on)
+- [Shut down Service](../bin/backend/service-off)
+
 ### Path Plays
+I worked with readlink and dirname and explained the process [here.](../bin/docker/build/README.md)
+
+
+
+#### Note Vault
+
+Some of my notes along week six and seven are listed below for inspirations.
+
+- [Note 1](assets/week6-7/1-workflow/Week-6-7-Part-1.txt) - [ 2](assets/week6-7/1-workflow/Week-6-7-Part-2.txt) - [ 3](assets/week6-7/1-workflow/notes.txt) - [ 4](assets/week6-7/3-DNS/latest.txt) - [ 5](assets/week6-7/notes/aws-json-readme.txt) - [ 6](assets/week6-7/notes/reference-cloudfront.txt) - [Note 7](assets/week6-7/yacrud.me/dns-back-to-week-6.txt)
+
