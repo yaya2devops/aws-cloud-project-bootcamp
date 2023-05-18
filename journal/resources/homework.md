@@ -13,8 +13,6 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 
 <img src="assets/homework-challenges.png">
 
-
-
 ---
 
 
@@ -74,9 +72,9 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 |        No homework challenges provided 	          |     N/A | N/A|   
 ---
 
-|  Week 6 and 7 Challenges     ❗                                                                          | Difficulty | Status |
+|  Week 6 and 7 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-| Try and host your frontend application on Static Website Hosting with CloudFront     |     Medium | ❗| 
+| Try and host your frontend application on Static Website Hosting with CloudFront     |     Medium | ✅ | 
 
 | This challenge could count for both Week 4 and 5 because you will have to deal with CORS as well. |
 |--------|

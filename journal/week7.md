@@ -15,7 +15,7 @@ Our domain, on the other hand, will be fully onboarded to route53 and will be is
 We'll also tackle technical tasks like refreshing the JWT token from week 3, refactoring bin directory scripts incl. my design skills, and enhancing Docker networking, among others.
 
 
-I took you on a tour of my primary domain and showed you the projects hosted there that could be beneficial to you.
+Partway through, I took you on a tour of my primary domain and showed you the projects hosted there that could be beneficial to you.
 
 
 
@@ -187,7 +187,9 @@ You can now use this SSL certificate route 53 when it returns as success.
 - Assigned the Certificate
  <img src="assets/week6-7/3-DNS/3-certificate-after-cloudflare.png">
 
-**PostScript:** My Main domain is hosting many great projects that you may find helpful. Get started with [Linux](https://linux.yahya-abulhaj.dev/), [Sentinel](https://sentinel.yahya-abulhaj.dev/) and My [Blog](https://blog.yahya-abulhaj.dev/) to name few.
+**PostScript:** My Main domain is hosting many great projects that you may find helpful. Get started with [Linux](https://linux.yahya-abulhaj.dev/), [Sentinel](https://sentinel.yahya-abulhaj.dev/), and My [Blog](https://blog.yahya-abulhaj.dev/) to name few.
+
+I also shared the [resources](https://cloudrise.yahya-abulhaj.dev/) that helped me best succeed in the cloud.
 
 
 ## Configuring ALB Listeners and Routing for Frontend and API 
@@ -253,9 +255,6 @@ Note that it may take some time for the changes to take effect, so you may need 
 
 
 
-
-
----
 
 
 ### Cross-origin resource sharing 
@@ -471,12 +470,117 @@ I've gone ahead and designed a [slick BinBanner](../bin/bin-dir-banner-v2.png) t
 
 ## Real Path Experiment
 
-Get the backend onboard to ECR after this step.
+I worked with readlink and dirname and explained the process [here.](../bin/docker/build/README.md)
 
 ## PSQL Session Kill Command
-## Fix Messaging in production
+
+The purpose of this part is to create a script to kill all sessions connected to PSQL.
+
+- create a file named kill-all-connections.sql in the backend-flask/db directory. This file will contain the SQL query to terminate the sessions.
+
+Open the `kill-all-connections.sql` file and add the following SQL query
+
+```
+SELECT pg_terminate_backend(pid)
+FROM pg_stat_activity
+WHERE
+  -- don't kill my own connection!
+  pid <> pg_backend_pid()
+  -- don't kill the connections to other databases
+  AND datname = 'cruddur';
+```
+
+This query selects all active sessions connected to the 'cruddur' database and terminates them, excluding your own connection.
+
+
+- Next, create a file named `kill-all` in the `bin/db`. This will executes the SQL query.
+
+Open the kill-all file and add the following code:
+```
+#! /usr/bin/bash
+
+CYAN='\033[1;36m'
+NO_COLOR='\033[0m'
+LABEL="db-kill-all"
+printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+
+# Set absolute path to SQL file
+abs_filepath="$ABS_PATH/backend-flask/db/kill-all-connections.sql"
+
+# Get relative path to file from current dir
+kill_path=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+# Execute query using psql and connection URL
+psql $CONNECTION_URL cruddur < $kill_path
+```
+
+This script will have the cool color formatting for the console output as well and executes the SQL query using the psql command with the specified connection URL and the 'cruddur' database.
+
 ## Implement Refresh Token Cognito
----
+
+- Update the frontend-react-js/src/lib/CheckAuth.js file with the following code: 
+
+```py
+import { Auth } from "aws-amplify";
+
+export async function getAccessToken() {
+  try {
+    const cognitoUserSession = await Auth.currentSession();
+    const accessToken = cognitoUserSession.accessToken.jwtToken;
+    localStorage.setItem("access_token", accessToken);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function checkAuth(setUser) {
+  try {
+    const cognitoUser = await Auth.currentAuthenticatedUser({
+      bypassCache: false, // Optional: Set to true if you want to fetch the latest user data from Cognito
+    });
+
+    console.log("cognito_user", cognitoUser);
+    setUser({
+      display_name: cognitoUser.attributes.name,
+      handle: cognitoUser.attributes.preferred_username,
+    });
+
+    const cognitoUserSession = await Auth.currentSession();
+    localStorage.setItem(
+      "access_token",
+      cognitoUserSession.accessToken.jwtToken
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
+- Update the frontend-react-js/src/pages/HomeFeedPage.js file to incorporate the new authentication flow:
+
+```py
+import { checkAuth, getAccessToken } from '../lib/CheckAuth';
+
+// ...
+
+const backendUrl = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`;
+await getAccessToken();
+const accessToken = localStorage.getItem("access_token");
+const res = await fetch(backendUrl, {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${accessToken}`,
+  },
+});
+
+// ...
+```
+
+- Ensure that you cleanup all files that make use of the checkAuth function to incorporate the latest updates.
+
+
+Refer to the [fix commit](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/11e378ef037a6e3b0f16bb9d43a851f8936ba683) for further details.
+
 ## Fargate - Configuring for Container Insights
 
 - Turn on container insights
@@ -559,6 +663,9 @@ Create the actual files that hold the required env variables of ur app
 
 - **Backend** environment variables [erb/backend-flask.env.erb](../erb/frontend-react-js.env.erb)
 - **Backend** environment variables [erb/frontend-react-js.env.erb](../erb/frontend-react-js.env.erb)
+- Include the configuration option for [backend](../docker-compose.yml#L5) to your `docker-compose.yml`
+- Include the configuration option for [frontend](../docker-compose.yml#L15) to your `docker-compose.yml`
+
 
 Run the scripts to generate the magical environment variables.
 
@@ -572,16 +679,49 @@ Run the scripts to generate the magical environment variables.
 ./bin/backend/generate-env
 ```
 
-### Frontend Application on CloudFront ⚠️
-      
+- Update your `.gitpod.yml` to generate the env var once you start a new workspace
+```sh
+ruby "./bin/backend/generate-env"
+ruby "./bin/backend/generate-env"
+ ```
+
+### Frontend Application on CloudFront
+
+- Create S3 with with default settings
+- Create a distrubtion in the console 
+- redirect http to https
+- Allowed HTTP methods to GET, HEAD, OPTIONS
+- Add the policy to S3
+
+<img src="assets/week6-7/Frontend-CloudFront/frontend-distribution.png">
+
+
+- create the [build](../frontend-react-js.env/sync-cloudfront.md) for the frontend
+
+```
+npm run build 
+```
+
+- sync content to s3 to get served with cloudfront
+
+```
+aws s3 sync build s3://<bucket-name>
+```
+  
+<img src="assets/week6-7/Frontend-CloudFront/cloudfront-frontend-s3-sync.png">
+
+- Static App Hosted on CloudFront
+
+<img src="assets/week6-7/Frontend-CloudFront/static-app-on-cloudfront.png">
+
+I will keep it live for the community: [d101whyk9appua.cloudfront.net](https://d101whyk9appua.cloudfront.net/)
+
+
       
 ### Service On - Service Off
 I created script to force deleting and creating service in fargate.
 - [Start Service](../bin/backend/service-on)
 - [Shut down Service](../bin/backend/service-off)
-
-### Path Plays
-I worked with readlink and dirname and explained the process [here.](../bin/docker/build/README.md)
 
 
 
@@ -591,3 +731,17 @@ Some of my notes along week six and seven are listed below for inspirations.
 
 - [Note 1](assets/week6-7/1-workflow/Week-6-7-Part-1.txt) - [ 2](assets/week6-7/1-workflow/Week-6-7-Part-2.txt) - [ 3](assets/week6-7/1-workflow/notes.txt) - [ 4](assets/week6-7/3-DNS/latest.txt) - [ 5](assets/week6-7/notes/aws-json-readme.txt) - [ 6](assets/week6-7/notes/reference-cloudfront.txt) - [Note 7](assets/week6-7/yacrud.me/dns-back-to-week-6.txt)
 
+
+### Fargate Technical Questions
+
+Depending on your preferences..<br>
+Find all the answers to the technical questions via [notion here](https://yaya2devops.notion.site/Fargate-Technical-Questions-1af7a45f1fca4f9799209f9e04a18adf), or [click in](assets/week6-7/Fargate-Technical-Questions/Fargate-Technical-Questions.pdf) to download the document.
+
+
+**Reference**
+
+- [CloudFront to serve a static website hosted on Amazon S3?](https://repost.aws/knowledge-center/cloudfront-serve-static-website) 
+- [Connection URL](https://www.linkedin.com/in/yahya-abulhaj/) 
+- [How to use BusyBox on Linux](https://opensource.com/article/21/8/what-busybox) 
+- [Docker Networking](https://docs.docker.com/config/containers/container-networking/) 
+- [Mastering Python and Bash for Next-Level Automation](https://blog.yahya-abulhaj.dev/mastering-python-and-bash-for-next-level-automation) 

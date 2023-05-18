@@ -1,0 +1,36 @@
+- How many threads or hypertheads do you get per vCPUs?
+    - How do you optimize your web-server when you have VCPUs and you are using containers?
+    - Think about how many CPU cycles your using
+
+- How many processes for a web-server should be running in a container? o 1 process per container
+
+- Many online examples in the AWS documentation and various locations don't appear to leverage more complex web-services and instead use the simple or development servers, is this due to the documentation not showing a production use case or does the cloud provides layers of benefits (scaling, security, monitoring, logging) and features so your container can run a simple web server? (Sane Defaults)
+
+﻿
+- Is there a use-case for using bridge networking mode? 
+- What overhead cost does Envoy containers introduce? 512 MB (Fargate)
+
+- Is Service Connect the recommended way over manually configuring App Mesh and Cloud Map?
+
+- Is VPC Lattice something that could replace Service Connect, would it result in a
+headless service mesh?
+- What is the purpose of the DNS option when mapping a service using Service Connect? 
+- When does it make sense not to use a service mesh?
+
+- Do we even need to App Mesh (even through Service Connect) why isn't Cloud Map enough? What is the use case of just one or using both together?
+
+﻿
+- For future technical pathing can Fargate serve as a stepping stone or a pivot point to using Kubernetes since we can run Fargate in EKS?
+
+- Is Copilot intended to get people up and running but you should really maintain your own CFN, CDK or Terraform laC?
+
+- Is there any option besides using Service Connect or App Mesh with ECS Fargate to get a more flexible service mesh, since as far as I understand I don't think you can configure the Envoy's managed by App Mesh.
+
+- Is it okay to be using an ALB with Service Connect instead of a NLB? When using App Mesh and Cloud Map you have to use an NLB?
+
+- What use-case would we need to have ECS Fargate have attached storage like EFS? 
+
+- How easy it to Container insights? It is expensive to turn on?
+
+
+Source: https://www.imagetotext.info/
