@@ -1,9 +1,14 @@
 # Week 7 — Solving CORS with a Load Balancer and Custom Domain
 In this, we will continue from last week by focusing on maintaining equilibrium. 
 
-**[Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)**
 
+<div align="center">
+      
 <img src="assets/week6-7/ArchitectStuff/2-app-via-lb.jpg">
+</div>
+
+ **[Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)**
+
 
 
 
@@ -24,6 +29,7 @@ Partway through, I took you on a tour of my primary domain and showed you the pr
 - [Provision and configure Application Load Balancer along with target groups](#setup-load-balancer)
 - [Manage your domain using Route53 via hosted zone](#route-53-with-porkbun-domain-provider)
 - [Create an SSL certificate via ACM](#ssl-request-using-aws-certificate-manager)
+- [Fargate Technical Questions](#fargate-technical-questions)
 - [Setup a record set for naked domain to point to frontend-react-js](#connect-dns-to-alb)
 - [Setup a record set for api subdomain to point to the backend-flask](#connect-dns-to-alb)
 - [Configure CORS to only permit traffic from our domain](#cross-origin-resource-sharing)
@@ -32,9 +38,12 @@ Partway through, I took you on a tour of my primary domain and showed you the pr
 - [Refactor bin directory to be top level](#refactor-bin-directory)
 - [Configure task definitions to contain x-ray and turn on Container Insights](#fargate---configuring-for-container-insights)
 - [Change Docker Compose to explicitly use a user-defined network](#docker-container-networks)
+- [Scripting Relative Path](#readlink-and-dirname-in-action)
 - [Create Dockerfile specifically for production use case](#working-with-docker-images-in-production)
+- [Fargate Service Scripts](#service-on---service-off)
 - [Using ruby generate out env dot files for docker using erb templates](#dynamic-environment-variable-ruby)
-- [How to securely host a website on AWS with custom domain with AWS CloudFront](#frontend-application-on-cloudfront)
+- [Host a website with AWS CloudFront](#frontend-application-on-cloudfront)
+- [Brainstorming Notes](#note-vault)
 
 ---
 
@@ -468,7 +477,7 @@ I've gone ahead and designed a [slick BinBanner](../bin/bin-dir-banner-v2.png) t
 
 <img src="../bin/bin-dir-banner.png">
 
-## Real Path Experiment
+## Readlink and Dirname in Action
 
 I worked with readlink and dirname and explained the process [here.](../bin/docker/build/README.md)
 
@@ -476,9 +485,9 @@ I worked with readlink and dirname and explained the process [here.](../bin/dock
 
 The purpose of this part is to create a script to kill all sessions connected to PSQL.
 
-- create a file named kill-all-connections.sql in the backend-flask/db directory. This file will contain the SQL query to terminate the sessions.
+- create a file named `kill-all-connections.sql` in the `backend-flask/db directory`. This will contain the SQL query to terminate the sessions.
 
-Open the `kill-all-connections.sql` file and add the following SQL query
+Open the `kill-all-connections.sql` and add the following SQL query
 
 ```
 SELECT pg_terminate_backend(pid)
@@ -490,12 +499,12 @@ WHERE
   AND datname = 'cruddur';
 ```
 
-This query selects all active sessions connected to the 'cruddur' database and terminates them, excluding your own connection.
+This actually selects all active sessions connected to the 'cruddur' database and terminates them, excluding your own connection.
 
 
 - Next, create a file named `kill-all` in the `bin/db`. This will executes the SQL query.
 
-Open the kill-all file and add the following code:
+Open the `kill-all` file and add the following code:
 ```
 #! /usr/bin/bash
 
@@ -555,13 +564,11 @@ export async function checkAuth(setUser) {
   }
 }
 ```
-
+- Ensure that you cleanup all files that make use of the checkAuth function to incorporate the latest updates.
 - Update the frontend-react-js/src/pages/HomeFeedPage.js file to incorporate the new authentication flow:
 
 ```py
 import { checkAuth, getAccessToken } from '../lib/CheckAuth';
-
-// ...
 
 const backendUrl = `${process.env.REACT_APP_BACKEND_URL}/api/activities/home`;
 await getAccessToken();
@@ -572,11 +579,7 @@ const res = await fetch(backendUrl, {
     'Authorization': `Bearer ${accessToken}`,
   },
 });
-
-// ...
 ```
-
-- Ensure that you cleanup all files that make use of the checkAuth function to incorporate the latest updates.
 
 
 Refer to the [fix commit](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/11e378ef037a6e3b0f16bb9d43a851f8936ba683) for further details.
@@ -608,6 +611,9 @@ Run the register script. I made it [here](../bin/backend/register)
 - Check it in fargate
 <img src="assets/week6-7/Container-Insights/containers stats.png">
 
+>   Above isn not healthy because the health check was in the bin directory when refactoring and the container dealt with no health-checks.
+
+To address this, I set up a bin directory in the backend and included the health check before shipping the image.
 
 - Make use of container insights 
 <img src="assets/week6-7/Container-Insights/container-insights.png">
@@ -648,6 +654,10 @@ RUN apt update && apt install -y iputils-ping
 ```
 - Redefined the networking in [docker compose](../docker-compose.yml)
 
+### Service On - Service Off
+I created these scripts to force deleting and creating service in fargate.
+- [Start Service](../bin/backend/service-on)
+- [Shut down Service](../bin/backend/service-off)
 
 ## Dynamic Environment Variable Ruby
 
@@ -696,7 +706,7 @@ ruby "./bin/backend/generate-env"
 <img src="assets/week6-7/Frontend-CloudFront/frontend-distribution.png">
 
 
-- create the [build](../frontend-react-js.env/sync-cloudfront.md) for the frontend
+- create the [build](../frontend-react-js/sync-cloudfront.md) for the frontend
 
 ```
 npm run build 
@@ -714,14 +724,10 @@ aws s3 sync build s3://<bucket-name>
 
 <img src="assets/week6-7/Frontend-CloudFront/static-app-on-cloudfront.png">
 
-I will keep it live for the community: [d101whyk9appua.cloudfront.net](https://d101whyk9appua.cloudfront.net/)
+I'll keep this up for the community a while longer: [d101whyk9appua.cloudfront.net](https://d101whyk9appua.cloudfront.net/)
 
 
       
-### Service On - Service Off
-I created script to force deleting and creating service in fargate.
-- [Start Service](../bin/backend/service-on)
-- [Shut down Service](../bin/backend/service-off)
 
 
 
@@ -744,4 +750,5 @@ Find all the answers to the technical questions via [notion here](https://yaya2d
 - [Connection URL](https://www.linkedin.com/in/yahya-abulhaj/) 
 - [How to use BusyBox on Linux](https://opensource.com/article/21/8/what-busybox) 
 - [Docker Networking](https://docs.docker.com/config/containers/container-networking/) 
-- [Mastering Python and Bash for Next-Level Automation](https://blog.yahya-abulhaj.dev/mastering-python-and-bash-for-next-level-automation) 
+- [Debian iputils-ping Package](https://packages.debian.org/fr/sid/iputils-ping)
+- [Python and Bash for Next-Level Automation](https://blog.yahya-abulhaj.dev/mastering-python-and-bash-for-next-level-automation) 
