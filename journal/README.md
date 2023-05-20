@@ -38,10 +38,10 @@ Conveniently located in one place.
 |  Journal  | Technologies   | Start Date | Status|
 | :---: | :--- | --- |:---: |
 | [Week 0](week0.md) | Billing and Architecture — Cloud Operations  | Feb 11, 2023 |✘|
-| [Week 1](week1.md) | Docker and App Containerization | Feb 18, 2023 |✘|
-| [Week 2](week2.md) | Distributed Tracing | Feb 25, 2023 |✘|
-| [Week 3](week3.md) | Decentralized Authentication | Mar 4, 2023 |✘|
-| [Week 4](week4.md) | SQL Database with PostgreSQL | Mar 11, 2023 |✘|
+| [Week 1](week1.md) | Docker and App Containerization (Under Revision) | Feb 18, 2023 |✘|
+| [Week 2](week2.md) | Distributed Tracing  (Under Revision)| Feb 25, 2023 |✘|
+| [Week 3](week3.md) | Decentralized Authentication (Under Revision) | Mar 4, 2023 |✘|
+| [Week 4](week4.md) | SQL Database with PostgreSQL (Under Revision) | Mar 11, 2023 |✘|
 |  [Week 5](week5.md) | NoSQL Database with AWS DynamoDB | Mar 18, 2023 |✘|
 | [Week 6](week6.md) | Deploying Serverless Containers  <br>(Part 1/2) | Mar 25, 2023 |✘|
 | [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(Part 2/2) | Apr 1, 2023 |✘|

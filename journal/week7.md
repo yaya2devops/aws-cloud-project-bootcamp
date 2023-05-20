@@ -10,8 +10,6 @@ In this, we will continue from last week by focusing on maintaining equilibrium.
  **[Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)**
 
 
-
-
 Our technical responsibility for the week involves provisioning and operating containers to execute load balancing tasks, configuring our custom domain and mapping it to the load balancer's URL for seamless functionality.
 
 Our domain, on the other hand, will be fully onboarded to route53 and will be issued the necessary SSL certificate from AWS Certificate Manager.
@@ -44,6 +42,7 @@ Partway through, I took you on a tour of my primary domain and showed you the pr
 - [Using ruby generate out env dot files for docker using erb templates](#dynamic-environment-variable-ruby)
 - [Host a website with AWS CloudFront](#frontend-application-on-cloudfront)
 - [Brainstorming Notes](#note-vault)
+- [Containers Security Practices in AWS](#security-best-practices)
 
 ---
 
@@ -167,8 +166,8 @@ Porkbun Overview
 
 Once the changes are saved, you will need to wait for the changes to propagate across the DNS network, which can take anywhere from a few minutes to a 48 hours; Mine happened extremely quick.
 
-## SSL Request using AWS Certificate Manager
-
+## Request Cert using AWS Certificate Manager
+Route 53 Integrate with ACM  to enable TLS.
 - Log in to your AWS account and navigate to the AWS Certificate Manager (ACM) console.
 - Click on the "Request a certificate" button.
 - Enter the domain name for which you want to create the SSL certificate:
@@ -384,7 +383,7 @@ The script is still there and is now being automated in `.gitpod.yml`.
 docker build -f backend-flask/Dockerfile.prod -t backend-flask-prod ./backend-flask
 ```
 
-- Create a new file called backend-flask/bin/docker/build/frontend-react-js-prod with the following script:
+- Create a new file called `backend-flask/bin/docker/build/frontend-react-js-prod` with the following script:
 ```sh
 #! /usr/bin/bash
 
@@ -527,7 +526,7 @@ This script will have the cool color formatting for the console output as well a
 
 ## Implement Refresh Token Cognito
 
-- Update the frontend-react-js/src/lib/CheckAuth.js file with the following code: 
+- Update the `frontend-react-js/src/lib/CheckAuth.js` file with the following code: 
 
 ```py
 import { Auth } from "aws-amplify";
@@ -565,7 +564,7 @@ export async function checkAuth(setUser) {
 }
 ```
 - Ensure that you cleanup all files that make use of the checkAuth function to incorporate the latest updates.
-- Update the frontend-react-js/src/pages/HomeFeedPage.js file to incorporate the new authentication flow:
+- Update the `frontend-react-js/src/pages/HomeFeedPage.js` file to incorporate the new authentication flow:
 
 ```py
 import { checkAuth, getAccessToken } from '../lib/CheckAuth';
@@ -583,6 +582,14 @@ const res = await fetch(backendUrl, {
 
 
 Refer to the [fix commit](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/11e378ef037a6e3b0f16bb9d43a851f8936ba683) for further details.
+
+The commit above was pushed using my classmate's GitHub, when I ran out of credit and had to wrap up things. 
+
+I had been working locally but became engrossed in this platform🍊. Therefore, shoutout to [Jawher](https://github.com/BytM3) for generously sharing their credentials, enabling me to proceed that time.
+
+Later on, I found my way to deal with my gitpod obsessions. 😏
+
+
 
 ## Fargate - Configuring for Container Insights
 
@@ -706,13 +713,14 @@ ruby "./bin/backend/generate-env"
 <img src="assets/week6-7/Frontend-CloudFront/frontend-distribution.png">
 
 
-- create the [build](../frontend-react-js/sync-cloudfront.md) for the frontend
+- create the [build](..//frontend-react-js/.gitignore#L39) for the frontend
+
 
 ```
 npm run build 
 ```
 
-- sync content to s3 to get served with cloudfront
+- sync [content](../frontend-react-js/sync-cloudfront.md) to s3 to get served with cloudfront
 
 ```
 aws s3 sync build s3://<bucket-name>
@@ -727,22 +735,57 @@ aws s3 sync build s3://<bucket-name>
 I'll keep this up for the community a while longer: [d101whyk9appua.cloudfront.net](https://d101whyk9appua.cloudfront.net/)
 
 
-      
-
-
-
-#### Note Vault
-
-Some of my notes along week six and seven are listed below for inspirations.
-
-- [Note 1](assets/week6-7/1-workflow/Week-6-7-Part-1.txt) - [ 2](assets/week6-7/1-workflow/Week-6-7-Part-2.txt) - [ 3](assets/week6-7/1-workflow/notes.txt) - [ 4](assets/week6-7/3-DNS/latest.txt) - [ 5](assets/week6-7/notes/aws-json-readme.txt) - [ 6](assets/week6-7/notes/reference-cloudfront.txt) - [Note 7](assets/week6-7/yacrud.me/dns-back-to-week-6.txt)
-
-
 ### Fargate Technical Questions
 
 Depending on your preferences..<br>
 Find all the answers to the technical questions via [notion here](https://yaya2devops.notion.site/Fargate-Technical-Questions-1af7a45f1fca4f9799209f9e04a18adf), or [click in](assets/week6-7/Fargate-Technical-Questions/Fargate-Technical-Questions.pdf) to download the document.
 
+
+## Security Best Practices
+
+Deploying and managing containers using AWS Fargate can simplify infrastructure management, but it also introduces specific security concerns that need to be addressed effectively.
+
+- **Networking and Security Configuration:**
+Integrating with existing network architectures and incorporating best practices for network isolation and access control can be demanding but difficult to do.
+- **Monitoring and Logging:** Monitoring containerized applications running in Fargate requires careful configuration of logging and monitoring solutions to capture container-level metrics, logs, and events.
+Aggregating and analyzing logs from multiple containers, managing log retention, and setting up alerts and notifications for critical events can be complex.
+
+
+- **Container Orchestration and Scaling:** Orchestrating containers at scale in Fargate involves proper task definition creation, task scheduling, and managing container lifecycles. Optimizing resource allocation, managing task placement strategies, and understanding the implications of Fargate's resource limits are critical for efficient container orchestration.
+
+Understand that, while Fargate abstracts the underlying infrastructure, addressing these issues requires a thorough understanding of many technical concepts, and the only way to deal with this is to remain on guard.
+
+Below are some security practices of the various services used this week that I think you should be aware of.
+
+| Topic                                     | Security Best Practices                                                                                           |
+|-------------------------------------------:|------------------------------------------------------------------------------------------------------------------|
+| **Amazon ECR Security Best Practices**   | 1. Enable image scanning to identify vulnerabilities and malware.                                                |
+|                                           | 2. Implement access controls and fine-grained permissions for ECR repositories.                                  |
+|                                           | 3. Regularly update and patch container images to address security vulnerabilities.                              |
+|                                           | 4. Use secure image repositories with encrypted communication and access policies.                               |
+|                                           | 5. Enable ECR lifecycle policies to remove unused images and minimize attack surface.                            |
+| **Amazon ECS Security Best Practices**         | 1. Implement task role-based access control to limit permissions.                                                 |
+|                                           | 2. Use AWS Fargate to provide better isolation between tasks.                                                     |
+|                                           | 3. Enable VPC networking and security groups for enhanced network security.                                       |
+|                                           | 4. Monitor and log ECS container instances and tasks for security events.                                         |
+|                                           | 5. Regularly update and patch ECS agent, task definitions, and container images.                                  |
+| **Amazon ECS security best practices**  | 1. Implement application-level security controls, such as authentication and authorization.                 |
+|                                           | 2. Encrypt sensitive data in transit and at rest within containers.                                               |
+|                                           | 3. Use secrets management services to securely store sensitive information.                                      |
+|                                           | 4. Perform regular security testing, including vulnerability scanning and penetration testing.                   |
+|                                           | 5. Enable container-level logging and monitoring for early detection of security incidents.                      |
+| **Route 53 Security Best Practices**    | 1. Enable DNSSEC to ensure data integrity and authentication of DNS responses.                                    |
+|                                           | 2. Implement IAM policies and roles for secure management of Route 53 resources.                                 |
+|                                           | 3. Enable DNS query logging and analyze logs for suspicious activity.                                            |
+|                                           | 4. Implement rate limiting and firewall rules to protect against DDoS attacks.                                   |
+|                                           | 5. Regularly review and update DNS resource records to maintain accuracy and security.  |
+
+
+### Note Vault
+
+Some of my notes along week six and seven are listed below for inspirations.
+
+- [Note 1](assets/week6-7/1-workflow/Week-6-7-Part-1.txt) - [ 2](assets/week6-7/1-workflow/Week-6-7-Part-2.txt) - [ 3](assets/week6-7/1-workflow/notes.txt) - [ 4](assets/week6-7/3-DNS/latest.txt) - [ 5](assets/week6-7/notes/aws-json-readme.txt) - [ 6](assets/week6-7/notes/reference-cloudfront.txt) - [Note 7](assets/week6-7/yacrud.me/dns-back-to-week-6.txt)
 
 **Reference**
 
@@ -752,3 +795,5 @@ Find all the answers to the technical questions via [notion here](https://yaya2d
 - [Docker Networking](https://docs.docker.com/config/containers/container-networking/) 
 - [Debian iputils-ping Package](https://packages.debian.org/fr/sid/iputils-ping)
 - [Python and Bash for Next-Level Automation](https://blog.yahya-abulhaj.dev/mastering-python-and-bash-for-next-level-automation) 
+
+

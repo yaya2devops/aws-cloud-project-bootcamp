@@ -13,9 +13,13 @@ This will primarily involve onboarding the project to AWS, creating three reposi
 - [Provision ECS Cluster](#ecs-cluster-creation)
 - [Create ECR repo and push image for backend-flask](#backend-health-check)
 - [Deploy Backend Flask app as a service to Fargate](#deploy-to-fargate)
-- [Create ECR repo and push image for fronted-react-js](#ecr-frontend)
-- [Deploy Frontend React JS app as a service to Fargate](#frontend-task)
-- [Rebuild containers with custom dockerfiles for prod](#react-static-assets-serve-using-nginx)
+- [Create ECR repo and push image for frontend-react-js](#ecr-frontend)
+- [Deploy Frontend React JS app as a service to Fargate](#frontend-service)
+- [Create and Register Frontend Task Definitions](#register-frontend-task-definition)
+- [Create and Register backend Task Definitions](#backend-task-definitions)
+- [Rebuild containers with custom dockerfiles for prod](#reactjs-static-assets-serve-using-nginx)
+- [Frontend Container Updates](#frontend-task)
+- [Create Execution and Tasks Roles and Policies](#create-the-required-role-and-permissions)
 
  
 ### ECS Cluster Creation
@@ -87,9 +91,8 @@ except Exception as e:
 ```
 
 
-
-
-### Python Image
+### Python Image 
+> Duplicable Process
 
 1- Create a new repository named cruddur-python using the following command:
 ```sg
@@ -137,14 +140,80 @@ docker push $ECR_PYTHON_URL:3.10-slim-buster
 
 
 
-#### ECR [Backend](../backend-flask#readme)
+### ECR [Backend](../backend-flask#readme)
 
-Same workflow applied, refer to the hyperlink.
+Build the backend image:
 
-#### ECR [Frontend](../bin/frontend/)
+- Make sure you have the Dockerfile and necessary frontend code in a directory.
+- Open a terminal or command prompt and navigate to the directory with the Dockerfile.
+- Build the image with the script
 
-Bin is restructured in week 7 - [check from now.](../bin/README.md)
+Login To ECR and AWS CLI.
+- Ensure you have the AWS CLI installed and configured with the appropriate credentials.
+- Open a terminal or command prompt and start the [sign in](../bin/ecr/sign-in) script.
+- Push the frontend image to ECR uing the `backend-push` [script.](../bin/backend/push)
 
+### ECR [Frontend](../bin/frontend/)
+
+> Bin is restructured in week 7, [check from now.](../bin/README.md)
+
+Build the frontend image:
+
+- Ensure that you have the Dockerfile and the necessary frontend code in a directory.
+- Open a terminal or command prompt and navigate to the directory containing the Dockerfile.
+- Build the frontend image using the appropriate build command or script.
+- Log in to ECR and the AWS CLI:
+
+Open a terminal or command prompt and run the sign-in script, if you it wasn't done above  provided, which will handle the ECR login process and authentication with the AWS CLI.
+
+- Push the frontend image to ECR, execute the frontend-push [script. 
+
+The script is specifically designed to handle the pushing of the frontend image to ECR. 
+
+## Register Frontend Task Definition
+
+**Console**
+- Open the Amazon ECS console and navigate to the "Task Definitions" page.
+- Click on the "Create new Task Definition" button.
+- Select the launch type compatibility as "Fargate" and click on the "Next step" button.
+- Provide a name for your task definition in the "Task definition name" field.
+
+Configure the task size and resources
+- Set the task memory and CPU values based on your application's requirements and the available Fargate task sizes.
+- Ensure that the selected task size is within the limits specified by Fargate.
+- Scroll down to the "Container Definitions" section and click on the "Add container" button.
+
+In the container configuration:
+- call the container `frontend-react-js`.
+- Specify the image URL of the frontend container pushed to ECR above.
+- Set any required environment variables.
+- Configure port mappings if necessary.
+- Scroll down and configure any additional container settings as needed.
+
+Review the task definition details and click on the "Create" button.
+
+### Register the task definition**
+
+- On the "Task Definitions" page, select the task definition you just created.
+- Click on the "Actions" button and choose "Register new revision" from the dropdown menu.
+- Review the details of the new revision and click on the "Create" button to register the task definition.
+
+you can then use it to run tasks on AWS Fargate by creating a new service.
+
+### Using CLI
+
+
+use `frontend-react-js.json`, adjust it with your infos and run the register [script](../bin/frontend/register)
+
+### Backend Task Definitions
+
+To register task definitions for the backend, follow these instructions:
+
+- Create a new file called **backend-flask.json** in the **aws/task-definitions** directory.
+
+Use the register [script](../bin/backend/register).
+
+<img src="assets/week6-7/fargate-tasks.png">
 
 ---
 
@@ -182,21 +251,18 @@ aws ssm put-parameter --type "SecureString" --name "/cruddur/backend-flask/OTEL_
 
 Project Assets can be [found here.](assets/README.md)
 
-### Policies & Permissions
-- Set [Execution Cruddur Role](../aws/policies/README.md)
-- Set [Task Role](../aws/policies/task-role#readme)
+### Create The Required Role and Permissions
+- Refer [Execution Cruddur Role](../aws/policies/README.md) Instructions
+- Refer [Task Role](../aws/policies/task-role#readme) Instructions
 ---
 
-### Deploy to fargate:
-
-**Deploy Backend**
-
-**Using CLI**
-
-- Create `aws/json/service-backend-flask.json`
+## Deploy to fargate
 
 
-- Get subnet ID
+#### Creating Security Group
+
+
+- Execute the following commands to store the VPC ID in an environment variable.
 
 ```bash
 export DEFAULT_SUBNET_IDS=$(aws ec2 describe-subnets  \
@@ -205,18 +271,43 @@ export DEFAULT_SUBNET_IDS=$(aws ec2 describe-subnets  \
  --output json | jq -r 'join(",")')
 echo $DEFAULT_SUBNET_IDS
 ```
-
+- Establish the Security Group.
+```sh 
+export CRUD_SERVICE_SG=$(aws ec2 create-security-group \
+  --group-name "crud-srv-sg" \
+  --description "Security group for Cruddur services on ECS" \
+  --vpc-id $DEFAULT_VPC_ID \
+  --query "GroupId" --output text)
+echo $CRUD_SERVICE_SG
+```
+- In case there is a need to retrieve the Security Group ID again.
+```sh
+export CRUD_SERVICE_SG=$(aws ec2 describe-security-groups \
+  --filters Name=group-name,Values=crud-srv-sg \
+  --query 'SecurityGroups[*].GroupId' \
+  --output text)
+```
 <img src="assets/week6-7/1-workflow/34backend-service-flask.png">
 
-- Create service
+- Create `aws/json/service-backend-flask.json`
 
+- Run the below command to create it in Fargate
 ```bash
 aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
 ```
+#### Frontend Service
+- Create `aws/json/service-frontend-react-js.json`
 
-#### Connect via Session Manager
+- Run the below command to create it in Fargate
+```bash
+aws ecs create-service --cli-input-json file://aws/json/service-frontend-react-js.json
+```
 
-- Install it:
+<img src="assets/week6-7/fargate-services.png">
+
+### Connect via Session Manager
+
+- Install package
 
 ```bash
 curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb" -o "session-manager-plugin.deb"
@@ -263,6 +354,8 @@ The Session Manager plugin was installed successfully. Use the AWS CLI to start 
 
 **Make sure Containers are healthy:**
 <img src="assets/week6-7/Containers-Stats/both-services-inc-container-insights.png">
+
+> health checks should be found in tasks tab, check it in the other asset.
 
 
 
@@ -325,11 +418,12 @@ Connection successful!
 aws ecs create-service --cli-input-json file://aws/json/service-backend-flask.json
 ```
 
-- check service accessibility.
+- check Service accessibility.
 
 ---
 
 ### Frontend Task
+> Follow these when doing changes
 
 Same steps applied, go over this [bin/frontend](../bin/frontend) and think.
 
