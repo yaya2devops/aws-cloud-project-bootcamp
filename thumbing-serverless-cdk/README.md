@@ -50,7 +50,7 @@ cdk synth
 cdk bootstrap "aws://598485450821/ca-central-1"
 
 aws s3api wait bucket-exists \
-    --bucket assets.cloudproject.uk
+    --bucket assets.yacrud.me
 ```
 
 ```sh

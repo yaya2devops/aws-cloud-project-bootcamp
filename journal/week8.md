@@ -1,8 +1,7 @@
 # Week 8 — Serverless Image Processing
 
 
-> the missing architecture in here
-
+![serverless-process-image](assets/week8/Serverless-Architect/serverless-avatar-image-process.jpg)
 
 
 ## Main Week Eight Tasks

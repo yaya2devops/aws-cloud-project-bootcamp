@@ -186,7 +186,7 @@ Watched Ashish's Week 4 - Security Considerations                               
 | Implement Users Profile Page                  |✅|
 | Implement Users Profile Form                  |✅|
 | Implement Backend Migrations                  |✅|
-| Presigned URL generation via Ruby Lambda      |❗|
+| Presigned URL generation via Ruby Lambda      |✅|
 | HTTP API Gateway with Lambda Authorizer       |❗|        
 | Create JWT Lambda Layer                       |✅|
 | Render Avatars in App via CloudFront          |❗|
@@ -207,32 +207,38 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ### Week 10 — Cloudformation 
 
+
+
 | ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
-| Implement Cluster Template                     |✅|
-| Implement Networking Layer Template            |✅| 
-| Diagramming Networking Layer                   |❗|
-| Diagramming Cluster Layer                      |❗|
-| Implement RDS  Template                        |❗|
-| Diagramming  RDS                               |❗|
-| Implement Fargate Service Template             |❗|
-| Diagramming Service                            |❗|
+| Implement CFN Networking Layer                 |✅|
+| Design CFN Networking Layer Diagram            |❗| 
+| Implement CFN Cluster Layer                    |❗|
+| Implement CFN Toml                             |❗|
+| Implement CFN Service Layer for Backend        |❗|
+| Implement CFN Database Layer (RDS)             |❗|
+| Design Service and Database Diagram            |❗|
+
+
 
 
 ### Week 11 — Cloudformation 
 
 | ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
-| Implement Dynamo with SAM CFN                  |❗|
-| Diagramming Dynamo                             |❗|
-| Implement CFN CI/CD                            |❗|
-| Diagramming CI/CD                              |❗|
+| Implement DynamoDB using SAM                   |❗|
+| Design DynamoDB Diagram                        |❗|
+| Implement CI/CD                                |❗|
+| Design CI/CD Diagram                           |❗|
 | Implement CFN Static Website Hosting Frontend  |❗|
-| Diagramming  Static Frontend                   |❗|
+| Design Static Frontend Diagram                 |❗|
+| IaaC Security Practices                        |❗|
+| CloudFormation Security Practices              |❗|
+| SAM Security Practices                         |❗|
 
 ---
 
-### Week X — Cloudformation 
+### Week X — Cleanup 
 
 | ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
