@@ -7,21 +7,27 @@ Conveniently located in one place.
 <img src="res-hub-ban.png" width="640px">
 
 <br>
+
+| Exploration | Description | 
+| :---: | --- | 
+| [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the overall scope|
+| [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
+| [Builder Assets](assets/README.md)  | The author's collection of resources and screenshots|
+| [Required Tasks](resources/required-tasks.md)  | My current standing with regard to the required bootcamp duties|
+| [ Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
+| [ Beautify](../_docs/assets/README.md) | The Builder's  promotion of the marketing aspect of the things |
+
+
+
     
 | Resource | Description | 
 | :---: | --- | 
-| [Project Assets](assets/README.md)  | The author's collection of resources and screenshots|
-| [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the scope|
-| [ Beautify](../_docs/assets/README.md) | The author's  promotion of the marketing aspect of the project |
-| [Required Tasks](resources/required-tasks.md)  | My current standing with regard to the required bootcamp duties|
 | [Gitpod Migration](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
 | [AWS Guidebook](../aws/README.md) | Developer references for AWS Console resources | 
 | [AWS CDK](../thumbing-serverless-cdk/README.md) |  Provisioning Cloud Resources with AWS CDK in Typescript  | 
 | [VS Code Tasks](../.vscode/README.md) |  Automate processes and run scripts using vscode tasks | 
-| [ Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
-| [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
 | [Discord Issues](assets/week4/Discord/README.md)  | Troubleshooting exchanged with community in Discord |
 | [ Stories](resources/instagram-stories.md)  | Bootcamp Assets shared to community on instagram |
 

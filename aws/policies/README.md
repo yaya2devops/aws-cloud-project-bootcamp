@@ -29,7 +29,7 @@ arn:aws:ssm:<REGION>:<AWS_ACCOUNT_ID>:parameter/cruddur/backend-flask/*
 - Go back to the Roles section and repeat the same steps until you reach the policy page.
 - In the policy page, search for **CruddurServiceExecutionPolicy** and select it.
 - Click on Next.
-- Enter the desired Role name as** CruddurServiceExecutionRole**.
+- Enter the desired Role name as **CruddurServiceExecutionRole**.
 - click on **Create Role**.
 
 
@@ -47,7 +47,7 @@ aws iam put-role-policy \
   --policy-document file://aws/policies/service-execution-policy.json
 ```
 
-The policy I generated is [here](../service-execution-policy.json)
+The policy I generated is [here](service-execution-policy.json)
 
 
 - Attach the policy to Role

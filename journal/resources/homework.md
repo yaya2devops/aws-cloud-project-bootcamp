@@ -101,7 +101,7 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 
 |  Week 10 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        No homework challenges provided 	         |   N/A   | N/A|   
+|        Compare CFN vs SAM vs CDK Detailed 	         |  easy   | ❗ |   
 
 |  Week 11 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
