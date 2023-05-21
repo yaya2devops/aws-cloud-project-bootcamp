@@ -1,0 +1,44 @@
+# buildspec for testing backend-flask
+
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+    commands:
+      - echo "cd into $CODEBUILD_SRC_DIR/backend"
+      - echo "Installing PostgreSQL"
+      - yum install -y postgresql
+      - cd $CODEBUILD_SRC_DIR/backend-flask
+      - pip3 install -r requirements.txt
+  pre_build:
+    commands:
+      - echo "Starting PostgreSQL"
+      - docker pull postgres:13-alpine
+      - docker run -e POSTGRES_PASSWORD=password -e POSTGRES_USER=postgres -d -p 5432:5432 postgres:13-alpine
+      - sleep 15
+      - echo "Waiting for PostgreSQL to start"
+      - # Add your wait script or custom logic here
+  build:
+    commands:
+      - echo "exporting and testing"
+      - export CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
+      - export ABS_PATH=$CODEBUILD_SRC_DIR
+      - cd $CODEBUILD_SRC_DIR
+      - bash ./bin/db/create
+      - bash ./bin/db/schema-load
+      - bash ./bin/db/seed
+      - cd $CODEBUILD_SRC_DIR/backend-flask/tests
+      - python -m pytest -E
+env:
+  variables:
+    AWS_DEFAULT_REGION: ca-central-1
+    FRONTEND_URL: <FRONTEND-URL>
+    BACKEND_URL: <BACKEND-URL>
+  parameter-store:
+    AWS_COGNITO_USER_POOL_CLIENT_ID: /cruddur/backend-flask/AWS_COGNITO_USER_POOL_CLIENT_ID
+    AWS_COGNITO_USER_POOL_ID: /cruddur/backend-flask/AWS_COGNITO_USER_POOL_ID
+    AWS_USER_POOLS_ID: /cruddur/backend-flask/AWS_COGNITO_USER_POOL_ID
+artifacts:
+  files:
+    - test-artifact.json

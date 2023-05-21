@@ -1,3 +1,17 @@
+
+
+# Visionary Pursuit — Twitter-Like
+<img src="../../_docs/assets/aware.drawio.png">
+
+
+## Purposes and Adversities
+| | Target |
+| ---: | :--- |
+| **Skills Gained** |  Create a cloud project with sufficient complexity that can add value to one's resume <br>Combine multiple cloud services to emulate a real-world production workload |
+| **Transparency** | This bootcamp is rated as Level 250 based on the following difficulty scale: <br> **Level 100** Foundational <br> **Level 200** Intermediate <br>   • **Level 250** - **AWS Cloud Project Bootcamp** <br> **Level 300** Advanced <br> **Level 400** Expert |
+
+
+
 # Micro-blogging Platform Development
 |Project Scenario  | A startup company has hired a cloud engineer to build their own micro-blogging platform |
 | :---: | :--- |
