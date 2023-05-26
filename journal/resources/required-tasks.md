@@ -226,7 +226,7 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 | ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
-| Implement DynamoDB using SAM                   |❗|
+| Implement DynamoDB using SAM                   |✅|
 | Design DynamoDB Diagram                        |❗|
 | Implement CI/CD                                |❗|
 | Design CI/CD Diagram                           |❗|
