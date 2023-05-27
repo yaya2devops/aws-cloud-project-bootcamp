@@ -228,7 +228,7 @@ Watched Ashish's Week 4 - Security Considerations                               
 |------------------------------------            |:---: |
 | Implement DynamoDB using SAM                   |✅|
 | Design DynamoDB Diagram                        |❗|
-| Implement CI/CD                                |❗|
+| Implement CI/CD                                |✅|
 | Design CI/CD Diagram                           |❗|
 | Implement CFN Static Website Hosting Frontend  |❗|
 | Design Static Frontend Diagram                 |❗|

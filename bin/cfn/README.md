@@ -41,3 +41,15 @@ cfn-guard rulegen --template aws/cfn/template.yaml
 -rw-r--r-- 1 gitpod gitpod 667 May 12 20:52 README.md
 -rwxr-xr-x 1 gitpod gitpod 765 May 12 20:52 service-deploy
 ```
+
+
+
+
+#### CI CD Deploy 
+```sh
+ $ ./cicd-deploy 
+/workspace/aws-cloud-project-bootcamp/aws/cfn/cicd/template.yaml
+W3002 This code may only work with `package` cli command as the property (Resources/CodeBuildBakeImageStack/Properties/TemplateURL) is a string
+/workspace/aws-cloud-project-bootcamp/aws/cfn/cicd/template.yaml:24:7
+```
+> Added package to [`cicd-deploy`](cicd-deploy)

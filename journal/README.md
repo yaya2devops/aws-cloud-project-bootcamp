@@ -4,9 +4,7 @@
 The resources listed below were compiled out of intellectual curiosity and are provided here for your reference.<br> 
 Conveniently located in one place.
 
-<img src="res-hub-ban.png" width="640px">
 
-<br>
 
 | Exploration | Description | 
 | :---: | --- | 
@@ -17,6 +15,7 @@ Conveniently located in one place.
 | [ Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
 | [ Beautify](../_docs/assets/README.md) | The Builder's  promotion of the marketing aspect of the things |
 
+<img src="res-hub-ban.png" width="640px">
 
 
     
@@ -36,10 +35,12 @@ Conveniently located in one place.
 
 ---
 
-<div align="center">
-
-## [Builder](https://www.linkedin.com/feed/update/urn:li:activity:7060203832382808064/) Progress Tracker
-
+<div align="center" >
+    
+    
+##  [Building —](https://www.linkedin.com/feed/update/urn:li:activity:7060203832382808064/) Constructive Chronicles
+<img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="715">
+   
 
 |  Journal  | Technologies   | Start Date | Status|
 | :---: | :--- | --- |:---: |
@@ -55,7 +56,7 @@ Conveniently located in one place.
 |  [Week 9](week9.md) | CI/CD with AWS CodeBuild and CodePipeline | Apr 15, 2023 |✘|
 |  [Week 10](week10.md) | CloudFormation <br> (Part 1/2) | Apr 22, 2023 |Doing|
 |  [Week 11](week11.md)| CloudFormation & SAM Templates <br> (Part 2/2) | Apr 29, 2023 |Doing|
-|  [Week 12](week12.md) | Modern APIs | May 6, 2023 |Coming|
+|  [Week ✘](week12.md) | Modern APIs | May 6, 2023 |Coming|
 
 </div>
 
