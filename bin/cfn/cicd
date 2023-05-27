@@ -4,6 +4,7 @@
 CFN_PATH="/workspace/aws-cloud-project-bootcamp/aws/cfn/cicd/template.yaml"
 CONFIG_PATH="/workspace/aws-cloud-project-bootcamp/aws/cfn/cicd/config.toml"
 
+
 PACKAGED_PATH="/workspace/aws-cloud-project-bootcamp/tmp/packaged-template.yaml"
 PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
 echo $CFN_PATH

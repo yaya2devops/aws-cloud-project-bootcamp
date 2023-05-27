@@ -31,12 +31,13 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   ├── service-off
 │   └── service-on
 ├── cfn
-│   ├── cicd-deploy
-│   ├── cluster-deploy
-│   ├── db-deploy
-│   ├── ddb-deploy
-│   ├── networking-deploy
-│   └── service-deploy
+│   ├── cicd
+│   ├── cluster
+│   ├── db
+│   ├── ddb
+│   ├── frontend
+│   ├── networking
+│   └── service
 ├── cognito
 │   └── list-users
 ├── db
@@ -91,4 +92,4 @@ The creation was developed systematically, strategically and in a thoughtful app
 └── prepare
 ```
 
-> [Build](../aws/README.md#lets-talk-about-trees) a tree?
+> [🌳Build](../aws/README.md#lets-talk-about-trees) a tree.

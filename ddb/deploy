@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 set -e # stop the execution of the script if it fails
 
-PACKAGED_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yaml"
-CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml"
+PACKAGED_TEMPLATE_PATH="/workspace/aws-cloud-project-bootcamp/.aws-sam/build/packaged.yaml"
+CONFIG_PATH="/workspace/aws-cloud-project-bootcamp/ddb/config.toml"
 
 echo "== deploy"
 # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html

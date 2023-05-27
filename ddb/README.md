@@ -1,9 +1,9 @@
 # Provision DynamoDB Via SAM CFN
 | Step     | Description                                    |
 | -------- | ---------------------------------------------- |
-| [Build](build)    | Build your SAM application.                     |
-| [Package](package)  | Package your application and dependencies.      |
-| [Deploy](deploy)   | Deploy the application and provision DynamoDB.  |
+| [`Build`](#build)  | Build your SAM application.                     |
+| [`Package`](#package)  | Package your application and dependencies.      |
+| [`Deploy`](#deploy)   | Deploy the application and provision DynamoDB.  |
 
 
 ### DynamoDB CFN Template
@@ -14,7 +14,53 @@
 
 The provided will deploy DynamoDB Table and DynamoDB Stream straight to the console.
 
-**PS:** The environnement variables transfer for DynamoDB was executed using this [toml file](config.toml).
+#### **Building**
+
+```yaml
+$ ./ddb/build 
+/workspace/aws-cloud-project-bootcamp/ddb/template.yaml is a valid SAM Template. This is according to basic SAM Validation, for additional validation, please run with "--lint" option
+== build
+Starting Build inside a container                                                                                                       
+Building codeuri: cruddur-messaging-stream runtime: python3.9 metadata: {} architecture: x86_64 functions: ProcessDynamoDBStream        
+
+Fetching public.ecr.aws/sam/build-python3.9:latest-x86_64 Docker container image.............................................................................................................................................................................................................................................................................................................................................
+Mounting /workspace/aws-cloud-project-bootcamp/ddb/cruddur-messaging-stream/cruddur-messaging-stream as /tmp/samcli/source:ro,delegated,
+inside runtime container                                                                                                                
+
+Build Succeeded
+```
+
+#### **Package**
+
+```sh
+$ ./ddb/package 
+== package
+        Uploading to ddb/d41d8cd98f00b204e9800998ecf8427e  22 / 22  (100.00%)
+
+Successfully packaged artifacts and wrote output template to file /workspace/aws-cloud-project-bootcamp/.aws-sam/build/packaged.yaml.
+Execute the following command to deploy the packaged template
+sam deploy --template-file /workspace/aws-cloud-project-bootcamp/.aws-sam/build/packaged.yaml --stack-name <YOUR STACK NAME>
+```
+
+**PS:** The environnement variables transfer was executed using this [toml file](config.toml).
+
+
+#### **Deploy**
+
+| Operation | LogicalResourceId                | ResourceType                   | Replacement |
+|-----------|---------------------------------|--------------------------------|--------------|
+| + Add     | DynamoDBTable                   | AWS::DynamoDB::Table           | N/A          |
+| + Add     | ExecutionRole                   | AWS::IAM::Role                 | N/A          |
+| + Add     | LambdaLogGroup                  | AWS::Logs::LogGroup            | N/A          |
+| + Add     | LambdaLogStream                 | AWS::Logs::LogStream           | N/A          |
+| + Add     | ProcessDynamoDBStreamStream     | AWS::Lambda::EventSourceMapping| N/A          |
+| + Add     | ProcessDynamoDBStream           | AWS::Lambda::Function          | N/A          |
+
+Changeset created successfully. 
+```
+arn:aws:cloudformation:<REGION>:<AWS-ID>:changeSet/samcli-deploy1685219291/550c1528-974d-4709-8c6a-f769fb05444f
+```
+
 
 ## Tom's Obvious, Minimal Language Files
 

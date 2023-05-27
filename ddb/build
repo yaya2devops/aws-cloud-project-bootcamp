@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 set -e # stop the execution of the script if it fails
 
-FUNC_DIR="/workspace/aws-bootcamp-cruddur-2023/ddb/cruddur-messaging-stream/"
-TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/template.yaml"
-CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/ddb/config.toml"
+FUNC_DIR="/workspace/aws-cloud-project-bootcamp/ddb/cruddur-messaging-stream/"
+TEMPLATE_PATH="/workspace/aws-cloud-project-bootcamp/ddb/template.yaml"
+CONFIG_PATH="/workspace/aws-cloud-project-bootcamp/ddb/config.toml"
 
 sam validate -t $TEMPLATE_PATH
 
