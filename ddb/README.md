@@ -1,7 +1,7 @@
 # Provision DynamoDB Via SAM CFN
 | Step     | Description                                    |
 | -------- | ---------------------------------------------- |
-| [`Build`](#build)  | Build your SAM application.                     |
+| [`Build`](#building)  | Build your SAM application.                     |
 | [`Package`](#package)  | Package your application and dependencies.      |
 | [`Deploy`](#deploy)   | Deploy the application and provision DynamoDB.  |
 
@@ -73,6 +73,13 @@ TOML is a config file to read and write to store settings and parameters for our
 | Enables passing environment variables between the IaC template and accompanying scripts. | Access values specified in TOML files within IaC templates or scripts using the appropriate parser or library. |
 | Simplifies the management of configurations in IaC workflows. | Use TOML files to define parameters passed to CloudFormation stacks for dynamic and flexible deployments. |
 
+<details>
+<summary>
+Who is Tom?
+</summary>
+Tom Preston-Werner is the creator of Jekyll and the founder ex-CEO of GitHub
+</details>
+
 ## Working with TOML
 Get to work seamlessly reference the specified environment variable in your code.
 
@@ -89,7 +96,7 @@ Get to work seamlessly reference the specified environment variable in your code
 
 ```toml
 [parameters]
-ArtifactBucketName = "codepipeline-cruddur-artifacts"
+ArtifactBucketName = "codepipeline-yacrud-artifacts"
 ```
 
 

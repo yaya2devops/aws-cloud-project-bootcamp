@@ -582,7 +582,7 @@ def health_check():
 
 ```yaml
 healthcheck:
-  test: curl --fail http://localhost:4567/api/health || exit 1
+  test: curl --fail http://<URL>:4567/api/health || exit 1
   interval: 10s
   timeout: 10s
   start_period: 10s

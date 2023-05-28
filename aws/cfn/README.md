@@ -1,18 +1,22 @@
 ## AWS Cloudformation
 
 | Template Name | Description |
-| --- | --- |
+| ---: | --- |
 | [ECS Cluster](cluster/template.yaml) | This CloudFormation template deploys an ECS Cluster  |
 | [Netowrking Layer](networking/template.yaml) | CFN temp configure network settings, IP addresses, subnets, and routing |
 | [AWS Fargate Service](service/template.yaml) | Deploys an AWS Fargate service with ALB and TG|
-| AWS RDS | Provision AWS Relational Database for Crud Activity|
-| AWS DynamoDB | This will be using [AWS Serverless Application Model!](https://aws.amazon.com/fr/serverless/sam/)|
+| [AWS RDS](db/template.yaml) | Provision AWS Relational Database for Crud Activity|
+| [AWS DynamoDB](ddb/README.md) | Deploy Infra using [AWS SAM](https://aws.amazon.com/fr/serverless/sam/)|
+| [CI/CD](cicd/template.yaml) | Deploy CodeBuild and CodePipelines Configurations |
+| [Frontend CloudFront](cicd/template.yaml) | Deploy CF Distrubution for Frontend and assign its certificate |
+
+
 
 ---
 
 > **Do you know** [yacrud.me](https://yacrud.me/) is derived from my nickname Yaya and the act of posting to Cruddur aka CRUD.
 
-## Developer Guide
+## CFN Developer Guide
 
 - Describe Deployed Template
 ```sh
@@ -24,6 +28,16 @@ aws cloudformation describe-change-set --change-set-name arn:aws:cloudformation:
 ​aws cloudformation validate-template --template-body file:///workspace/aws-bootcamp-cruddur-2023/aws/cfn/template.yaml
 ```
 
+- Validate against guard
+
+```sh
+cfn-guard validate \
+--data ./aws/cfn/cluster \
+--output-format yaml \
+--rules ./aws/cfn/service/ecs-cluster.guard \
+--show-summary pass,fail \
+--type CFNTemplate
+```
 - Install [Linter](https://github.com/aws-cloudformation/cfn-lint)
 ```sh
 pip install cfn-lint

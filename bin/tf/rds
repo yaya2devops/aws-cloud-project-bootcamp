@@ -12,7 +12,6 @@ colorize() {
   esac
 }
 
-# Hello there
 message() {
   echo "This deployment script made by Yaya helps you ship your infra straight to AWS using Terraform."
   echo "Please make sure you have reviewed the configuration files and understand the changes that will be applied."
