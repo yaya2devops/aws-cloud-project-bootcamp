@@ -87,6 +87,13 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   └── update-sg-rule
 ├── sam
 │   └── ddb
+├── tf
+│   ├── cicd
+│   ├── cluster
+│   ├── ddb
+│   ├── fargate
+│   ├── network
+│   └── rds
 ├── bootstrap
 ├── busybox
 └── prepare

@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -e # stop execution if anything fails
+
+# Colorize function to add colors to terminal output
+colorize() {
+  case $1 in
+    "red") echo -e "\033[0;31m$2\033[0m" ;;      
+    "green") echo -e "\033[0;32m$2\033[0m" ;;
+    "yellow") echo -e "\033[0;33m$2\033[0m" ;;  
+    *) echo "$2" ;;
+  esac
+}
+
+# Hello there
+message() {
+  echo "This deployment script made by Yaya helps you ship your infra straight to AWS using Terraform."
+  echo "Please make sure you have reviewed the configuration files and understand the changes that will be applied."
+  echo "Are you sure you want to proceed with the deployment? (y/n)"
+  read -r confirm
+  if [[ $confirm != "y" ]]; then
+    colorize "red" "Deployment canceled by user."
+    exit 1
+  fi
+}
+
+abs_filepath="$ABS_PATH/terraform/ddb"
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+
+cd "$FilePath"
+
+# Display personalized message and prompt for confirmation
+message
+
+# Format the code before using the ship
+colorize "yellow" "Formatting Terraform code..."
+terraform fmt -recursive
+
+colorize "yellow" "Running Terraform validate..."
+terraform validate
+
+# Test
+colorize "yellow" "Running TFLint..."
+tflint
+
+colorize "yellow" "Deploying to AWS..."
+terraform apply -auto-approve
+
+colorize "green" "Deployment completed successfully!"
