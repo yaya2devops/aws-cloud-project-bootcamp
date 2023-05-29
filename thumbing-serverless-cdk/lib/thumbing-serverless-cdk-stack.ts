@@ -43,7 +43,6 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
       folderOutput
     );
 
-
     // create topic and subscription
     const snsTopic = this.createSnsTopic(topicName)
     this.createSnsSubscription(snsTopic,webhookUrl)
@@ -54,11 +53,10 @@ export class ThumbingServerlessCdkStack extends cdk.Stack {
 
     // create policies
     const s3UploadsReadWritePolicy = this.createPolicyBucketAccess(uploadsBucket.bucketArn)
-    const s3AssetsReadWritePolicy = this.createPolicyBucketAccess(assetsBucket.bucketArn)    //const snsPublishPolicy = this.createPolicySnSPublish(snsTopic.topicArn)
+    const s3AssetsReadWritePolicy = this.createPolicyBucketAccess(assetsBucket.bucketArn)
+    //const snsPublishPolicy = this.createPolicySnSPublish(snsTopic.topicArn)
 
     // attach policies for permissions
-    const s3ReadWritePolicy = this.createPolicyBucketAccess(bucket.bucketArn)
-    lambda.addToRolePolicy(s3ReadWritePolicy);
     lambda.addToRolePolicy(s3UploadsReadWritePolicy);
     lambda.addToRolePolicy(s3AssetsReadWritePolicy);
     //lambda.addToRolePolicy(snsPublishPolicy);
