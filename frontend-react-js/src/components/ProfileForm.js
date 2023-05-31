@@ -26,7 +26,7 @@ export default function ProfileForm(props) {
         body: JSON.stringify(json),
         headers: {
           'Origin': process.env.REACT_APP_FRONTEND_URL,
-          'Authorization': `${access_token}`,
+          'Authorization': `Bearer ${access_token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }

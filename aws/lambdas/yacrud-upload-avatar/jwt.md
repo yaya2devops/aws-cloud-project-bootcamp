@@ -1,0 +1,14 @@
+
+#### JWT Auth
+
+```json
+{"version"=>"2.0", "routeKey"=>"POST /avatars/key_upload", "rawPath"=>"/avatars/key_upload", "rawQueryString"=>"", "headers"=>{"accept"=>"application/json", "accept-encoding"=>"gzip, deflate, br", "accept-language"=>"fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7", 
+
+"authorization"=>"Bearer eyJraWQiOiJyVmtPWThJeW9CUVwvSU4ySnJncitieFFqY0tMT3lOaHlYcG1SMktydDNHbz0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJlZjFkZTUyNS0xYjljLTRlNGItYjE0My1hMDcxZWQ1YTQzYjkiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuY2EtY2VudHJhbC0xLmFtYXpvbmF3cy5jb21cL2NhLWNlbnRyYWwtMV9SVDZ1WjZJa1YiLCJjbGllbnRfaWQiOiI1aWwzMTE2cW0wcmgzcm9wc3BuaXJrdG5scyIsIm9yaWdpbl9qdGkiOiIxMWNjMTVmZC1mYjk1LTQ5ZDEtOWQyYy1hODI3M2YyYTM0ZjAiLCJldmVudF9pZCI6IjBhNzdkMDNiLThjOGUtNDRiNy04YWEyLTU2MGQ1NjUxZTBkMCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2ODU1NzAzNTAsImV4cCI6MTY4NTU3Mzk1MCwiaWF0IjoxNjg1NTcwMzUwLCJqdGkiOiI5NGU4ZThlNS1hMWI4LTRiZDUtYjQyMS0yODc1M2RkMDlmZGIiLCJ1c2VybmFtZSI6ImVmMWRlNTI1LTFiOWMtNGU0Yi1iMTQzLWEwNzFlZDVhNDNiOSJ9.BEWKuRutZc1p3T1a12Xdjc7H7-frmaS1jn0ogxOL5MB7EwlSZKM9tsyBDL9VU0fPwySPvidqJpcCIWofhlSaXoQxJslXh1Pm-jtB22Uhlo1WV6bJTERHYTqOqYUUiWdLj3hbZ-wZpMnuzoP8_w5c90MjSDK5IAYCemHnQYfqwT0uVB2oXDVWV3gcFrkNWGIRqU46apCu0fNwSlSfDOMttHsPzyKd5tDJKKfDWtrbOVvcBpuknivk1VzcMaqTD5Rnym2MOBf3PJfTjr_20vJ5iLP4g3Pvxf4bMh3CNDMQZWtp3WWytWQTv6uNvQ_7oxzbehIAcFX6wOj_YDVT1tpSZg", 
+
+"cache-control"=>"no-cache", "content-length"=>"19", "content-type"=>"application/json", "host"=>"3ni93y5bnb.execute-api.<region>.amazonaws.com", "origin"=>"https://3000-URL.gitpod.io", "pragma"=>"no-cache", "referer"=>"https://3000-URL.gitpod.io/", "sec-ch-ua"=>"\"Google Chrome\";v=\"113\", \"Chromium\";v=\"113\", \"Not-A.Brand\";v=\"24\"", "sec-ch-ua-mobile"=>"?0", "sec-ch-ua-platform"=>"\"Windows\"", "sec-fetch-dest"=>"empty", "sec-fetch-mode"=>"cors", "sec-fetch-site"=>"cross-site", "user-agent"=>"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36", "x-amzn-trace-id"=>"Root=1-6477c63c-5613cd6149e857a7744f5ca5", "x-forwarded-for"=>"197.26.172.238", "x-forwarded-port"=>"443", "x-forwarded-proto"=>"https"}, "requestContext"=>{"accountId"=>"598485450821", "apiId"=>"3ni93y5bnb", "authorizer"=>{"lambda"=>{"sub"=>"ef1de525-1b9c-4e4b-b143-a071ed5a43b9"}}, "domainName"=>"3ni93y5bnb.execute-api.<region>.amazonaws.com", "domainPrefix"=>"3ni93y5bnb", "http"=>{"method"=>"POST", "path"=>"/avatars/key_upload", "protocol"=>"HTTP/1.1", "sourceIp"=>"197.26.172.238", "userAgent"=>"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36"}, 
+
+"requestId"=>"FzvpbjlSYosEJPQ=", "routeKey"=>"POST /avatars/key_upload", "stage"=>"$default", "time"=>"31/May/2023:22:12:12 +0000", "timeEpoch"=>1685571132006}, "body"=>"{\"extension\":\"jpg\"}", "isBase64Encoded"=>false}
+
+
+```
