@@ -101,11 +101,15 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 
 |  Week 10 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        Compare CFN vs SAM vs CDK Detailed 	         |  easy   | ❗ |   
+|        Networking Layer Via Terraform 	         |   N/A    |  |   
+|        Cluster Via Terraform 		         |   N/A    |  |   
+|        RDS Via Terraform 	 	         |   N/A    |  |   
+|        DDB Via Terraform 		         |   N/A    |  |   
 
 |  Week 11 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        No homework challenges provided 	         |   N/A   | N/A|   
+|       Fargate Via Terraform  	         |   N/A   | ❗ |  
+|       CICD Via Terraform  	         |   N/A   | ❗|   
 
 
 ---

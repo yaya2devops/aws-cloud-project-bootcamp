@@ -10,10 +10,7 @@ output "ALBSG" {
   value = aws_security_group.ALBSG.id
 
 }
-output "ServiceSG" {
-  value = aws_security_group.ServiceSG.id
 
-}
 
 output "ClusterId" {
   value = aws_ecs_cluster.CrdFargateCluster.id

@@ -1,3 +1,26 @@
+terraform {
+  backend "s3" {
+    bucket         = "yaya-tf-state"
+    key            = "terraform/networking/terraform.tfstate"
+    region         = "ca-central-1"
+    dynamodb_table = "tf-state-lock"
+    encrypt        = true
+  }
+  
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "2.3.0"
+    }
+  }
+
+  required_version = "~> 1.4.6"
+}
+
 provider "aws" {
   region     = var.AWS_DEFAULT_REGION
   access_key = var.AWS_ACCESS_KEY_ID
