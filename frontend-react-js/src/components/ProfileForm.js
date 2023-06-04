@@ -19,7 +19,7 @@ export default function ProfileForm(props) {
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
       const json = {
-        extension: extension
+          extension: extension
       }
       const res = await fetch(gateway_url, {
         method: "POST",
@@ -44,25 +44,29 @@ export default function ProfileForm(props) {
   const s3upload = async (event)=> {
     console.log('event',event)
     const file = event.target.files[0]
+    console.log('file',file)
     const filename = file.name
     const size = file.size
     const type = file.type
     const preview_image_url = URL.createObjectURL(file)
-    console.log(filename,size,type)
+    console.log(filename, size, type)
+    //const formData = new FormData();
+    //formData.append('file', file);
     const fileparts = filename.split('.')
     const extension = fileparts[fileparts.length-1]
     const presignedurl = await s3uploadkey(extension)
     try {
       console.log('s3upload')
-      console.log('presignedurl')
       const res = await fetch(presignedurl, {
         method: "PUT",
         body: file,
         headers: {
           'Content-Type': type
-      }})
+        }})
+   
+      //let data = await res.json();
       if (res.status === 200) {
-        
+        //setPresignedurl(data.url)
       } else {
         console.log(res)
       }

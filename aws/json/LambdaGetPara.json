@@ -1,0 +1,14 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:GetParameters",
+                "ssm:GetParameter"
+            ],
+            "Resource": "arn:aws:ssm:<region>:<aws-id>:parameter/cruddur/YacrudAvatarUpload/LAMBDA-FRONTEND"
+        }
+    ]
+}

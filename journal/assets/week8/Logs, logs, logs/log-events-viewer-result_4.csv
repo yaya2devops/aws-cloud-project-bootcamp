@@ -1,0 +1,13 @@
+timestamp,message
+1685890102394,"INIT_START Runtime Version: ruby:2.7.v20	Runtime Version ARN: arn:aws:lambda:ca-central-1::runtime:7882428ae91071debb521f4c894de6f32edb4d0b6dd43c9c5044d89e4dcd3c3e
+"
+1685890103140,"START RequestId: 33225974-10e1-4e4d-bbc1-b4333c535368 Version: $LATEST
+"
+1685890103141,"{""version""=>""2.0"", ""routeKey""=>""OPTIONS /{proxy+}"", ""rawPath""=>""/avatars/key_upload"", ""rawQueryString""=>"""", ""headers""=>{""accept""=>""*/*"", ""accept-encoding""=>""gzip, deflate, br"", ""accept-language""=>""fr-FR,fr;q=0.9"", ""access-control-request-headers""=>""authorization,content-type"", ""access-control-request-method""=>""POST"", ""cache-control""=>""no-cache"", ""content-length""=>""0"", ""host""=>""3ni93y5bnb.execute-api.ca-central-1.amazonaws.com"", ""origin""=>""https://3000-cloudboy15-awscloudproj-lu4yk73748e.ws-eu98.gitpod.io"", ""pragma""=>""no-cache"", ""referer""=>""https://3000-cloudboy15-awscloudproj-lu4yk73748e.ws-eu98.gitpod.io/"", ""sec-fetch-dest""=>""empty"", ""sec-fetch-mode""=>""cors"", ""sec-fetch-site""=>""cross-site"", ""user-agent""=>""Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"", ""x-amzn-trace-id""=>""Root=1-647ca436-7b38f6b47b241ecb044e1c99"", ""x-forwarded-for""=>""197.26.133.227"", ""x-forwarded-port""=>""443"", ""x-forwarded-proto""=>""https""}, ""requestContext""=>{""accountId""=>""598485450821"", ""apiId""=>""3ni93y5bnb"", ""domainName""=>""3ni93y5bnb.execute-api.ca-central-1.amazonaws.com"", ""domainPrefix""=>""3ni93y5bnb"", ""http""=>{""method""=>""OPTIONS"", ""path""=>""/avatars/key_upload"", ""protocol""=>""HTTP/1.1"", ""sourceIp""=>""197.26.133.227"", ""userAgent""=>""Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36""}, ""requestId""=>""F_6Yhi6vYosEJug="", ""routeKey""=>""OPTIONS /{proxy+}"", ""stage""=>""$default"", ""time""=>""04/Jun/2023:14:48:22 +0000"", ""timeEpoch""=>1685890102222}, ""pathParameters""=>{""proxy""=>""avatars/key_upload""}, ""isBase64Encoded""=>false}
+"
+1685890103141,"{""step"":""preflight"",""message"":""preflight CORS check""}
+"
+1685890103154,"END RequestId: 33225974-10e1-4e4d-bbc1-b4333c535368
+"
+1685890103154,"REPORT RequestId: 33225974-10e1-4e4d-bbc1-b4333c535368	Duration: 14.05 ms	Billed Duration: 15 ms	Memory Size: 128 MB	Max Memory Used: 76 MB	Init Duration: 745.71 ms	
+"
