@@ -56,7 +56,7 @@ Conveniently located in one place.
 |  [Week 9](week9.md) | CI/CD with AWS CodeBuild and CodePipeline | Apr 15, 2023 |✘|
 |  [Week 10](week10.md) | CloudFormation <br> (Part 1/2) | Apr 22, 2023 |Doing|
 |  [Week 11](week11.md)| CloudFormation & SAM Templates <br> (Part 2/2) | Apr 29, 2023 |Doing|
-|  [Week ✘](week12.md) | Modern APIs | May 6, 2023 |Coming|
+|  [Week ✘](week12.md) | Modern APIs | May 6, 2023 |Doing|
 
 </div>
 

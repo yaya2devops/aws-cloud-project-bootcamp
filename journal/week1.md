@@ -436,7 +436,7 @@ CMD ["/bin/bash", "./script.sh"]
 ```
 
 
-**The external script:**
+**The external [script](../frontend-react-js/script.sh)**
 ```
 #!/bin/bash
 npm start
@@ -469,7 +469,7 @@ ENTRYPOINT ["/backend-flask/external-script.sh"]
 ```
 
 
-`External-cmd.sh`
+[`external-script.sh`](../backend-flask/external-script.sh)
 
 ```
 #!/bin/bash
@@ -498,6 +498,9 @@ python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 - leave port 22, its standard for ssh
 - Expand on SSH -> Auth -> Credentials: Browse your .pem SK and add it
 - Click Open, ec2 will open
+
+
+[Related Lab Helped](https://www.cloudskillsboost.google/focuses/40544?parent=catalog)
 
 <img src="assets/week1/EC2/4-puty-auth.png">
 

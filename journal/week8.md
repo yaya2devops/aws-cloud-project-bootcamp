@@ -3,6 +3,7 @@
 In this week, I used it to define the infrastructure resources required to process images via CDK using Typescript.
 
 ![serverless-process-image](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png)
+
 Get the design in [PNG](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png) or an [Editable](assets/week8/Serverless-Architect/banner-more-interesting.drawio) Format.
 ## Main Week Eight Tasks
 
@@ -23,12 +24,20 @@ Get the design in [PNG](assets/week8/Serverless-Architect/serverless-avatar-imag
   - [Document Profile Update API](#profile-update-endpoint)
   - [Implement Users Profile Form](#implement-profile-form-and-popup)
   - [Implement Application Bio](#implement-application-bio)
-- [Presigned URL generation via Ruby Lambda]()
+- [Presigned URL generation via Ruby Lambda](#implement-avatar-uploading)
+   - [Presigned URL Function](#pre-signed-url-lambda)
+   - [Test API Endpoint](#test-api-endpoint)
+   - [Presigned URL Lambda](#presigned-lambda-console)
+   - [Lambda Bucket Permissions](#apply-code-and-permissions)
 - [HTTP API Gateway with Lambda Authorizer]()
 - [Create JWT Lambda Layer	https]()
 - [Render Avatars in App via CloudFront]()
 
 ## AWS Cloud Development Kit
+
+[XXL Asset](assets/week8/cdk-ban-full.png)
+
+![AWS Created Ban](assets/week8/cdk-ban.png)
 
 AWS CDK is an open-source software development framework that enables you to define cloud infrastructure in code and provision it using AWS CloudFormation.
 
@@ -516,7 +525,6 @@ createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBuc
 - run `cdk synth` to check for errors, if the yaml is returned go ahead `cdk deploy`
 
 
-<img src="assets/week8/Stack/ThumbingServerlessCdkStack-Resources.png">
 
 ## CloudFront - Serve Avatars
 
@@ -551,8 +559,8 @@ To implement this, follow the steps below:
 
 1. Update the `.env` file with the following changes:
 ```sh
-UPLOADS_BUCKET_NAME="yaya-cruddur-uploaded-avatars"
-ASSETS_BUCKET_NAME="assets.annleefores.cloud"
+UPLOADS_BUCKET_NAME="<something-unique>-cruddur-uploaded-avatars"
+ASSETS_BUCKET_NAME="assets.<ur-domain>"
 THUMBING_S3_FOLDER_INPUT=""
 THUMBING_S3_FOLDER_OUTPUT="avatars/"
 THUMBING_WEBHOOK_URL="https://api.<ur-domain>/webhooks/avatar"
@@ -600,6 +608,10 @@ gp env DOMAIN_NAME=<ur-naked-domain>
 export UPLOADS_BUCKET_NAME=<something-unique>-cruddur-uploaded-avatars
 gp env UPLOADS_BUCKET_NAME=<something-unique>-cruddur-uploaded-avatars
 ```
+
+5. `cdk deploy` and check CFN Stack in the console
+
+<img src="assets/week8/Stack/ThumbingServerlessCdkStack-Resources.png">
 
 
 ### Upload and Clear Scripts Changes
@@ -667,10 +679,11 @@ aws s3 rm "s3://assets.$DOMAIN_NAME/avatars/data.jpg"
 
 ### Implement Profile Form and Popup
 
-- Create `frontend-react-js/src/components/ProfileForm.js` and `frontend-react-js/src/components/ProfileForm.css`
-- Create `frontend-react-js/src/components/Popup.css`
-- Update `frontend-react-js/src/pages/UserFeedPage.js`
-- Update `app.js` with `import "./components/Popup.css";`
+| Code Creation                                                   | Updates                                                     |
+|:-----------------------------------------------------------|:-------------------------------------------------------------|
+| Create `frontend-react-js/src/components/ProfileForm.js` and `frontend-react-js/src/components/ProfileForm.css` | Update `frontend-react-js/src/pages/UserFeedPage.js`                                                            |
+| Create `frontend-react-js/src/components/Popup.css`               |  Update `app.js` with `import "./components/Popup.css";`                                                           |
+
 
 
 
@@ -678,9 +691,52 @@ aws s3 rm "s3://assets.$DOMAIN_NAME/avatars/data.jpg"
 - add `from services.update_profile import *` to `app.py`
 - Add  the `@app.route("/api/profile/update", methods=["POST", "OPTIONS"])` endpoint to `app.py`
 - Create backend-flask/services/update_profile.py
-- Create `backend-flask/db/sql/users/update.sql` and add this SQL to set bio.
+- Create `backend-flask/db/sql/users/update.sql`.
 
 ### Document Update API
+
+I have contemplated taking on this additional challenge to further Improve the developer experience.
+
+- Add the below snippet in `backend-flask/openapi-3.0.yml` to document **Update API Endpoint**
+
+```yaml
+  /api/profile/update:
+    post:
+      description: 'Updates the user profile information'
+      tags:
+        - profile
+      responses:
+        '200':
+          description: 'Returns the updated user profile data'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: 'The updated user profile data'
+                  errors:
+                    type: array
+                    description: 'The errors, if any'
+                    items:
+                      type: string
+                example:
+                  data:
+                    bio: 'API documentation is a lot like flossing. everyone knows they should do it, but few actually enjoy the process. But not Yaya! Documenting APIs is his jam! '
+                    display_name: 'Yahya Abulhaj'
+                  errors: null
+        '401':
+          description: 'Unauthorized request'
+          content:
+            application/json:
+              schema:
+                type: object
+                description: 'Empty response'
+                example: {}
+```
+
+- The generated API Doc is presented as follows
 
 <img src="assets/week8/Edit-Profile-Button/doc-api-update-profile.png">
 
@@ -697,8 +753,9 @@ To ensure smooth database migration, follow the instructions below:
 ./bin/generate/migration add_bio_column
 ```
 
-4. After generating the migration file, update the contained functions as shown below:
-```
+4. After generating the migration file, update the functions as shown below:
+
+```SQL
 def migrate_sql():
     data = '''
       ALTER TABLE public.users ADD COLUMN bio text;
@@ -711,7 +768,9 @@ def rollback_sql():
     '''
     return data
 ```
-5. Open the backend-flask/db/schema.sql file and add the following SQL code to create a table named schema_information:
+5. Open the `backend-flask/db/schema.sql` 
+
+6.  Add the following SQL code to create `schema_information` table:
 
 ```SQL
 CREATE TABLE IF NOT EXISTS public.schema_information (
@@ -723,12 +782,13 @@ VALUES(1, '0')
 ON CONFLICT (id) DO NOTHING;
 ```
 
-6. Create two new files, `./bin/db/migrate` and `./bin/db/rollback`, within the `bin/db`. 
+7. Create two new files, `./bin/db/migrate` and `./bin/db/rollback`, within the `bin/db`. 
 
 <img src="assets/week8/Edit-Profile-Button/profile-form-migrate-success.png">
 
 ### Implement Application Bio
 Conclude the implementation with the below steps
+
 | Step | Bio Wrapping |
 | --- | --- |
 | 1 | Modify the query functions in the `db.py` file to include the `verbose` argument. |
@@ -737,31 +797,124 @@ Conclude the implementation with the below steps
 | 4 | Update `/components/ProfileHeading.jsx` with <div className="bio">{props.profile.bio}</div> |
 | 5 | Update the CSS with .profile_heading class selector and its nested .bio  |
 
+
+Log to the app, Click Edit Profile write Bio and click Save.
+- Verify serving prev implementations Incl. Cloudfront, Edit profile and DB migration
+
+[Related Commit](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/5c5985b79465204f1b89757468cfc4f213aaa5d4)
+
+<img src="assets/week8/Edit-Profile-Button/22-profile-bio-1.png">
+
+- Observe the Bio inputs from the database
 ```sh
 handle : yaya2devops
 >>----what's up-----<< ({'profile': {'uuid': '5797710d-123a-4ead-aeec-e8328516a42f', 'handle': 'yaya2devops', 'cognito_user_uuid': 'ef1de525-1b9c-4e4b-b143-a071ed5a43b9', 'display_name': 'Yahya Abulhaj', 'bio': "Hey :) It's me Yaya", 'cruds_count': 2}, 'activities': [{'uuid': 'b685d16e-e860-408e-bfbf-e6fd7ebc1733', 'display_name': 'Yahya Abulhaj', 'handle': 'yaya2devops', 'message': 'Thanks John For The Great Help! #DontWorryJohn', 'created_at': '2023-05-17T11:07:46.223586', 'expires_at': '2023-05-24T11:07:46.223224'}, {'uuid': '43a1539c-2400-4080-bec9-7cac822c039d', 'display_name': 'Yahya Abulhaj', 'handle': 'yaya2devops', 'message': 'This was imported as seed data!', 'created_at': '2023-05-17T10:58:54.110864', 'expires_at': '2023-05-27T10:58:54.110864'}]},)
 192.168.85.74 - - [17/May/2023 21:43:58] 
 "GET /api/activities/@yaya2devops HTTP/1.1" 200 -
 ```
-- Verify serving cloudfront, Edit profile, Bio implementations
-
-[Related Commit](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/5c5985b79465204f1b89757468cfc4f213aaa5d4)
-
-<img src="assets/week8/Edit-Profile-Button/22-profile-bio-1.png">
 
 
 
+## Implement Avatar Uploading
+
+### **Pre-signed URL Lambda**
+
+
+We require pre-signed URL that grants temporary access to perform the upload operations on the S3. 
+
+This is a secure way to authorize the upload operation without compromising the overall system's security.
+
+The pre-signed URL is generated by a Lambda function specifically designed for this purpose. To implement this lambda, follow these steps:
+
+1. Create a new file named `aws/lambdas/cruddur-upload-avatar/function.rb` and navigate to the respective folder.
+2. Change the current directory to the `cruddur-upload-avatar` folder and initialize a Gemfile by running the command `bundle init`.
+3. Update the Gemfile with the required packages and dependencies, and then install them by executing `bundle install`.
+
+```rb
+# frozen_string_literal: true
+source "https://rubygems.org"
+# gem "rails"
+gem "aws-sdk-s3"
+gem "ox"
+gem "jwt"
+```
+To generate a pre-signed URL, run the following command:
+
+```bash
+bundle exec ruby function.rb
+```
+
+### **Test API Endpoint**
+
+Copy the presigned URL and test its endpoint.
+
+1. **Installing the Thunder Client extension:** This step involves installing the Thunder Client extension, which is a tool that allows you to send HTTP requests and test API endpoints directly within Visual Studio Code.
+2. **Opening Thunder Client and pasting the pre-signed URL:** After installing the extension, you open Thunder Client and paste the pre-signed URL that was generated for the avatar upload. This URL contains the necessary authorization and authentication information.
+3. **Selecting the binary option and choosing the image file:** In the request body, you specify that you will be uploading a binary file (the image file). This ensures that the request is configured correctly to handle binary data.
+4. **Setting the request method to PUT and sending the request:** You set the request method to PUT, indicating to upload the image file to the specified URL. Then, you send the request to initiate the upload process.
+
+Upon successfully completing the steps, you should receive a "200 OK" response, indicating that the HTTP request was successful.
+
+
+![Presigned URL](assets/week8/Wrapping/presigned-url-testing-ok-200.png)
+
+
+
+### **Presigned Lambda Console**
+
+1. Create a new function within the AWS Lambda service
+5. Select the appropriate runtime, such as **Ruby 2.7**, for the Lambda function.
+6. Opt for **Create a new role with basic Lambda permissions** as the default execution role.
+7. Create the function.
+8. Export the `UPLOADS_BUCKET_NAME` environment variable.
+
+### Apply Code and Permissions
+
+1. Add the code from the `function.rb` file to the Lambda function.
+2. Navigate to the Lambda function's configuration and access the **Permissions** section.
+3. Open the settings of the execution role associated with the Lambda function.
+4. Create an inline policy to define the required permissions.
+
+```JSON
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::yacrud-uploaded-avatars/*"
+        }
+    ]
+  }
+```
+5. Thoroughly review the policy before finalizing its creation.
+6. Modify the Lambda runtime handler to `function.handler`
+7. Rename the file to `function.rb`.
+
+
+---
 
 
 
 
 
-### Add. CDK Resources
 
-- [Reference: 1](https://aws.amazon.com/fr/cdk/)
-- [Reference: 2](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-construct-library.html)
-- [Reference: 3](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
-- [Reference: 4](https://cdkpatterns.com/)
-- [Reference: 5](https://www.thecdkbook.com/)
-- [Reference: 6](https://www.cdkday.com/)
-- [Typscript Env](https://www.typescriptlang.org/play?#code/PTAEHUFMBsGMHsC2lQBd5oBYoCoE8AHSAZVgCcBLA1UABWgEM8BzM+AVwDsATAGiwoBnUENANQAd0gAjQRVSQAUCEmYKsTKGYUAbpGF4OY0BoadYKdJMoL+gzAzIoz3UNEiPOofEVKVqAHSKymAAmkYI7NCuqGqcANag8ABmIjQUXrFOKBJMggBcISGgoAC0oACCbvCwDKgU8JkY7p7ehCTkVDQS2E6gnPCxGcwmZqDSTgzxxWWVoASMFmgYkAAeRJTInN3ymj4d-jSCeNsMq-wuoPaOltigAKoASgAywhK7SbGQZIIz5VWCFzSeCrZagNYbChbHaxUDcCjJZLfSDbExIAgUdxkUBIursJzCFJtXydajBBCcQQ0MwAUVWDEQC0gADVHBQGNJ3KAALygABEAAkYNAMOB4GRonzFBTBPB3AERcwABS0+mM9ysygc9wASmCKhwzQ8ZC8iHFzmB7BoXzcZmY7AYzEg-Fg0HUiQ58D0Ii8fLpDKZgj5SWxfPADlQAHJhAA5SASPlBFQAeS+ZHegmdWkgR1QjgUrmkeFATjNOmGWH0KAQiGhwkuNok4uiIgMHGxCyYrA4PCCJSAA)
+
+
+
+### **AWS CDK Resources**
+I have considered the examination of these references to confidently affirm my conviction using CDK, and indeed, I do so with utmost certainty.
+
+
+
+
+- [What is the AWS CDK?](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
+- [AWS CDK Official Website](https://aws.amazon.com/fr/cdk/)
+- [CDK S3 Class Construct](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html)
+-  [CDK Removal Policy](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_core.RemovalPolicy.html)
+- [API Reference for CDK](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-construct-library.html)
+- [AWS CDK Patterns](https://cdkpatterns.com/)
+- [The CDK Book](https://www.thecdkbook.com/)
+- [Event: CDK Day](https://www.cdkday.com/)
+- [TypescriptLang](https://www.typescriptlang.org/play?#code/PTAEHUFMBsGMHsC2lQBd5oBYoCoE8AHSAZVgCcBLA1UABWgEM8BzM+AVwDsATAGiwoBnUENANQAd0gAjQRVSQAUCEmYKsTKGYUAbpGF4OY0BoadYKdJMoL+gzAzIoz3UNEiPOofEVKVqAHSKymAAmkYI7NCuqGqcANag8ABmIjQUXrFOKBJMggBcISGgoAC0oACCbvCwDKgU8JkY7p7ehCTkVDQS2E6gnPCxGcwmZqDSTgzxxWWVoASMFmgYkAAeRJTInN3ymj4d-jSCeNsMq-wuoPaOltigAKoASgAywhK7SbGQZIIz5VWCFzSeCrZagNYbChbHaxUDcCjJZLfSDbExIAgUdxkUBIursJzCFJtXydajBBCcQQ0MwAUVWDEQC0gADVHBQGNJ3KAALygABEAAkYNAMOB4GRonzFBTBPB3AERcwABS0+mM9ysygc9wASmCKhwzQ8ZC8iHFzmB7BoXzcZmY7AYzEg-Fg0HUiQ58D0Ii8fLpDKZgj5SWxfPADlQAHJhAA5SASPlBFQAeS+ZHegmdWkgR1QjgUrmkeFATjNOmGWH0KAQiGhwkuNok4uiIgMHGxCyYrA4PCCJSAA)

@@ -1,15 +1,19 @@
 
 
 # Visionary Pursuit — Twitter-Like
+
 <img src="../../_docs/assets/aware.drawio.png">
 
 
 ## Purposes and Adversities
+The organizer expressed uncertainty regarding the accuracy of their judgment in scaling the project at 250.
+
+The bootcamp project, as acknowledged by the pursuers Incl. the individuals instrumental in the realization, undeniably surpasses the specified level and is considered **Advanced**.
+
 | | Target |
 | ---: | :--- |
 | **Skills Gained** |  Create a cloud project with sufficient complexity that can add value to one's resume <br>Combine multiple cloud services to emulate a real-world production workload |
 | **Transparency** | This bootcamp is rated as Level 250 based on the following difficulty scale: <br> **Level 100** Foundational <br> **Level 200** Intermediate <br>   • **Level 250** - **AWS Cloud Project Bootcamp** <br> **Level 300** Advanced <br> **Level 400** Expert |
-
 
 
 # Micro-blogging Platform Development
