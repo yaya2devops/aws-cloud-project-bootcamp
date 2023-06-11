@@ -36,8 +36,8 @@ The CI/CD pipeline takes over, orchestrating a series of automated steps to ensu
 - [CICD Pipeline Security](#incorporating-devsecops)
 - [Buildspec and Parameter Store](#parameter-store-configuration-in-buildspecyml)
 - [ECR CodeBuild Permissions](#ecr-codebuild-permissions)
-- [Create Test Build Step](#buildspec-for-test-phase)
-- [Add Test step to CodePipeline](#add-test-phase-to-codebuild)
+- [Create Test Build Step](#test-using-pytest)
+- [Add Test step to CodePipeline](#adding-test-stage)
 
 
 
@@ -197,6 +197,16 @@ When you're ready to begin the pipeline execution, click on the Release Changes 
 Ensure that each stage successfully completes for the pipeline to progress.
 
 
+### Google Opinion on Build Pipelines Security 
+
+I was doing a lab in the [Google Cloud Platform](https://www.cloudskillsboost.google/journeys) and came across some valuable security best practices that I believe are worth sharing.
+
+Google advises the implementation of two key security features in the container build pipeline.
+
+- **Deployment policies:** Google recommends deployment policies as part of the container build pipeline to help enforce security measures and control the deployment of container images.
+
+- **Vulnerability scanning:** Google emphasizes this  which incl. scanning container images for known vulnerabilities and analyzing the packages within the images to identify potential security issues. 
+
 
 ## Trigger Pipeline
 
@@ -206,13 +216,15 @@ Make any required change you see needed.
     ```python
     return {"success": True, "ver": 1}, 200
     ```
+![source-build-success](assets/week9/ci-cd-health-check.png)
+
 2. Pushed Technical Instructions from Github
 
 - Pipeline From Source to Build:
 
 ![source-build-success](assets/week9/CodePipelines/Pipe-Phases/2-source-and-build-pipe.png)
 
-- Pipeline From Build to Build:
+- Pipeline From Build to Prod:
 
 ![build--prodsuccess](assets/week9/CodePipelines/Pipe-Phases/3-build-and-deploy.png)
 
@@ -225,7 +237,7 @@ I faced many errors when trying to start the build that I resolved one after the
 ![ECR CodeBuild](assets/week9/Codebuild/1-ErrorONE/codebuild-error-1.png)  
 
 
-I also dealt with [this error](code-build-error-2.txt) and this [one.](code-build-error-3.txt)
+I also dealt with [this error](assets/week9/Codebuild/2-ErroTWO/code-build-error-2.txt) and this [one.](assets/week9/Codebuild/3-ErrorTHREE/code-build-error-3.txt)
 
 To resolve this one due to a lack of ECR permissions.
 1. Open the AWS Management Console and navigate to the Identity and Access Management (IAM) service.
@@ -336,13 +348,11 @@ The following table summarizes more CI/CD security best practices for your refer
 Employing the above principles of DevSecOps is crucial to ensure the development and delivery of secure software. We can establish a robust and efficient CI/CD security framework that minimizes risks and protects sensitive data.
 
 ---
-
 *Note: This information above is my effort to provide an overview of CI/CD security best practices, and it is recommended to refer to additional resources and specific guidelines for detailed implementation.*
-
 
 ---
 
-## **Creating sample test in backend-flask using pytest**
+## **Test Using pytest**
 
 1. Install the pytest library by running the following command:
 ```shell
@@ -499,7 +509,7 @@ parameter-store:
   AWS_USER_POOLS_ID: /cruddur/backend-flask/AWS_COGNITO_USER_POOL_ID
 ```
 
-The output [`test-builspec.yaml`](../backend-flask/test-buildspec.yml)
+> [`test-builspec.yaml`](../backend-flask/test-buildspec.yml)
 
 
 ## Adding Test Stage

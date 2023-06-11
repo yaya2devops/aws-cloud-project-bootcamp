@@ -1,10 +1,10 @@
 # Week 8 — Serverless Image Processing
 
-In this week, I used it to define the infrastructure resources required to process images via CDK using Typescript.
+During this week, we utilized the AWS CDK (Cloud Development Kit) to define and deploy the necessary infrastructure resources for image processing. Our chosen language for CDK development was the powerful and cool [TypeScript](https://dev.to/andrewbaisden/moving-from-javascript-to-typescript-40ac).
 
 ![serverless-process-image](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png)
 
-Get the design in [PNG](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png) or an [Editable](assets/week8/Serverless-Architect/banner-more-interesting.drawio) Format.
+**Get** the design in [PNG](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png) or an [Editable](assets/week8/Serverless-Architect/banner-more-interesting.drawio) Format.
 ## Main Week Eight Tasks
 
 - [Realtime Notes Taking](#livestream--noting-realtime)
@@ -29,17 +29,18 @@ Get the design in [PNG](assets/week8/Serverless-Architect/serverless-avatar-imag
    - [Test API Endpoint](#test-api-endpoint)
    - [Presigned URL Lambda](#presigned-lambda-console)
    - [Lambda Bucket Permissions](#apply-code-and-permissions)
-- [HTTP API Gateway with Lambda Authorizer]()
-- [Create JWT Lambda Layer	https]()
-- [Render Avatars in App via CloudFront]()
+- [HTTP API Gateway with Lambda Authorizer](#create-cruddurapigatewaylambdaauthorizer)
+- [Create JWT Lambda Layer	https](#setting-up-the-jwt-lambda-layer)
+- [Render Avatars in App via CloudFront](#render-avatar-from-cloudfront)
 
 ## AWS Cloud Development Kit
+AWS CDK is an open-source software development framework that enables you to define cloud infrastructure in code and provision it using AWS CloudFormation.
+
 
 [XXL Asset](assets/week8/cdk-ban-full.png)
 
 ![AWS Created Ban](assets/week8/cdk-ban.png)
 
-AWS CDK is an open-source software development framework that enables you to define cloud infrastructure in code and provision it using AWS CloudFormation.
 
 Let's discuss How it actually  Works
 
@@ -403,6 +404,9 @@ THUMBING_FUNCTION_PATH="<ur-path>/aws/lambdas/process-images"
 6. run `cdk deploy`
 
 
+
+![Early CDK Deploy](assets/week8/deploy-in-progress.png)
+
 ### Upload Asset Script
 
 #### Include the S3 Policy to your Stack
@@ -474,6 +478,9 @@ This will create the process image dir and its required files, the index.js, tes
 
 -  run `cdk deploy` to update the infrastructure
 
+
+![](assets/week8/re-ship-sharp/7-stack-redploy-after-s3-termination.png)
+
 ### Sharp Package Script
 - Create `bin/serverless/build`
 
@@ -525,6 +532,8 @@ createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBuc
 - run `cdk synth` to check for errors, if the yaml is returned go ahead `cdk deploy`
 
 
+![CDK Deploy](assets/week8/cdk-deploy-1.png)
+
 
 ## CloudFront - Serve Avatars
 
@@ -535,17 +544,20 @@ createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBuc
 5. Choose **CORS-CustomOrigin** for the optional **Origin request policy**.
 6. Select **SimpleCORS** for the optional **Response headers policy**.
 7. Set the **Alternate domain name (CNAME)** to `assets.<domain>`.
+![](assets/week8/CloudFront/6-domain-records-for-assets-url-in-route-53.png)
 8. Assign the ACM for the **Custom SSL certificate**.
 9. Provide a description and click **Create**.
 10. Copy the S3 policy and access the S3 bucket using the provided link. 
 11. Paste the policy there.
+![](assets/week8/CloudFront/16-policy-on-s3-for-cloudfront.png)
 11. To view the processed image, go to `https://<Distribution-domain-name>/avatars/processed/data.jpg`.
 12. For accessing the image on the `assets.<your-domain>`, navigate to Route53 and select the Hosted Zone.
 13. Create a new record with the record name set to `assets`.
+![Cloudfront Asset Distrubution](assets/week8/CloudFront/15-all-records-after-assets.png)
 14. Enable **Alias** and choose **Alias to CloudFront distribution** from the dropdown. Select our distribution.
-15. Click **Create record**.
+![Cloudfront Asset Distrubution](assets/week8/CloudFront/14-cloudfront-distrubution.png)
 
-Upload Assets and Access it via the domain
+- Now you can Upload Assets to your S3 and Access it via the domain.
 
 [Related Commit](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/e1f2ea0cbebbd925b71a4f118b75feff29325adf) —  [Access](https://assets.yacrud.me/avatar/processed/not-just-aws-also-google-cloud-engineer.png) My Asset
 
@@ -695,9 +707,13 @@ aws s3 rm "s3://assets.$DOMAIN_NAME/avatars/data.jpg"
 
 ### Document Update API
 
-I have contemplated taking on this additional challenge to further Improve the developer experience.
+I have contemplated taking on this additional challenge to further Improve the developer experience and added the update endpoin to OpenAPI. 
 
-- Add the below snippet in `backend-flask/openapi-3.0.yml` to document **Update API Endpoint**
+<img src="assets/week8/Edit-Profile-Button/profile-API.png">
+
+**Step 1: Prepare the Documentation**
+
+- You can **Update the API Endpoint** doc by adding  the below snippet to `backend-flask/openapi-3.0.yml`
 
 ```yaml
   /api/profile/update:
@@ -736,9 +752,14 @@ I have contemplated taking on this additional challenge to further Improve the d
                 example: {}
 ```
 
+**Step 2: Populate the Documentation**
+
 - The generated API Doc is presented as follows
 
 <img src="assets/week8/Edit-Profile-Button/doc-api-update-profile.png">
+
+**Step 3: Save and Share the API to your fellow developer.**
+
 
 
 ### Database Migration
@@ -795,7 +816,7 @@ Conclude the implementation with the below steps
 | 2 | Exclude the `verbose` argument from the `query_wrap` functions. |
 | 3 | Update the functions to conditionally execute `print_sql` when `verbose` is set to `True`. |
 | 4 | Update `/components/ProfileHeading.jsx` with <div className="bio">{props.profile.bio}</div> |
-| 5 | Update the CSS with .profile_heading class selector and its nested .bio  |
+| 5 | Update the CSS with `.profile_heading` class selector and its nested `.bio`  |
 
 
 Log to the app, Click Edit Profile write Bio and click Save.
@@ -893,6 +914,155 @@ Upon successfully completing the steps, you should receive a "200 OK" response, 
 7. Rename the file to `function.rb`.
 
 
+
+### Create `cruddurApiGatewayLambdaAuthorizer`
+
+The Lambda Authorizer is responsible for authenticating and authorizing requests before they reach the Lambda function responsible for handling the upload.
+
+- In `aws/lambdas/lambda-authorizer/`, create `index.js` to authorize API Gateway requests. Run the following command to install the required dependencies:
+```bash
+npm install aws-jwt-verify --save
+```
+
+- Zip the contents of the `aws/lambdas/lambda-authorizer/` directory into a file named `lambda_authorizer.zip` using the command:
+
+```sh
+zip -r lambda_authorizer.zip .
+```
+
+![](assets/week8/API-Gateway/4-lambda-authorizer.png)
+
+
+Create a new Lambda function in the console using the Node 18 runtime and upload the previously created zip file.
+
+
+### Cruddur Api Gateway Lambda Authorizer
+API Gateway acts as a gateway or entry point for incoming requests and enables you to define routes and integrations and to handle upload avatar requests.
+
+To configure the API Gateway, follow these steps:
+
+1. Open the API Gateway console and select **HTTP APIs**.
+2. Click on **Build**.
+3. Choose **Lambda** from the **Add integration** dropdown and select the **CruddurUploadAvatar** lambda function.
+4. Enter the API name as `api.<domain_name>`.
+5. Click **Next**.
+
+#### Create the following two routes:
+
+- `POST /avatars/key_upload`:
+  - Authorizer: `CruddurJWTAuthorizer`
+  - Lambda integration: `CruddurAvatarUpload`
+- `OPTIONS /{proxy+}`:
+  - No authorizer
+  - Lambda integration: `CruddurAvatarUpload`
+
+#### To configure the authorizer:
+
+1. Select **Authorization** from the left pane.
+2. Go to **Manage authorizers** and click **Create**.
+3. Choose **Lambda** as the authorizer type, give it a name, and select the lambda authorizer function.
+4. Turn off **Authorizer caching**.
+5. Click **Create**.
+
+#### To attach the authorizer to the `POST` route:
+
+1. From the **Attach authorizers to routes** tab, click on `POST`.
+2. Select the lambda authorizer from the "Select existing authorizer" dropdown.
+3. Click **Attach Authorizer**.
+
+
+| Step | Interact with Backend |
+|------|-------------|
+| 1    | Update `frontend-react-js/src/components/ProfileForm.js` with upload `onclick` |
+| 2    | Update `S3UploadKey` and `S3Upload`. |
+
+#### To configure CORS:
+
+1. Select **CORS** from the left pane.
+2. Choose **POST** from the **Access-Control-Allow-Methods** dropdown.
+3. Set **Access-Control-Allow-Origin** to `*` and click **Add**.
+4. Set **Access-Control-Allow-Headers** to `*, authorization`.
+
+
+
+### Explicit API Gateway Logs group creation
+
+In addition to debugging with docker logs, the 3 lambdas cloudwatch logs, I created a log group explicitly for API gateway to further investigate and troubleshoot the auth process.
+
+To do so, you can follow the instructions below.
+1. Open the AWS Management Console.
+2. Navigate to the CloudWatch service.
+3. In the left navigation pane, choose "Logs".
+4. Click on "Create log group".
+5. Provide a unique name for the log group and click on "Create".
+6. Now, navigate to the API Gateway service.
+7. Select your desired API Gateway instance or create a new one.
+8. In the left navigation pane, choose "Settings".
+9. Under "Settings", choose "Logs/Tracing".
+10. In the "Access logging" section, click on "Edit".
+11. Choose the previously created CloudWatch Logs group from the dropdown menu.
+12. Configure the log format and the log level as per your requirements.
+13. Click on "Save" to create the API Gateway Logs Group.
+
+### Setting up the JWT Lambda Layer
+
+1. Get the JWT (JSON Web Token) from the gem store.
+2. Zip the JWT.
+3. Ship the zipped JWT to the console.
+
+You can use the following script to simplify the process:
+
+```bash
+#! /usr/bin/bash
+
+gem i jwt -Ni /tmp/lambda-layers/ruby-jwt/ruby/gems/2.7.0
+cd /tmp/lambda-layers/ruby-jwt
+
+zip -r lambda-layers . -x ".*" -x "*/.*"
+zipinfo -t lambda-layers
+
+aws lambda publish-layer-version \
+  --layer-name jwt \
+  --description "Lambda Layer for JWT" \
+  --license-info "MIT" \
+  --zip-file fileb://lambda-layers.zip \
+  --compatible-runtimes ruby2.7
+```
+
+After the above steps, navigate to your Lambda function configuration:
+
+1. Go to the AWS Management Console.
+2. Open the Lambda service.
+3. Select `Layers` from the left-hand menu.
+4. Locate and choose the `jwt` layer.
+
+
+
+### Required Environment Variables
+
+| Source                   | Env Var                    | Value                           |
+|--------------------------|----------------------------|---------------------------------|
+| **CruddurAvatarUpload**      | UPLOADS_BUCKET_NAME        | ur-bucket-name |
+| **Lambda Authorizer**        | CLIENT_ID                  | cognito       |
+|        | USER_POOL_ID               | cognito          |
+| **Developer workspace**      | REACT_APP_API_GATEWAY_ENDPOINT_URL |      ur-api-gateway-invoke-url                           |
+|       | cognito_user_id or cognito_user_uuid |     specify-which-is-right-for-you     |
+
+
+
+## Render Avatar from CloudFront
+
+Render and display your avatar image or profile picture in your application by serving it directly from the CloudFront content delivery network (CDN).
+
+
+1. Create a new file named `frontend-react-js/src/components/ProfileAvatar.js` in your project directory. This file will serve as the component responsible for rendering the avatar.
+2. Incorporate the `setUser` state within the `CheckAuth` function. This will enable the functionality to set the user state and ensure seamless avatar rendering.
+3. As part of the avatar rendering process, generate two essential files: `frontend-react-js/src/components/ProfileAvatar.js` and `ProfileAvatar.css`. These files will facilitate the customized styling of the avatar component.
+4. Integrate the `ProfileAvatar` component into `frontend-react-js/src/components/ProfileInfo.js` by importing it and updating the corresponding `<ProfileAvatar>` tag. By doing so, you will seamlessly incorporate the avatar into the profile information section of your application.
+5. Elevate the visual appeal of the profile heading section by adding the `<ProfileAvatar>` tag to `frontend-react-js/src/components/ProfileHeading.jsx`. This will prominently display the avatar within the profile heading, creating a visually engaging user interface.
+6. In the `show.sql` file, ensure the modification of `users.cognito_user_id` to `cognito_user_uuid`. This adjustment guarantees the proper retrieval and utilization of the `cognito_user_uuid` as part of the avatar rendering process.
+7. Tailor the CSS styles to perfection in the `frontend-react-js/src/components/ProfileHeading.css` file. Utilize this opportunity to customize the appearance of various profile components such as `.profile_heading`, `.bio`, `.profile-avatar`, `.banner`, `.cruds_count`, `.info`, `.info .id`, `.info .id .display_name`, and `.info .id .handle`.
+
 ---
 
 
@@ -904,17 +1074,19 @@ Upon successfully completing the steps, you should receive a "200 OK" response, 
 
 
 ### **AWS CDK Resources**
-I have considered the examination of these references to confidently affirm my conviction using CDK, and indeed, I do so with utmost certainty.
+I have considered the examination of these references to confidently affirm my conviction using CDK.
 
+| Resource                                                 | Description                                                                                   |
+| -------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| [What is the AWS CDK?](https://docs.aws.amazon.com/cdk/v2/guide/home.html)                      | Official documentation providing an overview and guide for AWS CDK.                          |
+| [AWS CDK Official Website](https://aws.amazon.com/fr/cdk/)                                       | The official website for AWS CDK, containing additional information and resources.            |
+| [CDK S3 Class Construct](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html) | Documentation for the CDK S3 Class Construct, specifically for creating S3 buckets.           |
+| [CDK Removal Policy](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_core.RemovalPolicy.html)  | Documentation explaining the CDK Removal Policy, used for defining the behavior of AWS resources when they are removed. |
+| [API Reference for CDK](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-construct-library.html)    | Detailed API reference documentation for the AWS CDK.                                         |
+| [AWS CDK Patterns](https://cdkpatterns.com/)                                                       | A collection of AWS CDK patterns and examples to help you build applications and infrastructure. |
+| [The CDK Book](https://www.thecdkbook.com/)                                                         | An extensive guidebook covering AWS CDK concepts and usage.                                   |
+| [Event: CDK Day](https://www.cdkday.com/)                                                            | An event dedicated to AWS CDK, featuring talks and presentations.                             |
+| [TypescriptLang](https://www.typescriptlang.org/play?#code/PTAEHUFMBsGMHsC2lQBd5oBYoCoE8AHSAZVgCcBLA1UABWgEM8BzM+AVwDsATAGiwoBnUENANQAd0gAjQRVSQAUCEmYKsTKGYUAbpGF4OY0BoadYKdJMoL+gzAzIoz3UNEiPOofEVKVqAHSKymAAmkYI7NCuqGqcANag8ABmIjQUXrFOKBJMggBcISGgoAC0oACCbvCwDKgU8JkY7p7ehCTkVDQS2E6gnPCxGcwmZqDSTgzxxWWVoASMFmgYkAAeRJTInN3ymj4d-jSCeNsMq-wuoPaOltigAKoASgAywhK7SbGQZIIz5VWCFzSeCrZagNYbChbHaxUDcCjJZLfSDbExIAgUdxkUBIursJzCFJtXydajBBCcQQ0MwAUVWDEQC0gADVHBQGNJ3KAALygABEAAkYNAMOB4GRonzFBTBPB3AERcwABS0+mM9ysygc9wASmCKhwzQ8ZC8iHFzmB7BoXzcZmY7AYzEg-Fg0HUiQ58D0Ii8fLpDKZgj5SWxfPADlQAHJhAA5SASPlBFQAeS+ZHegmdWkgR1QjgUrmkeFATjNOmGWH0KAQiGhwkuNok4uiIgMHGxCyYrA4PCCJSAA)|  Ready to code Typescript Environnement. |
 
+And indeed, I do so with utmost certainty.
 
-
-- [What is the AWS CDK?](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
-- [AWS CDK Official Website](https://aws.amazon.com/fr/cdk/)
-- [CDK S3 Class Construct](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3.Bucket.html)
--  [CDK Removal Policy](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_core.RemovalPolicy.html)
-- [API Reference for CDK](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-construct-library.html)
-- [AWS CDK Patterns](https://cdkpatterns.com/)
-- [The CDK Book](https://www.thecdkbook.com/)
-- [Event: CDK Day](https://www.cdkday.com/)
-- [TypescriptLang](https://www.typescriptlang.org/play?#code/PTAEHUFMBsGMHsC2lQBd5oBYoCoE8AHSAZVgCcBLA1UABWgEM8BzM+AVwDsATAGiwoBnUENANQAd0gAjQRVSQAUCEmYKsTKGYUAbpGF4OY0BoadYKdJMoL+gzAzIoz3UNEiPOofEVKVqAHSKymAAmkYI7NCuqGqcANag8ABmIjQUXrFOKBJMggBcISGgoAC0oACCbvCwDKgU8JkY7p7ehCTkVDQS2E6gnPCxGcwmZqDSTgzxxWWVoASMFmgYkAAeRJTInN3ymj4d-jSCeNsMq-wuoPaOltigAKoASgAywhK7SbGQZIIz5VWCFzSeCrZagNYbChbHaxUDcCjJZLfSDbExIAgUdxkUBIursJzCFJtXydajBBCcQQ0MwAUVWDEQC0gADVHBQGNJ3KAALygABEAAkYNAMOB4GRonzFBTBPB3AERcwABS0+mM9ysygc9wASmCKhwzQ8ZC8iHFzmB7BoXzcZmY7AYzEg-Fg0HUiQ58D0Ii8fLpDKZgj5SWxfPADlQAHJhAA5SASPlBFQAeS+ZHegmdWkgR1QjgUrmkeFATjNOmGWH0KAQiGhwkuNok4uiIgMHGxCyYrA4PCCJSAA)
