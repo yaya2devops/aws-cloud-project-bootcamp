@@ -2,12 +2,11 @@
 In this, we will continue from last week by focusing on maintaining equilibrium. 
 
 
-<div align="center">
-      
-<img src="assets/week6-7/ArchitectStuff/2-app-via-lb.jpg">
-</div>
+[Initial Version](assets/week6-7/ArchitectStuff/2-app-via-lb.jpg)
+<img src="assets/week6-7/ArchitectStuff/updates/week-seven-arch-update.png">
 
- **[Get it.](assets/week6-7/ArchitectStuff/2-app-via-lb.drawio)**
+[**Get it.**](assets/week6-7/ArchitectStuff/updates/week-seven-arch-update.drawio)
+
 
 
 Our technical responsibility for the week involves provisioning and operating containers to execute load balancing tasks, configuring our custom domain and mapping it to the load balancer's URL for seamless functionality.

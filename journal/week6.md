@@ -2,9 +2,11 @@
 
 Weeks 6 and 7 were consolidated into a two-week period of harmony, in here i'll organize them as separate weeks and give it a proper structure.
 
-<img src="assets/week6-7/ArchitectStuff/1-ship-to-aws.jpg">
+[Initial Version](assets/week6-7/ArchitectStuff/1-ship-to-aws.jpg)
+<img src="assets/week6-7/ArchitectStuff/updates/week-six-arch-update.png">
 
-- [Get it.](assets/week6-7/ArchitectStuff/1-ship-to-aws.drawio)
+
+[**Get it.**](assets/week6-7/ArchitectStuff/updates/week-six-arch-update.drawio)
 
 
 This will primarily involve onboarding the project to AWS, creating three repositories, building and pushing the Python container, backend flask and frontend reactjs to ECR.
