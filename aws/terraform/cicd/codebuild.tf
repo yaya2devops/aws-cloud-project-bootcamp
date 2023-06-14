@@ -126,7 +126,7 @@ data "aws_iam_policy_document" "s3_inline_policy" {
       "s3:GetBucketAcl",
       "s3:GetBucketLocation"
     ]
-    resources = ["arn:aws:s3:::tf-codepipeline-artifacts-annlee/*"]
+    resources = ["arn:aws:s3:::tf-codepipeline-artifacts-yaya/*"]
     effect    = "Allow"
   }
 }

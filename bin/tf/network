@@ -23,7 +23,7 @@ message() {
   fi
 }
 
-abs_filepath="$ABS_PATH/terraform/network"
+abs_filepath="$ABS_PATH/aws/terraform/network"
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
 cd "$FilePath"

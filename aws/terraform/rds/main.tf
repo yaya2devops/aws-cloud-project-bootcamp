@@ -29,9 +29,9 @@ provider "aws" {
 data "terraform_remote_state" "network" {
   backend = "s3"
   config = {
-    bucket = "tf-state-annlee"
+    bucket = "yaya-tf-state"
     key    = "terraform/networking/terraform.tfstate"
-    region = "us-east-1"
+    region = "ca-central-1"
   }
 }
 
@@ -39,9 +39,9 @@ data "terraform_remote_state" "network" {
 data "terraform_remote_state" "cluster" {
   backend = "s3"
   config = {
-    bucket = "tf-state-annlee"
+    bucket = "yaya-tf-state"
     key    = "terraform/cluster/terraform.tfstate"
-    region = "us-east-1"
+    region = "ca-central-1"
   }
 }
 

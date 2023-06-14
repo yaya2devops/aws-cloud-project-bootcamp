@@ -24,7 +24,7 @@ message() {
   fi
 }
 
-abs_filepath="$ABS_PATH/terraform/cicd"
+abs_filepath="$ABS_PATH/aws/terraform/cicd"
 FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
 cd "$FilePath"

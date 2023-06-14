@@ -88,7 +88,7 @@ resource "aws_lb_listener_rule" "API_ALB_Listerner_Rule" {
 
   condition {
     host_header {
-      values = ["testapi.annleefores.cloud"]
+      values = ["testapi.yacrud.me"]
     }
   }
 }
