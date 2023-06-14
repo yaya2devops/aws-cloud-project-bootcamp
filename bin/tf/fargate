@@ -13,9 +13,14 @@ colorize() {
 }
 
 message() {
-  echo "This deployment script made by Yaya helps you ship your infra straight to AWS using Terraform."
+  echo "This deployment script made by Yaya helps you ship yacrud fargate service straight to AWS using Terraform."
+
+  echo "==============================================================================================="
   echo "Please make sure you have reviewed the configuration files and understand the changes that will be applied."
+  echo "================================================================================================"
   echo "Are you sure you want to proceed with the deployment? (y/n)"
+  echo "================================================================================================"
+  echo "(y/n) only 'y' will be taken as answer."
   read -r confirm
   if [[ $confirm != "y" ]]; then
     colorize "red" "Deployment canceled by user."
@@ -23,10 +28,10 @@ message() {
   fi
 }
 
-abs_filepath="$ABS_PATH/aws/terraform/fargate"
-FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+abs_filepath="$PWD/aws/terraform/fargate"
 
-cd "$FilePath"
+cd "$abs_filepath"
+
 
 # Display personalized message and prompt for confirmation
 message
@@ -38,7 +43,6 @@ terraform fmt -recursive
 colorize "yellow" "Running Terraform validate..."
 terraform validate
 
-# Test
 colorize "yellow" "Running TFLint..."
 tflint
 

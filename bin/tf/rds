@@ -23,10 +23,9 @@ message() {
   fi
 }
 
-abs_filepath="$ABS_PATH/aws/terraform/rds"
-FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
+abs_filepath="$PWD/aws/terraform/rds"
 
-cd "$FilePath"
+cd "$abs_filepath"
 
 # Display personalized message and prompt for confirmation
 message
@@ -38,7 +37,6 @@ terraform fmt -recursive
 colorize "yellow" "Running Terraform validate..."
 terraform validate
 
-# Test
 colorize "yellow" "Running TFLint..."
 tflint
 
