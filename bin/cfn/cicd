@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# commenting for now - set -e
+#set -e # stop the execution of the script if it fails
 
 CFN_PATH="/workspace/aws-cloud-project-bootcamp/aws/cfn/cicd/template.yaml"
 CONFIG_PATH="/workspace/aws-cloud-project-bootcamp/aws/cfn/cicd/config.toml"
@@ -15,9 +15,6 @@ BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
 REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
 STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
 
-
-
-
 # package
 # -----------------
 echo "== packaging CFN to S3..."
@@ -27,9 +24,6 @@ aws cloudformation package \
   --s3-prefix cicd-package \
   --region $REGION \
   --output-template-file "$PACKAGED_PATH"
-
-
-
 
 aws cloudformation deploy \
   --stack-name $STACK_NAME \
