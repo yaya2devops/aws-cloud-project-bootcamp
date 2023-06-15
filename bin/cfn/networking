@@ -1,21 +1,25 @@
-#! /usr/bin/env bash
-set -e # stop the execution of the script if it fails
+#! /usr/bin/bash
 
-CFN_PATH="/workspace/aws-cloud-project-bootcamp/aws/cfn/networking/config.toml"
-echo $CFN_PATH
+set -e # stop execution if anything fails
 
-cfn-lint $CFN_PATH
+abs_filepath="/workspace/aws-cloud-project-bootcamp/aws/cfn/networking/template.yaml"
+FilePath=$(realpath --relative-base="$PWD" "$abs_filepath")
 
-BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
-REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
-STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
+abs_config_filepath="/workspace/aws-cloud-project-bootcamp/aws/cfn/networking/config.toml"
+ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
+
+BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
+REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
+
+cfn-lint $FilePath
 
 aws cloudformation deploy \
   --stack-name $STACK_NAME \
   --s3-bucket $BUCKET \
   --s3-prefix networking \
   --region $REGION \
-  --template-file "$CFN_PATH" \
+  --template-file "$FilePath" \
   --no-execute-changeset \
   --tags group=cruddur-networking \
   --capabilities CAPABILITY_NAMED_IAM

@@ -1,16 +1,19 @@
 
 ## Deploying Networking Layer
-```
-$ ./bin/cfn/networking-deploy
-Uploading to b7b09f0f23030fbf736ef894dc62a0f7.template  5997 / 5997.0  (100.00%)
+```s
+./bin/cfn/networking 
+
+Uploading to networking/442c87004a2e748a197c6e9e62d8f33f.template  6749 / 6749.0  (100.00%)
+
 Waiting for changeset to be created..
-Changeset created successfully. 
-Run the following command to review changes:
-aws cloudformation describe-change-set --change-set-name arn:aws:cloudformation:ca-central-1:<ur-aws-id>:changeSet/awscli-cloudformation-package-deploy-1683152740/1e7867d4-d255-4bf2-a3c0-f09d8738f99a
+Changeset created successfully. Run the following command to review changes:
+aws cloudformation describe-change-set --change-set-name arn:aws:cloudformation:<region>:<aws-id>:changeSet/awscli-cloudformation-package-deploy-1686829989/98025596-13b4-444f-9c6d-b7eea04e16e7
 ```
+> [Refer to the console](../../../journal/assets/week11/cfn-stack/network-stack-cfn.png) 
 
 ### AWS CFN Cruddur — Networking Resources
 
+[CloudFormation](../../../journal/assets/week11/cfn-stack/resources-networking-layer-cfn.png)
 | ID logique | ID physique | Type | Statut | Module |
 | --- | --- | --- | --- | --- |
 | AttachIGW | Crudd-Attac-1A3W4UWOQ3AWA | AWS::EC2::VPCGatewayAttachment | CREATE_COMPLETE | - |
@@ -30,3 +33,42 @@ aws cloudformation describe-change-set --change-set-name arn:aws:cloudformation:
 | SubnetPub3 | subnet-084a1180ac87c106b | AWS::EC2::Subnet | CREATE_COMPLETE | - |
 | SubnetPub3RTAssociation | rtbassoc-04e300e21eb15bad4 | AWS::EC2::SubnetRouteTableAssociation | CREATE_COMPLETE | - |
 | VPC | vpc-05c8dd3253102dc32 | AWS::EC2::VPC | CREATE_COMPLETE | - |
+
+### AWS CFN Cruddur — Networking Resources
+
+Below are the events triggered after executing the change set in the console.
+
+
+Événements (54)
+
+| Horodatage             | ID logique                   | Statut            | Motif du statut               |
+|------------------------|------------------------------|--------------------|-------------------------------|
+| 15-06-2023 14:44:26 UTC+0200 | CrdNet                    | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:24 UTC+0200 | RouteToIGW                | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:09 UTC+0200 | RouteToIGW                | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:44:08 UTC+0200 | RouteToIGW                | CREATE_IN_PROGRESS | -                             |
+| 15-06-2023 14:44:07 UTC+0200 | AttachIGW                 | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPriv3RTAssociation  | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPub2RTAssociation   | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPub3RTAssociation   | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPriv2RTAssociation  | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPub1RTAssociation   | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPriv3RTAssociation  | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPub2RTAssociation   | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPub3RTAssociation   | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:44:01 UTC+0200 | SubnetPriv1RTAssociation  | CREATE_COMPLETE   | -                             |
+| 15-06-2023 14:44:00 UTC+0200 | SubnetPriv2RTAssociation  | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:44:00 UTC+0200 | SubnetPub1RTAssociation   | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:44:00 UTC+0200 | SubnetPriv1RTAssociation  | CREATE_IN_PROGRESS | Resource creation Initiated  |
+| 15-06-2023 14:43:59 UTC+0200 | SubnetPub2RTAssociation   | CREATE_IN_PROGRESS | -                             |
+| 15-06-2023 14:43:59 UTC+0200 | SubnetPriv3RTAssociation  | CREATE_IN_PROGRESS | -                             |
+| 15-06-2023 14:43:59 UTC+0200 | SubnetPub3RTAssociation   | CREATE_IN_PROGRESS | -                             |
+| 15-06-2023 14:43:59 UTC+0200 | SubnetPriv1RTAssociation  | CREATE_IN_PROGRESS | -                             |
+| 15-06-2023 14:43:46 UTC+0200 | RouteTable           | CREATE_IN_PROGRESS  | -                             |
+| 15-06-2023 14:43:45 UTC+0200 | VPC                    | CREATE_COMPLETE     | -                             |
+| 15-06-2023 14:43:34 UTC+0200 | IGW                    | CREATE_IN_PROGRESS  | Resource creation Initiated   |
+| 15-06-2023 14:43:34 UTC+0200 | VPC                    | CREATE_IN_PROGRESS  | Resource creation Initiated   |
+| 15-06-2023 14:43:33 UTC+0200 | IGW                    | CREATE_IN_PROGRESS  | -                             |
+| 15-06-2023 14:43:33 UTC+0200 | VPC                    | CREATE_IN_PROGRESS  | -                             |
+| 15-06-2023 14:43:30 UTC+0200 | CrdNet                 | CREATE_IN_PROGRESS  | User Initiated                |
+| 15-06-2023 13:53:10 UTC+0200 | CrdNet                 | REVIEW_IN_PROGRESS  | User Initiated                |

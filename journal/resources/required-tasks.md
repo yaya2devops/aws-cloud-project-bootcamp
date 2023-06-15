@@ -213,11 +213,13 @@ Watched Ashish's Week 4 - Security Considerations                               
 |------------------------------------            |:---: |
 | Implement CFN Networking Layer                 |✅|
 | Design CFN Networking Layer Diagram            |❗| 
-| Implement CFN Cluster Layer                    |❗|
-| Implement CFN Toml                             |❗|
-| Implement CFN Service Layer for Backend        |❗|
-| Implement CFN Database Layer (RDS)             |❗|
-| Design Service and Database Diagram            |❗|
+| Implement CFN Cluster Layer                    |✅|
+| Implement CFN Toml                             |✅|
+| Design CFN Cluster Layer Diagram               |❗|
+| Implement CFN Fargate Service  for Backend     |✅|
+| Design CFN Service Layer Diagram               |❗|
+| Implement CFN RDS                              |✅|
+| Design CFN RDS Diagram                         |❗|
 
 
 
@@ -240,10 +242,19 @@ Watched Ashish's Week 4 - Security Considerations                               
 
 ### Week X — Cleanup 
 
-| ❗Required Tasks                               |Stats |
-|------------------------------------            |:---: |
-| Loading                                        |⌛ |
-
+| ❗Required Tasks                                      |Stats |
+|------------------------------------                   |:---: |
+|Week X Sync tool for static website hosting            |⌛ |
+|Reconnect DB and Postgre Confirmation Lamba            |⌛ |
+|Fix CORS to use domain name for web-app                |⌛ |
+|Ensure CI/CD pipeline works and create activity works  |⌛ |
+|Refactor to use JWT Decorator in Flask App             |⌛ |
+|Refactor App.py                                        |⌛ |
+|Refactor Flask Routes                                  |⌛ |
+|Implement Replies for Posts                            |⌛ |
+|Improved Error Handling for the app                    |⌛ |
+|Activities Show Page                                   |⌛ |
+|More General Cleanup Part 1 and Part 2                 |⌛ |
 
 
 

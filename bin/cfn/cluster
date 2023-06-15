@@ -1,23 +1,26 @@
-#! /usr/bin/env bash
-set -e # stop the execution of the script if it fails
+#! /usr/bin/bash
 
-CFN_PATH="/workspace/aws-cloud-project-bootcamp/aws/cfn/cluster/config.toml"
-echo $CFN_PATH
+set -e # stop execution if anything fails
 
-cfn-lint $CFN_PATH
+abs_template_filepath="/workspace/aws-cloud-project-bootcamp/aws/cfn/cluster/template.yaml"
+TemplateFilePath=$(realpath --relative-base="$PWD" "$abs_template_filepath")
 
+abs_config_filepath="/workspace/aws-cloud-project-bootcamp/aws/cfn/cluster/config.toml"
+ConfigFilePath=$(realpath --relative-base="$PWD" "$abs_config_filepath")
 
-BUCKET=$(cfn-toml key deploy.bucket -t $CONFIG_PATH)
-REGION=$(cfn-toml key deploy.region -t $CONFIG_PATH)
-STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
-PARAMETERS=$(cfn-toml params v2 -t $CONFIG_PATH)
+BUCKET=$(cfn-toml key deploy.bucket -t $ConfigFilePath)
+REGION=$(cfn-toml key deploy.region -t $ConfigFilePath)
+STACK_NAME=$(cfn-toml key deploy.stack_name -t $ConfigFilePath)
+PARAMETERS=$(cfn-toml params v2 -t $ConfigFilePath)
+
+cfn-lint $TemplateFilePath
 
 aws cloudformation deploy \
-  --stack-name $STACK_NAME \ 
-  --s3-bucket $BUCKET \
+  --stack-name "$STACK_NAME" \
+  --s3-bucket "$BUCKET" \
   --s3-prefix cluster \
   --region $REGION \
-  --template-file "$CFN_PATH" \
+  --template-file $TemplateFilePath \
   --no-execute-changeset \
   --tags group=cruddur-cluster \
   --parameter-overrides $PARAMETERS \
