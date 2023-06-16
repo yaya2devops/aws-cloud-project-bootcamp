@@ -1,6 +1,15 @@
 # Provision DynamoDB Via SAM CFN
+SAM templates were chosen over CloudFormation for provisioning DynamoDB mainly because
+- Higher-level abstraction designed for serverless applications.
+- Simplified packaging and deployment capabilities.
+- The streamlined template syntax.
+
+SAM templates provide a clear and focused representation of the required resources.
+
+![DyanmoDB SAM](../journal/assets/week11/big-bundle/3-Yacrud_%20AWS%20DynamoDB.svg)
+
 | Step     | Description                                    |
-| -------- | ---------------------------------------------- |
+| --------: | ---------------------------------------------- |
 | [`Build`](#building)  | Build your SAM application.                     |
 | [`Package`](#package)  | Package your application and dependencies.      |
 | [`Deploy`](#deploy)   | Deploy the application and provision DynamoDB.  |

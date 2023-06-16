@@ -212,14 +212,14 @@ Watched Ashish's Week 4 - Security Considerations                               
 | ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
 | Implement CFN Networking Layer                 |✅|
-| Design CFN Networking Layer Diagram            |❗| 
+| Design CFN Networking Layer Diagram            |✅| 
 | Implement CFN Cluster Layer                    |✅|
 | Implement CFN Toml                             |✅|
-| Design CFN Cluster Layer Diagram               |❗|
+| Design CFN Cluster Layer Diagram               |✅|
 | Implement CFN Fargate Service  for Backend     |✅|
-| Design CFN Service Layer Diagram               |❗|
+| Design CFN Service Diagram                     |✅|
 | Implement CFN RDS                              |✅|
-| Design CFN RDS Diagram                         |❗|
+| Design CFN RDS Diagram                         |✅|
 
 
 
@@ -229,9 +229,9 @@ Watched Ashish's Week 4 - Security Considerations                               
 | ❗Required Tasks                               |Stats |
 |------------------------------------            |:---: |
 | Implement DynamoDB using SAM                   |✅|
-| Design DynamoDB Diagram                        |❗|
+| Design DynamoDB Diagram                        |✅|
 | Implement CI/CD                                |✅|
-| Design CI/CD Diagram                           |❗|
+| Design CI/CD Diagram                           |✅|
 | Implement CFN Static Website Hosting Frontend  |❗|
 | Design Static Frontend Diagram                 |❗|
 | IaaC Security Practices                        |❗|
