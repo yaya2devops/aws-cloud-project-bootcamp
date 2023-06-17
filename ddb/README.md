@@ -4,9 +4,11 @@ SAM templates were chosen over CloudFormation for provisioning DynamoDB mainly b
 - Simplified packaging and deployment capabilities.
 - The streamlined template syntax.
 
-SAM templates provide a clear and focused representation of the required resources.
 
 ![DyanmoDB SAM](../journal/assets/week11/big-bundle/3-Yacrud_%20AWS%20DynamoDB.svg)
+
+SAM templates provide a clear and focused representation of the required resources.
+
 
 | Step     | Description                                    |
 | --------: | ---------------------------------------------- |
