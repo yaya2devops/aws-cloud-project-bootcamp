@@ -11,6 +11,7 @@ In the consecutive weeks of ten and eleven, we have leveraged the power of Infra
   - [CFN Lint](#cfn-lint)
   - [TOML Config ](#toml-and-config-management)
 - [CloudFormation Stack](#yacrud-cfn-stack)
+  - [CFN Bucket 🪣](#setting-up-cfn-artifact-bucket)
   - [Networking Layer](#cfn-network-layer)
   - [Cluster Template](#cluster-template)
   - [AWS RDS Template](#aws-rds-template)
@@ -84,12 +85,15 @@ The inclusion of this manual execution step using the `--no-execute-changeset \`
 
 Beyond the workflow, the key aspect of working with CFN lies in developing robust and secure templates.
 
+> Check [Project Templates](../aws/cfn/README.md)
 
 # CFN — Policy As Code
 
-During CFN Implementations, It is as important to gain a deep understanding of prioritizing security in such practices. As you delve into creating and managing infrastructure through code, it becomes crucial to ensure that security considerations are at the forefront of our approach.
+This is an approach that involves expressing and managing policies in the form of code. 
 
-## Onboard CFN Guard
+During CFN Implementations, It is as important to enforce compliance and PaC helps ensure that the deployed infrastructure adheres to the organization's policies and standards. 
+
+## Application CFN Guard
 
 CFN Guard allows us to define custom rules and policies that are enforced during the CloudFormation stack deployment process. This ensure that our infrastructure deployments comply with **security**, **compliance**, and **governance** requirements.
 
@@ -136,8 +140,6 @@ aws cloudformation validate-template --template-body file:////path/to/your/cfn/t
 
  
 AWS CloudFormation will examine the syntax and validate the contents of the template. If any errors or warnings are detected, they will be displayed in the command output.
-
-[Hyperlink to Validate Script]()
 
 
 > Another potential tool to validate your CFN is [taskcat](https://github.com/aws-ia/taskcat)
@@ -389,7 +391,7 @@ The IGW enables internet connectivity for resources within the VPC, allowing you
 ```
 
 
-### AttachIGW
+### Attach VPC Gateway
 
 Attaching the IGW to the VPC establishes the connectivity between your VPC and the internet, enabling inbound and outbound internet traffic for yacrud app.
 
@@ -407,7 +409,7 @@ Attaching the IGW to the VPC establishes the connectivity between your VPC and t
 ```
 
 
-### RouteTable
+### Route Table
 
 A route table contains a set of rules (routes) that determine where network traffic is directed within a VPC.
 
@@ -426,7 +428,7 @@ A route table contains a set of rules (routes) that determine where network traf
           Value: !Sub "${AWS::StackName}RT"
 ```
 
-### RouteToIGW
+### Route To Internet Gateway
 
 This component defines a route in the route table to direct internet-bound traffic to the Internet Gateway to ensure that traffic destined for the internet is directed to the IGW.
 
@@ -447,7 +449,7 @@ This component defines a route in the route table to direct internet-bound traff
       DestinationCidrBlock: 0.0.0.0/0
 ```
 
-### SubnetPub1, SubnetPub2, SubnetPub3
+### Public Subnets
 
 Public subnets are used to host our resources to have direct internet access and allow app to serve requests from the internet.
 
@@ -499,7 +501,7 @@ Public subnets are used to host our resources to have direct internet access and
           Value: !Sub "${AWS::StackName}SubnetPub3"
 ```
 
-### SubnetPriv1, SubnetPriv2, SubnetPriv3
+### Private Subnets
 
 We used these private subnets to host resources that should not be directly accessible from the internet, such as RDS and DynamoDB connections.
 - **Type**: `AWS::EC2::Subnet`
@@ -578,24 +580,19 @@ Subnet associations establish the link between subnets and the route table. Main
 ```
 ### Outputs
 CloudFormation templates allow you to export certain values or resources for use in other stacks or AWS services.
+
 - **VpcId**:
-  - **Value**: References the `VPC` resource.
-  - **Export**:
-    - **Name**: !Sub "${AWS::StackName}VpcId"
+  - **Value**: This output references the `VPC` resource.
+  - **Export**: The name of the export is generated using the `AWS::StackName` and appended with `VpcId`. For example, if the stack name is `MyStack`, the export name would be `${AWS::StackName}VpcId`.
 - **SubnetCidrBlocks**:
-  - **Value**: Joins the `SubnetCidrBlocks` parameter using a comma-separated format.
-  - **Export**:
-    - **Name**: !Sub "${AWS::StackName}SubnetCidrBlocks"
+  - **Value**: This output joins the `SubnetCidrBlocks` parameter using a comma-separated format.
+  - **Export**: The name of the export is generated using the `AWS::StackName` and appended with `SubnetCidrBlocks`. For example, if the stack name is `MyStack`, the export name would be `${AWS::StackName}SubnetCidrBlocks`.
 - **PublicSubnetIds**:
-  - **Value**: Joins the `SubnetPub1`, `SubnetPub2`, and `SubnetPub3` resources using a comma-separated format.
-  - **Export**:
-    - **Name**: !Sub "${AWS::StackName}PublicSubnetIds"
-  - **Export**:
-    - **Name**: !Sub "${AWS::StackName}PrivateSubnetIds"
-- **AvailabilityZones**:
-  - **Value**: Joins the `Az1`, `Az2`, and `Az3` parameters using a comma-separated format.
-  - **Export**:
-    - **Name**: !Sub "${AWS::StackName}AvailabilityZones"
+  - **Value**: This output joins the `SubnetPub1`, `SubnetPub2`, and `SubnetPub3` resources using a comma-separated format.
+  - **Export**: The name of the export is generated using the `AWS::StackName` and appended with `PublicSubnetIds`. For example, if the stack name is `MyStack`, the export name would be `${AWS::StackName}PublicSubnetIds`.
+- **PrivateSubnetIds**:
+  - **Value**: This output joins the `SubnetPriv1`, `SubnetPriv2`, and `SubnetPriv3` resources using a comma-separated format.
+  - **Export**: The name of the export is generated using the `AWS::StackName` and appended with `PrivateSubnetIds`. For example, if the stack name is `MyStack`, the export name would be `${AWS::StackName}PrivateSubnetIds`.
 
 ```YAML
 Outputs:
@@ -627,6 +624,14 @@ Outputs:
         - !Ref SubnetPriv3
     Export:
       Name: !Sub "${AWS::StackName}PrivateSubnetIds"
+```
+
+
+#### **Availability Zones**
+  - **Value**: This output joins the `Az1`, `Az2`, and `Az3` parameters using a comma-separated format.
+  - **Export**:
+    - **Name**: The name of the export is generated using the `AWS::StackName` and appended with `AvailabilityZones`. For example, if the stack name is `MyStack`, the export name would be `${AWS::StackName}AvailabilityZones`.
+```YAML
   AvailabilityZones:
     Value: !Join 
       - ","
@@ -636,7 +641,11 @@ Outputs:
     Export:
       Name: !Sub "${AWS::StackName}AvailabilityZones"
 ```
-The networking components we have covered form the foundation of our app's network layer. Save the template in `aws/cfn/networking/template.yaml`
+
+
+The networking components we have covered form the foundation of our app's network layer. 
+
+Save the template in `aws/cfn/networking/template.yaml`
 
 [**Follow the below section**](#setting-up-cfn-artifact-bucket) to create a bucket prior your first deployement.
 
@@ -684,6 +693,7 @@ stack_name = 'CrdNet'
 
 ![CFN Deploy](assets/week10/network/networking-stack-cloud-formation-applied.png)
 
+
 --- 
 
 ### Setting Up CFN Artifact Bucket
@@ -708,6 +718,8 @@ We can now reference the bucket name in the scripts and get the artifacts on dep
 
 ![Cluster and Network Artifacts](assets/week10/network/cluster-and-the-greatest-networking-layer-to-s3.png)
 
+> Bucket names are unique, *you may not use mine.*
+
 ---
 
 ## Cluster Template
@@ -717,21 +729,425 @@ Create `aws/cfn/cluster/config.toml` and add the below variables.
 ```TOML
 [deploy]
 bucket = 'cfn-artifacts-111'
-region = 'ca-central-1'
+region = '<region>'
 stack_name = 'CrdCluster'
 
 [parameters]
-CertificateArn = 'arn:aws:acm:ca-central-1:598485450821:certificate/dde234bf-7796-4c97-a977-b1d0a19e978d'
+CertificateArn = 'arn:aws:acm:<region>:598485450821:certificate/dde234bf-7796-4c97-a977-b1d0a19e978d'
 NetworkingStack = 'CrdNet'
 ```
 
-Create `aws/cfn/cluster/template.yaml`.
 
+### Cluster Description
+
+Create `aws/cfn/cluster/template.yaml` and reflect on the description.
+
+
+| Resource                        | Description                                                     |
+| ------------------------------- | --------------------------------------------------------------- |
+| ECS Fargate Cluster             | Configures an ECS Fargate Cluster.                               |
+| Application Load Balancer (ALB) | Sets up an ALB that is IPv4 only and internet-facing.            |
+| ALB Security Group              | Defines a security group for the ALB.                            |
+| Certificate (ACM)               | Attaches a certificate from Amazon Certification Manager (ACM).  |
+| HTTPS Listener                  | Listens for HTTPS traffic and directs it to appropriate targets. |
+| HTTP Listener                   | Listens for HTTP traffic and redirects it to HTTPS.              |
+| Backend Target Group            | Routes traffic to the backend service.                           |
+| Frontend Target Group           | Routes traffic to the frontend service.                          |
+
+Add the section to your  `Description` in `template.yaml`
+
+```YAML
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+ This template defines the networking and cluster configuration required to support Fargate containers. It includes:
+  - ECS Fargate Cluster
+  - Application Load Balanacer (ALB)
+    - ipv4 only
+    - internet facing
+  - ALB Security Group
+  - certificate attached from Amazon Certification Manager (ACM)
+  - HTTPS Listerner
+    - send naked domain to frontend Target Group
+    - send api. subdomain to backend Target Group
+  - HTTP Listerner
+    - redirects to HTTPS Listerner
+  - Backend Target Group
+  - Frontend Target Group
+```
+### Cluster Parameters
+
+Parameters:
+- **NetworkingStack**: This parameter represents the base layer of networking components, such as VPC and subnets. It allows you to specify the networking stack to use as the foundation for the Fargate cluster. 
+- **CertificateArn**: This parameter is of type string and is used to specify the ARN (Amazon Resource Name) of the certificate attached from Amazon Certification Manager (ACM). It allows you to associate an SSL/TLS certificate with the Application Load Balancer (ALB) for secure communication.
+```yaml
+Parameters:
+  NetworkingStack:
+    Type: String
+    Description: This is our base layer of networking components eg. VPC, Subnets
+    Default: CrdNet
+  CertificateArn:
+    Type: String
+```
+
+**Cluster Frontend**
+
+- **FrontendPort**: This represents the port number for the frontend. The default value is set to 3000.
+- **FrontendHealthCheckIntervalSeconds**: This specifies the interval, in seconds, between health checks for the frontend service. The default value is set to 15.
+- **FrontendHealthCheckPath**: This represents the path that is used for the health check of the frontend service.
+- **FrontendHealthCheckPort**: This defines the port that the ALB uses for health checks on the frontend service.
+- **FrontendHealthCheckProtocol**: used for health checks on the frontend service. It specifies whether HTTP or HTTPS is used for the health check.
+- **FrontendHealthCheckTimeoutSeconds**: determines how long the ALB waits for a response before considering the health check as failed.
+- **FrontendHealthyThresholdCount**: Thisdefines the number of consecutive successful health checks required to consider the frontend service as healthy.
+- **FrontendUnhealthyThresholdCount**: This specifies the number of consecutive failed health checks required to consider the frontend service as unhealthy. 
+
+```YAML
+  FrontendPort:
+    Type: Number
+    Default: 3000
+  FrontendHealthCheckIntervalSeconds:
+    Type: Number
+    Default: 15
+  FrontendHealthCheckPath:
+    Type: String
+    Default: "/"
+  FrontendHealthCheckPort:
+    Type: String
+    Default: 80
+  FrontendHealthCheckProtocol:
+    Type: String
+    Default: HTTP
+  FrontendHealthCheckTimeoutSeconds:
+    Type: Number
+    Default: 5
+  FrontendHealthyThresholdCount:
+    Type: Number
+    Default: 2
+  FrontendUnhealthyThresholdCount:
+    Type: Number
+    Default: 2
+```
+
+
+**Cluster Backend**
+
+- **BackendPort**: This represents the port number for the backend and is set to 4567.
+- **BackendHealthCheckIntervalSeconds**: Same applies as frontend.
+- **BackendHealthCheckPath**: It specifies the endpoint that the ALB uses to check the health of the backend service and is set to `"/api/health-check".`
+- **BackendHealthCheckPort**: This parameter is of type string and defines the port that the ALB uses
+- **BackendHealthCheckProtocol:**  It specifies whether HTTP or HTTPS is used for the health check. The default value is set to HTTP.
+- **BackendHealthCheckTimeoutSeconds:** determines how long the ALB waits for a response before considering the health check as failed. The default value is set to 5.
+- **BackendHealthyThresholdCount:** It specifies the minimum number of successful health checks needed to mark the service as healthy.
+- **BackendUnhealthyThresholdCount:** This parameter is of type number and specifies the number of consecutive failed health checks required to consider the backend service as unhealthy. 
+
+```YAML
+  BackendPort:
+    Type: Number
+    Default: 4567
+  BackendHealthCheckIntervalSeconds:
+    Type: String
+    Default: 15
+  BackendHealthCheckPath:
+    Type: String
+    Default: "/api/health-check"
+  BackendHealthCheckPort:
+    Type: String
+    Default: 80
+  BackendHealthCheckProtocol:
+    Type: String
+    Default: HTTP
+  BackendHealthCheckTimeoutSeconds:
+    Type: Number
+    Default: 5
+  BackendHealthyThresholdCount:
+    Type: Number
+    Default: 2
+  BackendUnhealthyThresholdCount:
+    Type: Number
+    Default: 2
+```
+
+**Cluster Required Resources**
+### FargateCluster
+The `FargateCluster` resource represents an ECS cluster using Fargate. It is the foundation of the containerized infrastructure. The properties for this resource include:
+
+- `ClusterName`: The name of the ECS cluster.
+- `CapacityProviders`: The capacity providers to associate with the cluster. In this case, it is set to `FARGATE`.
+- `ClusterSettings`: Additional settings for the cluster. Here, the `containerInsights` setting is enabled.
+- `Configuration`: Configuration settings for executing commands within the cluster, with the `Logging` property set to `DEFAULT`.
+- `ServiceConnectDefaults`: Default settings for Service Discovery namespaces within the cluster.
+
+```YAML
+Resources:
+  FargateCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub "${AWS::StackName}FargateCluster"
+      CapacityProviders:
+        - FARGATE
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+      Configuration:
+        ExecuteCommandConfiguration:
+          Logging: DEFAULT
+      ServiceConnectDefaults:
+        Namespace: cruddur
+```
+
+### Application Load Balancer
+The `ALB` resource represents an Application Load Balancer. It acts as the entry point for incoming traffic and distributes it to the appropriate target groups. The properties for this resource include:
+
+- `Name`: The name of the load balancer.
+- `Type`: The type of load balancer, set to `application`.
+- `IpAddressType`: The IP address type for the load balancer, set to `ipv4`.
+- `Scheme`: The scheme of the load balancer, set to `internet-facing`.
+- `SecurityGroups`: The security groups associated with the load balancer.
+- `Subnets`: The subnets in which the load balancer is deployed.
+- `LoadBalancerAttributes`: Additional attributes for the load balancer, such as enabling HTTP/2, cross-zone load balancing, and more.
+
+```YAML
+  ALB:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties: 
+      Name: !Sub "${AWS::StackName}ALB"
+      Type: application
+      IpAddressType: ipv4
+      Scheme: internet-facing
+      SecurityGroups:
+        - !GetAtt ALBSG.GroupId
+      Subnets:
+        Fn::Split:
+          - ","
+          - Fn::ImportValue:
+              !Sub "${NetworkingStack}PublicSubnetIds"
+      LoadBalancerAttributes:
+        - Key: routing.http2.enabled
+          Value: true
+        - Key: routing.http.preserve_host_header.enabled
+          Value: false
+        - Key: deletion_protection.enabled
+          Value: true
+        - Key: load_balancing.cross_zone.enabled
+          Value: true
+        - Key: access_logs.s3.enabled
+          Value: false
+```
+
+### HTTPS Listener
+The `HTTPSListener` resource represents the HTTPS listener of the Application Load Balancer. It listens for incoming HTTPS traffic on port 443. The properties for this resource include:
+
+- `Protocol`: The protocol for the listener, set to `HTTPS`.
+- `Port`: The port on which the listener listens.
+- `LoadBalancerArn`: The ARN of the load balancer to which the listener is attached.
+- `Certificates`: The SSL/TLS certificates associated with the listener.
+- `DefaultActions`: The default actions to be performed when a request matches the listener.
+```YAML
+  HTTPSListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Protocol: HTTPS
+      Port: 443
+      LoadBalancerArn: !Ref ALB
+      Certificates: 
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn:  !Ref FrontendTG
+```
+### HTTP Listener
+The `HTTPListener` resource represents the HTTP listener of the Application Load Balancer. It listens for incoming HTTP traffic on port 80 and redirects it to HTTPS. The properties for this resource include:
+
+- `Protocol`: The protocol for the listener, set to `HTTP`.
+- `Port`: The port on which the listener listens.
+- `LoadBalancerArn`: The ARN of the load balancer to which the listener is attached.
+- `DefaultActions`: The default actions to be performed when a request matches the listener, in this case, a redirect to HTTPS.
+
+```YAML
+  HTTPListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+        Protocol: HTTP
+        Port: 80
+        LoadBalancerArn: !Ref ALB
+        DefaultActions:
+          - Type: redirect
+            RedirectConfig:
+              Protocol: "HTTPS"
+              Port: 443
+              Host: "#{host}"
+              Path: "/#{path}"
+              Query: "#{query}"
+              StatusCode: "HTTP_301"
+```
+### API ALB Listerner Rule
+The `ApiALBListernerRule` resource represents a listener rule for the API subdomain. It defines conditions and actions for routing requests to the backend target group. The properties for this resource include:
+
+- `Conditions`: The conditions that must be met for the rule to be applied.
+- `Actions`: The actions to be performed when a request matches the rule.
+- `ListenerArn`: The ARN of the listener to which the rule belongs.
+- `Priority`: The priority of the rule to determine its order of evaluation.
+```YAML
+  ApiALBListernerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Conditions: 
+        - Field: host-header
+          HostHeaderConfig: 
+            Values: 
+              - api.cruddur.com
+      Actions: 
+        - Type: forward
+          TargetGroupArn:  !Ref BackendTG
+      ListenerArn: !Ref HTTPSListener
+      Priority: 1
+```
+### ALB Security Group
+The `ALBSG` resource represents the security group associated with the Application Load Balancer. It controls the inbound and outbound traffic for the load balancer. The properties for this resource include:
+
+- `GroupName`: The name of the security group.
+- `GroupDescription`: The description of the security group.
+- `VpcId`: The ID of the VPC in which the security group resides.
+- `SecurityGroupIngress`: The inbound rules for the security group, specifying the allowed protocols, ports, and source IP ranges.
+
+```YAML
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}AlbSG"
+      GroupDescription: Public Facing SG for our Cruddur ALB
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: '0.0.0.0/0'
+          Description: INTERNET HTTPS
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: '0.0.0.0/0'
+          Description: INTERNET HTTP
+```
+
+### Fargate Service Security Group
+The `ServiceSG` resource represents the security group for the Fargate services. It controls the inbound and outbound traffic for the services. The properties for this resource include:
+
+- `GroupName`: The name of the security group.
+- `GroupDescription`: The description of the security group.
+- `VpcId`: The ID of the VPC in which the security group resides.
+- `SecurityGroupIngress`: The inbound rules for the security group, specifying the allowed protocols, ports, and source security group.
+```YAML
+  ServiceSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}ServSG"
+      GroupDescription: Security for Fargate Services for Cruddur
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          SourceSecurityGroupId: !GetAtt ALBSG.GroupId
+          FromPort: !Ref BackendPort
+          ToPort: !Ref BackendPort
+          Description: ALB HTTP
+```
+### Backend Target Group
+The `BackendTG` resource represents the target group for the backend services. It defines the health checks and routing configuration for the services. The properties for this resource include:
+```YAML
+ BackendTG:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Port: !Ref BackendPort
+      HealthCheckEnabled: true
+      HealthCheckProtocol: !Ref BackendHealthCheckProtocol
+      HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
+      HealthCheckPath: !Ref BackendHealthCheckPath
+      HealthCheckPort: !Ref BackendHealthCheckPort
+      HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
+      HealthyThresholdCount: !Ref BackendHealthyThresholdCount
+      UnhealthyThresholdCount: !Ref BackendUnhealthyThresholdCount
+      IpAddressType: ipv4
+      Matcher: 
+        HttpCode: 200
+      Protocol: HTTP
+      ProtocolVersion: HTTP2
+      TargetType: ip
+      TargetGroupAttributes: 
+        - Key: deregistration_delay.timeout_seconds
+          Value: 0
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      Tags:
+        - Key: target-group-name
+          Value: backend
+```
+### Frontend Target Group
+The `FrontendTG` resource represents the target group for the frontend services. It defines the health checks and routing configuration for the services. 
+```YAML
+ FrontendTG:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Port: !Ref FrontendPort
+      HealthCheckEnabled: true
+      HealthCheckProtocol: !Ref FrontendHealthCheckProtocol
+      HealthCheckIntervalSeconds: !Ref FrontendHealthCheckIntervalSeconds
+      HealthCheckPath: !Ref FrontendHealthCheckPath
+      HealthCheckPort: !Ref FrontendHealthCheckPort
+      HealthCheckTimeoutSeconds: !Ref FrontendHealthCheckTimeoutSeconds
+      HealthyThresholdCount: !Ref FrontendHealthyThresholdCount
+      UnhealthyThresholdCount: !Ref FrontendUnhealthyThresholdCount
+      IpAddressType: ipv4
+      Matcher: 
+        HttpCode: 200
+      Protocol: HTTP
+      ProtocolVersion: HTTP2
+      TargetType: ip
+      TargetGroupAttributes: 
+        - Key: deregistration_delay.timeout_seconds
+          Value: 0
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      Tags:
+        - Key: target-group-name
+          Value: frontend
+```
+
+### Cluster Outputs
+
+Specify the output values for `ClusterName`, `ServiceSecurityGroupId`, `ALBSecurityGroupId`, `FrontendTGArn`and `BackendTGArn`.
+
+```YAML
+Outputs:
+  ClusterName:
+    Value: !Ref FargateCluster
+    Export:
+      Name: !Sub "${AWS::StackName}ClusterName"
+  ServiceSecurityGroupId:
+    Value: !GetAtt ServiceSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
+  ALBSecurityGroupId:
+    Value: !GetAtt ALBSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ALBSecurityGroupId"
+  FrontendTGArn:
+    Value: !Ref FrontendTG
+    Export:
+      Name: !Sub "${AWS::StackName}FrontendTGArn"
+  BackendTGArn:
+    Value: !Ref BackendTG
+    Export:
+      Name: !Sub "${AWS::StackName}BackendTGArn"
+```
 
 <details>
 
 <summary>
-Add the insider content
+❗Expand and apply the entire Cluster template. 
 </summary>
 
 ```YAML
@@ -1007,7 +1423,7 @@ Create `bin/cfn/cluster` script and make it executable.
 ```sh
 #! /usr/bin/bash
 
-set -e # stop execution if anything fails
+set -e 
 
 abs_template_filepath="/workspace/aws-cloud-project-bootcamp/aws/cfn/cluster/template.yaml"
 TemplateFilePath=$(realpath --relative-base="$PWD" "$abs_template_filepath")
@@ -1034,6 +1450,7 @@ aws cloudformation deploy \
   --capabilities CAPABILITY_NAMED_IAM
 ```
 5. Deploy the template using `./bin/cfn/cluster`
+
 ![Deploy before Exe Changeset](assets/week11/cfn-stack/crud-cluster-cfn.png)
 
 6. From the console *Execute the changeset*.
@@ -1056,13 +1473,168 @@ ClusterStack = 'CrdCluster'
 MasterUsername = 'cruddurroot'
 ```
 
-Create `aws/cfn/db/template.yaml`.
+Create `aws/cfn/db/template.yaml` and start developing.
 
+### Describing the template
 
+This is the cfn for the primary Postgres RDS Database for crud function.
+
+```YAML
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  The primary Postgres RDS Database for the application
+  - RDS Instance
+  - Database Security Group
+```
+### Parameters
+
+- `NetworkingStack`: This parameter represents the base layer of networking components, such as VPC and subnets.
+- `ClusterStack`: This parameter represents the Fargate cluster.
+- `BackupRetentionPeriod`: This parameter specifies the number of days to retain automated backups.
+- `DBInstanceClass`: This parameter defines the compute and memory capacity for the database instance.
+```YAML
+Parameters:
+  NetworkingStack:
+    Type: String
+    Description: This is our base layer of networking components eg. VPC, Subnets
+    Default: CrdNet
+  ClusterStack:
+    Type: String
+    Description: This is our FargateCluster
+    Default: CrdCluster
+  BackupRetentionPeriod:
+    Type: Number
+    Default: 0
+  DBInstanceClass:
+    Type: String
+    Default: db.t4g.micro
+```
+- `DBInstanceIdentifier`: This parameter specifies the identifier for the database instance.
+- `DBName`: This parameter specifies the name of the database.
+- `DeletionProtection`: This parameter indicates whether deletion protection is enabled or not.
+- `EngineVersion`: This parameter specifies the version number of the database engine.
+- `MasterUsername`: This parameter specifies the master username for the database instance.
+- `MasterUserPassword`: This parameter specifies the master user password for the database instance.
+```YAML
+  DBInstanceIdentifier:
+    Type: String
+    Default: cruddur-instance
+  DBName:
+    Type: String
+    Default: cruddur
+  DeletionProtection:
+    Type: String
+    AllowedValues:
+      - true
+      - false
+    Default: true
+  EngineVersion:
+    Type: String
+    Default: '15.2'
+  MasterUsername:
+    Type: String
+  MasterUserPassword:
+    Type: String
+    NoEcho: true
+```
+### PostgreSQL Resource
+- Type: AWS::EC2::SecurityGroup
+- Description: Public Facing SG for our Cruddur ALB
+- Properties:
+  - `GroupName`: The name of the security group.
+  - `GroupDescription`: The description of the security group.
+  - `VpcId`: The ID of the VPC.
+  - `SecurityGroupIngress`: Ingress rules for the security group.
+
+```YAML
+# Start Resource Section
+Resources:
+  RDSPostgresSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}RDSSG"
+      GroupDescription: Public Facing SG for our Cruddur ALB
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          SourceSecurityGroupId:
+            Fn::ImportValue:
+              !Sub ${ClusterStack}ServiceSecurityGroupId
+          FromPort: 5432
+          ToPort: 5432
+          Description: ALB HTTP
+```
+#### PosgreSQL Subnet Group
+- Type: AWS::RDS::DBSubnetGroup
+- Properties:
+  - `DBSubnetGroupName`: The name of the DB subnet group.
+  - `DBSubnetGroupDescription`: The description of the DB subnet group.
+  - `SubnetIds`: IDs of the subnets in the DB subnet group.
+```YAML
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupName: !Sub "${AWS::StackName}DBSubnetGroup"
+      DBSubnetGroupDescription: !Sub "${AWS::StackName}DBSubnetGroup"
+      SubnetIds: { 'Fn::Split' : [ ','  , { "Fn::ImportValue": { "Fn::Sub": "${NetworkingStack}PublicSubnetIds" }}] }
+```
+#### Database
+- Type: AWS::RDS::DBInstance
+- Properties:
+  - `AllocatedStorage`: The amount of storage to allocate to the database instance.
+  - `AllowMajorVersionUpgrade`: Indicates whether major version upgrades are allowed.
+  - `AutoMinorVersionUpgrade`: Indicates whether minor version upgrades are applied automatically.
+  - `BackupRetentionPeriod`: The number of days to retain automated backups.
+  - `DBInstanceClass`: The compute and memory capacity for the database instance.
+  - `DBInstanceIdentifier`: The identifier for the database instance.
+
+```YAML
+  Database:
+    Type: AWS::RDS::DBInstance
+    DeletionPolicy: 'Snapshot'
+    UpdateReplacePolicy: 'Snapshot'
+    Properties:
+      AllocatedStorage: '20'
+      AllowMajorVersionUpgrade: true
+      AutoMinorVersionUpgrade: true
+      BackupRetentionPeriod: !Ref  BackupRetentionPeriod
+      DBInstanceClass: !Ref DBInstanceClass
+      DBInstanceIdentifier: !Ref DBInstanceIdentifier
+```
+- **DB Connection Properties:**
+  - `DBName`: The name of the database.
+  - `DBSubnetGroupName`: The name of the DB subnet group to associate with the database instance.
+  - `DeletionProtection`: Indicates whether deletion protection is enabled.
+  - `EnablePerformanceInsights`: Indicates whether Performance Insights is enabled.
+  - `Engine`: The name of the database engine.
+  - `EngineVersion`: The version number of the database engine.
+  - `MasterUsername`: The master username for the database instance.
+  - `MasterUserPassword`: The master user password for the database instance.
+  - `PubliclyAccessible`: Indicates whether the database instance is publicly accessible.
+  - `VPCSecurityGroups`: Security groups associated with the database instance.
+```YAML
+      DBName: !Ref DBName
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DeletionProtection: !Ref DeletionProtection
+      EnablePerformanceInsights: true
+      Engine: postgres
+      EngineVersion: !Ref EngineVersion
+      # Must be 1 to 63 letters or numbers.
+      # First character must be a letter.
+      # Can't be a reserved word for the chosen database engine.
+      MasterUsername:  !Ref MasterUsername
+      # Constraints: Must contain from 8 to 128 characters.
+      MasterUserPassword: !Ref MasterUserPassword
+      PubliclyAccessible: true
+      VPCSecurityGroups:
+        - !GetAtt RDSPostgresSG.GroupId
+```
 <details>
 
 <summary>
-Add the insider content
+❗Expand and apply the entire RDS Databse template. 
 </summary>
 
 ```YAML
@@ -1100,8 +1672,6 @@ Parameters:
     Default: true
   EngineVersion:
     Type: String
-    #  DB Proxy only supports very specific versions of Postgres
-    #  https://stackoverflow.com/questions/63084648/which-rds-db-instances-are-supported-for-db-proxy
     Default: '15.2'
   MasterUsername:
     Type: String
@@ -1109,11 +1679,7 @@ Parameters:
     Type: String
     NoEcho: true
 Resources:
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
-  # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html
   RDSPostgresSG:
-    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: !Sub "${AWS::StackName}RDSSG"
@@ -1130,18 +1696,14 @@ Resources:
           ToPort: 5432
           Description: ALB HTTP
   DBSubnetGroup:
-    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
     Type: AWS::RDS::DBSubnetGroup
     Properties:
       DBSubnetGroupName: !Sub "${AWS::StackName}DBSubnetGroup"
       DBSubnetGroupDescription: !Sub "${AWS::StackName}DBSubnetGroup"
       SubnetIds: { 'Fn::Split' : [ ','  , { "Fn::ImportValue": { "Fn::Sub": "${NetworkingStack}PublicSubnetIds" }}] }
   Database:
-    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html
     Type: AWS::RDS::DBInstance
-    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-deletionpolicy.html
     DeletionPolicy: 'Snapshot'
-    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-updatereplacepolicy.html
     UpdateReplacePolicy: 'Snapshot'
     Properties:
       AllocatedStorage: '20'
@@ -1156,20 +1718,11 @@ Resources:
       EnablePerformanceInsights: true
       Engine: postgres
       EngineVersion: !Ref EngineVersion
-      # Must be 1 to 63 letters or numbers.
-      # First character must be a letter.
-      # Can't be a reserved word for the chosen database engine.
       MasterUsername:  !Ref MasterUsername
-      # Constraints: Must contain from 8 to 128 characters.
       MasterUserPassword: !Ref MasterUserPassword
       PubliclyAccessible: true
       VPCSecurityGroups:
         - !GetAtt RDSPostgresSG.GroupId
-#Outputs:
-#  ServiceSecurityGroupId:
-#    Value: !GetAtt ServiceSG.GroupId
-#    Export:
-#      Name: !Sub "${AWS::StackName}ServiceSecurityGroupId"
 ```
 
 </details>
@@ -1204,7 +1757,7 @@ aws cloudformation deploy \
   --capabilities CAPABILITY_NAMED_IAM
 ```
 5. Deploy the template using `./bin/cfn/db`
-6. From the console execute the changeset.
+6. From the console *Execute the changeset*.
 
 ---
 
