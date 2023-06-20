@@ -1,6 +1,6 @@
 # Week 8 — Serverless Image Processing
 
-During this week, we utilized the AWS CDK (Cloud Development Kit) to define and deploy the necessary infrastructure resources for image processing. Our chosen language for CDK development was the powerful and cool [TypeScript](https://dev.to/andrewbaisden/moving-from-javascript-to-typescript-40ac).
+During this week, we employed the AWS CDK to define and deploy the necessary resources for image processing. Our chosen programming language for the infrastructure development was the powerful and cool [TypeScript](https://dev.to/andrewbaisden/moving-from-javascript-to-typescript-40ac).
 
 ![serverless-process-image](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png)
 
@@ -17,7 +17,7 @@ During this week, we utilized the AWS CDK (Cloud Development Kit) to define and 
 - [Upload and Clear Assets Scripts](#upload-asset-script)
   - [Updates Upload and Clear Scripts](#upload-and-clear-scripts-changes)
 - [Serve Avatars via CloudFront](#cloudfront---serve-avatars)
-  - [Upload and Serve Buckets](#configuring-buckets-for-uploading-and-bucket-for-serving-images)
+  - [Upload and Serve Buckets](#configuring-bucket-for-uploading-and-bucket-for-serving)
 - [Implement Users Profile Page](#coding-space---develop-user-profile)
 - [Base Path for Imports in ReactJS](#base-path-for-imports-in-reactjs)
 - [Implement Backend Migrations](#database-migration)
@@ -42,13 +42,13 @@ AWS CDK is an open-source software development framework that enables you to def
 ![AWS Created Ban](assets/week8/cdk-ban.png)
 
 
-Let's discuss How it actually  Works
+Let's discuss cdk actually Works
 
 1. Define infrastructure using AWS CDK: Write code using your preferred programming language to define AWS resources such as EC2 instances, S3 buckets, Lambda functions, etc.
 2. Synthesize CDK app: Use the CDK toolkit to synthesize the AWS CloudFormation templates from your CDK app code. This step generates the CloudFormation templates that will be used for deployment.
 3. Deploy using AWS CloudFormation: Deploy the synthesized CloudFormation templates using AWS CloudFormation. CDK leverages CloudFormation's capabilities for provisioning and managing infrastructure resources.
 
-
+Find more about [CDK Dev](../thumbing-serverless-cdk/lib/README.md)
 | Feature                                   | Description                                                                                      |
 | ----------------------------------------- | ------------------------------------------------------------------------------------------------ |
 | Familiar Prog. languages            | supports popular programming languages like TypeScript, Python, Java, and more.          |
@@ -72,6 +72,7 @@ Let's discuss How it actually  Works
 
 Along the lifestream, I created 2 functions within `thumbing-serverless-cdk-stack.ts`.
 
+> You can find my +20 in the comments at 1:12:41.
 
 - Created Bucket
 
@@ -546,6 +547,7 @@ createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBuc
 7. Set the **Alternate domain name (CNAME)** to `assets.<domain>`.
 ![](assets/week8/CloudFront/6-domain-records-for-assets-url-in-route-53.png)
 8. Assign the ACM for the **Custom SSL certificate**.
+![](assets/week8/CloudFront/14-cloudfront-cert-available-now.png)
 9. Provide a description and click **Create**.
 10. Copy the S3 policy and access the S3 bucket using the provided link. 
 11. Paste the policy there.
@@ -564,7 +566,7 @@ createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBuc
 <img src="assets/week8/CloudFront/16-not-just-aws-also-google-cloud-engineer.png">
 
 
-## Configuring Buckets for Uploading and Bucket for Serving Images
+## Configuring Bucket for Uploading and Bucket for Serving
 
 
 To implement this, follow the steps below:
@@ -584,7 +586,7 @@ THUMBING_FUNCTION_PATH="<ur-path>/aws/lambdas/process-images"
 
 2. Modify the `thumbing-serverless-cdk/lib/thumbing-serverless-cdk-stack.ts` file as shown:
 
-```txs
+```js
 // The was longer observerd
 const uploadsBucketName: string = process.env.UPLOADS_BUCKET_NAME as string;
 const assetsBucketName: string = process.env.ASSETS_BUCKET_NAME as string;
@@ -859,11 +861,77 @@ gem "aws-sdk-s3"
 gem "ox"
 gem "jwt"
 ```
-To generate a pre-signed URL, run the following command:
+To generate a pre-signed URL, create `function.rb`
+
+```rb
+require 'aws-sdk-s3'
+require 'json'
+require 'aws-sdk-ssm'
+require 'jwt'
+
+def handler(event:, context:)
+  # Create an AWS SSM client
+  ssm_client = Aws::SSM::Client.new
+  # Retrieve the value of an environment variable from SSM Parameter Store
+  response = ssm_client.get_parameter({
+    name: '/cruddur/YacrudAvatarUpload/LAMBDA_FRONTEND',
+    with_decryption: true
+  })
+  # Access the environment variable value
+  frontend_url = response.parameter.value
+  puts frontend_url
+
+  puts event
+  # Return CORS headers for preflight check
+  if event['routeKey'] == "OPTIONS /{prefix+}"
+    puts({ step: 'preflight', message: 'preflight CORS check' }.to_json)
+    {
+      headers: {
+        "Access-Control-Allow-Headers": "*, Authorization",
+        "Access-Control-Allow-Origin": frontend_url,
+        "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+      },
+      statusCode: 200,
+    }
+  else
+    token = event['headers']['authorization']&.split(' ')&.[](1)
+    puts({step: 'presignedurl', access_token: token}.to_json)
+    body_hash = JSON.parse(event["body"])
+    extension = body_hash["extension"]
+
+    decoded_token = JWT.decode token, nil, false
+    puts decoded_token
+    cognito_user_uuid = decoded_token[0]['sub']
+    s3 = Aws::S3::Resource.new
+    bucket_name = ENV["UPLOADS_BUCKET_NAME"]
+    object_key = "#{cognito_user_uuid}.#{extension}"
+
+    puts({object_key: object_key}.to_json)
+
+    obj = s3.bucket(bucket_name).object(object_key)
+    url = obj.presigned_url(:put, expires_in: 300)
+    url # this is the data that will be returned
+    body = { url: url }.to_json
+    {
+      headers: {
+        "Access-Control-Allow-Headers": "*, Authorization",
+        "Access-Control-Allow-Origin": frontend_url,
+        "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+      },
+      statusCode: 200,
+      body: body
+    }
+  end
+end
+```   
+
+run the following command:
 
 ```bash
 bundle exec ruby function.rb
 ```
+
+I created the `frontend_url` variable in Para store with `/cruddur/YacrudAvatarUpload/LAMBDA_FRONTEND` to not have to re insert the current dev url everytime.
 
 ### **Test API Endpoint**
 
@@ -1029,13 +1097,14 @@ aws lambda publish-layer-version \
   --compatible-runtimes ruby2.7
 ```
 
-After the above steps, navigate to your Lambda function configuration:
+Once [layer shipped](../bin/lambda-layers/README.md), navigate to your Lambda function configuration:
 
 1. Go to the AWS Management Console.
 2. Open the Lambda service.
 3. Select `Layers` from the left-hand menu.
 4. Locate and choose the `jwt` layer.
 
+![](assets/week8/Wrapping/add-jwt-layer-yacrud-upload-avatar-lambda.png)
 
 
 ### Required Environment Variables

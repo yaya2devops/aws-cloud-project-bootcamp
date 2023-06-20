@@ -6,8 +6,8 @@ To handle environment variables effectively in your application, we will create 
 
 Separate scripts will be used for the frontend and backend environments.
 
-- The Ruby script for the frontend environment variables can be found here: [`generate-env`](../bin/frontend/generate-env.rb).
-- Similarly, the Ruby script for the backend environment variables is available here: [`generate-env`](../bin/backend/generate-env.rb).
+- The Ruby script for the frontend environment variables can be found here: [`generate-env`](../bin/frontend/generate-env).
+- Similarly, the Ruby script for the backend environment variables is available here: [`generate-env`](../bin/backend/generate-env).
 
 
 Next, you need to create specific files to store the required environment variables
