@@ -17,7 +17,7 @@
                        - [Week Nine](#week-9--cicd-pipelines-w-codebuild-and-codepipelines)
                              ∎ [Week Ten](#week-10--cloudformation)
                                  ∎ [Week Eleven](#week-11--cloudformation)
-                                     ∎ [**Week X**](#week-x--cloudformation)
+                                     ∎ [**Week X**](#week-x--cleanup)
 
 
 
@@ -232,10 +232,10 @@ Watched Ashish's Week 4 - Security Considerations                               
 | Design DynamoDB Diagram                        |✅|
 | Implement CI/CD                                |✅|
 | Design CI/CD Diagram                           |✅|
-| Implement CFN Static Website Hosting Frontend  |❗|
-| Design Static Frontend Diagram                 |❗|
-| IaaC Security Practices                        |❗|
-| CloudFormation Security Practices              |❗|
+| Implement CFN Static Website Hosting Frontend  |✅|
+| Design Static Frontend Diagram                 |✅|
+| IaC Security Practices                        |❗|
+| CFN Security Practices (Policy As Code)             |✅|
 | SAM Security Practices                         |❗|
 
 ---

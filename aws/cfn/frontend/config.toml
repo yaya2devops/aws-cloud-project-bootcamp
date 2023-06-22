@@ -1,9 +1,9 @@
 [deploy]
 bucket = 'cfn-artifacts-111'
 region = 'ca-central-1'
-stack_name = 'CrdFrontend'
+stack_name = 'YacrudFrontendBluePrint'
 
 [parameters]
-CertificateArn = 'arn:aws:acm:ca-central-1:598485450821:certificate/9abdd625-da5c-4022-9bd2-28a131c1362f'
+CertificateArn = "arn:aws:acm:${AWS_DEFAULT_REGION}:${AWS_ACCOUNT_ID}:certificate/9abdd625-da5c-4022-9bd2-28a131c1362f"
 WwwBucketName = 'www.yacrud.me'
 RootBucketName = 'yacrud.me'

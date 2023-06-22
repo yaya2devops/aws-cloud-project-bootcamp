@@ -97,6 +97,7 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   └── rds
 ├── bootstrap
 ├── busybox
+├── clustermine
 └── prepare
 ```
 

@@ -24,7 +24,7 @@ To view and edit this file, use [DRAWIO](aware.drawio)
 
 [**Design Use-Case**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week6-7#readme)
 
-> The link is broken because it was linked to the "week6-7" tag, which no longer exists. I split it into two separate weeks for better organization.
+> The link is broken because it was linked to the "week6-7" tag, which no longer exists. I split it into two separate weeks [6](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week6) and [7](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week7) for better organization.
 
 
 ### Assets Progression

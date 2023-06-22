@@ -1,6 +1,8 @@
 # Homework Challenges — Check-ins
 
-Homework Challenges are additional tasks that are presented as an exciting opportunity for bootcampers to further enhance their learning experience.
+The challenges are additional tasks presented as an exciting opportunity for bootcampers to further enhance their learning experience.
+
+<img src="assets/homework-challenges.png">
 
 <details>
 <summary>
@@ -10,8 +12,6 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 <img src="assets/homework-challenges-gpt-prompt-engineer.png">
 
 </details>
-
-<img src="assets/homework-challenges.png">
 
 ---
 
@@ -84,7 +84,9 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 
 |  Week 8 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        No homework challenges provided 	         |   N/A   | N/A|   
+|       AWS CDK Costs Best Practices	         |   N/A   | N/A|   
+|       AWS CDK Security Best Practices	         |   N/A   | N/A|   
+
 
 
 
@@ -95,21 +97,23 @@ Homework Challenges are additional tasks that are presented as an exciting oppor
 |---------------------------------------------------------------------------------------------------|------------|--------|
 |       Create a build server that will run the test suite for the backend code	         |  N/A   | ❗|   
 |       Sub-task: Add the test server step to CodePipeline	         |  N/A | ❗| 
-
+|      CICD Optimize for Costs Best Practices         |  N/A   | ❗|   
 
 ---
 
 |  Week 10 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        Networking Layer Via Terraform 	         |   N/A    |  |   
-|        Cluster Via Terraform 		         |   N/A    |  |   
-|        RDS Via Terraform 	 	         |   N/A    |  |   
-|        DDB Via Terraform 		         |   N/A    |  |   
+|     CFN  Optimize for Costs Best Practices 	         |   N/A    | ❗ |   
+|    SAM Optimize for Costs Best Practices|   N/A | ❗ |   
 
 |  Week 11 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
 |       Fargate Via Terraform  	         |   N/A   | ❗ |  
 |       CICD Via Terraform  	         |   N/A   | ❗|   
+|        Cluster Via Terraform 		         |   N/A    | ❗ |   
+|        RDS Via Terraform 	 	         |   N/A    | ❗ |   
+|        DDB Via Terraform 		         |   N/A    | ❗ |   
+|  Terraform Costs Best Practices | N/A     | ❗ |   
 
 
 ---
