@@ -35,9 +35,12 @@ In CloudFormation, state management is handled differently compared to  IaC tool
 | Approach | Immutable infrastructure                | Mutable infrastructure                    | Idempotent execution                       |
 | Stacks   | Yes                                    | No                                        | No                                        |
 
-### Provision First Project
+## Provision First Project
+
 
 Let's get you going with a simple provision of a Cluster.
+
+![Beginner Friendly Starter](assets/week10/simple-cfn/simple-cfn-cluster.svg)
 
 1. Create a file in a given direcotry and name it `template.yaml`
 2. Specify the header for `AWSTemplateFormatVersion` and add `Description`
@@ -62,7 +65,7 @@ aws s3 mb s3://cfn-stuff-goes-here
 export BUCKET="cfn-stuff-goes-here"
 export CFN_PATH="<path-to-ur-template>"
 ```
-7. Authenticate and deploy using AWS CLI.
+7. Authenticate and [deploy](../bin/cfn/cluster) using AWS CLI.
 ```sh
 aws cloudformation deploy \
   --stack-name $STACK_NAME \
@@ -178,7 +181,7 @@ region = 'us-east-1'
 stack_name = 'CrdCluster'
 
 [parameters]
-CertificateArn = 'arn:aws:acm:us-east-1:480134889878:certificate/8a62223d-469e-4094-8c9d-bbecb01bba5d'
+CertificateArn = 'arn:aws:acm:<region>:<aws-id>:certificate/8a62223d-469e-4094-8c9d-bbecb01bba5d'
 NetworkingStack = 'CrdNet'
 ```
 
@@ -644,6 +647,222 @@ Outputs:
 
 
 The networking components we have covered form the foundation of our app's network layer. 
+<details>
+
+<summary>
+❗Expand and apply the networking layer template. 
+</summary>
+
+
+```YAML
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+ This YAML file defines the foundational networking components for our stack, including:
+  - VPC
+    - configures DNS hostnames for EC2 instances
+    - only allows2 traffic from IPV4, IPV6 is disabled
+  - InternetGateway
+  - Route Table that enables routing to the InternetGateway and local resources
+    - route to the IGW
+    - route to Local
+  - Six subnets, each explicitly associated with the Route Table:
+    - 3 Public Subnets numbered 1 to 3
+    - 3 Private Subnets numbered 1 to 3
+Parameters:
+  VpcCidrBlock:
+    Type: String
+    Default: 10.0.0.0/16
+  Az1:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: ca-central-1a
+  SubnetCidrBlocks: 
+    Description: "Comma-delimited list of CIDR blocks for our private public subnets"
+    Type: CommaDelimitedList
+    Default: >
+      10.0.0.0/24, 
+      10.0.4.0/24, 
+      10.0.8.0/24, 
+      10.0.12.0/24,
+      10.0.16.0/24,
+      10.0.20.0/24
+  Az2:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: ca-central-1b
+  Az3:
+    Type: AWS::EC2::AvailabilityZone::Name
+    Default: ca-central-1d
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCidrBlock
+      EnableDnsHostnames: true
+      EnableDnsSupport: true
+      InstanceTenancy: default
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}VPC"
+  IGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}IGW"
+  AttachIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref IGW
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}RT"
+  RouteToIGW:
+    Type: AWS::EC2::Route
+    DependsOn: AttachIGW
+    Properties:
+      RouteTableId: !Ref RouteTable
+      GatewayId: !Ref IGW
+      DestinationCidrBlock: 0.0.0.0/0
+  SubnetPub1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref Az1
+      CidrBlock: !Select [0, !Ref SubnetCidrBlocks]
+      EnableDns64: false
+      MapPublicIpOnLaunch: true #public subnet
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}SubnetPub1"
+  SubnetPub2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref Az2
+      CidrBlock: !Select [1, !Ref SubnetCidrBlocks]
+      EnableDns64: false
+      MapPublicIpOnLaunch: true #public subnet
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}SubnetPub2"
+  SubnetPub3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref Az3
+      CidrBlock: !Select [2, !Ref SubnetCidrBlocks]
+      EnableDns64: false
+      MapPublicIpOnLaunch: true #public subnet
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}SubnetPub3"
+  SubnetPriv1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref Az1
+      CidrBlock: !Select [3, !Ref SubnetCidrBlocks]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false 
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}SubnetPriv1"
+  SubnetPriv2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref Az2
+      CidrBlock: !Select [4, !Ref SubnetCidrBlocks]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false 
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}SubnetPriv2"
+  SubnetPriv3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: !Ref Az3
+      CidrBlock: !Select [5, !Ref SubnetCidrBlocks]
+      EnableDns64: false
+      MapPublicIpOnLaunch: false 
+      VpcId: !Ref VPC
+      Tags:
+        - Key: Name
+          Value: !Sub "${AWS::StackName}SubnetPriv3"
+  SubnetPub1RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPub1
+      RouteTableId: !Ref RouteTable
+  SubnetPub2RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPub2
+      RouteTableId: !Ref RouteTable
+  SubnetPub3RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPub3
+      RouteTableId: !Ref RouteTable
+  SubnetPriv1RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriv1
+      RouteTableId: !Ref RouteTable
+  SubnetPriv2RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriv2
+      RouteTableId: !Ref RouteTable
+  SubnetPriv3RTAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref SubnetPriv3
+      RouteTableId: !Ref RouteTable
+Outputs:
+  VpcId:
+    Value: !Ref VPC
+    Export:
+      Name: !Sub "${AWS::StackName}VpcId"
+  VpcCidrBlock:
+    Value: !GetAtt VPC.CidrBlock
+    Export:
+      Name: !Sub "${AWS::StackName}VpcCidrBlock"
+  SubnetCidrBlocks:
+    Value: !Join [",", !Ref SubnetCidrBlocks]
+    Export:
+      Name: !Sub "${AWS::StackName}SubnetCidrBlocks"
+  PublicSubnetIds:
+    Value: !Join 
+      - ","
+      - - !Ref SubnetPub1
+        - !Ref SubnetPub2
+        - !Ref SubnetPub3
+    Export:
+      Name: !Sub "${AWS::StackName}PublicSubnetIds"
+  PrivateSubnetIds:
+    Value: !Join 
+      - ","
+      - - !Ref SubnetPriv1
+        - !Ref SubnetPriv2
+        - !Ref SubnetPriv3
+    Export:
+      Name: !Sub "${AWS::StackName}PrivateSubnetIds"
+  AvailabilityZones:
+    Value: !Join 
+      - ","
+      - - !Ref Az1
+        - !Ref Az2
+        - !Ref Az3
+    Export:
+      Name: !Sub "${AWS::StackName}AvailabilityZones"
+```
+
+</details>
 
 Save the template in `aws/cfn/networking/template.yaml`
 
@@ -733,7 +952,7 @@ region = '<region>'
 stack_name = 'CrdCluster'
 
 [parameters]
-CertificateArn = 'arn:aws:acm:<region>:598485450821:certificate/dde234bf-7796-4c97-a977-b1d0a19e978d'
+CertificateArn = 'arn:aws:acm:<region>:<aws-id>:certificate/dde234bf-7796-4c97-a977-b1d0a19e978d'
 NetworkingStack = 'CrdNet'
 ```
 
@@ -1455,7 +1674,6 @@ aws cloudformation deploy \
 
 6. From the console *Execute the changeset*.
 
----
 
 ## AWS RDS Template
 
@@ -1469,7 +1687,7 @@ stack_name = 'CrdDb'
 
 [parameters]
 NetworkingStack = 'CrdNet'
-ClusterStack = 'CrdCluster'
+ClusterStack = 'CrdDb'
 MasterUsername = 'cruddurroot'
 ```
 
@@ -1757,10 +1975,22 @@ aws cloudformation deploy \
   --capabilities CAPABILITY_NAMED_IAM
 ```
 5. Deploy the template using `./bin/cfn/db`
+
+![Deploy before Exe Changeset](assets/week11/cfn-stack/crud-rds-db-cfn.png)
+
 6. From the console *Execute the changeset*.
 
 ---
-
-*Week 10 Of AWS Cloud Project Bootcamp* — Office Hours [Checklist](assets/week11/cfn-check-list.jpeg)
+*Week 10 Of AWS Cloud Project Bootcamp* — Office Hours [Checklist](assets/week11/cfn-stack/crud-cluster-cfn.png)
 
 ---
+
+**Reference**
+
+- [CFN Template basics YAML VS JSON](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html)
+- [Paloalto Networks Policy as Code](https://www.paloaltonetworks.com/cyberpedia/what-is-policy-as-code#:~:text=Policy%2Das%2Dcode%20is%20the,enforcement%20tools%20you%20are%20using.)
+- [Cloud security posture management](https://www.paloaltonetworks.com/cyberpedia/what-is-cloud-security-posture-management)
+- [OWASP IaC Security Cheatsheet](https://cheatsheetseries.owasp.org/cheatsheets/Infrastructure_as_Code_Security_Cheat_Sheet.html)
+- [Tom's Obvious, Minimal Language Project](https://github.com/toml-lang/toml)
+- [NetDevOps modern approach to networking deployments](https://aws.amazon.com/fr/blogs/networking-and-content-delivery/netdevops-a-modern-approach-to-aws-networking-deployments/)
+- [Ashish Security Podcast](https://cloudsecuritypodcast.tv/listen-to-the-episodes/)
