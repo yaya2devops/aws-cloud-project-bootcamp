@@ -1,390 +1,616 @@
 # Week 1 — App Containerization 🐳
 
-<img src="assets/week1/week1.png">
-
-
-| Objective           | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Backend**  | Learn how to use Flask framework to create web applications                 |
-| **Docker for 1container**  | Learned how to Dockerize applications using Dockerfile                         |
-| **Mutiple Containers**  | Learned how to use Docker Compose to run containers //                   |
-| **Problem Solving**  | Learned how to troubleshoot using the debugger and error codes                |
-
-
----
-
-## Brief Considerations
-
-This week was jam-packed of learning experiences. 
-
-
-- I created a `Dockerfiles` and built the Docker containers for both the front end & the backend. 
-- I then ran each individually before configuring Docker Compose to run both containers // with `docker-compose up`.
-- In the front end, I installed required dependencies and packages, such as `react-scripts`, and made certain that package installations were correctly directory-targeted. 
-- In addition, I learned more about React components and patterns, which were relatively simple in comparison to the backend.
-- Moving on to the backend with Flask on top of the great Python, I installed some packages and added 'em to the backend directory's gitignore file. 
-- I also learned more about APIs & the services features towards a microservice architecture, and `README.IO` proved to be a useful tool for creating API documentation.
-- I worked on adding the notification feature to the website. 
-- I  installed DynamoDB using AWS CLI and performed additional database operations such as table creation and listing
-- I configured Postgres in `.gitpod` along AWS CLI required commands incl. in [journal zero](week0.md), connecting to the database, and performed basic database operations.
-
-
-
----
+> Refer to [the Initial version](week1-progress.md).
 
 ## Week One Main Tasks
-> week two if we started counting from one.
 
-- [Containerize Application](#application-containerization)
-- [Document the Notification Flask Endpoint for Notifications](#document-notification-api)
-- [React Page for Notifications](#notification-endpoint)  
-- [Run DynamoDB Local Container](#dynamo-local)
-- [Run Postgres Container](#postgresql-overview)
-- [Run the Dockerfile CMD as an external script](#external-cmd-script)
-- [Running container on local machine](#docker-desktop)
-- [Multi-Stage Docker Build](#multi-stage-containerization)
-- [Health check in Docker Compose](#flask-health-check)
-- [Push and tag image to DockerHub](#cruddur-imgs-to-dockerhub)
-- [Launch Docker Container on EC2](#docker-container-on-ec2)
+- [Containerize Application](#containerize-application)
+    - [Technical Essentials](#technical-essentials)
+  - [Before Docker](#before-docker)
+  - [After Docker](#after-docker)
+    - [Containerize Flask App](#containerize-flask-app)
+  - [Continue To Reactjs App](#continue-to-reactjs-app)
+- [Open Container Initiative](#open-container-initiative)
+    - [Considering Alternatives to Docker?](#considering-alternatives-to-docker)
+- [Add notification endpoint and Reactjs page](#add-notification-endpoint-and-reactjs-page)
+  - [OpenAPI](#openapi)
+    - [Adding OpenAPI endpoint](#adding-openapi-endpoint)
+  - [Define Endpoint Flask App](#define-endpoint-flask-app)
+  - [Design Reactjs Notifications Webpage](#design-reactjs-notifications-webpage)
+- [Container Management and Scaling](#container-management-and-scaling)
+- [External CMD Script](#external-cmd-script)
+- [Containers on Docker Desktop](#containers-on-docker-desktop)
+- [Docker Container on EC2](#docker-container-on-ec2)
+- [Flask Health check](#flask-health-check)
+- [Multi-Stage Containerization](#multi-stage-containerization)
+- [Images On Dockerhub](#cruddur-on-dockerhub)
 
-
----
-Do you know, i wrote an article about Docker last year? <br>**Click**.
-
-[<img src="https://cdn.hashnode.com/res/hashnode/image/upload/v1655984124905/gp-4TqsOT.gif?w=1600&h=840&fit=crop&crop=entropy&auto=format,compress&gif-q=60&format=webm" width="200">](https://blog.yahya-abulhaj.dev/containers-docker-or-what-exactly-is-that)
----
-
-
-
-
-
-
-| Prerequisites           | Description                                                                 |
-|---------------------|-----------------------------------------------------------------------------|
-| **Project**    | Install [Docker ](../.gitpod.yml#L49) extension                                         |
-| **Backend**    | Install Flask and its [dependencies](../backend-flask/requirements.txt)                                         |
-| **Frontend**    | Install NPM for ReactJS to use react-scripts                                |
+#  Containerize Application
 
 
-### Backend, Install Flask
+Containerization has literally revolutionized the software development landscape, enabling developers like yourself to package applications and their dependencies into lightweight and portable containers. 
+
+Docker has emerged as the de facto standard for containerization. The tech follows a client-server architecture and comprises various components that work together seamlessly. 
+
+- **Docker Engine** The core runtime that creates and manages containers.
+- **Docker Images** Self-contained snapshots of applications and their dependencies e.g Frontend.
+- **Docker Containers** Runnable instances of Docker images that encapsulate the application and its runtime environment.
+- **Docker Registry** A centralized repository for storing and sharing Docker images e.g. Dockerhub or ECR.
+
+
+### Technical Essentials
+
+These are the 2 key components and utilities that you should be familiar with
+
+- `Dockerfile` is a text file that contains instructions for building Docker images. It specifies the base image, adds dependencies, configures the environment, and defines runtime commands.
+- `Docker Compose` simplifies managing multi-container applications. With a YAML file, it defines services, their configurations, and relationships between them.
+
+For interacting with containers Docker provides a set of command-line utilities
+
+
+| Command                  | Description                                               |
+|--------------------------|-----------------------------------------------------------|
+| `docker build`           | Builds an image from a Dockerfile.                        |
+| `docker run`             | Runs a container based on an image.                        |
+| `docker stop`            | Stops a running container.                                 |
+| `docker ps -a`           | Lists all containers, including stopped ones.              |
+| `docker images`          | Lists all available Docker images.                         |
+| `docker logs`            | Displays logs of a running container.                      |
+| `docker exec`            | Executes a command in container shell.                 |
+| `docker-compose arg`      | Starts services with  `up ` and stop with  `down` as **arg**         |
+
+
+## Before Docker
+
+Say I have a backend application built on Flask.
+```sh
+-backend-flask
+---etc
+```
+
+
+To install its dependencies run it i'll have to do the following everytime.
+
+
+```sh
+cd /workspace/aws-cloud-project-bootcamp/backend-flask
+pip3 install -r requirements.txt
+export FRONTEND_URL="*"
+export BACKEND_URL="*"
+python3 -m flask run --host=0.0.0.0 --port=4567
+```
+
 <img src="assets/week1/install%20flask.png">
 
-### Install Flask Core
-<img src="assets/week1/installed%20flask%20core.png">
+As you can see, we have to explicilty do many of these tasks.
+
+
+## After Docker
+
+
+Let's get you going with Docker.
+
+1. Get to a root of directory that you want containerize its project
+2. Create a file and call it `Dockerfile`
+3. Add this content and follow up
+```Dockerfile
+FROM <base_image>
+RUN <command>
+COPY <source> <destination>
+WORKDIR <directory>
+EXPOSE <port>
+```
+
+
+These instructions collectively define the build process and you can make most Dockerfiles.
+- **FROM**: Specifies the base image to use as the starting point.
+- **RUN**: Executes a command during the image build process.
+- **COPY** or **ADD**: Copies files and directories from the build context into the image.
+- **WORKDIR**: Sets the working directory for subsequent instructions.
+- **EXPOSE**: Exposes a specific port to allow communication with the container.
+- **CMD**: Sets the default command to run when the container starts. 
+- **ENV**: Sets environment variables inside the container. 
+
+
+We created this after some time spent designing to containerize that flask application; 
+<br>
+let's talk about it below.
+
+```Dockerfile
+FROM python:3.10-slim-buster
+
+WORKDIR /backend-flask
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+EXPOSE ${PORT}
+
+ENV PYTHONUNBUFFERED=1
+
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567", "--debug"]
+```
+
+
+- `FROM python:3.10-slim-buster`: This instruction sets the base image as `python:3.10-slim-buster`, which is a slim version of Python 3.10 based on Debian Buster.
+- `WORKDIR /backend-flask`: Sets the working directory inside the container to `/backend-flask`.
+- `COPY requirements.txt requirements.txt`: Copies the `requirements.txt` file from the build context into the container's `/backend-flask` directory.
+- `RUN pip3 install -r requirements.txt`: Runs the command `pip3 install -r requirements.txt` inside the container to install the Python dependencies specified in the `requirements.txt` file.
+- `COPY . .`: Copies the remaining files and directories from the build context into the container's `/backend-flask` directory.
+- `EXPOSE ${PORT}`: Exposes the port specified by the `${PORT}` environment variable, allowing communication with the container.
+- `ENV PYTHONUNBUFFERED=1`: Sets the `PYTHONUNBUFFERED` environment variable to `1`, which ensures that Python output is not buffered.
+- `CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567", "--debug"]`: Sets the default command to run when the container starts. In this case, it runs the Flask application using the `python3 -m flask run` command, specifying the host as `0.0.0.0` and the port as `4567`, with the `--debug` option enabled.
 
 
 
-### Docker Run, Env Variable
-<img src="assets/week1/docker run didnt work first because we didnt set envi variable.png">
+### Containerize Flask App
 
-### Logs Troubleshoot
+1. Build the Dockerfile aka the container:
 
-<img src="assets/week1/10- troubleshoot logs .png">
+```sh
+docker build -t  backend-flask ./backend-flask
+```
 
+- `-t backend-flask`: Sets the tag name for the Docker image as "backend-flask".
+- `./backend-flask`: Specifies the build context, indicating the location of the Dockerfile and any necessary files or directories required for the build.
 
-### Server is working
-<img src="assets/week1/works server.png">
+2. Run the Dockerfile aka the container
+```sh
+docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-flask
+```
+- `--rm`: Automatically removes the container and its file system after it exits.
+- `-p 4567:4567`: Maps port 4567 of the host to port 4567 inside the container, allowing external access to the containerized application.
+- `-it`: Provides an interactive terminal for the container.
+- `-e FRONTEND_URL='*' -e BACKEND_URL='*'`: Sets environment variables inside the container, with values assigned to `FRONTEND_URL` and `BACKEND_URL`.
+- `backend-flask`: Specifies the name of the Docker image to run.
 
-
-
-### building docker image
-<img src="assets/week1/building the docker image.png">
-
-### Success Build
-
-<img src="assets/week1/success built.png">
-
-
-
-### Docker PS from BASH
-<img src="assets/week1/docker ps from bash.png">
-
-
-### Listing current images
 <img src="assets/week1/images built list.png">
 
+Better right? it will be even better when we make use of the docker compose.
 
-### working ports
-<img src="assets/week1/port 4567.png">
-
-### Data is here
+3.1. You can use the host url to test a backend endpoint from the browser.<br>
+http://workspace-url:4567/api/activities/home
 
 <img src="assets/week1/data is here!.png">
 
 
-### Docker Run
-<img src="assets/week1/11docker run.png">
-
-<img src="assets/week1/12 docker run the 5th.png">
+3.2 Alternatively, start acting essentially and use curl.
 
 
-## Frontend
+```sh
+curl -X GET http://<workspace-url>:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
+```
 
-Front end is honestly easier, same process, the only diff is the docker compose to be able to run both dockers same time and get ur app running and functional with backend.
-
-
-### NPM required
-<img src="assets/week1/frontend npom install.png">
+It will reply the response from the browser but json in the cli.
 
 
-### Building front docker, using the dockerfile ofc
-<img src="assets/week1/build docker front.png">
 
-### Some stats of what i have 
-<img src="assets/week1/statas.png">
+## Continue To Reactjs App
 
-## Result Front Container
+Typically, to set up the frontend, we need first to install the Node Package Manager.
+
+
+```sh
+cd frontend-react-js
+npm i
+```
+
+Once the dependencies are installed, you can run the ReactJS app on port
+```sh
+npm start -- --port=3000
+```
+
+By integrating both the backend and frontend processes, we can now get access to the app.
+
+You probably got the the point of using Docker. It allows us to specify all tasks for each container in a single file, making them implicit.
+
+
+In our current scenario, we only have two containers. Imagine an entreprise app with µservices architectures where it's common to have around 70 features each have its own container and dependencies.
+
+
+### Containerize Reactjs
+
+Create Dockerfile for frontend
+
+```Dockerfile
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+
+WORKDIR /frontend-react-js
+
+RUN npm install
+
+EXPOSE ${PORT}
+
+CMD ["npm", "start"]
+```
+
+1. Build the Frontend container
+
+```sh
+docker build -t frontend-react-js ./frontend-react-js
+```
+- `-t frontend-react-js`: Sets the tag name for the Docker image as "frontend-react-js".
+- `./frontend-react-js`: Denotes the build context directory containing the Dockerfile and associated resources.  
+2. Run Frontend container
+```sh
+docker run --rm -p 3000:3000 -d frontend-react-js
+```
+
+- `--rm`: Automatically removes the container and its file system after it exits.
+- `-p 3000:3000`: Maps port 3000 of the host to port 3000 inside the container, enabling access to the containerized application from the host machine.
+- `-d`: Runs the container in detached mode, allowing it to run in the background without blocking the terminal.
+- `frontend-react-js`: Refers to the name of the Docker image to run.
+- check the status of both containers at this point
+<img src="assets/week1/WORKS PERFECT.png">
+
+Access the application on `https://3000-workspace-url`.
 
 <img src="assets/week1/APP LIVE.png">
 
+Still time consuming right? [Refer to Container Management and Scaling](#container-management-and-scaling)
 
-### The union port issue
-You have to shutdown the frontend container since it will be used by docker compose later when running the entire app.
-<img src="assets/week1/The everything ports.png">
+# [Open Container Initiative](https://github.com/opencontainers)
 
-### Docker compose, using compose up or from terminal
-<img src="assets/week1/docker compose to build both containers.png">
+![OCI Official Logo](https://opencontainers.org/img/logos/OCI-logo.svg)
 
-# Troubleshooting
-
-This didnt work cause i forgot to install npm which itself will require the react scripts required for our front end reactjs application frontend
+The OCI is an open governance structure and specification for container formats and runtime. It was established in 2015 by industry leaders, including Docker, CoreOS with the aim of creating open standards for containerization technologies.
 
 
-<img src="assets/week1/troubleshoot before the go.png">
+ OCI has developed two main specifications:
 
+- **Image Specification:** This specification defines the format and structure of container images. It specifies the layout and contents of an OCI-compliant container image, including layers, metadata, and configuration.
+- **Runtime Specification:** This specification defines the runtime environment for executing OCI-compliant container images. It describes the execution environment, lifecycle management, and interactions between the container runtime and the underlying host system.
 
+Whether you know it or not, It plays a crucial role in driving the evolution of container technologies today and tomorrow providing open standards that promote collaboration, innovation, and choice in the container ecosystem.
 
+### Considering Alternatives to Docker?
 
-## This command was a game changer
-<img src="assets/week1/gamerchanger.png">
+If you're considering alternatives to Docker for containerization, worry not! OCI and the runc project have got you covered.
 
+Runc serves as a reference implementation of the OCI runtime specification
 
-# More Troubleshooting
-
-
-[![Docker Troubleshooting Video!](https://img.youtube.com/vi/QHj7mUYc0LE/0.jpg)](https://www.youtube.com/watch?v=QHj7mUYc0LE&ab_channel=Yahya)
-
-
-| CONTAINER ID   | IMAGE                                          | COMMAND                  | CREATED          | STATUS                 | PORTS                                       | NAMES                                      |
-| -------------- | ---------------------------------------------- | ------------------------ | ---------------- | ---------------------- | ------------------------------------------- | ------------------------------------------ |
-| 61ab34832d8a   | aws-cloud-project-bootcamp-frontend-react-js   | "docker-entrypoint.s…"   | 18 minutes ago   | Up 18 minutes          | 0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   | aws-cloud-project-bootcamp-frontend-react-js-1 |
-| 3ed9dff36c1e   | aws-cloud-project-bootcamp-backend-flask       | "python3 -m flask ru…"   | 18 minutes ago   | Up 18 minutes          | 0.0.0.0:4567->4567/tcp, :::4567->4567/tcp   | aws-cloud-project-bootcamp-backend-flask-1 |
-| 6da1651b38c0   | postgres:13-alpine                             | "docker-entrypoint.s…"   | 4 hours ago      | Up 4 hours (healthy)   | 0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   | aws-cloud-project-bootcamp-db-1             |
-| cd062d6c1188   | amazon/dynamodb-local:latest                   | "java -jar DynamoDBL…"   | 4 hours ago      | Up 4 hours             | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   | dynamodb-local    |           
-
-
-## Application Containerization
-
-<img src="assets/week1/WORKS PERFECT.png">
-
-
-<img src="assets/week1/THE FRONT CONNECTED TO THE BACKEND.png">
-
-
-# Sign ins
-
-<img src="assets/week1/sign ins.png">
-
-
-# First CRUDD !
-<img src="assets/week1/Crudd.png">
-
-
-# Notification Feature 
-
-### How i'm starting
-<img src="assets/week1/next notifications.png">
-
-READMEDOTIO For APIs 
-<img src="assets/week1/OpenAPI, andrew did this page using readmedotio.png">
-
-
-### A sceenshot me into backend
-
-<img src="assets/week1/backend stuff.png">
-
-
-## Including the endpoint URL For the notification API
-
-<img src="assets/week1/endpoint URL.png">
+It is already natively integrated with tools like Docker. If you consider exploring other tools you may consider deploying it.
 
 
 
 
-#### JSON Pass
+You will have first to build runc to make use of it by creating the OCI Bundle and then building your container image following the specification.
+
+> Follow [the project instructions](https://github.com/opencontainers/runc)
+
+
+
+# Add notification endpoint and Reactjs page
+
+To implement the notification, We will do the following
+
+- Code a Flask notification endpoint and 
+- Build React.js page for users to interact with.
+- Document the endpoint using OpenAPI specs
+
+The files that will be affected are listed below.
+
+| Frontend                                        | Backend                                                     |
+|-------------------------------------------------|-------------------------------------------------------------|
+| `frontend-react-js/src/App.js`                  | `backend-flask/openapi-3.0.yml`                              |
+| `frontend-react-js/src/pages/NotificationsFeedPage.js` | `backend-flask/app.py`                                   |
+| `frontend-react-js/src/pages/NotificationsFeedPage.css` | `backend-flask/services/notifications_activities.py` |
+  
+
+
+## OpenAPI
+
+OpenAPI, formerly known as Swagger, is a specification that provides a machine-readable format for defining and documenting RESTful APIs. At its core, OpenAPI provides a comprehensive and user-friendly framework for defining APIs by adhering to the OpenAPI specification
+
+Developers can create detailed documentation that precisely outlines the structure, endpoints, request/response formats, and even authentication requirements of their APIs. 
+
+
+Here's a sample OpenAPI specification template
+```YAML
+openapi: 3.0.3
+info:
+  title: Document Your First API
+  description: This is a sample OpenAPI specification.
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+    description: Production server
+paths:
+  /users:
+    get:
+      summary: Get all users
+      description: Retrieves a list of all users.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      summary: Create a new user
+      description: Creates a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created successfully
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: User ID
+        name:
+          type: string
+          description: User's name
+        email:
+          type: string
+          format: email
+          description: User's email address
+```
+- `openapi`: Specifies the version of the OpenAPI specification being used. In this case, it's set to version 3.0.3.
+- `info`: Provides general information about the API, including its title, description, and version.
+- `servers`: Defines the server(s) where the API is hosted. In this example, there is one production server specified with its URL and description.
+- `paths`: Contains the API endpoints and their associated operations (e.g., GET, POST) and responses.
+  - `/users`: Represents the `/users` endpoint.
+    - `get`: Describes the GET operation for retrieving all users. It includes a summary, description, and the expected response.
+    - `post`: Describes the POST operation for creating a new user. It specifies a summary, description, the expected request body, and the possible responses.
+- `responses`: Defines the possible responses that an API operation can return. In this example, `200` and `201` are the HTTP status codes representing successful responses.
+- `components`: Contains reusable components used throughout the specification.
+  - `schemas`: Defines data models or schemas used in the API. In this case, there is a `User` schema with properties such as `id`, `name`, and `email`.
+
+This spec  demonstrates the basic structure of an API definition. Let's head over Cruddur API.
+
+
+
+### Adding OpenAPI endpoint
+
+To experience the power of OpenAPI in this project open the `openapi-3.0.yml` file and explore its contents. 
+
+
+1. Start by creating a new path in your OpenAPI specification. 
+
+You can do this by adding the following
+```YAML
+paths:
+  /api/activites/notifications:
+```
+
+Once you've created the new path
+
+2.  It's time to edit it to define the behavior of the notification endpoint. For this, I suggest you refer to the OpenAPI [specs](https://spec.openapis.org/oas/v3.1.0).
+
+
+```yaml
+/api/activites/notifications:
+    get:
+      description: 'Return a feed of activity for all of those that I interact with'
+      tags:
+        - activities
+      parameters: []
+      responses:
+        '200':
+          description: Return an array of activities
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Activity'
+```
+
+We defined the path `/api/activities/notifications`, which represents the endpoint for retrieving activity notifications. The `get` keyword indicates that this path supports the HTTP GET method.
+
+- **description**: This field provides a brief description of the endpoint's purpose, which in this case is to return a feed of activity for all the users that the current user follows.
+- **tags**: Tags are used to categorize endpoints. In this case, the endpoint is tagged with `activities`.
+- **parameters**: This section specifies any parameters required by the endpoint. In the given code snippet, there are no parameters defined ([] empty array).
+- **responses**: Here, we define the responses that the endpoint can return. In this case, there is a single response with the status code `200` (indicating a successful response).
+  - **description**: This field provides a brief description of the response, stating that it returns an array of activities.
+  - **content**: Describes the content type of the response. In this case, it is `application/json`, indicating that the response will be in JSON format.
+    - **schema**: Defines the structure of the response data. Here, it specifies that the response is an array (`type: array`) of items that follow the schema defined in `#/components/schemas/Activity`.
+
+<img src="assets/week1/dockerhub/document-notification-api.png">
+
+The provided code is a simplified example of an OpenAPI specification for the `/api/activities/notifications` endpoint, outlining its purpose, parameters, and response structure. Let go code it.
+
+## Define Endpoint Flask App
+
+- Define the endpoint route in `app.py`
+
+```python
+@app.route("/api/activities/notifications", methods=['GET'])
+def data_notification():
+  data = NotificationActivities.run()
+  return data, 200
+```
+
+- Create a file called `services/notification_activities.py` within the `backend-flask` directory and add the code below.
+```python
+from datetime import datetime, timedelta, timezone
+
+class NotificationActivities:
+  def run():
+    now = datetime.now(timezone.utc).astimezone()
+    results = [{
+      'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
+      'handle':  'Tron',
+      'message': 'I am a character in a movie where human gets inside game.',
+      'created_at': (now - timedelta(days=2)).isoformat(),
+      'expires_at': (now + timedelta(days=5)).isoformat(),
+      'likes_count': 5,
+      'replies_count': 1,
+      'reposts_count': 0,
+      'replies': [{
+        'uuid': '26e12864-1c26-5c3a-9658-97a10f8fea67',
+        'reply_to_activity_uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
+        'handle':  'Worf',
+        'message': 'This post has no honor!',
+        'likes_count': 0,
+        'replies_count': 0,
+        'reposts_count': 0,
+        'created_at': (now - timedelta(days=2)).isoformat()
+      }],
+    }
+    ]
+    return results
+```
+
+- Incorporate the `notification_activities.py` file into the `app.py` file importing it at the top level.
+
+- Curl the backend with the new endpoint `api/activities/notifications`
+
+```sh
+curl -X GET http://<workspace-url>:4567/api/activities/notifications -H "Accept: application/json" -H "Content-Type: application/json"
+```
+You can also access it via the browser. But you need the curl skills.
 
 <img src="assets/week1/endpoint is back!.png">
 
 
-### Notification Endpoint
+## Design Reactjs Notifications Webpage
 
+- Create a `frontend-react-js/src/pages/NotificationsFeedPage.js` and paste the code below
+```js
+import './NotificationsFeedPage.css';
+import React from "react";
 
+import DesktopNavigation  from '../components/DesktopNavigation';
+import DesktopSidebar     from '../components/DesktopSidebar';
+import ActivityFeed from '../components/ActivityFeed';
+import ActivityForm from '../components/ActivityForm';
+import ReplyForm from '../components/ReplyForm';
 
+// [TODO] Authenication
+import Cookies from 'js-cookie'
+
+export default function NotificationsFeedPage() {
+  const [activities, setActivities] = React.useState([]);
+  const [popped, setPopped] = React.useState(false);
+  const [poppedReply, setPoppedReply] = React.useState(false);
+  const [replyActivity, setReplyActivity] = React.useState({});
+  const [user, setUser] = React.useState(null);
+  const dataFetchedRef = React.useRef(false);
+
+  const loadData = async () => {
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/notifications`
+      const res = await fetch(backend_url, {
+        method: "GET"
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        setActivities(resJson)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const checkAuth = async () => {
+    console.log('checkAuth')
+    // [TODO] Authenication
+    if (Cookies.get('user.logged_in')) {
+      setUser({
+        display_name: Cookies.get('user.name'),
+        handle: Cookies.get('user.username')
+      })
+    }
+  };
+
+  React.useEffect(()=>{
+    //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+
+    loadData();
+    checkAuth();
+  }, [])
+
+  return (
+    <article>
+      <DesktopNavigation user={user} active={'notifications'} setPopped={setPopped} />
+      <div className='content'>
+        <ActivityForm  
+          popped={popped}
+          setPopped={setPopped} 
+          setActivities={setActivities} 
+        />
+        <ReplyForm 
+          activity={replyActivity} 
+          popped={poppedReply} 
+          setPopped={setPoppedReply} 
+          setActivities={setActivities} 
+          activities={activities} 
+        />
+        <div className='activity_feed'>
+          <div className='activity_feed_heading'>
+            <div className='title'>Notifications</div>
+          </div>
+          <ActivityFeed 
+            setReplyActivity={setReplyActivity} 
+            setPopped={setPoppedReply} 
+            activities={activities} 
+          />
+        </div>
+      </div>
+      <DesktopSidebar user={user} />
+    </article>
+  );
+}
+```
+
+- Create a `NotificationsFeedPage.css` in the same dir to apply styling
+- In the `App.js` file, include the following import statement
+
+```js
+import NotificationsFeedPage from './pages/NotificationsFeedPage';
+```
+
+- Below where the endpoints are declared add thi following
+```jsx
+{
+  path: "/notifications",
+  element: <NotificationsFeedPage />
+},
+```
 
 <img src="assets/week1/CocoNotif.png">
 
-
-
-
-
-
-### Postgres
-
-Have it in `.gitpod`:
-
-<img src="assets/week1/Postgre/1 postgre installed auto gitpod.png">
-
-
-After going to DB Explorer and created a connection:
-
-<img src="assets/week1/Postgre/2 connected to server .png">
-
-Connect to postgres:
-```
-psql --host localhost
-```
-
-or our case Connect to postgres with password as pw (Picked it DB Explorer):
-
-```
-psql -Upostgres --host localhost
-```
-<img src="assets/week1/Postgre/3 enter postgre.png">
-
-
-- This will get you into Postgres
-
-#### Database Ops
-to find relations:
-```
-\d
-```
-
-
-to check tuples on or off:
-```
-\t
-```
-
-
-to see ID owner and description:
-
-```
-\dl
-```
-
-
-to see templates:
-
-```
-\l
-```
-
-#### PostgreSQL Overview
-<img src="assets/week1/Postgre/4 perform postgre.png">
-
-
-#### Quitting Database
-
-<img src="assets/week1/Postgre/5 quit postgre.png">
-
-
-### Dynamo Local
-
-
-AWS check to use for dynamoDB
-
-<img src="assets/week1/1-aws is here.png">
-
-#### Create DB
-```
-aws dynamodb create-table \
-    --endpoint-url http://localhost:8000 \
-    --table-name Music \
-    --attribute-definitions \
-        AttributeName=Artist,AttributeType=S \
-        AttributeName=SongTitle,AttributeType=S \
-    --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
-    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
-    --table-class STANDARD
-```
-
-
-<img src="assets/week1/dynamo work/1 dynamo table created.png">
-
-<img src="assets/week1/dynamo work/2.png">
-
-
-
-#### Create an Item
-```
-
-aws dynamodb put-item \
-    --endpoint-url http://localhost:8000 \
-    --table-name Music \
-    --item \
-        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
-    --return-consumed-capacity TOTAL  
-```
-
-
-
-<img src="assets/week1/dynamo work/3 create item.png">
-
-
-
-#### list Tables
-
-
-```
-aws dynamodb list-tables --endpoint-url http://localhost:8000
-```
-
-<img src="assets/week1/dynamo work/4 list tables.png">
-
-
-
-#### Get Records
-
-```
-aws dynamodb scan --table-name cruddur_cruds --query "Items" --endpoint-url http://localhost:8000
-```
-
-<img src="assets/week1/dynamo work/5 get records.png">
-
-
-
 ---
 
-**Codespaces**
-<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
-> [Cause](week3.md#codespaces-down---moving-to-local)
 
-#### Docker Desktop 
+## Container Management and Scaling
+Despite Dockerfile being efficient for saving time, as mentioned earlier, running and building each container individually can still be resource-intensive, especially when dealing with large-scale applications. 
 
-<img src="assets/Week3/docker-local/15 containers stats.png">
+The solution to this challenge is Docker Compose.
 
-**Localhost:**
-<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
+> Stay tuned.
 
 
-## Document Notification API
-
-<img src="assets/week1/dockerhub/document-notification-api.png">
-
-### Cruddur Imgs To Dockerhub
-
-**Push & tag images**
+## [Cruddur on Dockerhub](https://hub.docker.com/u/yaya2devops)
 
 
 
-- Push to dockerhub
-```
-docker push yaya2devops/cruddur-frontend:latest
-docker push yaya2devops/cruddur-backend:latest
-```
-
-**Building and pushing Backend:**
+To start the process, you need to build, tag, and push the image to Docker Hub.
 
 ```
 docker build -t dockerhub-username/cruddur-backend:a-good-tag .
@@ -394,10 +620,12 @@ docker push dockerhub-username/cruddur-backend:a-good-tag
 
 <img src="assets/week1/dockerhub/backend-build-push-dockerhub.png">
 
-**The image in Dockerhub w/ Instructions:**
+Once done, you can now visit Docker Hub and refer to the existing images that you have uploaded.
+
 <img src="assets/week1/dockerhub/backend-dockerhub-public-view.png">
 
-**Frontend built and pushed:**
+Same applies to the frontend container, you need to build, tag, and push the image
+
 ```
 docker build -t dockerhub-username/cruddur-frontend:a-good-tag .
 docker push dockerhub-username/cruddur-frontend:latest
@@ -405,20 +633,17 @@ docker push dockerhub-username/cruddur-frontend:latest
 
 <img src="assets/week1/dockerhub/built-push-frontend-dockerhub.png">
 
-**Managing frontend Image**
-<img src="assets/week1/dockerhub/frontend-image-dockerhub.png">
 
 
-In case you wanted to push a newer image
+If you wish to push a newer image, you can follow these steps to ensure your updates are reflected:
 
-- Updates
 
 ```
 docker tag my_username/my_image_name:a-good-tag my_username/my_image_name:latest
 docker push my_username/my_image_name:latest
 ```
 
-Find my images on Dockerhub from [here.](https://hub.docker.com/u/yaya2devops)
+
 
 ### **External CMD Script**
 
@@ -476,7 +701,7 @@ ENTRYPOINT ["/backend-flask/external-script.sh"]
 python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 ```
 
-### Docker Container on EC2
+## Docker Container on EC2
 
 - Create EC2
   
@@ -524,7 +749,7 @@ python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 sudo yum install docker
 ```
 
-##### **Backend on EC2**
+### **Backend on EC2**
 
 - Pulling the image from dockerhb to EC2:
 
@@ -563,7 +788,7 @@ services:
       - "4567:4567"
   frontend-react-js:
     environment:
-      REACT_APP_BACKEND_URL: "http://I¨P:4567"
+      REACT_APP_BACKEND_URL: "http://IP:4567"
     image: yaya2devops/frontend-react-js:1.0
     ports:
       - "3000:3000"
@@ -573,7 +798,7 @@ networks:
     name: cruddur
 ```
 
-#### Flask Health check
+### Flask Health check
 
 - Added a new endpoint in `app.py`
 ```py
@@ -591,9 +816,8 @@ healthcheck:
   start_period: 10s
   retries: 3
 ```
-<img src="assets/week1/dockerhub/backend-health-check.png">
 
-#### Multi-Stage Containerization
+### Multi-Stage Containerization
 
 - building the application with multistaged dockerfile:
 ```
@@ -624,20 +848,14 @@ gitpod /workspace/aws-cloud-project-bootcamp/backend-flask (main) $ docker build
 
 - Make use of our Health check to "check" app running
 
-<img src="assets/week1/dockerhub/docker-multi-stage-test-with-health-check.png">
+
+## Containers on Docker Desktop 
+
+In this scenario, we will use Docker Desktop to execute the containers on a local environment.
 
 
+<img src="assets/Week3/docker-local/15 containers stats.png">
 
----
+Once you have successfully executed the Docker Compose, navigate to the localhost address in your web browser to access and examine the app.
 
-### Concluding
-
-Docker skills was essential throughout the bootcamp period.
-
-This week(s) provided an abundance of invaluable, hands-on learning opportunities. 
-
-🐳I had to go back and accomplish every task because this tool is so amazing🐳
-
-
-
-
+<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
