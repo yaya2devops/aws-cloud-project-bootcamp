@@ -17,18 +17,27 @@
     - [Adding OpenAPI endpoint](#adding-openapi-endpoint)
   - [Define Endpoint Flask App](#define-endpoint-flask-app)
   - [Design Reactjs Notifications Webpage](#design-reactjs-notifications-webpage)
-- [Container Management and Scaling](#container-management-and-scaling)
 - [External CMD Script](#external-cmd-script)
 - [Containers on Docker Desktop](#containers-on-docker-desktop)
 - [Docker Container on EC2](#docker-container-on-ec2)
 - [Flask Health check](#flask-health-check)
+- [Container Management and Scaling](#orchestrating-multiple-containers)
+  - [Two Containers Quickstart](#two-containers-quickstart)
+  - [Databases As Containers](#databases-as-containers)
+    - [DynamoDB Container](#dynamodb-container)
+    - [PostgreSQL Container](#postgresql-container)
+  - [Leveraging the Power of Databases](#leveraging-the-power-of-databases)
+    - [Working with DynamoDB](#working-with-dynamodb)
+    - [Working with PostgreSQL](#working-with-postgresql)
 - [Multi-Stage Containerization](#multi-stage-containerization)
 - [Images On Dockerhub](#cruddur-on-dockerhub)
+- [Security Best Practices](#security-best-practices)
 
 #  Containerize Application
 
 
 Containerization has literally revolutionized the software development landscape, enabling developers like yourself to package applications and their dependencies into lightweight and portable containers. 
+
 
 Docker has emerged as the de facto standard for containerization. The tech follows a client-server architecture and comprises various components that work together seamlessly. 
 
@@ -47,6 +56,8 @@ These are the 2 key components and utilities that you should be familiar with
 
 For interacting with containers Docker provides a set of command-line utilities
 
+![I designed this year ago](https://cdn.hashnode.com/res/hashnode/image/upload/v1657580301789/_waVdExFP.png?auto=compress,format&format=webp)
+
 
 | Command                  | Description                                               |
 |--------------------------|-----------------------------------------------------------|
@@ -62,15 +73,89 @@ For interacting with containers Docker provides a set of command-line utilities
 
 ## Before Docker
 
-Say I have a backend application built on Flask.
+Imagine having a powerful backend application constructed using Flask, a popular Python web framework known for its simplicity and flexibility. 
+
 ```sh
--backend-flask
----etc
+./backend-flask
+├── app.py
+├── bin/
+│   └── health-check*
+├── buildspec.yml
+├── db/
+│   ├── kill-all-connections.sql
+│   ├── migrations/
+│   │   ├── 16824548085333924_add_bio_column.py
+│   │   └── README.md
+│   ├── schema.sql
+│   ├── seed.sql
+│   └── sql/
+│       ├── activities/
+│       │   ├── create.sql
+│       │   ├── home.sql
+│       │   └── object.sql
+│       └── users/
+│           ├── create_message_users.sql
+│           ├── short.sql
+│           ├── show.sql
+│           ├── update.sql
+│           └── uuid_from_cognito_user_id.sql
+├── Dockerfile
+├── Dockerfile.prod
+├── Dockerfile.stage
+├── external-script.sh
+├── lib/
+│   ├── cognito_jwt_token.py
+│   ├── db.py
+│   ├── ddb.py
+│   └── middleware.py
+├── openapi-3.0.yml
+├── README.md
+├── requirements.txt
+├── services/
+│   ├── create_activity.py
+│   ├── create_message.py
+│   ├── create_reply.py
+│   ├── home_activities.py
+│   ├── message_groups.py
+│   ├── messages.py
+│   ├── notifications_activities.py
+│   ├── __pycache__/
+│   │   ├── create_activity.cpython-38.pyc
+│   │   ├── create_message.cpython-38.pyc
+│   │   ├── home_activities.cpython-38.pyc
+│   │   ├── message_groups.cpython-38.pyc
+│   │   ├── messages.cpython-38.pyc
+│   │   ├── search_activities.cpython-38.pyc
+│   │   └── user_activities.cpython-38.pyc
+│   ├── search_activities.py
+│   ├── show_activity.py
+│   ├── update_profile.py
+│   ├── user_activities.py
+│   └── users_short.py
+├── test-buildspec.yml
+└── yaya_tree.md
 ```
 
 
-To install its dependencies run it i'll have to do the following everytime.
+Each time you want to install the dependencies for this application, you will need to follow these steps:
+```sh
+pip3 install dependency1
+pip3 install dependency2
+pip3 install dependency3
+pip3 install dependency4
+.
+.
+pip3 install dependencyn
+```
 
+Alternatively, you have the option to include all the dependencies in a `requirements.txt` file.
+
+```sh
+pip3 install -r requirements.txt
+```
+This allows for a more streamlined installation process.
+
+However, you still need to take these steps to run the application.
 
 ```sh
 cd /workspace/aws-cloud-project-bootcamp/backend-flask
@@ -82,14 +167,13 @@ python3 -m flask run --host=0.0.0.0 --port=4567
 
 <img src="assets/week1/install%20flask.png">
 
-As you can see, we have to explicilty do many of these tasks.
+As you can observe, there are several tasks that need to be explicitly performed in this process.
 
 
 ## After Docker
 
 
-Let's get you going with Docker.
-
+Let's set you up with Docker to ensure your Flask app runs smoothly as intended.
 1. Get to a root of directory that you want containerize its project
 2. Create a file and call it `Dockerfile`
 3. Add this content and follow up
@@ -102,7 +186,7 @@ EXPOSE <port>
 ```
 
 
-These instructions collectively define the build process and you can make most Dockerfiles.
+These instructions collectively define the build process and you can make most Dockerfiles with its combination.
 - **FROM**: Specifies the base image to use as the starting point.
 - **RUN**: Executes a command during the image build process.
 - **COPY** or **ADD**: Copies files and directories from the build context into the image.
@@ -272,11 +356,11 @@ Whether you know it or not, It plays a crucial role in driving the evolution of 
 
 ### Considering Alternatives to Docker?
 
-If you're considering alternatives to Docker for containerization, worry not! OCI and the runc project have got you covered.
+If you're considering alternatives to Docker for containerization, worry not! OCI and the runc project have got you covered. Runc serves as a reference implementation of the OCI runtime specification
 
-Runc serves as a reference implementation of the OCI runtime specification
+It is already natively integrated with tools like Docker. 
 
-It is already natively integrated with tools like Docker. If you consider exploring other tools you may consider deploying it.
+If you consider exploring other tools you may consider deploying it.
 
 
 
@@ -290,10 +374,9 @@ You will have first to build runc to make use of it by creating the OCI Bundle a
 # Add notification endpoint and Reactjs page
 
 To implement the notification, We will do the following
-
-- Code a Flask notification endpoint and 
-- Build React.js page for users to interact with.
 - Document the endpoint using OpenAPI specs
+- Code a Flask notification endpoint
+- Build React.js page for users to interact with
 
 The files that will be affected are listed below.
 
@@ -307,7 +390,10 @@ The files that will be affected are listed below.
 
 ## OpenAPI
 
-OpenAPI, formerly known as Swagger, is a specification that provides a machine-readable format for defining and documenting RESTful APIs. At its core, OpenAPI provides a comprehensive and user-friendly framework for defining APIs by adhering to the OpenAPI specification
+
+OpenAPI, formerly known as Swagger, is a specification that provides a machine-readable format for defining and documenting RESTful APIs. At its core, OpenAPI provides a comprehensive and user-friendly framework to help innovators visualize their vision.
+
+![OpenAPI Official Logo](https://www.openapis.org/wp-content/uploads/sites/3/2018/02/OpenAPI_Logo_Pantone-1.png)
 
 Developers can create detailed documentation that precisely outlines the structure, endpoints, request/response formats, and even authentication requirements of their APIs. 
 
@@ -472,7 +558,7 @@ class NotificationActivities:
     return results
 ```
 
-- Incorporate the `notification_activities.py` file into the `app.py` file importing it at the top level.
+- Incorporate the `notification_activities.py` file into the `app.py` file and import it at the top level.
 
 - Curl the backend with the new endpoint `api/activities/notifications`
 
@@ -585,7 +671,7 @@ export default function NotificationsFeedPage() {
 import NotificationsFeedPage from './pages/NotificationsFeedPage';
 ```
 
-- Below where the endpoints are declared add thi following
+- Below in `app.py` where the endpoints are declared add the following
 ```jsx
 {
   path: "/notifications",
@@ -595,15 +681,7 @@ import NotificationsFeedPage from './pages/NotificationsFeedPage';
 
 <img src="assets/week1/CocoNotif.png">
 
----
 
-
-## Container Management and Scaling
-Despite Dockerfile being efficient for saving time, as mentioned earlier, running and building each container individually can still be resource-intensive, especially when dealing with large-scale applications. 
-
-The solution to this challenge is Docker Compose.
-
-> Stay tuned.
 
 
 ## [Cruddur on Dockerhub](https://hub.docker.com/u/yaya2devops)
@@ -742,6 +820,7 @@ python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 - Clone Project repo
 <img src="assets/week1/EC2/6-ec2-git-available.png">
 
+> Although Dockerhub is available, I started with this approach for various reasons. Lol.
 
 **Install docker**
 
@@ -859,3 +938,432 @@ In this scenario, we will use Docker Desktop to execute the containers on a loca
 Once you have successfully executed the Docker Compose, navigate to the localhost address in your web browser to access and examine the app.
 
 <img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
+
+
+<br>
+
+# Orchestrating Multiple Containers
+
+
+Compose is a tool for defining and running multi-container as services by designing a single YAML file and with a single command, you create and start all the services from your configuration.
+
+Docker Compose will allows us to define and manage these containers in one go enabling seamless communication and collaboration between 'em. 
+
+
+## Two Containers Quickstart
+
+In our current setup, we have successfully containerized the **frontend** and **backend** components left is to compose them.
+
+Let is go over the sample compose and disucss its content.
+
+1. create a `docker-compose.yml` and paste the following
+```YAML
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./backend-flask
+      dockerfile: Dockerfile
+    ports:
+      - "4567:4567"
+    environment:
+    volumes:
+      - <host_path>:<container_path>  
+  frontend:
+    build:
+      context: ./frontend-react-js
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+    depends_on:
+      - backend
+```
+
+- `version: "3.9"`: Specifies the version of the Docker Compose file format we are using. You can adjust the version according to your requirements.
+- `services:` This section defines the services (containers) that will be created.
+  - `backend:` Defines the backend service. You can customize the service name as per your application's needs.
+    - `build:` Specifies the build context for the backend service. This is the directory containing the Dockerfile for the backend container. Adjust the context path to match the location of your Dockerfile.
+      - `dockerfile: Dockerfile:` Indicates the name of the Dockerfile to use for building the backend container. If your Dockerfile has a different name, update it accordingly.
+    - `ports:` Specifies the port mapping for the backend container. In this example, port 8000 on the host machine is mapped to port 8000 in the backend container.
+    - `environment:` Sets the environment variables for the backend container. You can add or modify environment variables based on your application's requirements.
+    - `volumes` config allows you to define shared data volumes between the host machine and the containers. 
+- `frontend:` Defines the frontend service. Customize the service name if needed.
+    - `build:` Specifies the build context for the frontend service. Update the context path to match the location of the Dockerfile for the frontend container.
+      -  `dockerfile: Dockerfile:` Indicates the name of the Dockerfile to use for building the frontend container. Modify it if your Dockerfile has a different name.
+    - `ports:` Specifies the port mapping for the frontend container. In this example, port 3000 on the host machine is mapped to port 3000 in the frontend container.
+    - `depends_on:` Specifies the dependency of the frontend service on the backend service. The frontend container will start only after the backend container is up and running.
+
+### *Backend Environments*
+To establish a connection between the frontend and backend workspaces in different developer environments, you can follow these general guidelines.
+
+
+Lets discuss how in three leading developer environements.
+
+
+**Codespaces**<br>
+If you are using Codespaces, you can easily establish the connection between them by adding the following
+
+<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
+
+```yaml
+    environment:
+      FRONTEND_URL: "https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+      BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+```
+
+**Gitpod**<br>
+If you are using Gitpod, you can establish the connection as shown below.
+```YAML
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+```
+
+**VScode**<br>
+If you are working locally, specifically with Visual Studio Code, you can establish the connection.
+
+```YAML
+    environment:
+      FRONTEND_URL: "http://localhost:3000"
+      BACKEND_URL: "http://localhost:4567"
+```
+
+### *Frontend Environments*
+
+We only need the URL for the frontend service. The connection will be established through the backend service to establish the relationship with the frontend, as illustrated above.
+
+
+**Codespaces**<br>
+If you are in Codespaces, you can add the following to establish the connection.
+```yaml
+    environment:
+      REACT_APP_BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
+```
+
+**Gitpod**<br>
+If you are in Gitpod, you can add the following to establish the connection.
+```YAML
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+```
+
+**VScode**<br>
+If you are working on your local machine, for example using Visual Studio Code, you can add the following.
+```YAML
+    environment:
+      REACT_APP_BACKEND_URL: "https://localhost:4567"
+```
+
+
+After configuring `Gitpod` and making the necessary adjustments, our composition will be composed as follows.
+
+```YAML
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+```
+
+- Execute the command `docker compose up` to start the services within the `docker-compose.yml`.
+- Ensure that the ports `3000` and `5432` are accessible and not blocked by Gitpod.
+- Open your preferred web browser.
+- In the browser's address bar, enter the URL associated with port `3000`. 
+![App on Compose](assets/week1/WORKS%20PERFECT.png)
+
+This will lead you to the application's homepage.
+
+
+
+As we expand our services and integrate with other software, we diligently configure the application.
+
+
+For seamless integration with AWS Cognito, we incorporated the necessary environment settings into both our frontend and backend to enable UI authentication.
+
+```YAML
+  frontend-react-js:
+    environment:
+      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+      REACT_APP_CLIENT_ID: "${APP_CLIENT_ID}"
+```
+
+To ensure secure authentication with AWS services, we seamlessly integrated our backend by generating a secret key from the platform. This key, along with the region and ID, was then passed to the compose for further utilization.
+
+
+```YAML
+  backend-flask:
+    environment:
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"   
+```
+
+
+In the second week, we efficiently utilized distributed tracing tools such as X-Ray, OpenTelemetry (OTel), and Rollbar to aid in debugging and troubleshooting.
+
+```YAML
+  backend-flask:
+    environment:
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}" 
+      OTEL_SERVICE_NAME: "backend-flask"
+      OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
+      OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
+      AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
+      AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+      ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}" 
+```
+
+Exact. We tailor our configurations according to our unique needs and align them with our overall vision while integrating with other software solutions.
+
+
+## Databases As Containers
+To further enhance the app's functionality and ensure data persistence, we need to incorporate databases. 
+
+We will make use of DynamoDB, a fully managed NoSQL database service provided by AWS and PostgreSQL. The first was used for week 5 to send messages and the second was used in week 4 to post cruds.
+
+
+### DynamoDB Container
+
+Included DynamoDB setup instructions in the `docker-compose.yml` file. 
+
+```YAML
+dynamodb-local:
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+```
+
+`dynamodb-local` is the name given to this specific section.
+- `user: root` specifies the user for running the DynamoDB Local container.
+- `command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"` provides the command to be executed inside the container, launching DynamoDB Local with specific options. This includes using a shared database (`-sharedDb`) and specifying the database path (`-dbPath`) as "./data".
+- `image: "amazon/dynamodb-local:latest"` refers to the Docker image used for the DynamoDB Local container. In this case, it uses the latest version of the "amazon/dynamodb-local" image.
+- `container_name: dynamodb-local` assigns the name "dynamodb-local" to the container.
+- `ports: - "8000:8000"` maps the container's port 8000 to the host machine's port 8000, allowing access to the DynamoDB Local service.
+- `volumes: - "./docker/dynamodb:/home/dynamodblocal/data"` creates a volume mapping between the local directory "./docker/dynamodb" and the container's "/home/dynamodblocal/data" directory. This ensures that data persists between container restarts.
+- `working_dir: /home/dynamodblocal` sets the working directory inside the container to "/home/dynamodblocal".
+
+
+We strategically incorporated DynamoDB into our architecture to enable seamless message sending within our platform and efficiently store the associated data. 
+
+### PostgreSQL Container
+
+Included PostgreSQL setup instructions in the `docker-compose.yml` file. 
+
+```yaml
+db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+```
+
+Add `volumes` to `docker-compose.yml` file at the very end.
+
+```yaml
+volumes:
+  db:
+    driver: local
+```
+
+The `db` section defines a service named "db" in the Docker Compose file.
+- `image: postgres:13-alpine` specifies the Docker image to be used, which is the PostgreSQL version 13 with the Alpine Linux distribution.
+- `restart: always` ensures that the container automatically restarts if it stops unexpectedly.
+- `environment` sets the environment variables required for the PostgreSQL container. In this case:
+  - `POSTGRES_USER=postgres` specifies the username for the PostgreSQL database as "postgres".
+  - `POSTGRES_PASSWORD=password` sets the password for the "postgres" user.
+- `ports` maps the container's port 5432 to the host machine's port 5432, allowing access to the PostgreSQL database service.
+- `volumes` creates a named volume named "db" and mounts it to the "/var/lib/postgresql/data" directory inside the container. This ensures that the database data persists even if the container is restarted or recreated.
+  
+During week 4, we made use of psql to enable CRUD operations.
+
+
+Executing the command `docker compose up` will initiate the launch sequence of the `Frontend`, `Backend`, `DynamoDB` and `PostgreSQL` services, getting them to run with one command within your environment.
+
+
+| CONTAINER ID   | IMAGE                                          | COMMAND                  | CREATED          | STATUS                 | PORTS                                       | NAMES                                      |
+| -------------- | ---------------------------------------------- | ------------------------ | ---------------- | ---------------------- | ------------------------------------------- | ------------------------------------------ |
+| 61ab34832d8a   | aws-cloud-project-bootcamp-frontend-react-js   | "docker-entrypoint.s…"   | 18 minutes ago   | Up 18 minutes          | 0.0.0.0:3000->3000/tcp, :::3000->3000/tcp   | aws-cloud-project-bootcamp-frontend-react-js-1 |
+| 3ed9dff36c1e   | aws-cloud-project-bootcamp-backend-flask       | "python3 -m flask ru…"   | 18 minutes ago   | Up 18 minutes          | 0.0.0.0:4567->4567/tcp, :::4567->4567/tcp   | aws-cloud-project-bootcamp-backend-flask-1 |
+| 6da1651b38c0   | postgres:13-alpine                             | "docker-entrypoint.s…"   | 4 hours ago      | Up 4 hours (healthy)   | 0.0.0.0:5432->5432/tcp, :::5432->5432/tcp   | aws-cloud-project-bootcamp-db-1             |
+| cd062d6c1188   | amazon/dynamodb-local:latest                   | "java -jar DynamoDBL…"   | 4 hours ago      | Up 4 hours             | 0.0.0.0:8000->8000/tcp, :::8000->8000/tcp   | dynamodb-local    |           
+
+
+
+
+## Leveraging the Power of Databases
+Once your Docker Compose environment is up and running, encompassing the essential database configurations mentioned earlier, you can begin harnessing the full potential of these powerful tools to extract maximum value from your application.
+
+### Working with DynamoDB 
+
+1. To create a table in DynamoDB, you can run these commands:
+
+```bash
+aws dynamodb create-table \
+    --endpoint-url http://localhost:8000 \
+  --table-name Music \
+    --attribute-definitions \
+        AttributeName=Artist,AttributeType=S \
+        AttributeName=SongTitle,AttributeType=S \
+    --key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --table-class STANDARD
+```
+
+- `aws dynamodb create-table`: This is the AWS CLI command to create a table in DynamoDB.
+- `--endpoint-url http://localhost:8000`: Specifies the endpoint URL to connect to the local instance of DynamoDB running on port 8000. This is useful for local development and testing.
+- `--table-name Music`: Sets the name of the table to "Music".
+- `--attribute-definitions`: Defines the attribute definitions for the table.
+    - `AttributeName=Artist,AttributeType=S`: Specifies an attribute named "Artist" with a type of "String".
+    - `AttributeName=SongTitle,AttributeType=S`: Specifies an attribute named "SongTitle" with a type of "String".
+- `--key-schema AttributeName=Artist,KeyType=HASH AttributeName=SongTitle,KeyType=RANGE`: Sets the key schema for the table. In this case, the "Artist" attribute is set as the hash key (partition key) and the "SongTitle" attribute is set as the range key (sort key).
+- `--provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1`: Specifies the provisioned throughput for the table. In this case, the read capacity is set to 1 unit and the write capacity is set to 1 unit.
+- `--table-class STANDARD`: Specifies the table class as "STANDARD". This is the default table class.
+
+2. To create an item in DynamoDB run the command
+
+```bash
+aws dynamodb put-item \
+    --endpoint-url http://localhost:8000 \
+    --table-name Music \
+    --item \
+        '{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}' \
+    --return-consumed-capacity TOTAL
+```
+
+- `aws dynamodb put-item`: This is the AWS CLI command to put an item (create an item) in DynamoDB.
+- `--endpoint-url http://localhost:8000`: Specifies the endpoint URL to connect to the local instance of DynamoDB running on port 8000. This is useful for local development and testing.
+- `--table-name Music`: Specifies the name of the table where the item will be created, in this case, "Music"
+- `--item`: Defines the item to be created with its attribute values. The attribute values are specified using JSON format.
+    - `{"Artist": {"S": "No One You Know"}, "SongTitle": {"S": "Call Me Today"}, "AlbumTitle": {"S": "Somewhat Famous"}}`: This JSON object represents the attributes and their values for the item. Each attribute is specified with its data type (such as "S" for string).
+- `--return-consumed-capacity TOTAL`: Specifies the type of consumed capacity information to be returned after the operation. In this case, it is set to "TOTAL".
+
+3. To list tables in DynamoDB
+```bash
+aws dynamodb list-tables --endpoint-url http://localhost:8000
+```
+<img src="assets/week1/dynamo work/4 list tables.png">
+
+- `aws dynamodb list-tables`: This is the AWS CLI command to list the tables in DynamoDB.
+- `--endpoint-url http://localhost:8000`: Specifies the endpoint URL to connect to the local instance of DynamoDB running on port 8000. This is useful for local development and testing.
+
+4. The following command is used to get data from DynamoDB:
+
+```bash
+aws dynamodb scan --table-name Music --query "Items" --endpoint-url http://localhost:8000
+```
+- `aws dynamodb scan`: This is the AWS CLI command to scan (retrieve) data from a DynamoDB table.
+  - `--table-name Music`: Specifies the name of the table from which you want to retrieve data, in this case, "Music".
+  - `--query "Items"`: Specifies the query expression to retrieve the items from the table. In this case, it retrieves all the items.
+  - `--endpoint-url http://localhost:8000`: Specifies the endpoint URL to connect to the local instance of DynamoDB running on port 8000. This is useful for local development and testing.
+
+
+### Working with PostgreSQL 
+
+- Install the client librairy in yourd developemr env
+
+```yaml
+- name: postgres
+    init: |
+      curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
+      echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
+      sudo apt update
+      sudo apt install -y postgresql-client-13 libpq-dev
+```
+- `curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg`: Downloads the PostgreSQL GPG key and saves it to the trusted GPG key location.
+- `echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list`: Adds the PostgreSQL repository to the apt sources list based on the current system release.
+- `sudo apt update`: Updates the package lists from the repositories.
+- `sudo apt install -y postgresql-client-13 libpq-dev`: Installs the PostgreSQL client and the libpq development package.
+
+
+If you are using Gitpod, you have the ability to automate the process effortlessly.
+```yaml
+- name: postgres
+    init: |
+       <paste the commands at this level of identation>
+```
+- `name: postgres`: Specifies the name of the component or package to be installed, in this case, "postgres".
+- `init:`: Indicates the initialization section where the necessary commands for installation are defined.
+
+If you are using others you can refer to 
+
+Execute  to connect the postgres server that’s already running at port `5432`
+
+```sh
+psql -U postgres --host localhost
+```
+
+- `psql`: This is the command to launch the psql tool, which allows you to interact with PostgreSQL databases.
+- `-U postgres`: Specifies the username to connect to the PostgreSQL database as "postgres". This assumes that there is a PostgreSQL user named "postgres" with the necessary privileges.
+- `--host localhost`: Specifies the hostname or IP address of the PostgreSQL server. In this case, it is set to "localhost" to connect to the PostgreSQL server running on the local machine.
+
+Make use of the password "password" for the connection.
+
+<img src="assets/week1/Postgre/4 perform postgre.png">
+
+To exit or quit the psql command-line tool, simply enter `\q`.
+
+Data explorer  allows us to conveniently view and interact with the PostgreSQL database and provides a user-friendly interface where we can explore the data stored in psql tables.
+
+<img src="assets/week1/Postgre/2 connected to server .png">
+
+
+## Security Best Practices
+
+To help ensure the integrity and protection of containerized environments, implementing container security best practices is crucial. 
+
+
+- Image Integrity: Use trusted and verified container images from reputable sources. Regularly update and patch these images to address any known vulnerabilities.
+- Container Isolation: Isolate containers from each other and the host system using appropriate containerization technologies. 
+- Secure Configuration: Follow secure configuration practices Inc. minimizing the number of running processes disabling unnecessary services.
+- Vulnerability Scanning: Regularly scan container images and the underlying host system for known vulnerabilities.
+
+Other key practices Incl related to technical configurations.
+
+
+| Dockerfiles                            | Docker Compose                          |
+| -------------------------------------- | --------------------------------------- |
+| Use official base images               | Limit exposed ports                      |
+| Update regularly                       | Restrict container privileges            |
+| Minimize image layers                  | Implement resource limits                |
+| Remove unnecessary dependencies        | Use secure environment variables        |
+| Run containers with non-root users      | Separate sensitive data                  |
+
+
+### Reference
+
+- [Compose Configuration](https://docs.docker.com/compose/)
+- [Open Container Initiative](https://opencontainers.org/)
+- [Synk Containers Security](https://snyk.io/fr/)
+- [Extending FastAPI](https://fastapi.tiangolo.com/advanced/extending-openapi/)
+- [AWS DynamoDB Image](https://hub.docker.com/r/amazon/dynamodb-local)
+
+
+💡 Google has announced its open sourcing of Kubernetes, revealing that the company successfully manages an impressive 4 billion containers to handle the demands of global scale. 
