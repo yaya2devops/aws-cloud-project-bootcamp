@@ -10,6 +10,7 @@
   - [After Docker](#after-docker)
     - [Containerize Flask App](#containerize-flask-app)
   - [Continue To Reactjs App](#continue-to-reactjs-app)
+  - [Debug with Docker](#debugging-with-docker)
 - [Open Container Initiative](#open-container-initiative)
     - [Considering Alternatives to Docker?](#considering-alternatives-to-docker)
 - [Add notification endpoint and Reactjs page](#add-notification-endpoint-and-reactjs-page)
@@ -21,7 +22,7 @@
 - [Containers on Docker Desktop](#containers-on-docker-desktop)
 - [Docker Container on EC2](#docker-container-on-ec2)
 - [Flask Health check](#flask-health-check)
-- [Container Management and Scaling](#orchestrating-multiple-containers)
+- [Container Management and Scaling](#running-multiple-containers)
   - [Two Containers Quickstart](#two-containers-quickstart)
   - [Databases As Containers](#databases-as-containers)
     - [DynamoDB Container](#dynamodb-container)
@@ -29,14 +30,26 @@
   - [Leveraging the Power of Databases](#leveraging-the-power-of-databases)
     - [Working with DynamoDB](#working-with-dynamodb)
     - [Working with PostgreSQL](#working-with-postgresql)
+    - [Working with Data Explorer](#data-explorer)
 - [Multi-Stage Containerization](#multi-stage-containerization)
 - [Images On Dockerhub](#cruddur-on-dockerhub)
 - [Security Best Practices](#security-best-practices)
+- [Docker Costs Considerations](#security-best-practices)
 
 #  Containerize Application
 
 
 Containerization has literally revolutionized the software development landscape, enabling developers like yourself to package applications and their dependencies into lightweight and portable containers. 
+
+<details>
+
+<summary>
+Check my insights while planning for this.
+</summary>
+
+![my insights](assets/week1/docker-to-do-inspire-portion.png)
+
+</details>
 
 
 Docker has emerged as the de facto standard for containerization. The tech follows a client-server architecture and comprises various components that work together seamlessly. 
@@ -137,6 +150,28 @@ Imagine having a powerful backend application constructed using Flask, a popular
 ```
 
 
+
+Prior to proceeding further, we ensure that our package manager is updated to the latest version.
+```sh
+sudo apt-get update
+```
+
+Subsequently, we move forward with the installation of indispensable Python dependencies.
+```sh
+sudo apt-get install python3-setuptools python3-dev build-essential
+```
+
+Assuming the dependencies availability in [pip](https://pypi.org/project/pip/) and a flask app.
+
+```
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+sudo python3 get-pip.py
+```
+
+
+And then,
+
 Each time you want to install the dependencies for this application, you will need to follow these steps:
 ```sh
 pip3 install dependency1
@@ -148,7 +183,40 @@ pip3 install dependency4
 pip3 install dependencyn
 ```
 
-Alternatively, you have the option to include all the dependencies in a `requirements.txt` file.
+Alternatively, you have the option to include all the dependencies in a `requirements.txt` like this
+```sh
+dependency1
+dependency2
+dependency3
+dependency4
+.
+.
+dependencyn
+```
+
+For example, the dependencies of this project...
+
+I completed each dep one by one, ensuring a smooth and satisfactory experience. Find more [here](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commits/main/backend-flask/requirements.txt)
+
+```
+flask
+flask-cors
+opentelemetry-api
+opentelemetry-sdk 
+opentelemetry-exporter-otlp-proto-http 
+opentelemetry-instrumentation-flask 
+opentelemetry-instrumentation-requests
+aws-xray-sdk
+watchtower
+blinker
+rollbar
+Flask-AWSCognito
+psycopg[binary]
+psycopg[pool]
+boto3
+```
+
+And then install them all with a single command.
 
 ```sh
 pip3 install -r requirements.txt
@@ -256,7 +324,7 @@ docker run --rm -p 4567:4567 -it -e FRONTEND_URL='*' -e BACKEND_URL='*' backend-
 Better right? it will be even better when we make use of the docker compose.
 
 3.1. You can use the host url to test a backend endpoint from the browser.<br>
-http://workspace-url:4567/api/activities/home
+http://4567:workspace-url/api/activities/home
 
 <img src="assets/week1/data is here!.png">
 
@@ -292,7 +360,10 @@ By integrating both the backend and frontend processes, we can now get access to
 You probably got the the point of using Docker. It allows us to specify all tasks for each container in a single file, making them implicit.
 
 
-In our current scenario, we only have two containers. Imagine an entreprise app with µservices architectures where it's common to have around 70 features each have its own container and dependencies.
+In our current scenario, we only have two containers. Imagine an entreprise app with µservices architectures where it's common to have around "guess" features each have its own container and dependencies.
+
+
+💡 Google has announced its open sourcing of Kubernetes, revealing that the company successfully manages an impressive 4 billion containers to handle the demands of global scale. 
 
 
 ### Containerize Reactjs
@@ -336,9 +407,8 @@ docker run --rm -p 3000:3000 -d frontend-react-js
 
 Access the application on `https://3000-workspace-url`.
 
-<img src="assets/week1/APP LIVE.png">
 
-Still time consuming right? [Refer to Container Management and Scaling](#container-management-and-scaling)
+Still time consuming right? [Refer to Container Management and Scaling](#running-multiple-containers)
 
 # [Open Container Initiative](https://github.com/opencontainers)
 
@@ -391,7 +461,7 @@ The files that will be affected are listed below.
 ## OpenAPI
 
 
-OpenAPI, formerly known as Swagger, is a specification that provides a machine-readable format for defining and documenting RESTful APIs. At its core, OpenAPI provides a comprehensive and user-friendly framework to help innovators visualize their vision.
+OpenAPI, formerly known as Swagger, is a specification that provides a machine-readable format for defining and documenting RESTful APIs. At its core, OpenAPI provides a comprehensive and user-friendly framework to help innovators visualize and share their vision.
 
 ![OpenAPI Official Logo](https://www.openapis.org/wp-content/uploads/sites/3/2018/02/OpenAPI_Logo_Pantone-1.png)
 
@@ -682,272 +752,13 @@ import NotificationsFeedPage from './pages/NotificationsFeedPage';
 <img src="assets/week1/CocoNotif.png">
 
 
+# Running Multiple Containers
 
 
-## [Cruddur on Dockerhub](https://hub.docker.com/u/yaya2devops)
+Docker Compose is a tool for defining and running multi-container as services by designing a single YAML file and with a single command, you create and start all the services from your configuration.
 
+Compose will allows us to manage these containers in one go enabling seamless interconnection.
 
-
-To start the process, you need to build, tag, and push the image to Docker Hub.
-
-```
-docker build -t dockerhub-username/cruddur-backend:a-good-tag .
-docker push dockerhub-username/cruddur-backend:a-good-tag
-```
-
-
-<img src="assets/week1/dockerhub/backend-build-push-dockerhub.png">
-
-Once done, you can now visit Docker Hub and refer to the existing images that you have uploaded.
-
-<img src="assets/week1/dockerhub/backend-dockerhub-public-view.png">
-
-Same applies to the frontend container, you need to build, tag, and push the image
-
-```
-docker build -t dockerhub-username/cruddur-frontend:a-good-tag .
-docker push dockerhub-username/cruddur-frontend:latest
-```
-
-<img src="assets/week1/dockerhub/built-push-frontend-dockerhub.png">
-
-
-
-If you wish to push a newer image, you can follow these steps to ensure your updates are reflected:
-
-
-```
-docker tag my_username/my_image_name:a-good-tag my_username/my_image_name:latest
-docker push my_username/my_image_name:latest
-```
-
-
-
-### **External CMD Script**
-
-Frontend
-```
-FROM node:16.18
-
-ENV PORT=3000
-
-COPY . /frontend-react-js
-WORKDIR /frontend-react-js
-RUN npm install
-EXPOSE ${PORT}
-CMD ["/bin/bash", "./script.sh"]
-```
-
-
-**The external [script](../frontend-react-js/script.sh)**
-```
-#!/bin/bash
-npm start
-```
-
-<img src="assets/week1/dockerhub/dockerfile-external-cmd.png">
-
-
-For backend, i thought to add ENTRYPOINT. These cannot be overtitten, while we could use cmd but we could change e.g. in this case another script.
-
-
-I added this `ENTRYPOINT [""]` and directed my `external-script.sh` path
-
-```
-FROM python:3.10-slim-buster
-
-WORKDIR /backend-flask
-
-COPY requirements.txt requirements.txt
-
-RUN pip3 install -r requirements.txt
-
-COPY . .
-
-EXPOSE ${PORT}
-
-ENV PYTHONUNBUFFERED=1
-cd de
-ENTRYPOINT ["/backend-flask/external-script.sh"]
-```
-
-
-[`external-script.sh`](../backend-flask/external-script.sh)
-
-```
-#!/bin/bash
-python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
-```
-
-## Docker Container on EC2
-
-- Create EC2
-  
-<img src="assets/week1/EC2/1-config-ec2.png">
-
-- Add key-pair
-
-<img src="assets/week1/EC2/2-config-ec2.png">
-
-- allow ssh and HTTPS from internet
-
-
-
-**SSH Using PuTTy**
-
-<img src="assets/week1/EC2/3-ssh-to-ec2.png">
-
-- Add public IP, 
-- leave port 22, its standard for ssh
-- Expand on SSH -> Auth -> Credentials: Browse your .pem SK and add it
-- Click Open, ec2 will open
-
-
-[Related Lab Helped](https://www.cloudskillsboost.google/focuses/40544?parent=catalog)
-
-<img src="assets/week1/EC2/4-puty-auth.png">
-
-
-> make sure the you chmod 600 or 400 ur "[rsa-key.pem](assets/week1/EC2/rsa-key.pem)"
-
-**SSH using AWS EC2 Connect**
-
-<img src="assets/week1/EC2/5-ssh-using-aws-connect.png">
-
-- Connect 
-- Update yum: `sudo yum update`
-- Get git with: `sudo yum install git`
-- Clone Project repo
-<img src="assets/week1/EC2/6-ec2-git-available.png">
-
-> Although Dockerhub is available, I started with this approach for various reasons. Lol.
-
-**Install docker**
-
-```
-sudo yum install docker
-```
-
-### **Backend on EC2**
-
-- Pulling the image from dockerhb to EC2:
-
-```
-sudo docker pull yaya2devops/cruddur-backend:latest
-```
-
-<img src="assets/week1/EC2/7-docker-pull-ec2.png">
-
-- Run it
-
-```
-sudo docker run -p 4567:4567 yaya2devops/cruddur-backend:latest
-```
-<img src="assets/week1/EC2/8-docker-run-ec2.png">
-
-Nav to backend using `ec2-public-ip:port/endpoints`
-
-
-##### **Frontend on EC2**
-
-- Pull frontend Image
-- Install Docker Compose
-  
-##### **Run both on Docker compose**
-
-```yaml
-version: "3.8"
-services:
-  backend-flask:
-    environment:
-      FRONTEND_URL: "http://IP:3000"
-      BACKEND_URL: "http://IP:4567"
-    image: yaya2devops/backend-flask:1.0
-    ports:
-      - "4567:4567"
-  frontend-react-js:
-    environment:
-      REACT_APP_BACKEND_URL: "http://IP:4567"
-    image: yaya2devops/frontend-react-js:1.0
-    ports:
-      - "3000:3000"
-networks: 
-  internal-network:
-    driver: bridge
-    name: cruddur
-```
-
-### Flask Health check
-
-- Added a new endpoint in `app.py`
-```py
-@app.route("/api/health-check", methods=["GET"])
-def health_check():
-    return {'success': True, 'ver': 1}, 200
-```
-- Config docker compose
-
-```yaml
-healthcheck:
-  test: curl --fail http://<URL>:4567/api/health || exit 1
-  interval: 10s
-  timeout: 10s
-  start_period: 10s
-  retries: 3
-```
-
-### Multi-Stage Containerization
-
-- building the application with multistaged dockerfile:
-```
-gitpod /workspace/aws-cloud-project-bootcamp/backend-flask (main) $ docker build -t backend -f Dockerfile.stage .
-[+] Building 33.1s (15/15) FINISHED                                                                                         
- => [internal] load .dockerignore                                                                                      0.0s
- => => transferring context: 44B                                                                                       0.0s
- => [internal] load build definition from Dockerfile.stage                                                             0.0s
- => => transferring dockerfile: 862B                                                                                   0.0s
- => [internal] load metadata for docker.io/library/python:3.10-slim-buster                                             0.7s
- => [internal] load build context                                                                                      0.0s
- => => transferring context: 96.01kB                                                                                   0.0s
- => CACHED [build 1/7] FROM docker.io/library/python:3.10-slim-buster@sha256:02874255d484428c9412db98923b387ac73822cb  0.0s
- => CACHED [stage-1 2/4] WORKDIR /backend-flask                                                                        0.0s
- => [build 2/7] RUN apt update                                                                                         2.7s
- => [build 3/7] RUN apt install -y --no-install-recommends     build-essential gcc                                     9.4s
- => [build 4/7] WORKDIR /backend-flask                                                                                 0.0s 
- => [build 5/7] RUN python3 -m venv /backend-flask/venv                                                                4.5s 
- => [build 6/7] COPY requirements.txt .                                                                                0.0s
- => [build 7/7] RUN pip3 install -r requirements.txt                                                                  10.6s
- => [stage-1 3/4] COPY --from=build /backend-flask/venv ./venv                                                         0.6s
- => [stage-1 4/4] COPY . .                                                                                             0.0s
- => exporting to image                                                                                                 3.9s
- => => exporting layers                                                                                                3.9s
- => => writing image sha256:4af2988118c434aea7ecf21dd750de0fec67442e83c35e6f63071c12eaa98cd1                           0.0s
- => => naming to docker.io/library/backend       
- ```
-
-- Make use of our Health check to "check" app running
-
-
-## Containers on Docker Desktop 
-
-In this scenario, we will use Docker Desktop to execute the containers on a local environment.
-
-
-<img src="assets/Week3/docker-local/15 containers stats.png">
-
-Once you have successfully executed the Docker Compose, navigate to the localhost address in your web browser to access and examine the app.
-
-<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
-
-
-<br>
-
-# Orchestrating Multiple Containers
-
-
-Compose is a tool for defining and running multi-container as services by designing a single YAML file and with a single command, you create and start all the services from your configuration.
-
-Docker Compose will allows us to define and manage these containers in one go enabling seamless communication and collaboration between 'em. 
 
 
 ## Two Containers Quickstart
@@ -1005,13 +816,19 @@ Lets discuss how in three leading developer environements.
 **Codespaces**<br>
 If you are using Codespaces, you can easily establish the connection between them by adding the following
 
-<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
+
+
+
 
 ```yaml
     environment:
       FRONTEND_URL: "https://${CODESPACE_NAME}-3000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
       BACKEND_URL: "https://${CODESPACE_NAME}-4567.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
 ```
+<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
+
+> This asset serves as  demonstration of my exp with Codespaces. I'm multi cloud development environment developer.
+
 
 **Gitpod**<br>
 If you are using Gitpod, you can establish the connection as shown below.
@@ -1066,6 +883,7 @@ services:
     environment:
       FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
       BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -1082,15 +900,17 @@ services:
 ```
 
 - Execute the command `docker compose up` to start the services within the `docker-compose.yml`.
-- Ensure that the ports `3000` and `5432` are accessible and not blocked by Gitpod.
+- Ensure that the ports `3000` and `4567` are accessible and not blocked by Gitpod.
+![App on Compose](assets/week1/WORKS%20PERFECT.png)
+> The port in the tab just besides the terminal.
+
 - Open your preferred web browser.
 - In the browser's address bar, enter the URL associated with port `3000`. 
-![App on Compose](assets/week1/WORKS%20PERFECT.png)
 
 This will lead you to the application's homepage.
 
 
-
+### Configuration as Service
 As we expand our services and integrate with other software, we diligently configure the application.
 
 
@@ -1130,7 +950,7 @@ In the second week, we efficiently utilized distributed tracing tools such as X-
       ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}" 
 ```
 
-Exact. We tailor our configurations according to our unique needs and align them with our overall vision while integrating with other software solutions.
+Exact. <br>We tailor our configurations according to our unique needs and align them with our overall vision while integrating with other software solutions.
 
 
 ## Databases As Containers
@@ -1141,7 +961,9 @@ We will make use of DynamoDB, a fully managed NoSQL database service provided by
 
 ### DynamoDB Container
 
-Included DynamoDB setup instructions in the `docker-compose.yml` file. 
+
+Included DynamoDB setup instructions in the `docker-compose.yml` file. [IMG](https://hub.docker.com/r/amazon/dynamodb-local)
+
 
 ```YAML
 dynamodb-local:
@@ -1312,7 +1134,8 @@ If you are using Gitpod, you have the ability to automate the process effortless
 - `name: postgres`: Specifies the name of the component or package to be installed, in this case, "postgres".
 - `init:`: Indicates the initialization section where the necessary commands for installation are defined.
 
-If you are using others you can refer to 
+If you have an interest in automation and aren't using Gitpod, you can still benefit from my implementation of dev containers found [here.](../.vscode/README.md)
+
 
 Execute  to connect the postgres server that’s already running at port `5432`
 
@@ -1330,12 +1153,303 @@ Make use of the password "password" for the connection.
 
 To exit or quit the psql command-line tool, simply enter `\q`.
 
-Data explorer  allows us to conveniently view and interact with the PostgreSQL database and provides a user-friendly interface where we can explore the data stored in psql tables.
+### Data Explorer
+Data explorer  allows us to conveniently view and interact with the PostgreSQL database and provides a great interaction where we can explore the data stored in psql tables.
 
 <img src="assets/week1/Postgre/2 connected to server .png">
 
+Let's briefly explore its core features for, us, developers.
 
-## Security Best Practices
+|  Features   | Description                                                                                           |
+|--------------------------|-------------------------------------------------------------------------------------------------------|
+| User-friendly interface  | Offers a visually intuitive and user-friendly interface     |
+| Convenient data exploration | Allows easy viewing and exploration of data                             |
+| Interactive functionality | Provides interactive capabilities to query, filter, and sort data  |
+| Table visualization      | Presents data in a structured tabular format        |
+| Data export              | Options for exporting query results or selected data|
+
+
+
+*Data Explorer* is a valuable tool for working with databases.
+
+## [Cruddur on Dockerhub](https://hub.docker.com/u/yaya2devops)
+
+
+
+To start the process, you need to build, tag, and push the image to Docker Hub.
+
+```
+docker build -t dockerhub-username/cruddur-backend:a-good-tag .
+docker push dockerhub-username/cruddur-backend:a-good-tag
+```
+
+
+<img src="assets/week1/dockerhub/backend-build-push-dockerhub.png">
+
+Once done, you can now visit Docker Hub and refer to the existing images that you have uploaded.
+
+<img src="assets/week1/dockerhub/backend-dockerhub-public-view.png">
+
+Same applies to the frontend container, you need to build, tag, and push the image
+
+```
+docker build -t dockerhub-username/cruddur-frontend:a-good-tag .
+docker push dockerhub-username/cruddur-frontend:latest
+```
+
+<img src="assets/week1/dockerhub/built-push-frontend-dockerhub.png">
+
+
+
+If you wish to push a newer image, you can follow these steps to ensure your updates are reflected:
+
+
+```
+docker tag my_username/my_image_name:a-good-tag my_username/my_image_name:latest
+docker push my_username/my_image_name:latest
+```
+
+
+
+### **External CMD Script**
+
+#### *Frontend*
+
+For the frontend script add the `CMD` below
+```
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["/bin/bash", "./script.sh"]
+```
+
+
+**Create the external [script](../frontend-react-js/script.sh)**
+```
+#!/bin/bash
+npm start
+```
+
+Build and run the image to test the `CMD` function
+
+<img src="assets/week1/dockerhub/dockerfile-external-cmd.png">
+
+
+#### *Backend*
+
+For backend, i thought to add ENTRYPOINT. These cannot be overtitten, while we could use cmd but we could change e.g. in this case another script.
+
+
+I added this `ENTRYPOINT [""]` and directed my `external-script.sh` path
+
+```
+FROM python:3.10-slim-buster
+
+WORKDIR /backend-flask
+
+COPY requirements.txt requirements.txt
+
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+EXPOSE ${PORT}
+
+ENV PYTHONUNBUFFERED=1
+cd de
+ENTRYPOINT ["/backend-flask/external-script.sh"]
+```
+
+
+[`external-script.sh`](../backend-flask/external-script.sh)
+
+```
+#!/bin/bash
+python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
+```
+
+## Docker Container on EC2
+
+- Create an Amazon Elastic Compute Cloud instance from the console 
+
+<img src="assets/week1/EC2/1-config-ec2.png">
+
+- Integrate a pivotal key-pair 
+
+<img src="assets/week1/EC2/2-config-ec2.png">
+
+- allow ssh and HTTPS from internet
+
+
+
+**SSH Using PuTTy**
+
+<img src="assets/week1/EC2/3-ssh-to-ec2.png">
+
+- Add public IP, 
+- leave port 22, its standard for ssh
+- Expand on SSH -> Auth -> Credentials: Browse your .pem SK and add it
+- Click Open, ec2 will open
+
+
+[Related Lab Helped](https://www.cloudskillsboost.google/focuses/40544?parent=catalog)
+
+<img src="assets/week1/EC2/4-puty-auth.png">
+
+
+> make sure the you chmod 600 or 400 ur "[rsa-key.pem](assets/week1/EC2/rsa-key.pem)"
+
+**SSH using AWS EC2 Connect**
+
+<img src="assets/week1/EC2/5-ssh-using-aws-connect.png">
+
+- Connect 
+- Update yum: `sudo yum update`
+- Get git with: `sudo yum install git`
+- Clone Project repo
+<img src="assets/week1/EC2/6-ec2-git-available.png">
+
+> Although Dockerhub is available, I started with this approach for various reasons. Lol.
+
+
+
+### **Backend on EC2**
+
+**Install Docker** to be able to pull the img
+
+```
+sudo yum install docker
+```
+
+- Pulling the image from dockerhb to EC2:
+
+```
+sudo docker pull yaya2devops/cruddur-backend:latest
+```
+
+<img src="assets/week1/EC2/7-docker-pull-ec2.png">
+
+- Run the container from EC2
+
+```
+sudo docker run -p 4567:4567 yaya2devops/cruddur-backend:latest
+```
+<img src="assets/week1/EC2/8-docker-run-ec2.png">
+
+Nav to backend using `ec2-public-ip:port/endpoints`
+
+
+#### **Frontend on EC2**
+
+- Pull frontend Image
+- Install Docker Compose
+  
+##### **Run both on Docker compose**
+
+```yaml
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "http://IP:3000"
+      BACKEND_URL: "http://IP:4567"
+    image: yaya2devops/backend-flask:1.0
+    ports:
+      - "4567:4567"
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "http://IP:4567"
+    image: yaya2devops/frontend-react-js:1.0
+    ports:
+      - "3000:3000"
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+```
+
+### Flask Health check
+
+- Added a new endpoint in `app.py`
+```py
+@app.route("/api/health-check", methods=["GET"])
+def health_check():
+    return {'success': True, 'ver': 1}, 200
+```
+- Config docker compose
+
+```yaml
+healthcheck:
+  test: curl --fail http://<URL>:4567/api/health || exit 1
+  interval: 10s
+  timeout: 10s
+  start_period: 10s
+  retries: 3
+```
+
+### Multi-Stage Containerization
+
+- building the application with multistaged dockerfile:
+```
+gitpod /workspace/aws-cloud-project-bootcamp/backend-flask (main) $ docker build -t backend -f Dockerfile.stage .
+[+] Building 33.1s (15/15) FINISHED                                                                                         
+ => [internal] load .dockerignore                                                                                      0.0s
+ => => transferring context: 44B                                                                                       0.0s
+ => [internal] load build definition from Dockerfile.stage                                                             0.0s
+ => => transferring dockerfile: 862B                                                                                   0.0s
+ => [internal] load metadata for docker.io/library/python:3.10-slim-buster                                             0.7s
+ => [internal] load build context                                                                                      0.0s
+ => => transferring context: 96.01kB                                                                                   0.0s
+ => CACHED [build 1/7] FROM docker.io/library/python:3.10-slim-buster@sha256:02874255d484428c9412db98923b387ac73822cb  0.0s
+ => CACHED [stage-1 2/4] WORKDIR /backend-flask                                                                        0.0s
+ => [build 2/7] RUN apt update                                                                                         2.7s
+ => [build 3/7] RUN apt install -y --no-install-recommends     build-essential gcc                                     9.4s
+ => [build 4/7] WORKDIR /backend-flask                                                                                 0.0s 
+ => [build 5/7] RUN python3 -m venv /backend-flask/venv                                                                4.5s 
+ => [build 6/7] COPY requirements.txt .                                                                                0.0s
+ => [build 7/7] RUN pip3 install -r requirements.txt                                                                  10.6s
+ => [stage-1 3/4] COPY --from=build /backend-flask/venv ./venv                                                         0.6s
+ => [stage-1 4/4] COPY . .                                                                                             0.0s
+ => exporting to image                                                                                                 3.9s
+ => => exporting layers                                                                                                3.9s
+ => => writing image sha256:4af2988118c434aea7ecf21dd750de0fec67442e83c35e6f63071c12eaa98cd1                           0.0s
+ => => naming to docker.io/library/backend       
+ ```
+
+- Make use of our Health check to "check" app running
+
+
+## Containers on Docker Desktop 
+
+In this scenario, we will use Docker Desktop to execute the containers on a local environment.
+
+
+<img src="assets/Week3/docker-local/15 containers stats.png">
+
+Once you have successfully executed the Docker Compose, navigate to the localhost address in your web browser to access and examine the app.
+
+<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
+
+
+
+
+# Security Best Practices
+
+Containers have the remarkable ability to encapsulate and run virtually anything, making them incredibly versatile and adaptable. So doing them right is a must.
+
+- Web Servers: hosting websites or web applications using servers like Apache or Nginx.
+- Database Systems:  running database systems like MySQL, PostgreSQL, or MongoDB.
+- µservices:  individual components of an application, enabling scalability and independent updates.
+- API Services:  hosting RESTful APIs or GraphQL servers, facilitating standardized communication.
+- Data Processing Workflows: reproducible data processing workflows, including data ingestion, transformation, and analysis.
+- ML Models: packaging machine learning models and their dependencies for easy deployment and inference.
+- CI/CD Tools:  integrating and deploying applications with tools like Jenkins or GitLab CI.
+- IoT Edge Computing: deploying applications on IoT devices or gateways, enabling edge processing and analysis.
 
 To help ensure the integrity and protection of containerized environments, implementing container security best practices is crucial. 
 
@@ -1345,8 +1459,8 @@ To help ensure the integrity and protection of containerized environments, imple
 - Secure Configuration: Follow secure configuration practices Inc. minimizing the number of running processes disabling unnecessary services.
 - Vulnerability Scanning: Regularly scan container images and the underlying host system for known vulnerabilities.
 
-Other key practices Incl related to technical configurations.
 
+Particularly when it comes to managing  configuration files
 
 | Dockerfiles                            | Docker Compose                          |
 | -------------------------------------- | --------------------------------------- |
@@ -1356,14 +1470,145 @@ Other key practices Incl related to technical configurations.
 | Remove unnecessary dependencies        | Use secure environment variables        |
 | Run containers with non-root users      | Separate sensitive data                  |
 
+## Get Container Synked
+Synk is an open-source security platform specifically designed to detect security vulnerabilities Incl those in Docker containers. 
 
-### Reference
+![Synk Offical Github CLI Asset](https://raw.githubusercontent.com/snyk/cli/master/help/snyk-cli-screenshot.png)
 
-- [Compose Configuration](https://docs.docker.com/compose/)
-- [Open Container Initiative](https://opencontainers.org/)
+To get Sec Synked, you can start by installing its CLI
+```sh
+npm install snyk@latest -g
+```
+
+Authenticate with Synk CLI using this command
+```sh
+snyk auth
+```
+
+
+You can now start scanning ubunto image with Synk
+```sh
+snyk container test ubuntu:latest
+```
+
+
+Scanning your container with Synk
+```sh
+snyk container test <img-name>
+```
+
+
+For more, refer to [Synk Containers](https://snyk.io/product/container-vulnerability-management/) & [Synk Org](https://github.com/snyk)
+
+### Secret Managers
+
+Always play it right and safeguard your most sensitive information by adopting secure practices and leveraging robust secret managers to store your invaluable secrets with utmost confidentiality.
+
+
+Among the plethora of available options, I have personally found AWS Secret Manager, Parameter Store, and Azure Key Vault to be exceptionally valuable tools.
+
+
+
+My go-to choice is always to utilize the secret manager service offered by the provider.
+
+In this project, I primarily used the AWS [Parameter Store](week6.md#parameter-store) for managing my secrets. 
+
+## Debugging with Docker
+
+In this section, I will outline the utilities I employed to effectively address Docker-related challenges.
+
+
+**Docker Logs**
+To inspect the log records of a container, employ the `docker logs [container_id]` command. Should you desire to actively monitor the log output in real-time while the container is operational, include the `-f` flag.
+
+```sh
+docker logs -f [container_id]
+
+(Command Output)
+Server running at http://0.0.0.0:80/
+```
+
+**Docker inspect**
+
+To examine the metadata of a container in Docker, the `docker inspect` command can be utilized.
+
+
+```sh
+docker inspect [container_id]
+```
+
+Utilize`--format` to selectively examine specific fields from the JSON output returned by the command. For instance:
+
+```
+docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' [container_id]
+
+# Output
+192.168.9.3
+```
+
+**Docker Exec**
+
+Occasionally, there may be a need to initiate an interactive Bash session within a running container. This can be accomplished using the `docker exec` command.
+
+This will grant an interactive shell session within the container, allowing for effective debugging and troubleshooting.
+
+To proceed execute the following command:
+```sh
+docker exec -it [container_id] bash
+```
+By including the `-it` flags, you enable interactive communication with a container by allocating a pseudo-tty and keeping the standard input (stdin) open. 
+```
+(Command Output)
+root@xxxxxxxxxxxx:/app#
+
+#Look into the container 
+ls
+```
+Notably, the Bash shell was launched within the designated `WORKDIR` directory (`/app`), as defined in the Dockerfile. 
+
+## Costs Considerations
+
+
+When using Docker, take into account various cost considerations to ensure efficient resource allocation and manage expenses.
+
+
+- Container Lifespan: Consider how long you need ur container running that require continuous resource allocation.
+- Container Sizing: Optimize container sizes based on your application's resource requirements
+- Image Versioning: Implement versioning strategies for container images to manage costs.
+- Docker Registry: Consider the cost implications of where to store ur images and the costs if its in private cloud.
+
+Below, we outline additional critical cost considerations to keep in mind when working with Docker.
+
+
+| Consideration | Description |
+| --- | --- |
+| Container Images | Optimize container images to minimize disk space and transfer time, reducing storage and network costs. |
+| Persistent Storage | Choose a storage provider based on pricing models, data transfer costs, and backup/storage replication costs. |
+| Networking | Understand networking architecture and data transfer patterns to estimate and optimize networking costs. |
+| Orchestration and Management | Consider infrastructure requirements, licensing fees, and operational overhead of container orchestration tools. |
+| Monitoring and Logging | Define a monitoring strategy that balances detail with associated storage and data transfer costs. |
+| Scaling and High Availability | Assess costs associated with scaling containers and ensuring high availability through redundancy. |
+
+A wraping factor is to adhere with compliance and licensing for the software and dependencies included in your container images. 
+
+Violations can lead to legal and financial consequences.
+
+> A [Good Guide](https://sysdig.com/learn-cloud-native/compliance/a-guide-to-gdpr-compliance-for-containers-and-the-cloud/) to GDPR Compliance for Containers and the Cloud
+
+Taking up what I mentioned, you can maximize the value derived from your Docker deployments while keeping costs under control.
+
+You can also refer to some images registries pricing e.g. [Dockerhub](https://www.docker.com/pricing/) and [ECR](https://aws.amazon.com/ecr/pricing/)
+
+
+
+### Plus Reference
+
+- [11 Container Security Scanners to find Vulnerabilities
+]()
+- [Docker Compose Configuration](https://docs.docker.com/compose/)
+- [Open Container Initiative Org](https://opencontainers.org/)
 - [Synk Containers Security](https://snyk.io/fr/)
 - [Extending FastAPI](https://fastapi.tiangolo.com/advanced/extending-openapi/)
-- [AWS DynamoDB Image](https://hub.docker.com/r/amazon/dynamodb-local)
+- [Container and Kubernetes compliance considerations](https://www.redhat.com/en/topics/containers/compliance)
+- [Everything at Google Runs in Containers](https://www.infoq.com/news/2014/06/everything-google-containers/#:~:text=The%20result%20is%20that%20Google,not%20counting%20long%2Drunning%20containers.)
 
-
-💡 Google has announced its open sourcing of Kubernetes, revealing that the company successfully manages an impressive 4 billion containers to handle the demands of global scale. 

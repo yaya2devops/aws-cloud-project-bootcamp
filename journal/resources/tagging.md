@@ -168,3 +168,43 @@ git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 > [Developer Reference](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tags)
 
 </details>
+
+
+## Tagging PoC
+
+A good thing about tagging that you can trigger a pipeline on tag push as follows:
+
+![Trigger on Tags GCP](../assets/week9/cicd-ongcp/trigger-on-tags.png)
+
+
+And when you fully commit to something, exemplified by...
+```sh
+$ git commit -a -m "Building the Future"
+[master ff0048c] Building the Future
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+```
+
+And then proceed to push the tag
+
+```sh
+$ git tag v1.0.0
+
+$ git push --tags
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 767 bytes | 767.00 KiB/s, done.
+Total 8 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (5/5)
+remote: Waiting for private key checker: 4/4 objects left
+To https://source.developers.google.com/p/qwiklabs-gcp-01-6114f647b7ec/r/sample-yaya-app
+ * [new tag]         v1.0.0 -> v1.0.0
+```
+
+
+It will initiate the build process, you can review it in the revision history.
+
+
+
+![Build History](../assets/week9/cicd-ongcp/build-triggered.png)
