@@ -43,21 +43,22 @@ Conveniently located in one place.
 <img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="715">
    
 
-|  Journal  | Technologies   | Start Date | Status|
-| :---: | :--- | --- |:---: |
-| [Week 0](week0.md) | Billing and Architecture — Cloud Operations  | Feb 11, 2023 |✘|
-| [Week 1](week1.md) | Docker and App Containerization (Under Revision) | Feb 18, 2023 |✘|
-| [Week 2](week2.md) | Distributed Tracing  (Under Revision)| Feb 25, 2023 |✘|
-| [Week 3](week3.md) | Decentralized Authentication (Under Revision) | Mar 4, 2023 |✘|
-| [Week 4](week4.md) | SQL Database with PostgreSQL (Under Revision) | Mar 11, 2023 |✘|
-|  [Week 5](week5.md) | NoSQL Database with AWS DynamoDB | Mar 18, 2023 |✘|
-| [Week 6](week6.md) | Deploying Serverless Containers  <br>(Part 1/2) | Mar 25, 2023 |✘|
-| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(Part 2/2) | Apr 1, 2023 |✘|
-| [Week 8](week8.md) | Serverless Image Processing | Apr 8, 2023 |Doing|
-|  [Week 9](week9.md) | CI/CD with AWS CodeBuild and CodePipeline | Apr 15, 2023 |✘|
-|  [Week 10](week10.md) | CloudFormation <br> (Part 1/2) | Apr 22, 2023 |✘|
-|  [Week 11](week11.md)| CloudFormation & SAM Templates <br> (Part 2/2) | Apr 29, 2023 |Doing|
-|  [Week ✘](week12.md) | Modern APIs | May 6, 2023 |Doing|
+| Journal | Technologies                                                    | Start Date   | Status |
+| :-----: | -------------------------------------------------               | ----------   | :----: |
+| [Week 0](week0.md)  | Billing and Architecture  <br>(*Under Revision*) | Feb 11, 2023 | ✘ |
+| [Week 1](week1.md)  | Docker and App Containerization                     | Feb 18, 2023 |   ✘   |
+| [Week 2](week2.md)  | Distributed Tracing   <br>(*Under Revision*)               | Feb 25, 2023 |   ✘   |
+| [Week 3](week3.md)  | Decentralized Authentication <br>(*Under Revision*)       | Mar 4, 2023  |   ✘   |
+| [Week 4](week4.md)  | SQL Database with PostgreSQL  <br>(*Under Revision*)       | Mar 11, 2023 |   ✘   |
+| [Week 5](week5.md)  | NoSQL Database with AWS DynamoDB <br>(*Under Revision*)                 | Mar 18, 2023 |   ✘   |
+| [Week 6](week6.md)  | Deploying Serverless Containers  <br>(Part 1/2)     | Mar 25, 2023 |   ✘   |
+| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(Part 2/2)| Apr 1, 2023 |✘|
+| [Week 8](week8.md)  | Serverless Image Processing                         | Apr 8, 2023  | Doing  |
+| [Week 9](week9.md)  | CI/CD with AWS CodeBuild and CodePipeline           | Apr 15, 2023 |   ✘    |
+| [Week 10](week10.md) | CloudFormation <br> (Part 1/2)                     | Apr 22, 2023 |   ✘    |
+| [Week 11](week11.md) | CloudFormation & SAM Templates <br> (Part 2/2)     | Apr 29, 2023 | Doing   |
+| [Week ✘](week12.md) | Modern APIs                                         | May 6, 2023  | Doing  |
+
 
 </div>
 
