@@ -1,0 +1,53 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "elasticloadbalancing:DescribeLoadBalancerAttributes",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "elasticloadbalancing:DescribeTargetGroupAttributes",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "ca-central-1"
+                }
+            },
+            "Action": "lambda:GetFunction",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "route53:GetHostedZone",
+                "route53:ListHostedZones"
+            ],
+            "Resource": [
+                "*"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "route53:ListResourceRecordSets",
+                "route53:ListHostedZones"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}

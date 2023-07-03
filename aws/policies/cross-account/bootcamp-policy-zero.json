@@ -1,0 +1,297 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ecs:DescribeClusters",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ecs:ListServices",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ecs:DescribeServices",
+            "Resource": [
+                "arn:aws:ecs:<region>:<aws-id>:service/cruddur/backend-flask"
+            ],
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ecs:ListTasks",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "acm:ListCertificates",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "apigateway:GET",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "cloudformation:ListStacks",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "codebuild:ListProjects",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "codebuild:ListBuilds",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "codepipeline:ListPipelines",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "cognito-idp:ListUserPools",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "dynamodb:ListTables",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "dynamodb:ListStreams",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ec2:DescribeVpcs",
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "AllowEC2DescribeVPCs"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ec2:DescribeSubnets",
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "AllowEC2DescribeSubnets"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ec2:DescribeRouteTables",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ec2:DescribeInternetGateways",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ec2:DescribeSecurityGroups",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ec2:DescribeRouteTables",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ecr:DescribeRepositories",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "ecs:ListTaskDefinitions",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "elasticloadbalancing:DescribeLoadBalancers",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "elasticloadbalancing:DescribeTargetGroups",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "lambda:ListFunctions",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "lambda:ListLayers",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "rds:DescribeDBInstances",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "rds:DescribeDBSubnetGroups",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestedRegion": "<region>"
+                }
+            },
+            "Action": "rds:DescribeDBSnapshots",
+            "Resource": "*",
+            "Effect": "Allow"
+        },
+        {
+            "Action": [
+                "route53:ListHostedZones",
+                "route53:ListHostedZonesByName"
+            ],
+            "Resource": "*",
+            "Effect": "Allow"
+        }
+    ]
+}
