@@ -158,6 +158,16 @@ git tag -a week3 2439b040922d219bc3a2cfc0e57644cff26b8c1e -m "Tagging for week3"
 ```
 git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 ```
+<br>
+.<br>
+.<br>
+<br>
+
+### Week 10
+
+```
+git tag -a week10 ea35201ab8051a022ccea6ce1a76d7efaa223ba0 -m "Week 10 cfn Part1"
+```
 
 <details>
 <summary><b>Desired outcomes:</b></summary>

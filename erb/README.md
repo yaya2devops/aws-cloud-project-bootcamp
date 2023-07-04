@@ -12,8 +12,10 @@ Separate scripts will be used for the frontend and backend environments.
 
 Next, you need to create specific files to store the required environment variables
 
-- For the backend environment variables, use the file [`backend-flask.env.erb`](frontend-react-js.env.erb).
-- And for the frontend environment variables, use the file [`frontend-react-js.env.erb`](frontend-react-js.env.erb).
+- For the **backend** environment variables, use the file [`backend-flask.env.erb`](frontend-react-js.env.erb).
+- And for the **frontend** environment variables, use the file [`frontend-react-js.env.erb`](frontend-react-js.env.erb).
+- For the **frontend** CloudFront Sync, use the file [`sync.env.erb`](sync.env.erb).
+
 
 Make sure to include the necessary configuration options in your `docker-compose.yml` file:
 

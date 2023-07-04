@@ -79,7 +79,9 @@ The creation was developed systematically, strategically and in a thoughtful app
 │   ├── repo
 │   ├── run
 │   ├── service-off
-│   └── service-on
+│   ├── service-on
+│   ├── static-build
+│   └── sync
 ├── generate
 │   └── migration
 ├── lambda-layers
