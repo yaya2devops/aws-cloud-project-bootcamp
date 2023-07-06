@@ -122,6 +122,22 @@ cors = CORS(
 #    return response
 
 # Rollbar ----------
+
+## XXX hack to make request data work with pyrollbar <= 0.16.3
+def _get_flask_request():
+    print("Getting flask request")
+    from flask import request
+    print("request:", request)
+    return request
+
+rollbar._get_flask_request = _get_flask_request
+
+
+def _build_request_data(request):
+    return rollbar._build_werkzeug_request_data(request)
+rollbar._build_request_data = _build_request_data
+## XXX end hack
+
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 #@app.before_first_request
 #def init_rollbar():
@@ -140,11 +156,12 @@ with app.app_context():
 
     def init_rollbar():
         """init rollbar module"""
+        flask_env = os.getenv('FLASK_ENV')
         rollbar.init(
             # access token
             rollbar_access_token,
             # environment name
-            "production",
+            flask_env,
             # serverss root directory, makes tracebacks prettier
             root=os.path.dirname(os.path.realpath(__file__)),
             # flask already sets up logging
@@ -160,7 +177,7 @@ def health_check():
 
 @app.route('/rollbar/test')
 def rollbar_test():
-    rollbar.report_message('Hello World!', 'warning')
+    rollbar.report_message('Hello Latest Flask Version!', 'warning')
     return "Hello World!"
 
 @app.route("/api/message_groups", methods=['GET'])
