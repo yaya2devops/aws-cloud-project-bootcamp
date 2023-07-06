@@ -1,0 +1,9 @@
+[deploy]
+bucket = 'cfn-artifacts-111'
+region = 'ca-central-1'
+stack_name = 'CrdSyncRole'
+
+[parameters]
+GitHubOrg = 'yaya2devops'
+RepositoryName = 'aws-cloud-project-bootcamp'
+OIDCProviderArn = ''
