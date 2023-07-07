@@ -139,6 +139,8 @@ rollbar._build_request_data = _build_request_data
 ## XXX end hack
 
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+
+# Previous RB Coding. In 2022, Rollbar revenue run rate hit $7.1M in revenue. damn.
 #@app.before_first_request
 #def init_rollbar():
 #    """init rollbar module"""
@@ -165,10 +167,9 @@ with app.app_context():
             # serverss root directory, makes tracebacks prettier
             root=os.path.dirname(os.path.realpath(__file__)),
             # flask already sets up logging
-            allow_logging_basic_config=False,
-        )#    # send exceptions from `app` to rollbar, using flask's signal system.
+            allow_logging_basic_config=False,)
+            # send exceptions from `app` to rollbar, using flask's signal system
         got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
-    init_rollbar()
 
 
 @app.route('/api/health-check')

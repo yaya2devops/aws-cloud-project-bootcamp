@@ -1,8 +1,13 @@
 FROM 598485450821.dkr.ecr.ca-central-1.amazonaws.com/cruddur-python:3.10-slim-buster
-# debugging
+
+# debugging NEVER in PROD.
+
+# People will find out how to troubleshoot your code 
+# and this can make it easy to mess up with your app.
 #RUN apt-get update -y
 #RUN apt-get install iputils-ping -y
 # -----
+
 WORKDIR /backend-flask
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt

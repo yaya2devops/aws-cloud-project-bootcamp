@@ -87,9 +87,10 @@ Resources:
                 ClusterName:
                   Fn::ImportValue:
                     !Sub ${ClusterStack}ClusterName
-                ServiceName:
-                  Fn::ImportValue:
-                    !Sub ${ServiceStack}ServiceName
+                # I also decided not use a cross-stack so we can tear
+                ServiceName: backend-flask
+                #  Fn::ImportValue:             hhdk
+                #    !Sub ${ServiceStack}ServiceName 
   CodePipelineRole:
     Type: AWS::IAM::Role
     Properties:
