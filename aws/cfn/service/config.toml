@@ -2,3 +2,9 @@
 bucket = 'cfn-artifacts-111'
 region = 'ca-central-1'
 stack_name = 'CrdSrvBackendFlask'
+
+[parameters]
+EnvFrontendUrl = 'https://yacrud.me'
+EnvBackendUrl = 'https://api.yacrud.me'
+
+
