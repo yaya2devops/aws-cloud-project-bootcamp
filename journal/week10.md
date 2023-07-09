@@ -910,7 +910,10 @@ stack_name = 'CrdNet'
 5. Deploy the template using `./bin/cfn/networking`
 6. Execute changeset from the console
 
+[Quickstart CFN Day!](assets/week11/hi-cfn-office-hours.png)
+
 ![CFN Deploy](assets/week10/network/networking-stack-cloud-formation-applied.png)
+
 
 
 --- 
@@ -1980,12 +1983,13 @@ aws cloudformation deploy \
 
 6. From the console *Execute the changeset*.
 
----
-*Week 10 Of AWS Cloud Project Bootcamp* — Office Hours [Checklist](assets/week11/cfn-stack/crud-cluster-cfn.png)
 
----
 
-**Reference**
+
+Consult additional *IaC workload Incl CFN, SAM, TF* and more for the following [Week Eleven](week11.md).
+
+
+### **Reference**
 
 - [CFN Template basics YAML VS JSON](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/gettingstarted.templatebasics.html)
 - [Paloalto Networks Policy as Code](https://www.paloaltonetworks.com/cyberpedia/what-is-policy-as-code#:~:text=Policy%2Das%2Dcode%20is%20the,enforcement%20tools%20you%20are%20using.)
@@ -1994,3 +1998,5 @@ aws cloudformation deploy \
 - [Tom's Obvious, Minimal Language Project](https://github.com/toml-lang/toml)
 - [NetDevOps modern approach to networking deployments](https://aws.amazon.com/fr/blogs/networking-and-content-delivery/netdevops-a-modern-approach-to-aws-networking-deployments/)
 - [Ashish Security Podcast](https://cloudsecuritypodcast.tv/listen-to-the-episodes/)
+
+> *Week 10 Of AWS Cloud Project Bootcamp* — Office Hours [Checklist](assets/week11/cfn-check-list.jpeg)

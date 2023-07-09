@@ -7,5 +7,5 @@ stack_name = 'CrdCicd'
 ServiceStack = 'CrdSrvBackendFlask'
 ClusterStack = 'CrdCluster'
 GitHubBranch = 'prod'
-GithubRepo = 'aws-cloud-project-bootcamp'
+GithubRepo = 'yaya2devops/aws-cloud-project-bootcamp'
 ArtifactBucketName = "yacrud-codepipe-artifact"
