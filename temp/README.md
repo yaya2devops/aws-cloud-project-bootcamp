@@ -1,4 +1,4 @@
-# Sync Frontend Static
+# Building and Synchronizing Frontend
 
 
 To install the `aws_s3_website_sync` gem, run the following command:
@@ -6,15 +6,40 @@ To install the `aws_s3_website_sync` gem, run the following command:
 gem install aws_s3_website_sync
 ```
 
-
 To install the `dotenv` gem, run the following command:
 ```
 gem install dotenv
 ```
+- [Setup Different bucket](../journal/week10.md#setting-up-cfn-artifact-bucket)
+- [Setup cloudfront distribution](../journal/week7.md#frontend-application-on-cloudfront)
+
+Refine the static frontend content build using the script
+```sh
+#! /usr/bin/bash
+
+ABS_PATH=$(readlink -f "$0")
+FRONTEND_PATH=$(dirname $ABS_PATH)
+BIN_PATH=$(dirname $FRONTEND_PATH)
+PROJECT_PATH=$(dirname $BIN_PATH)
+FRONTEND_REACT_JS_PATH="$PROJECT_PATH/frontend-react-js"
+
+cd $FRONTEND_REACT_JS_PATH
+
+REACT_APP_BACKEND_URL="https://<backend-main-endpoint>" \
+REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
+REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
+REACT_APP_AWS_USER_POOLS_ID="<cognito-user-pool>" \
+REACT_APP_CLIENT_ID="<cognito-client-id>" \
+npm run build
+```
 
 
-Setup your bucket, cloudfront distribution
-and **sync**
+
+
+
+
+*Generate* the static content and *Synchronize* it using the provided script.
+
 ```sh
 $ ./bin/frontend/sync 
 == configuration
@@ -71,7 +96,7 @@ yes
 ```
 
 
-**TMP** output provides status regarding the results of the operation
+**TEMP** output provides status regarding the results of the operation.
 
 | Content Existence      | Change Made         | Action                        |
 |------------------------|---------------------|-------------------------------|

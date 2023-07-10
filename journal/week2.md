@@ -1,5 +1,7 @@
 # Week 2 — Distributed Tracing
 
+> ⌛Revision Started 
+
 <img src="assets/week2/welcome.png">
 
 

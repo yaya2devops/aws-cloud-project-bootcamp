@@ -63,6 +63,8 @@ Refer to PostgreSQL situational captures implementation from [here.](../../journ
 [Cruds available in csv.](yaYacrud.csv)
 <img src="yacrud.png">
 
+> About [Week Seven](../../journal/week7.md).
+
 ## Yacrud Hashtags
 
 - [Bachelor Guide](https://istic.computer-engineering.tech/#/)

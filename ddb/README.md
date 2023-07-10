@@ -1,14 +1,14 @@
 # Provision DynamoDB Via SAM CFN
 SAM templates were chosen over CloudFormation for provisioning DynamoDB mainly because
-- Higher-level abstraction designed for serverless applications.
-- Simplified packaging and deployment capabilities.
-- The streamlined template syntax.
-
+- Provides Higher-level abstraction designed for serverless applications.
+- Offer simplified packaging and deployment capabilities.
+- Feature a more concise and streamlined syntax compared to traditional CFN templates
 
 ![DyanmoDB SAM](../journal/assets/week11/big-bundle/3-Yacrud_%20AWS%20DynamoDB.svg)
 
-SAM templates provide a clear and focused representation of the required resources.
+SAM templates provide a concise and targeted representation of the essential resources needed.
 
+Consult the workflow below.
 
 | Step     | Description                                    |
 | --------: | ---------------------------------------------- |
@@ -21,7 +21,6 @@ SAM templates provide a clear and focused representation of the required resourc
 ### DynamoDB CFN Template
 
 - Open the AWS SAM template file `template.yaml`
-
 - Configure and develop the [template](template.yaml) as per your requirements.
 
 The provided will deploy DynamoDB Table and DynamoDB Stream straight to the console.
@@ -98,7 +97,7 @@ Get to work seamlessly reference the specified environment variable in your code
 1. Sample CloudFormation artifact store :
 ```yaml
       ArtifactStore:
-        Location: "codepipeline-yacrud-artifacts"
+        Location: "yacrud-codepipe-artifact"
         Type: S3
 ```
 
@@ -108,7 +107,7 @@ Get to work seamlessly reference the specified environment variable in your code
 
 ```toml
 [parameters]
-ArtifactBucketName = "codepipeline-yacrud-artifacts"
+ArtifactBucketName = "yacrud-codepipe-artifact"
 ```
 
 
@@ -119,10 +118,8 @@ ArtifactBucketName = "codepipeline-yacrud-artifacts"
         Type: S3
 ```
 
-The instructions provided above are part of a CI/CD CloudFormation deployment process, which includes the following components:
-
 - [CFN Template](../aws/cfn/cicd/template.yaml): This template contains the necessary configurations for the CI/CD deployment.
-
 - [TOML file](../aws/cfn/cicd/config.toml): This file includes specific settings and parameters required for the CI/CD process shipped to the console.
 
+The instructions provided above are part of a CI/CD CloudFormation deployment process, which includes the above components.
 

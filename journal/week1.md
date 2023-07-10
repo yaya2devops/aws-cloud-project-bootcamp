@@ -1,6 +1,10 @@
 # Week 1 — App Containerization 🐳
 
-> Refer to [the Initial version](week1-progress.md).
+Step aboard as I transport you to an extraordinary adventure through the fascinating universe of containers, Docker, and the ever-evolving frontiers of the future.
+
+This week was jam-packed of learning experiences.
+ 
+![It been a time](https://cdn.hashnode.com/res/hashnode/image/upload/v1657651330340/t_vn4YJcC.png?auto=compress,format&format=webp)
 
 ## Week One Main Tasks
 
@@ -83,6 +87,7 @@ For interacting with containers Docker provides a set of command-line utilities
 | `docker exec`            | Executes a command in container shell.                 |
 | `docker-compose arg`      | Starts services with  `up ` and stop with  `down` as **arg**         |
 
+> Refer to [the Initial version, the first steps](week1-progress.md).
 
 ## Before Docker
 
