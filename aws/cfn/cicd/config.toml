@@ -9,3 +9,4 @@ ClusterStack = 'CrdCluster'
 GitHubBranch = 'prod'
 GithubRepo = 'yaya2devops/aws-cloud-project-bootcamp'
 ArtifactBucketName = "yacrud-codepipe-artifact"
+BuildSpec = 'backend-flask/buildspec.yml'
