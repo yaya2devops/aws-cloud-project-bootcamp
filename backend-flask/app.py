@@ -1,11 +1,21 @@
-from flask import Flask
-from flask import request, g
-from flask_cors import CORS, cross_origin
 import os
 import sys
 
-#  Middleware for JWT
+# Middleware for JWT
 #from lib.middleware import middleware  # for middleware auth
+
+from flask import Flask
+from flask import request, g
+from flask_cors import cross_origin
+
+from aws_xray_sdk.core import xray_recorder
+
+from lib.rollbar import init_rollbar
+from lib.xray import init_xray
+from lib.cors import init_cors
+from lib.cloudwatch import init_cloudwatch
+from lib.honeycomb import init_honeycomb
+from lib.cognito_jwt_token import jwt_required
 
 from services.users_short import *
 from services.home_activities import *
@@ -20,33 +30,35 @@ from services.create_message import *
 from services.show_activity import *
 from services.update_profile import *
 
+#---Refactored--- 
 #Authorization JWT
-from lib.cognito_jwt_token import jwt_required
+#from lib.cognito_jwt_token import jwt_required
 
 # HoneyComb ---------
-from opentelemetry import trace
-from opentelemetry.instrumentation.flask import FlaskInstrumentor
-from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import BatchSpanProcessor
-from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
+#from opentelemetry import trace
+#from opentelemetry.instrumentation.flask import FlaskInstrumentor
+#from opentelemetry.instrumentation.requests import RequestsInstrumentor
+#from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+#from opentelemetry.sdk.trace import TracerProvider
+#from opentelemetry.sdk.trace.export import BatchSpanProcessor
+#from opentelemetry.sdk.trace.export import ConsoleSpanExporter, SimpleSpanProcessor
 
 # AWS Xray for reference----
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+#from aws_xray_sdk.core import xray_recorder
+#from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 
 
 # Cloudwatch logs
-import watchtower
-import logging
-from time import strftime
+#import watchtower
+#import logging
+
 
 # Rollbar ------------
-import os
-import rollbar
-import rollbar.contrib.flask
-from flask import got_request_exception
+#from time import strftime
+#import os
+#import rollbar
+#import rollbar.contrib.flask
+#from flask import got_request_exception
 
 # Configuring Logger to Use CloudWatch
 # LOGGER = logging.getLogger(__name__)
@@ -59,13 +71,13 @@ from flask import got_request_exception
 
 # HoneyComb things for reference 2-----
 # Initialize tracing and an exporter that can send data to Honeycomb
-provider = TracerProvider()
-processor = BatchSpanProcessor(OTLPSpanExporter())
-provider.add_span_processor(processor)
+#provider = TracerProvider()
+#processor = BatchSpanProcessor(OTLPSpanExporter())
+#provider.add_span_processor(processor)
 
 # x-ray ----------------
-xray_url = os.getenv("AWS_XRAY_URL")
-xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
+#xray_url = os.getenv("AWS_XRAY_URL")
+#xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 
 # AWS Xray for reference2 for starting the recorder----
@@ -77,33 +89,42 @@ xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 #simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
 #provider.add_span_processor(simple_processor)
 
-trace.set_tracer_provider(provider)
-tracer = trace.get_tracer(__name__)
+#trace.set_tracer_provider(provider)
+#tracer = trace.get_tracer(__name__)
+#--------------- 
 
 
 app = Flask(__name__)
 
+## initalization --------
+init_xray(app)
+with app.app_context():
+  rollbar = init_rollbar()
+init_honeycomb(app)
+init_cors(app)
+
+
 #app.wsgi_app = middleware(app.wsgi_app)
 
+#-- Refactor-----
 # X-RAY ----------
 #XRayMiddleware(app, xray_recorder)
 
 # HoneyComb ---------
 # Initialize automatic instrumentation with Flask
-FlaskInstrumentor().instrument_app(app)
-RequestsInstrumentor().instrument()
+#FlaskInstrumentor().instrument_app(app)
+#RequestsInstrumentor().instrument()
 
-
-frontend = os.getenv('FRONTEND_URL')
-backend = os.getenv('BACKEND_URL')
-origins = [frontend, backend]
-cors = CORS(
-  app, 
-  resources={r"/api/*": {"origins": origins}},
-  headers=['Content-Type', 'Authorization'], 
-  expose_headers='Authorization',
-  methods="OPTIONS,GET,HEAD,POST"
-)
+#frontend = os.getenv('FRONTEND_URL')
+#backend = os.getenv('BACKEND_URL')
+#origins = [frontend, backend]
+#cors = CORS(
+#  app, 
+#  resources={r"/api/*": {"origins": origins}},
+#  headers=['Content-Type', 'Authorization'], 
+#  expose_headers='Authorization',
+#  methods="OPTIONS,GET,HEAD,POST"
+#)
 
 # CloudWatch Logs -----
 #@app.after_request
@@ -111,8 +132,9 @@ cors = CORS(
 #    timestamp = strftime('[%Y-%b-%d %H:%M]')
 #    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
 #    return response
+#  init_cloudwatch(response)
 
-# Rollbar ----------
+#----------Rollbar Refactored----------
 
 ## XXX hack to make request data work with pyrollbar <= 0.16.3
 def _get_flask_request():
@@ -129,7 +151,6 @@ def _build_request_data(request):
 rollbar._build_request_data = _build_request_data
 ## XXX end hack
 
-rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 
 # Previous RB Coding. In 2022, Rollbar revenue run rate hit $7.1M in revenue. damn.
 #@app.before_first_request
@@ -145,23 +166,30 @@ rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 #        # flask already sets up logging
 #        allow_logging_basic_config=False)
 
-with app.app_context():
+rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 
-    def init_rollbar():
-        """init rollbar module"""
-        flask_env = os.getenv('FLASK_ENV')
-        rollbar.init(
-            # access token
-            rollbar_access_token,
-            # environment name
-            flask_env,
-            # serverss root directory, makes tracebacks prettier
-            root=os.path.dirname(os.path.realpath(__file__)),
-            # flask already sets up logging
-            allow_logging_basic_config=False,)
-            # send exceptions from `app` to rollbar, using flask's signal system
-        got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+#with app.app_context():
+#
+#    def init_rollbar():
+#        """init rollbar module"""
+#        flask_env = os.getenv('FLASK_ENV')
+#        rollbar.init(
+#            # access token
+#            rollbar_access_token,
+#            # environment name
+#            flask_env,
+#            # serverss root directory, makes tracebacks prettier
+#            root=os.path.dirname(os.path.realpath(__file__)),
+#            # flask already sets up logging
+#            allow_logging_basic_config=False,)
+#            # send exceptions from `app` to rollbar, using flask's signal system
+#        got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 
+def model_json(model):
+  if model['errors'] is not None:
+    return model['errors'], 422
+  else:
+    return model['data'], 200
 
 @app.route('/api/health-check')
 def health_check():
@@ -176,10 +204,7 @@ def rollbar_test():
 @jwt_required()
 def data_message_groups():
   model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
 
 @app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
 @jwt_required()
@@ -188,10 +213,7 @@ def data_messages(message_group_uuid):
       cognito_user_id=g.cognito_user_id,
       message_group_uuid=message_group_uuid
     )
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
@@ -216,10 +238,7 @@ def data_create_message():
       message_group_uuid=message_group_uuid,
       cognito_user_id=g.cognito_user_id
     )
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
 
 
 def default_home_feed(e):
@@ -246,20 +265,14 @@ def data_notifications():
 #@xray_recorder.capture('activities_users')
 def data_handle(handle):
   model = UserActivities.run(handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
 
 @app.route("/api/activities/search", methods=['GET'])
 def data_search():
   term = request.args.get('term')
   model = SearchActivities.run(term)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
-  return
+  return model_json(model)
+
 
 @app.route("/api/activities", methods=['POST','OPTIONS'])
 @cross_origin()
@@ -268,10 +281,7 @@ def data_activities():
   message = request.json['message']
   ttl = request.json['ttl']
   model = CreateActivity.run(message, g.cognito_user_id, ttl)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
 
 @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
 @xray_recorder.capture('activities_show')
@@ -285,10 +295,7 @@ def data_activities_reply(activity_uuid):
   user_handle  = 'yaya2devops'
   message = request.json['message']
   model = CreateReply.run(message, user_handle, activity_uuid)
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return return_model(model)
   return
 
 @app.route("/api/users/@<string:handle>/short", methods=['GET'])
@@ -307,10 +314,8 @@ def data_update_profile():
     bio=bio,
     display_name=display_name
   )
-  if model['errors'] is not None:
-    return model['errors'], 422
-  else:
-    return model['data'], 200
+  return model_json(model)
+
 
 if __name__ == "__main__":
   app.run(debug=True)
