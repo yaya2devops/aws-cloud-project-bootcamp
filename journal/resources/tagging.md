@@ -169,6 +169,14 @@ git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 git tag -a week10 ea35201ab8051a022ccea6ce1a76d7efaa223ba0 -m "Week 10 cfn Part1"
 ```
 
+### WEEK X Refactor Trackability
+
+Please navigate to the specified tag and refer to the `app.py` refactoring process of the Flask backend App.
+
+```
+git tag -a refactorAppPy 9c2bd26aff36fe75b944e4247d38ceba36bca64a -m "refactorAppPy"
+```
+
 <details>
 <summary><b>Desired outcomes:</b></summary>
 

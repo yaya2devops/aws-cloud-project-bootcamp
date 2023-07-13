@@ -107,8 +107,8 @@ app = Flask(__name__)
 
 ## initalization --------
 init_xray(app)
-with app.app_context():
-  rollbar = init_rollbar()
+#with app.app_context():
+#  rollbar = init_rollbar()
 init_honeycomb(app)
 init_cors(app)
 
@@ -143,22 +143,7 @@ init_cors(app)
 #    return response
 #  init_cloudwatch(response)
 
-#----------Rollbar Refactored----------
 
-## XXX hack to make request data work with pyrollbar <= 0.16.3
-def _get_flask_request():
-    print("Getting flask request")
-    from flask import request
-    print("request:", request)
-    return request
-
-rollbar._get_flask_request = _get_flask_request
-
-
-def _build_request_data(request):
-    return rollbar._build_werkzeug_request_data(request)
-rollbar._build_request_data = _build_request_data
-## XXX end hack
 
 
 # Previous RB Coding. In 2022, Rollbar revenue run rate hit $7.1M in revenue. damn.
@@ -205,10 +190,10 @@ rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 #def health_check():
 #  return {'success': True, 'ver': 1}, 200
 
-@app.route('/rollbar/test')
-def rollbar_test():
-    rollbar.report_message('Hello Latest Flask Version!', 'warning')
-    return "Hello World!"
+#@app.route('/rollbar/test')
+#def rollbar_test():
+#    rollbar.report_message('Hello Latest Flask Version!', 'warning')
+#    return "Hello World!"
 
 #@app.route("/api/message_groups", methods=['GET'])
 #@jwt_required()
@@ -328,6 +313,7 @@ def rollbar_test():
 
 
 # ------load routes -----------
+
 routes.general.load(app)
 routes.activities.load(app)
 routes.users.load(app)
