@@ -5,7 +5,7 @@
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::cruddur-uploaded-avatars/*"
+            "Resource": "arn:aws:s3:::yaya-cruddur-uploaded-avatars/*"
         }
     ]
   }

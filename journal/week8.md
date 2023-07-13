@@ -6,6 +6,7 @@ During this week, we employed the AWS CDK to define and deploy the necessary res
 
 **Get** the design in [PNG](assets/week8/Serverless-Architect/serverless-avatar-image-process-bannered.png) or an [Editable](assets/week8/Serverless-Architect/banner-more-interesting.drawio) Format.
 ## Main Week Eight Tasks
+This week, I must say it reaches its peak with [this particular meme](assets/week8/memes/image.png).
 
 - [Realtime Notes Taking](#livestream--noting-realtime)
 - [Implement CDK Stack](#implement-image-process-stack-with-cdk-rework)
@@ -28,8 +29,9 @@ During this week, we employed the AWS CDK to define and deploy the necessary res
    - [Presigned URL Function](#pre-signed-url-lambda)
    - [Test API Endpoint](#test-api-endpoint)
    - [Presigned URL Lambda](#presigned-lambda-console)
-   - [Lambda Bucket Permissions](#apply-code-and-permissions)
+   - [Lambda Bucket Policy](#apply-code-and-permissions)
 - [HTTP API Gateway with Lambda Authorizer](#create-cruddurapigatewaylambdaauthorizer)
+   - [API Gateway Log Group](#explicit-api-gateway-logs-group-creation)
 - [Create JWT Lambda Layer	https](#setting-up-the-jwt-lambda-layer)
 - [Render Avatars in App via CloudFront](#render-avatar-from-cloudfront)
 
@@ -408,6 +410,10 @@ THUMBING_FUNCTION_PATH="<ur-path>/aws/lambdas/process-images"
 
 ![Early CDK Deploy](assets/week8/deploy-in-progress.png)
 
+
+
+
+
 ### Upload Asset Script
 
 #### Include the S3 Policy to your Stack
@@ -535,6 +541,11 @@ createS3NotifyToLambda(prefix: string, lambda: lambda.IFunction, bucket: s3.IBuc
 
 ![CDK Deploy](assets/week8/cdk-deploy-1.png)
 
+
+- Head over  AWS Lambda and you should find the S3 trigger attached.
+
+[Resources CFN](assets/week8/Stack/ThumbingServerlessCdkStack-Resources.png)
+![S3 Lambda Trigger](assets/week8/Stack/2-lambda-s3-trigger.png)
 
 ## CloudFront - Serve Avatars
 
@@ -959,6 +970,10 @@ Upon successfully completing the steps, you should receive a "200 OK" response, 
 
 ### Apply Code and Permissions
 
+#### Presigned URL Policy
+
+Create this policy and assigned to your s3.
+
 1. Add the code from the `function.rb` file to the Lambda function.
 2. Navigate to the Lambda function's configuration and access the **Permissions** section.
 3. Open the settings of the execution role associated with the Lambda function.
@@ -972,7 +987,7 @@ Upon successfully completing the steps, you should receive a "200 OK" response, 
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": "s3:PutObject",
-            "Resource": "arn:aws:s3:::yacrud-uploaded-avatars/*"
+            "Resource": "arn:aws:s3:::<unique>-uploaded-avatars/*"
         }
     ]
   }
@@ -981,6 +996,7 @@ Upon successfully completing the steps, you should receive a "200 OK" response, 
 6. Modify the Lambda runtime handler to `function.handler`
 7. Rename the file to `function.rb`.
 
+[Don't expose the bucket](assets/week8/Wrapping/uploaded-avatars-never-to-the-public.png) to the public.
 
 
 ### Create `cruddurApiGatewayLambdaAuthorizer`
@@ -1001,7 +1017,11 @@ zip -r lambda_authorizer.zip .
 ![](assets/week8/API-Gateway/4-lambda-authorizer.png)
 
 
-Create a new Lambda function in the console using the Node 18 runtime and upload the previously created zip file.
+Create a new Lambda function in the console using the Node 18 runtime. 
+
+- Upload the previously created zip file.
+
+![Lambda Authorizer Upload](assets/week8/API-Gateway/5-imported-lambda-authorizer.png)
 
 
 ### Cruddur Api Gateway Lambda Authorizer
@@ -1052,9 +1072,12 @@ To configure the API Gateway, follow these steps:
 4. Set **Access-Control-Allow-Headers** to `*, authorization`.
 
 
+Refer to [this folder](assets/week8/API-Gateway/stats/) for all related API gateway configuration and desired outcome.
+
 
 ### Explicit API Gateway Logs group creation
 
+[Logs Lover](assets/week8/Logs,%20logs,%20logs/)<br>
 In addition to debugging with docker logs, the 3 lambdas cloudwatch logs, I created a log group explicitly for API gateway to further investigate and troubleshoot the auth process.
 
 To do so, you can follow the instructions below.
@@ -1071,6 +1094,10 @@ To do so, you can follow the instructions below.
 11. Choose the previously created CloudWatch Logs group from the dropdown menu.
 12. Configure the log format and the log level as per your requirements.
 13. Click on "Save" to create the API Gateway Logs Group.
+
+When done, go to Cloudwatch logs => Log groups and start your troubleshooting process.
+
+![API Gateway Cloudwatch Logs](assets/week8/API-Gateway/log-group.png)
 
 ### Setting up the JWT Lambda Layer
 
@@ -1107,6 +1134,12 @@ Once [layer shipped](../bin/lambda-layers/README.md), navigate to your Lambda fu
 ![](assets/week8/Wrapping/add-jwt-layer-yacrud-upload-avatar-lambda.png)
 
 
+Series of processes are set in motion to ensure the seamless transfer and storage of the corresponding assets.
+
+- The platform diligently directs the newly uploaded avatar assets to the specifically chosen bucket with the user uuid.
+
+![Bucket Dispo](assets/week8/re-ship-sharp/avatarsw-uuid.png)
+
 ### Required Environment Variables
 
 | Source                   | Env Var                    | Value                           |
@@ -1132,15 +1165,10 @@ Render and display your avatar image or profile picture in your application by s
 6. In the `show.sql` file, ensure the modification of `users.cognito_user_id` to `cognito_user_uuid`. This adjustment guarantees the proper retrieval and utilization of the `cognito_user_uuid` as part of the avatar rendering process.
 7. Tailor the CSS styles to perfection in the `frontend-react-js/src/components/ProfileHeading.css` file. Utilize this opportunity to customize the appearance of various profile components such as `.profile_heading`, `.bio`, `.profile-avatar`, `.banner`, `.cruds_count`, `.info`, `.info .id`, `.info .id .display_name`, and `.info .id .handle`.
 
+[Cruds employed](assets/week8/Wrapping/latest-cruds.md)
+![Render Asset](assets/week8/Wrapping/render-avatar.png)
+
 ---
-
-
-
-
-
-
-
-
 
 ### **AWS CDK Resources**
 I have considered the examination of these references to confidently affirm my conviction using CDK.
