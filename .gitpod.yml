@@ -1,5 +1,4 @@
 
-# AWS CLI gitpod tasks
 tasks:
   - name: aws-sam
     init: |

@@ -169,12 +169,12 @@ git tag -a week4 12dae757bec2464a6309f68093165deb2e92988a -m "Tagging for week4"
 git tag -a week10 ea35201ab8051a022ccea6ce1a76d7efaa223ba0 -m "Week 10 cfn Part1"
 ```
 
-### WEEK X Refactor Trackability
+### WEEK X Refactor Tracability
 
 Please navigate to the specified tag and refer to the `app.py` refactoring process of the Flask backend App.
 
 ```
-git tag -a refactorAppPy 9c2bd26aff36fe75b944e4247d38ceba36bca64a -m "refactorAppPy"
+git tag -a refactorAppPy 1f87ff8360571c17e61b04607156a1b6614bf82d -m "refactorAppPy"
 ```
 
 <details>
@@ -188,12 +188,9 @@ git tag -a refactorAppPy 9c2bd26aff36fe75b944e4247d38ceba36bca64a -m "refactorAp
 </details>
 
 
-## Tagging PoC
+## Tagging EXPAND
 
-A good thing about tagging that you can trigger a pipeline on tag push as follows:
-
-![Trigger on Tags GCP](../assets/week9/cicd-ongcp/trigger-on-tags.png)
-
+A good thing about tagging that you can trigger a pipeline on tag push.
 
 And when you fully commit to something, exemplified by...
 ```sh

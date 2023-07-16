@@ -1,19 +1,5 @@
-## AWS Guidebook
-
-This project contains all code and resources related to AWS console applied during the bootcamp period.
-
-| Main Focus       | Description                                              |
-|------------------|----------------------------------------------------------|
-| [JSON](json/README.md)             | contain configurations for the AWS Console used in CLI                     |
-| [AWS Lambda](lambdas/README.md)        | Functions related to application development             |
-| [Policies](policies/README.md)          | Mainly used to grant permissions to specific AWS services                     |
-| [Task Definitions](task-definitions/README.md)  | Configuration used to run a Docker container in Amazon ECS, Fargate. |
-| [CFN Templates](cfn)  | Reources iac for the App tech stack. |
-
-
-
 ```sh
-./aws
+./
 ├── cfn/
 │   ├── cicd/
 │   │   ├── config.toml
@@ -164,10 +150,6 @@ This project contains all code and resources related to AWS console applied duri
 │       └── variables.tf
 ├── yaya_tree.md
 └── yayauptree.md
-```
-> 32 directories, 118 files
 
-#### Let's Talk About Trees
-What do you think of the tree displayed above? <br>
-Do you find it helpful and informative?
-If so, [get in here.](yaya_tree.md)
+32 directories, 118 files
+```

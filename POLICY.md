@@ -5,8 +5,8 @@ head:
     project: 'AWS Cloud Bootcamp'
     application: 'YACRUD'
     cohort: '2023-A1'
-    Start: 'Feb 6' 
-    issue: 'dev@yahya-abulhaj.dev'
+    Start: '[Feb 6](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/init)' 
+    issue: '[dev@yahya-abulhaj.dev](dev@yahya-abulhaj.dev)'
     dept: "Cloud & Innovation"
 ---
 
@@ -21,8 +21,9 @@ head:
     </div> 
 </div>
 
+To accurately assess the workload, please consider [the initial state](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/init) of the project.
 
-We would like to bring to your attention that as part of the purposeful design of this project, certain credentials, intentionally and deliberately exposed within this environment are strictly intended for instructional and educational purposes.
+We would also like to bring to your attention that as part of the purposeful design of this project, certain credentials, intentionally and deliberately exposed within this environment are strictly intended for instructional and educational purposes.
 
 **TL;DR,** be aware that the AWS user linked to these credentials is an [IAM entity](journal/week0.md#iam-user), explicitly configured to fulfill the requirements of this bootcamp, as part of our meticulous approach to security, we want to assure you that this IAM user, alongside all other associated credentials, will be promptly terminated upon the conclusion of duties and certain information is even ceased before its made available to the community.
 

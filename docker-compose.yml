@@ -23,8 +23,6 @@ services:
     volumes:
       - ./frontend-react-js:/frontend-react-js
   dynamodb-local:
-    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
-    # We needed to add user:root to get this working.
     user: root
     command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
     image: "amazon/dynamodb-local:latest"
@@ -61,8 +59,6 @@ services:
       - 2000:2000/udp 
     networks:
       - cruddur-net     
-# the name flag is a hack to change the default prepend folder
-# name when outputting the image names
 networks: 
   cruddur-net:
     driver: bridge
