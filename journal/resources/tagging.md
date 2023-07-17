@@ -213,7 +213,7 @@ Writing objects: 100% (8/8), 767 bytes | 767.00 KiB/s, done.
 Total 8 (delta 5), reused 0 (delta 0), pack-reused 0
 remote: Resolving deltas: 100% (5/5)
 remote: Waiting for private key checker: 4/4 objects left
-To https://source.developers.google.com/p/qwiklabs-gcp-01-6114f647b7ec/r/sample-yaya-app
+To https://source.developers.google.com/p/gcp-project-is-like-subs-in-azure/r/sample-yaya-app
  * [new tag]         v1.0.0 -> v1.0.0
 ```
 

@@ -38,7 +38,7 @@ npm run build
 
 
 
-*Generate* the static content and *Synchronize* it using the provided script.
+*Generate* the static content and *Synchronize* it using [this script.](../bin/frontend/sync)
 
 ```sh
 $ ./bin/frontend/sync 

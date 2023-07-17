@@ -5,8 +5,8 @@ head:
     project: 'AWS Cloud Bootcamp'
     application: 'YACRUD'
     cohort: '2023-A1'
-    Start: '[Feb 6](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/init)' 
-    issue: '[dev@yahya-abulhaj.dev](dev@yahya-abulhaj.dev)'
+    Start: 'Feb 6]' 
+    issue: 'dev@yahya-abulhaj.dev'
     dept: "Cloud & Innovation"
 ---
 
