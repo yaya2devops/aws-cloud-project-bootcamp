@@ -5,7 +5,7 @@ head:
     project: 'AWS Cloud Bootcamp'
     application: 'YACRUD'
     cohort: '2023-A1'
-    Start: 'Feb 6]' 
+    Start: 'Feb 6' 
     issue: 'dev@yahya-abulhaj.dev'
     dept: "Cloud & Innovation"
 ---

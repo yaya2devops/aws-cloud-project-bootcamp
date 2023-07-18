@@ -1,4 +1,4 @@
-# Student Portal Tour
+# [🔍Student Portal](https://student.cloudprojectbootcamp.com/) Tour
 
 The student portal is where we can access information about weekly tasks and assignments that need to be completed and submitted.
 

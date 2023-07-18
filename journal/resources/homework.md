@@ -44,7 +44,7 @@ The challenges are additional tasks presented as an exciting opportunity for boo
 | Add custom instrumentation to Honeycomb to add more attributes eg. UserId, Add a custom span                          |     ✅    |
 | Run custom queries in Honeycomb and save them later eg. Latency by UserID, Recent Traces                              |     ✅    |
 | Figure out how to do segment and sub-segment on AWS XRAY                                                               |     ✅    |
-|Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend  |❗|
+|Instrument Honeycomb for the frontend-application to observe network latency between frontend and backend  |❗❗❗|
 | [Events limits](assets/week2/pricing/README.md)|+|
 
 
@@ -52,24 +52,24 @@ The challenges are additional tasks presented as an exciting opportunity for boo
 
 |  Week 3 Challenges ❗                                                                              | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-| Decouple the JWT verify from the application code by writing a Flask Middleware                  | Medium     |   ❗     |
-| Implement a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library             | Hard       |  ❗      |
-| Decouple the JWT verify process by using Envoy as a sidecar                                      | Hard       |       ❗ |
-| Implement a IdP login (e.g. Login with Amazon or Facebook or Apple)                               | Hard       |    ❗    |
-| Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ❗     |
+| Decouple the JWT verify from the application code by writing a Flask Middleware                  | Medium     |   ❗❗     |
+| Implement a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library             | Hard       |  ❗❗     |
+| Decouple the JWT verify process by using Envoy as a sidecar                                      | Hard       |       ❗❗ |
+| Implement a IdP login (e.g. Login with Amazon or Facebook or Apple)                               | Hard       |    ❗❗   |
+| Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ❗❗     |
 
 
 ---
 
 |  Week 4 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        No homework challenges provided 	         |   N/A   | N/A|   
+|        ❗Consider psql Challenges	         |   N/A   | N/A|   
 
 ---
 
 |  Week 5 Challenges                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
-|        No homework challenges provided 	          |     N/A | N/A|   
+|       ❗ Consider Dynamo Challenges	          |     N/A | N/A|   
 ---
 
 |  Week 6 and 7 Challenges                                                                               | Difficulty | Status |
@@ -82,7 +82,7 @@ The challenges are additional tasks presented as an exciting opportunity for boo
 ---
 
 
-|  Week 8 Challenges                                                                               | Difficulty | Status |
+|  Week 8 Challenges ❗                                                                               | Difficulty | Status |
 |---------------------------------------------------------------------------------------------------|------------|--------|
 |       AWS CDK Costs Best Practices	         |   N/A   | N/A|   
 |       AWS CDK Security Best Practices	         |   N/A   | N/A|   
