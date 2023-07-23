@@ -1,9 +1,10 @@
 ### CRUDs
 
-```json
+```SQL
 [19/Jul/2023 22:22:33] "POST /api/activities HTTP/1.1" 200
-
-SQL Params:
+SQL Params
+```
+```json
 {
 "uuid": "27bb72bd-9c2f-4da5-b25c-b5e16b39578c",
 "display_name": "Yahya Abulhaj",
@@ -17,9 +18,11 @@ SQL Params:
 
 ### Replies
 
-```json
+```SQL
 [19/Jul/2023 22:24:49] "OPTIONS /api/activities/uuid/reply HTTP/1.1" 200 
+```
 
+```json
 {
 "uuid": "27bb72bd-9c2f-4da5-b25c-b5e16b39578c",
 "display_name": "Yahya Abulhaj",

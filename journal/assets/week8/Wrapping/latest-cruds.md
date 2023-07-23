@@ -1,7 +1,11 @@
- ```JSON
+## YaCruds
+
+```sql
 SQL Params:
 handle : yaya2devops
 >>----what's up-----<< (
+```
+```JSON
 {
   "profile": {
     "uuid": "2378a520-efa4-4d35-9f55-36d1f6cbb39b",
