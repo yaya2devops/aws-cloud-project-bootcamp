@@ -1,5 +1,5 @@
 # Week 2 — Distributed Tracing
-Awareness continues with another productive week. The past days was a great dive into the world of observability. <br>We successfully setup Cruddur to four different observability tools.
+Awareness continues with another productive week. <br>The past days was a great dive into the world of observability. <br>We successfully setup Cruddur to four different observability tools.
 
 
 ## Week Two Main Tasks
@@ -21,13 +21,15 @@ Awareness continues with another productive week. The past days was a great dive
   - [Traces as Groups in X-Ray](#traces-as-groups-in-x-ray)
   - [Sampling Rule in AWS X-RAY](#sampling-rule-in-aws-x-ray)
   - [X-Ray Subsegmentation](#x-ray-subsegmentation)
+- [Monitor FlaskApp with CloudWatch](#monitor-flaskapp-with-cloudwatch)
+- [Error-Free Code with Rollbar](#error-free-code-with-rollbar)
 - [Spend Considerations](#spend-considerations)
 
 # Observability
 
 Before delving into distributed tracing, it is crucial to grasp the broader concept of observability.  The last refers to the ability to understand the state of a system by collecting and analyzing data from its different sources. 
 
-It became increasingly difficult to track the state of the system by looking at individual components in the world of containers.
+It became increasingly difficult to track the state of the system by looking at individual components in the Microservices Ecosystem.
 Observability were invented because we needed a way to understand the state of complex systems. 
 
 ### Why Observability Matters
@@ -47,20 +49,20 @@ Observability can help developers make better decisions and It can be used as a 
 
 ## Instrumentation and Observability
 
-Instrumentation is the process of adding code to a system to collect data about its behavior. This data can then be used to monitor and troubleshoot the system.
+Instrumentation is the process of adding code to a system to collect data about its behavior. This data can then be used to observe, monitor and troubleshoot the system.
 
-As will explained below, onboarding to the tools was exactly that, taking this putting that and troubleshoot in between.
+As we will explain below, onboarding to the tools was exactly that, taking this putting that and troubleshoot in between.
 
 The different types of data that can be collected through instrumentation are indeed the three pillars of observability mentioned above.
 
 Here are some of the tools that you can use to instrument your system:
-* **OpenTelemetry:**  an open-source instrumentation framework that can be used to collect metrics, logs, and traces from a variety of systems.
-* **Application Performance Monitoring tools:** APM tools are commercial tools that can be used to collect metrics, logs, and traces from a variety of systems.
+* **OpenTelemetry:** is an open-source instrumentation framework that facilitates the collection of metrics, logs, and traces from a variety of systems. 
+* **Application Performance Monitoring tools:** APM tools are ready-to-use commercial tools and come pre-packaged with features tailored to streamline the key pillars process.
 
 The best tool for you will depend on the specific needs of your system.
 
 ## Monitoring in Observability Ecosystem
-Monitoring is a necessary part of observability, but it is not sufficient.
+Monitoring is a necessary part of observability, but **it is not sufficient**.
 
 Observability requires a holistic understanding of the system, which can be achieved by collecting data from different sources not just from Metrics. 
 
@@ -107,8 +109,8 @@ This week, we will focus on the successful onboarding process of both *AWS Cloud
 |-------------| -----------------------------------------------------|
 | [Honeycomb](#open-telemetry-with-honeycomb)   |   distributed tracing & observability platform to help understand & debug complex systems. |
 | [AWS X-Ray](#onboard-aws-x-ray)   |   tracing service that helps to analyze & debug distributed applications.  |
-| Cloudwatch |monitoring and observability service.   |
-| Rollbar  | cloud-based log monitoring tool helps to identify software errors in real-time.  |
+| [Cloudwatch](#monitor-flaskapp-with-cloudwatch) |monitoring and observability service.   |
+| [Rollbar](#error-free-code-with-rollbar)  | cloud-based log monitoring tool helps to identify software errors in real-time.  |
 
 ## Spend Considerations
 **Note:** The free tiers for these tools may change over time. Please check the individual tool's website for the most up-to-date information.
@@ -140,10 +142,11 @@ There are additional charge for sampling.
 **Amazon CloudWatch**<br>
 Amazon CloudWatch is a monitoring and observability service that provides metrics, logs, and events for AWS resources and applications, with a free tier that includes 1,000,000 API requests, 5GB of log data ingestion and 5GB of log data archive, and 3 dashboards with up to 50 metrics each per month.
 
-## Open Telemetry with Honeycomb
+# Open Telemetry with Honeycomb
 
 Allow me to serve as your knowledgeable guide, leading you through a meticulously structured journey of discovery and enhancement. 
 
+Let's begin with the first observability tool placed on the table *Honeycomb.*
 ### OpenUp to OpenTelemetry
 **Telemetry** refers to the process of collecting and transmitting data from remote or inaccessible locations to a central location for analysis, monitoring, or control. 
 
@@ -155,9 +158,9 @@ On the other hand, **OpenTelemetry** is an open source project governed by the C
 
 **Honeycomb** is a cloud-native observability and monitoring platform that fully supports and leverages the OpenTelemetry project.
 
-#### **Setup**
+## **Setup**
 
-Head over honeycomb.io and sign up and retrieve the api key.
+Head over honeycomb.io, sign up and retrieve the api key.
 1. Create an environment.
 2. Export your environment API key and service name to Gitpod.
 ```sh
@@ -176,7 +179,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
 OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 ```
 
-#### **Instrumentation**
+## **Instrumentation**
 
 1. Add these packages to `requirements.txt` and run `pip3 install -r requirements.txt`.
 ```txt
@@ -217,7 +220,9 @@ RequestsInstrumentor().instrument()
 
 <img src="assets/week2/heyhoney/5 honeycomb init.png">
 
-After a successful setup, the application should start providing data to the platform.
+After a successful setup, launch the application and head over honeycomb.
+
+Your Application starts providing data to the platform.
 
 <img src="assets/week2/heyhoney/13- SOLVED! about honey dashboard.png">
 
@@ -307,7 +312,7 @@ Heatmap is a graphical representation of data that provides a visual overview of
 3. Once the options are configured, run the query to generate the heatmap visualization.
 
 <img src="assets/week2/heyhoney/29 another query but with zoom.png">
-
+You have the ability to zoom in and out on the heatmap, allowing you to see the details more clearly.
 
 ## Onboard AWS X-RAY
 
@@ -326,7 +331,7 @@ Application
    X-Ray Service
    |
    |
-End User
+Customers
 ```
 
 1. The application sends requests to the X-Ray daemon. <br>
@@ -355,7 +360,7 @@ Add `aws-xray-sdk` to `/backend-flask/requirements.txt`
 aws-xray-sdk
 ```
 
-#### **Instrumenting your application**
+### **Instrumenting your application**
 
 Once you have installed the SDK, you need to instrument your application to collect data about your requests. This involves adding code to your application that will send data to the X-Ray daemon.
 
@@ -450,8 +455,8 @@ The group will be used to store traces for backend-flask application. The filter
 
 
 Here are some additional instructions for creating an X-Ray group
-- You must be authenticated to the AWS CLI before you can run this command.
 - You must have the AWS CLI installed It includes the X Rray.
+- You must be authenticated to the AWS CLI before you can run this command.
 - You must have the AWS X-Ray SDK installed in your application.
 
 2. Go to the AWS X-Ray console and click the "Groups" section in the left pane under "Configuration" to ensure that the group has been created. 
@@ -566,4 +571,199 @@ This will create a subsegment called `my-subsegment` within the main segment `my
 
 Update the segment with the actual endpoint you wish to test, and modify the subsegment with the specific subcomponent you intend to observe closely e.g `activity-home`.
 
-In the past, my way of documenting was [like this](week2-progress.md)... 🤯
+# Monitor FlaskApp with CloudWatch
+
+
+**Prerequisites**<br>
+Watchtower allows you to easily send log messages from your Python application to Amazon CloudWatch Logs.
+
+- Python 3 • Flask • Watchtower • Docker
+
+
+To install it from pip, use the following command:
+```sh
+pip install watchtower
+```
+
+Alternavily, make sure to include it in the `requirements.txt` along other backend dependencies.
+```
+watchtower
+```
+
+### **Instructions**<br>
+This code will configure your application to log to AWS CloudWatch.
+
+
+1. Import the necessary modules:
+
+```python
+import watchtower
+import logging
+from time import strftime
+```
+
+2. Configure the logger to use CloudWatch.
+
+Insert the following code directly beneath `app = Flask(__name__)` within the `app.py` file.
+
+```py
+LOGGER = logging.getLogger(__name__)
+LOGGER.setLevel(logging.DEBUG)
+console_handler = logging.StreamHandler()
+cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
+LOGGER.addHandler(console_handler)
+LOGGER.addHandler(cw_handler)
+LOGGER.info('Test log')
+```
+<img src="assets/week2/Cloudwatch/4 another error because it should be done instead.png">
+
+
+3. Add a custom logger in `/backend-flask/app.py` on top of current routes.
+```py
+@app.after_request
+def after_request(response):
+    timestamp = strftime('[%Y-%b-%d %H:%M]')
+    LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
+    return response
+```
+
+4. Update the `/api/activities/home` route to pass the logger as an argument.
+```py
+@app.route("/api/activities/home", methods=["GET"])
+def data_home(logger):
+    data = HomeActivities.run(logger)
+    return data, 200
+```
+
+5. Record the information log `HomeActivities` in the `backend-flask/services/home_activities.py` file.
+
+Add the logger as an argument to the`run()` function in `home_activities.py`.
+```py
+Def run(logger):
+    LOGGER.info('Hello Cloudwatch! from  /api/activities/home')
+```
+6. Add the AWS environment variables to `docker-compose.yml`.
+```yaml
+AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
+```
+> Refer to my [previous documentation](week2-progress.md) on the matter. We call it Progress.
+
+7. Launch the app and hit the backend endpoint of `/api/activities/home`.
+```sh
+docker compose up
+```
+
+8. View the log stream data in AWS CloudWatch Log group of cruddur.
+- Launch CloudWatch
+- Navigate to Log Groups
+
+<img src="assets/week2/Cloudwatch/8 log streams data.png">
+
+
+Ensure that the backend properly displays JSON data on the home route.
+
+<img src="assets/week2/Cloudwatch/7 prrof.png">
+
+
+
+
+***Tips***
+- Make sure that you have installed the necessary dependencies before following the instructions.
+- You can use the `docker-compose up -d` command to launch the app in the background.
+- You can use the `docker-compose logs` command to view the logs of the app.
+
+Experiment with modifying your app to observe if CloudWatch Logs are effectively capturing any relevant events or logs e.g.
+
+
+<img src="assets/week2/Cloudwatch/9 here it is.png">
+
+
+
+***Spending :***
+Feel free to *comment out* the code sections related to the CloudWatch Logger to help reduce our AWS expenses and explicitly delete the log group from *CloudWatch*.
+
+
+# Error-Free Code with Rollbar
+
+### Prerequisites
+
+* A Rollbar account
+* The `rollbar` and `blinker` Python packages
+
+## Instructions
+
+1. Log in to Rollbar and create a new project.
+2. Copy the Rollbar access token from the project settings page.
+3. Add the following packages to your project's `requirements.txt` file:
+```
+blinker
+rollbar
+```
+4. Install the packages by running the following command:
+```bash
+pip install -r requirements.txt
+```
+
+5. Configure the Rollbar access token in your project's environment.
+```bash
+export ROLLBAR_ACCESS_TOKEN="<rollbar-access-token>"
+gp env ROLLBAR_ACCESS_TOKEN="<rollbar-access-token>"
+```
+<img src="assets/week2/rollbar/2 settin rollbar tokens.png">
+
+Replace `rollbar-access-token` with the actual access token obtained from Rollbar.
+
+e.g. we are using Docker, you can also add the following environment variable to your `docker-compose.yml` file:
+
+```bash
+ROLLBAR_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+```
+
+6. Import the `rollbar` and `rollbar.contrib.flask` modules in your application's main file.
+```python
+import rollbar
+import rollbar.contrib.flask
+```
+
+7. Initialize the Rollbar client in your application's `before_first_request` hook under the `app = Flask(__name__)`.
+
+```py
+#--here
+Rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
+#--here
+
+@app.before_first_request
+def init_rollbar():
+    """init rollbar module"""
+    rollbar.init(
+        rollbar_access_token,
+        'production',
+        root=os.path.dirname(os.path.realpath(__file__)),
+        allow_logging_basic_config=False)
+
+    # signal exceptions from `app` to rollbar.
+    got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
+```
+
+8. Create a new endpoint in your Flask application that will trigger Rollbar to log a test message. 
+```py
+@app.route('/rollbar/test')
+def rollbar_test():
+    rollbar.report_message('Hello World!', 'warning')
+    return "Hello World!"
+```
+
+9. Launch your application and navigate to the `/rollbar/test` endpoint using the browser or *API client*. 
+
+On successful onboarding, you'll see a warm and enthusiastic "Hello World!"
+
+<img src="assets/week2/rollbar/3 rollbar checks.png">
+
+10. You can also try to set an error that will cause an exception to be raised.
+
+Which will be sent to Rollbar.
+<img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 5.png">
+
+---
