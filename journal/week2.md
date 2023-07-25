@@ -13,7 +13,8 @@ Awareness continues with another productive week. <br>The past days was a great 
   - [Product Setup](#setup)
   - [Spans and Traces in OTEL](#spans-and-traces-in-open-telemetry)
   - [Heatmap in Honeycomb](#heatmap-in-honeycomb)
-- [Onboard AWS X-RAY](#onboard-aws-x-ray)
+- [Rethinking Why `pip` Sucks?](#python-preferred-installer-program)
+- [Onboard AWS X-RAY](#the-distributed-tracing-system-x-ray)
   - [AWS X-Ray SDK](#installing-the-aws-x-ray-sdk)
   - [Instrumenting with X-ray](#instrumenting-your-application)
   - [Running the X-Ray daemon](#running-the-x-ray-daemon)
@@ -28,6 +29,8 @@ Awareness continues with another productive week. <br>The past days was a great 
 # Observability
 
 Before delving into distributed tracing, it is crucial to grasp the broader concept of observability.  The last refers to the ability to understand the state of a system by collecting and analyzing data from its different sources. 
+
+![Somewhere from the Net](https://www.iaea.org/sites/default/files/styles/2016_landing_page_banner_1140x300/public/evt2100684-banner1140x300.jpg?itok=O2zTMXC1&timestamp=1642694613)
 
 It became increasingly difficult to track the state of the system by looking at individual components in the Microservices Ecosystem.
 Observability were invented because we needed a way to understand the state of complex systems. 
@@ -59,7 +62,7 @@ Here are some of the tools that you can use to instrument your system:
 * **OpenTelemetry:** is an open-source instrumentation framework that facilitates the collection of metrics, logs, and traces from a variety of systems. 
 * **Application Performance Monitoring tools:** APM tools are ready-to-use commercial tools and come pre-packaged with features tailored to streamline the key pillars process.
 
-The best tool for you will depend on the specific needs of your system.
+The best tool for you will depend on the specific needs. You will have to get going with OpenTelemtry in the first place to use an APM or create your own.
 
 ## Monitoring in Observability Ecosystem
 Monitoring is a necessary part of observability, but **it is not sufficient**.
@@ -103,14 +106,14 @@ Some of the key AWS services and tools for observability include:
 * **AWS Distro for OpenTelemetry:** OpenTelemetry is an open-source instrumentation framework that can be used to collect metrics, logs, and traces from a variety of systems.
 * **AWS Distrokit:** Distrokit is a collection of open-source tools that can be used to instrument and monitor your applications.
 
-This week, we will focus on the successful onboarding process of both *AWS CloudWatch and X-Ray*, allowing us to gain valuable insights from both services. Including the two external products, *Rollbar and Honeycomb*.
+This week, we will focus on the successful onboarding process of both *AWS CloudWatch and X-Ray*, allowing us to gain valuable insights from both services. But also Including the two great external products, *Rollbar and Honeycomb*.
 
 |  Tools         | Description                                          |
 |-------------| -----------------------------------------------------|
-| [Honeycomb](#open-telemetry-with-honeycomb)   |   distributed tracing & observability platform to help understand & debug complex systems. |
-| [AWS X-Ray](#onboard-aws-x-ray)   |   tracing service that helps to analyze & debug distributed applications.  |
-| [Cloudwatch](#monitor-flaskapp-with-cloudwatch) |monitoring and observability service.   |
-| [Rollbar](#error-free-code-with-rollbar)  | cloud-based log monitoring tool helps to identify software errors in real-time.  |
+| [Honeycomb](#open-telemetry-with-honeycomb)   |   A Distributed Tracing and Observability platform to debug complex systems. |
+| [AWS X-Ray](#onboard-aws-x-ray)   |   Tracing service to analyze and debug distributed applications.  |
+| [Cloudwatch](#monitor-flaskapp-with-cloudwatch) | Monitoring and observability service in the AWS Console.   |
+| [Rollbar](#error-free-code-with-rollbar)  | Cloud-based log monitoring tool to identify software errors in real-time.  |
 
 ## Spend Considerations
 **Note:** The free tiers for these tools may change over time. Please check the individual tool's website for the most up-to-date information.
@@ -146,7 +149,10 @@ Amazon CloudWatch is a monitoring and observability service that provides metric
 
 Allow me to serve as your knowledgeable guide, leading you through a meticulously structured journey of discovery and enhancement. 
 
+<img src="https://www.honeycomb.io/wp-content/themes/honeycomb/assets/img/logo_white.svg" width="400">
+
 Let's begin with the first observability tool placed on the table *Honeycomb.*
+
 ### OpenUp to OpenTelemetry
 **Telemetry** refers to the process of collecting and transmitting data from remote or inaccessible locations to a central location for analysis, monitoring, or control. 
 
@@ -158,6 +164,9 @@ On the other hand, **OpenTelemetry** is an open source project governed by the C
 
 **Honeycomb** is a cloud-native observability and monitoring platform that fully supports and leverages the OpenTelemetry project.
 
+
+
+
 ## **Setup**
 
 Head over honeycomb.io, sign up and retrieve the api key.
@@ -167,7 +176,7 @@ Head over honeycomb.io, sign up and retrieve the api key.
 export HONEYCOMB_API_KEY="<api-key>"
 export HONEYCOMB_SERVICE_NAME="<service-name>"
 ```
-3. Make the variables locked in your environement
+3. Make the variables locked in your environnement
 ```sh
 gp env HONEYCOMB_API_KEY="<api-key>"
 gp env HONEYCOMB_SERVICE_NAME="<service-name>"
@@ -295,6 +304,8 @@ To retrieve specific data such as "app.now" and "app.result_length," all you nee
 <img src="assets/week2/heyhoney/23 it see our field.png">
 
 
+Feel free to [check the query from here](assets/week2/heyhoney/query29.csv)
+
 You can also test the real-time functionality of the app by intentionally introducing an error. 
 
 For example, this error occurred because I called the endpoint after running Docker Compose with a Python syntax error due to missing indentation:
@@ -314,13 +325,61 @@ Heatmap is a graphical representation of data that provides a visual overview of
 <img src="assets/week2/heyhoney/29 another query but with zoom.png">
 You have the ability to zoom in and out on the heatmap, allowing you to see the details more clearly.
 
-## Onboard AWS X-RAY
 
-AWS X-Ray is a fully-managed service that helps you understand how your applications work. It does this by collecting data about requests as they flow through your application, and then visualizing that data in a way that makes it easy to understand.
+## Honeycomb Who Am I? 
+The "Honeycomb Who Am I?" project is designed to provide insights into your system's behavior and performance by leveraging the power of Honeycomb, a distributed tracing and observability platform.
+1. **Accessing the Tool:**
+Navigate to the URL provided [here](https://honeycomb-whoami.glitch.me/) to access the "Honeycomb Who Am I?" tool interface.
+
+<img src="assets/week2/heyhoney/replace.png">
+
+
+2. **API Key Input:**
+You will be prompted to provide your Honeycomb API key. Copy and paste the provided API key (`Kk4cyhR9ksCxNbrg6zyCyA`) into the designated field.
+
+3. **Submit and Authenticate:**
+Click on the "Submit" button after entering the API key. This will authenticate your access to the Honeycomb platform.
+
+4. **Understanding the Context:**
+The tool will provide information about the team, environment, and access privileges associated with the provided API key. For example:
+
+- Team: CRUDDUR Project
+- Environment: test
+- Access: List of available Honeycomb features and access levels.
+
+5. **Performing Troubleshooting:**
+Once authenticated, you can use the tool to troubleshoot specific issues related to your application or system. Here are the steps to follow:
+
+- a. **Define the Problem:** Clearly define the issue you want to investigate. For example, you might want to understand why certain API requests are slow or why errors are occurring in your application.
+
+- b. **Instrumentation:** Ensure that your application is correctly instrumented to send traces and telemetry data to Honeycomb. If not already done, refer to Honeycomb's documentation to set up the necessary configurations.
+
+- c. **Filter Data:** Use the tool's filtering options to narrow down the data you want to analyze. You can focus on specific time frames, endpoints, services, or other relevant criteria.
+
+- d. **Explore Traces:** Dive into individual traces to understand the flow of requests through your system. Look for patterns, anomalies, or any indications of errors.
+
+- e. **Visualize Performance Metrics:** Utilize the tool's built-in visualizations to analyze performance metrics such as response times, latency, error rates, and more. This can help you identify areas that require attention.
+
+- f. **Collaborate and Share:** If you are working in a team, share the tool's results and insights with your colleagues to facilitate collaboration and problem-solving.
+
+- g. **Iterative Troubleshooting:** Address the issues you find through the tool's analysis, and repeat the process iteratively to refine your investigation until you identify and resolve the root cause of the problem.
+
+The tool serves as a powerful resource to gain deeper insights into your system's behavior and performance. 
+
+
+With its comprehensive tracing and troubleshooting capabilities, it paves the way for data-driven decision-making and proactive tracing problem-solving.
+
+## The Distributed Tracing System X-RAY
+
+AWS X-Ray is a fully-managed service that helps you understand how your applications work. 
+
+![AWS Official Website](https://d1.awsstatic.com/Product-Page-Diagram_AWS-X-Ray.6fd8b61bc76bd93741fc209c2afc194b494bff9a.png)
+
+It does this by collecting data about requests as they flow through your application, and then visualizing that data in a way that makes it easy to understand.
 
 -  X-Ray daemon is a service that runs on your servers and collects the data that X-Ray needs. It then sends that data to the X-Ray service, which stores it and makes it available to you.
 
-Here is a diagram that shows how the X-Ray daemon works
+Here is a cute diagram that shows how the X-Ray daemon works
 ```SH
 Application
    |
@@ -571,21 +630,20 @@ This will create a subsegment called `my-subsegment` within the main segment `my
 
 Update the segment with the actual endpoint you wish to test, and modify the subsegment with the specific subcomponent you intend to observe closely e.g `activity-home`.
 
-# Monitor FlaskApp with CloudWatch
+## Monitor FlaskApp with CloudWatch
 
+Amazon CloudWatch is a monitoring service to collect and track metrics, collect and monitor log files, set alarms, and automatically react to changes in your cloud resources.
 
 **Prerequisites**<br>
-Watchtower allows you to easily send log messages from your Python application to Amazon CloudWatch Logs.
+Python 3 • Flask • Docker • Watchtower<br>
+Watchtower allows you to easily send log messages from your app to Cloudwatch.
 
-- Python 3 • Flask • Watchtower • Docker
-
-
-To install it from pip, use the following command:
+To install Watchtower from pip, use the following command:
 ```sh
 pip install watchtower
 ```
 
-Alternavily, make sure to include it in the `requirements.txt` along other backend dependencies.
+Alternatively, make sure to include it in the `requirements.txt` along other backend dependencies.
 ```
 watchtower
 ```
@@ -684,10 +742,58 @@ Experiment with modifying your app to observe if CloudWatch Logs are effectively
 ***Spending :***
 Feel free to *comment out* the code sections related to the CloudWatch Logger to help reduce our AWS expenses and explicitly delete the log group from *CloudWatch*.
 
+## Security Best Practices
+Observability data can be a valuable target for attackers. It can be used to identify vulnerabilities, track user activity, and launch attacks. Therefore, it is important to take steps to secure observability data.
+
+When implementing code, it is important to consider the security implications.
+
+- **Use secure tracing libraries**. There are a number of tracing libraries available that offer security features, such as authentication, authorization, and encryption.
+- **Encrypt observability data**. This will help to protect the privacy of data and make it more difficult for attackers to access.
+- **Use a secure tracing backend**. The tracing backend should be protected from unauthorized access.
+
+Make sure that your team is aware of the security risks associated with observability and distributed tracing, and that they know how to mitigate those.
+
+* **Use a centralized tracing solution.** This will make it easier to collect and analyze tracing data from all of your microservices.
+* **Enable sampling.** Sampling can help you reduce the amount of tracing data that you collect, without sacrificing too much visibility.
+* **Encrypt tracing data.** This will help to protect the privacy of your users.
+* **Use a tracing tool that supports security features.** Some tracing tools offer features such as authentication, authorization, and encryption.
+
+**Security Measures**
+* Use a secure tracing protocol, such as TLS or mTLS.
+* Encrypt tracing data at rest and in transit.
+* Use a central observability platform that has strong security features.
+* Implement security best practices for your applications, such as input validation and output sanitization.
+
+
+**Additional Resources**<br>
+Here are the projects that are working on improving the security of observability and distributed tracing:
+
+* The OpenTelemetry project: https://opentelemetry.io/
+* The Jaeger project: https://jaegertracing.io/
+* The Zipkin project: https://zipkin.io/
+* The Traceable AI project: https://www.traceable.ai/
+
+**Related Security Direction**
+| Project | Description | URL |
+|---|---|---|
+| OpenTelemetry Security Working Group | A set of security best practices for observability. | [https://opentelemetry.io/security/](https://opentelemetry.io/security/) |
+| Jaeger Security Project | A security extension for the Jaeger tracing tool. | [https://github.com/jaegertracing/jaeger-security](https://github.com/jaegertracing/jaeger-security) |
+| Zipkin Security Project |  A security extension for the Zipkin tracing tool. | [https://github.com/openzipkin/zipkin-security](https://github.com/openzipkin/zipkin-security) |
+| Traceable AI Security Project | A security solution for distributed tracing. | [https://www.traceable.ai/security/](https://www.traceable.ai/security/) |
+
+**Conclusion**
+
+You should always look to improve the security of your observability and distributed tracing systems. Aim to protect your applications from security threats and to troubleshoot problems more effectively.
 
 # Error-Free Code with Rollbar
 
-### Prerequisites
+Rollbar provides a central dashboard where you can see all of your errors, including their stack traces, environment information, and user feedback. 
+
+![From Rollbar Docs Website](https://files.readme.io/3a1735d-Rollbar-Logo-Reverse-Safety-White_1.svg)
+
+Rollbar also integrates with many popular development tools, so you can easily send errors from your IDE or continuous integration server.<br>
+
+Before we begin, make sure you have the following prerequisites.
 
 * A Rollbar account
 * The `rollbar` and `blinker` Python packages
@@ -757,13 +863,99 @@ def rollbar_test():
 
 9. Launch your application and navigate to the `/rollbar/test` endpoint using the browser or *API client*. 
 
-On successful onboarding, you'll see a warm and enthusiastic "Hello World!"
+Upon a seamless and highly successful onboarding experience, you will be greeted with the magical "Hello World!"
+
+Picture this!
 
 <img src="assets/week2/rollbar/3 rollbar checks.png">
 
-10. You can also try to set an error that will cause an exception to be raised.
+We will have to conduct a comprehensive check within the Rollbar product itself to ensure its presence. 
 
-Which will be sent to Rollbar.
+
+* Expand the verification process of the Hello World message by checking the Rollbar Interface.
+
+<img src="assets/week2/rollbar/7 view inside.png">
+
+This step will be carried out as part of the onboarding process, and once it is successfully completed, we can consider the onboarding process finished. 
+
+Rollbar instrumentation got updated on the process. <br>
+ `@app.before_first_request` has been removed from flask.
+
+![Instrumentation Updates Rollbar](assets/week2/rollbar/backend-rollbar-fix.png)
+[Source](https://stackoverflow.com/questions/73570041/flask-deprecated-before-first-request-how-to-update)
+
+### Intentional Errors for Rollbar
+
+In order to demonstrate the robustness and effectiveness of the onboarding, we generated two errors that trigger exceptions and are caught by the Rollbar error monitoring system.
+
+**Error 1: Missing Argument in Logger in HomeActivities.run**<br>
+In this first example, we purposefully omitted a crucial argument in the logger while executing the HomeActivities.run function.
+The omission of the 'LOGGER' argument resulted in an unhandled exception, which our product effectively detected and sent to Rollbar for further analysis.
+By triggering this error, we demonstrated that our product provides real-time error reporting and a seamless integration with Rollbar to facilitate a quick response to such issues.
+Error 2: Undefined "AWS Auth" - Deliberate Scenario
+
 <img src="assets/week2/rollbar/Rollbar Error Detection/rollbar error 5.png">
 
----
+**The second intentional error involved referencing an undefined variable.**<br>
+This deliberate mistake is designed to simulate a scenario where developers might inadvertently overlook variable definitions or experience issues with external service integrations.
+Our product effectively caught this error and dispatched it to Rollbar, enabling developers to track and investigate the root cause effortlessly.
+
+* You can also try to set an error that will cause an exception to be raised which will be sent to Rollbar.
+
+Five of many Rollbar Errors Can Found [in this area](assets/week2/rollbar/Rollbar%20Error%20Detection/).
+
+If you are looking for a way to improve the quality of your code (not just Python), I encourage you to try Rollbar. It is a powerful tool that can help you to track and fix errors quickly and easily.
+
+**Stay in Touch with Rollbar**
+
+* Rollbar Documentation: https://rollbar.com/docs/
+* Rollbar Blog: https://rollbar.com/blog/
+* Rollbar on Twitter: https://twitter.com/rollbar
+
+
+# Python Preferred Installer Program
+
+Python package management has long been a source of frustration for developers. The original package manager, `pip`, is relatively simple to use, but it lacks some important features, such as the ability to create virtual environments and manage dependencies. This from experience can lead to problems when working on collaborative projects or when trying to install multiple versions of the same package.
+
+I had a python project with fellow developer. We wanted to use the same version of the `requests` package, but he had a different version installed on their system. When I tried to install the `requests` package using `pip`, it installed the latest version, which is not be compatible with his ver. 
+
+This causeed problems with our project Incl. errors or unexpected behaviors.
+
+**Pipenv and Poetry are two package managers that address some of the shortcomings of pip.**
+
+* **Pipenv** is a "batteries included" package manager that provides a unified interface for creating and managing virtual environments, installing packages, and resolving dependencies.
+* **Poetry** is a more lightweight package manager that focuses on simplicity and ease of use.
+
+Both `Pipenv` and `Poetry` can help to improve the package management experience in Python. They provide a number of features that are not available in `pip`, such as:
+
+* The ability to create and manage virtual environments: Virtual environments allow you to install packages in a isolated environment, which can help to prevent conflicts between different projects.
+* The ability to specify dependencies in a structured format: This makes it easier to track dependencies and to ensure that your project is using the correct versions of the packages that it needs.
+* The ability to resolve dependencies automatically: This can save you a lot of time, as you don't have to manually track down and install all of the dependencies that your project needs.
+* The ability to publish packages to the Python Package Index (PyPI): This allows you to share your packages with other developers.
+
+**In addition to these features, Pipenv and Poetry also offer a number of other benefits, such as:**
+
+* They are both actively maintained and supported.
+* They have large and active communities of users and developers.
+* They are both well-documented.
+
+I recommend giving `Pipenv` or `Poetry` a try. They can help to make your life easier and your projects more reliable.
+
+**Table comparing the features of pip, Pipenv, and Poetry:**
+
+| Feature | `pip` | `Pipenv` | `Poetry` |
+|---|---|---|---|
+| Virtual environments | Yes | Yes | Yes |
+| Dependency management | Basic | Advanced | Advanced |
+| Dependency resolution | Manual | Automatic | Automatic |
+| Publishing to PyPI | Yes | Yes | Yes |
+| Documentation | Good | Excellent | Excellent |
+| Community | Large | Large | Large |
+
+**As you can see, Pipenv and Poetry offer a number of features that are not available in pip.** These features can help to improve the package management experience in Python, making it easier to track dependencies, resolve conflicts, and publish packages.
+
+**Here are some additional resources that you may find helpful**
+
+* `Pipenv` documentation: https://pipenv.pypa.io/en/latest/
+* `Poetry` documentation: https://python-poetry.org/docs/
+* The Python Packaging User Guide: https://packaging.python.org/en/latest/
