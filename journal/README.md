@@ -45,9 +45,9 @@ Strategically located in 1️⃣ site.
 
 | Journal | Technologies                                                           | Start Date   | Status |
 | :-----: | -------------------------------------------------                      | ----------   | :----: |
-| [Week 0](week0.md)  | Billing and Architecture  <br>(*Under Revision*)           | Feb 11, 2023 |   ✘   |
-| [Week 1](week1.md)  | ⭐Docker and App Containerization                            | Feb 18, 2023 |   ✘   |
-| [Week 2](week2.md)  | Distributed Tracing   <br>(*Under Revision*)               | Feb 25, 2023 |   ✘   |
+| [Week 0](week0.md)  | Billing and Architecture  <br>(*Under Revision*)           | Feb 11, 2023 |   ✘    |
+| [Week 1](week1.md)  | ⭐Docker and App Containerization                         | Feb 18, 2023 |   ✘    |
+| [Week 2](week2.md)  | ⭐Distributed Tracing                                     | Feb 25, 2023 |   ✘    |
 | [Week 3](week3.md)  | Decentralized Authentication <br>(*Under Revision*)        | Mar 4, 2023  |   ✘   |
 | [Week 4](week4.md)  | SQL Database with PostgreSQL  <br>(*Under Revision*)       | Mar 11, 2023 |   ✘   |
 | [Week 5](week5.md)  | NoSQL Database with AWS DynamoDB <br>(*Under Revision*)    | Mar 18, 2023 |   ✘   |
@@ -55,7 +55,7 @@ Strategically located in 1️⃣ site.
 | [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(Part 2/2)| Apr 1, 2023 |✘|
 | [Week 8](week8.md)  | ⭐Serverless Image Processing                                | Apr 8, 2023  | ✘ |
 | [Week 9](week9.md)  | CI/CD with AWS CodeBuild and CodePipeline                  | Apr 15, 2023 | ✘ |
-| [Week 10](week10.md) | CloudFormation <br> (Part 1/2)                            | Apr 22, 2023 | ✘ |
+| [Week 10](week10.md) |⭐CloudFormation <br> (Part 1/2)                            | Apr 22, 2023 | ✘ |
 | [Week 11](week11.md) | CloudFormation & SAM Templates <br> (Part 2/2)            | Apr 29, 2023 |Doing |
 | [Week ✘](week12.md) | Modern APIs & Cleanup                                      | May 6, 2023  |Doing |
 

@@ -24,7 +24,7 @@ The organizer expressed uncertainty regarding the accuracy of their judgment in 
 The bootcamp project, as acknowledged by the pursuers<br> Incl. the individuals instrumental in the realization, <br>undeniably surpasses the specified level and is considered **Advanced**.
 | ✅| *Transparency* |
 | --- | :--- |
-| *Reality* | This bootcamp is rated as Level 250 based on the following difficulty scale: <br> **Level 100** Foundational <br> **Level 200** Intermediate <br> **Level 300** Advanced <br>  • **Level 350** - **AWS Cloud Project Bootcamp**  <br> **Level 400** Expert |
+| *Reality* | This bootcamp is rated as Level 350 based on the following difficulty scale: <br> **Level 100** Foundational <br> **Level 200** Intermediate <br> **Level 300** Advanced <br>  • **Level 350** - **AWS Cloud Project Bootcamp**  <br> **Level 400** Expert |
 
 
 # Micro-blogging Platform Development
