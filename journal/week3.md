@@ -1,5 +1,7 @@
 # Week 3 — Decentralized Authentication
 
+> **Next Rework.to-come:2**  "img, #" Just kidding
+
 Once upon a time, there was a passionate software developer named Yahya who spent his week(s) learning about AWS Cognito and its user pools.
 
 Welcome to Week 3 Journal.

@@ -1,4 +1,7 @@
 # Week 0 — Billing and Architecture
+
+> **Next Rework.to-come:1**  "img, #" Just kidding
+
 | Requirements                              | Platform/Service        |
 |-------------------------------------|------------------------|
 | [Adding](#aws-credit)   credit  | [AWS](https://aws.amazon.com/fr/console/)                    |

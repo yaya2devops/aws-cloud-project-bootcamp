@@ -1,4 +1,5 @@
 # Week 4 — SQL Databases
+> **Next Rework.to-come:3**  "img, #" Just kidding
 
 In week four, I had the opportunity to delve into the powerful open-source relational database management system. PostgreSQL.
 

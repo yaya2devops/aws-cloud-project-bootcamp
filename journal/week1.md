@@ -1,11 +1,7 @@
 # Week 1 — App Containerization 🐳
 
-Step aboard as I transport you to an extraordinary adventure through the fascinating universe of containers, Docker, and the ever-evolving frontiers of the future.
-
-This week was jam-packed of learning experiences.
+Step aboard as I transport you to an extraordinary adventure through the fascinating universe of containers, Docker, and the ever-evolving frontiers of the future. This week was jam-packed of learning experiences.
  
-![It been a time](https://cdn.hashnode.com/res/hashnode/image/upload/v1657651330340/t_vn4YJcC.png?auto=compress,format&format=webp)
-
 ## Week One Main Tasks
 
 - [Containerize Application](#containerize-application)
@@ -87,9 +83,8 @@ For interacting with containers Docker provides a set of command-line utilities
 | `docker exec`            | Executes a command in container shell.                 |
 | `docker-compose arg`      | Starts services with  `up ` and stop with  `down` as **arg**         |
 
-> Refer to [the Initial version, the first steps](week1-progress.md).
 
-## Before Docker
+# Before Docker
 
 Imagine having a powerful backend application constructed using Flask, a popular Python web framework known for its simplicity and flexibility. 
 
@@ -237,16 +232,20 @@ export FRONTEND_URL="*"
 export BACKEND_URL="*"
 python3 -m flask run --host=0.0.0.0 --port=4567
 ```
+> Refer to [the Initial version, the first steps](week1-progress.md).
 
 <img src="assets/week1/install%20flask.png">
 
 As you can observe, there are several tasks that need to be explicitly performed in this process.
 
 
-## After Docker
 
-
+# After Docker
 Let's set you up with Docker to ensure your Flask app runs smoothly as intended.
+
+![It been a time](https://cdn.hashnode.com/res/hashnode/image/upload/v1657651330340/t_vn4YJcC.png?auto=compress,format&format=webp)
+
+
 1. Get to a root of directory that you want containerize its project
 2. Create a file and call it `Dockerfile`
 3. Add this content and follow up

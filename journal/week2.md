@@ -12,9 +12,10 @@ Awareness continues with another productive week. <br>The past days was a great 
 - [Open Telemetry with Honeycomb](#open-telemetry-with-honeycomb)
   - [Product Setup](#setup)
   - [Spans and Traces in OTEL](#spans-and-traces-in-open-telemetry)
+  - [Honeycomb for Better Observability](#honeycomb-for-better-observability)
   - [Heatmap in Honeycomb](#heatmap-in-honeycomb)
   - [Honeycomb Who Am I?](#honeycomb-who-am-i)
-- [Rethinking Why `pip` Sucks?](#python-preferred-installer-program)
+- [Rethinking Why `pip` is Mhh?](#python-preferred-installer-program)
 - [Security in Observability](#security-best-practices)
 - [Spend Considerations](#spend-considerations)
 - [Onboard AWS X-RAY](#the-distributed-tracing-system-x-ray)
@@ -25,8 +26,9 @@ Awareness continues with another productive week. <br>The past days was a great 
   - [Traces as Groups in X-Ray](#traces-as-groups-in-x-ray)
   - [Sampling Rule in AWS X-RAY](#sampling-rule-in-aws-x-ray)
   - [X-Ray Subsegmentation](#x-ray-subsegmentation)
-- [Monitor FlaskApp with CloudWatch](#monitor-flaskapp-with-cloudwatch)
 - [Error-Free Code with Rollbar](#error-free-code-with-rollbar)
+  - [Expanded Instrumentation in Rollbar](#expanded-instrumentation-in-rollbar)
+- [Monitor FlaskApp with CloudWatch](#monitor-flaskapp-with-cloudwatch)
 
 # Observability
 
@@ -315,6 +317,69 @@ For example, this error occurred because I called the endpoint after running Doc
 
 <img src="assets/week2/heyhoney/26 takes me to this span where i had error cause i missed a python syntax.png">
 
+### Honeycomb for Better Observability
+Having more instrumentation means to a better understanding of your errors and how to shoot solving them.
+
+[Learn more.](#expanded-instrumentation-in-rollbar)
+
+
+1. Import the `tracer` and `trace` objects from the `opentelemetry` library.
+
+```python
+from opentelemetry import trace
+tracer = trace.get_tracer(__name__)
+```
+
+2. Create a new span with the `tracer.start_as_current_span()` method.
+```py
+span = tracer.start_as_current_span("home_activity")
+```
+`File: home_activity.py`
+
+3. Set the attributes of the span, such as the `app.result_length` and `user.id attributes`.
+
+```py
+span.set_attribute("app.result_length", len(results))
+span.set_attribute("user.id", user.get("userID"))
+```
+
+4. Create nested spans with the `tracer.start_as_current_span()` method.
+```py
+with tracer.start_as_current_span("flaskfunc") as inner_span:
+    inner_span.set_attribute("inner", True)
+    span.set_attribute("user.id", user.get("user"))
+    with tracer.start_as_current_span("flaskfuncfunc") as sub_inner_span:
+        span.set_attribute("user.id", user.get("userID"))
+```
+
+5. Set the attributes of the nested spans.
+
+```py
+inner_span.set_attribute("inner", True)
+span.set_attribute("user.id", user.get("user"))
+```
+
+6. Add events to the spans.
+```py
+current_span = trace.get_current_span()
+current_span.add_event("Event is Working!")
+```
+
+Additionally, You can aim to intrument the following use cases.
+
+1. **Measure Request Duration:** Track the time taken for each API request to identify slow endpoints and performance bottlenecks.
+2. **Track Errors:** Monitor and analyze error occurrences to quickly detect and resolve issues.
+3. **Monitor User Behavior:** Instrument user actions like login/logout to understand how users interact with your app.
+4. **Analyze Database Queries:** Monitor database query execution time and frequency to optimize performance.
+5. **Track API Endpoint Usage:** Identify frequently accessed endpoints to understand critical app areas.
+6. **Monitor Resource Utilization:** Measure CPU, memory, and system resource usage to identify resource-intensive parts.
+7. **Analyze External Service Calls:** Monitor response times of interactions with external services for potential issues.
+8. **Capture Custom Business Events:** Instrument app-specific events to gain insights into user behavior and conversions.
+9. **Track Feature Usage:** Monitor feature flags or A/B tests to understand their impact on user engagement.
+10. **Monitor Geolocation Data:** Track location-related events for insights based on geographical locations.<br>
+[Learn more.](#expanded-instrumentation-in-rollbar)
+
+The key is to choose instrumentation that aligns with your specific application's goals and requirements.
 
 ### Heatmap in Honeycomb
 
@@ -329,7 +394,10 @@ You have the ability to zoom in and out on the heatmap, allowing you to see the 
 
 
 ## Honeycomb Who Am I? 
-The **Honeycomb Who Am I?** project is designed to provide insights into your system's behavior and performance by leveraging the power of Honeycomb, a distributed tracing and observability platform.
+The **Honeycomb Who Am I?** project is designed to provide insights into what system is this. Lol. 
+
+When you have the tools spreads out before you, it's easy to lose track of what was this for and which is assigned to what task, so the projet comes along.
+
 1. **Accessing the Tool:**
 Navigate to the URL provided [here](https://honeycomb-whoami.glitch.me/) to access the "Honeycomb Who Am I?" tool interface.
 
@@ -871,6 +939,25 @@ We will have to conduct a comprehensive check within the Rollbar product itself 
 <img src="assets/week2/rollbar/7 view inside.png">
 
 This step will be carried out as part of the onboarding process, and once it is successfully completed, we can consider the onboarding process finished. 
+
+
+### Expanded Instrumentation in Rollbar
+
+By default, Rollbar only collects a limited amount of data about each error. This can make it difficult to troubleshoot errors and identify trends.
+
+Additional instrumentation can help you collect more data about your errors. 
+
+This data can be used to the following reasons.
+- Troubleshoot errors:  collecting more data about each error, you can get a better understanding of what caused the error. 
+- Identify trends: By collecting data about all of the errors in your application, you can identify trends.
+- Improve the quality of your code: You can learn from your mistakes and improve the quality of your code and prevent future errors.
+
+Here are some of the additional instrumentation options that you can use.
+
+- Custom context: You can add custom context to your error reports by using the `rollbar.context` function.
+- Custom breadcrumbs: a way to track the flow of execution .You can add custom breadcrumbs to your error reports by using the `rollbar.add_breadcrumb()` function.
+
+Instrument further like a *Pro* with [these use cases.](resources/assets/rollbar-instru.csv)
 
 Rollbar instrumentation got updated on the process. <br>
  `@app.before_first_request` has been removed from flask.

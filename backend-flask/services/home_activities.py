@@ -20,7 +20,7 @@ class HomeActivities:
   def run(cognito_user_id=None):
     #Logger.info("HomeActivities")
     with tracer.start_as_current_span("home-activites-mock-data"):
-      span = trace.get_current_sp#an()
+      span = trace.get_current_span()
       now = datetime.now(timezone.utc).astimezone()
       span.set_attribute("app.now", now.isoformat())
       sql = db.template('activities','home')
