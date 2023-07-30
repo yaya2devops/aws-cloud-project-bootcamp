@@ -1,18 +1,5 @@
 # Week 0 — Billing and Architecture
 
-> **Next Rework.to-come:1**  "img, #" Just kidding
-
-| Requirements                              | Platform/Service        |
-|-------------------------------------|------------------------|
-| [Adding](#aws-credit)   credit  | [AWS](https://aws.amazon.com/fr/console/)                    |
-| [Get](https://github.com/features/codespaces)  in codespaces             | [GitHub](https://github.com/)                 |
-| [Created](https://gitpod.io/workspaces/)      Gitpod account         | [Gitpod](https://www.gitpod.io/)                   |
-| [Created](https://login.gomomento.com/u/login/identifier?state=hKFo2SBydW5CS2FYZ3pyREZZYnpjR25WcDN4cHBNQ1hjSnRfUqFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIGszTWt4MEpyeGxmWS1DQmFqRHRrZW1OYzdpVjFBWTV3o2NpZNkgaTVkbWN4OU9ab1ZNSkFMbm1KSXJGM1pwTUJMTW5tN0Q)  Momento Account             | [Momento](https://www.gomomento.com/)                  |
-| [Signed up](https://lucid.app/pricing/lucidchart?km_CPC_AdGroupID=60168113511&utm_source=google&km_CPC_CampaignId=1484560204&_gl=1*91j79g*_ga*MTgwNTUzMzQ0OS4xNjgzNDkyMzcy*_ga_MPV5H3XMB5*MTY4MzQ5MjM3NC4xLjAuMTY4MzQ5MjM3NC42MC4wLjA.*_gcl_aw*R0NMLjE2ODM0OTIzNzYuRUFJYUlRb2JDaE1JcDUzNTVJbmtfZ0lWbGdHTENoMUxjUUVtRUFBWUFTQUFFZ0ttTGZEX0J3RQ..&km_CPC_MatchType=b&km_CPC_Country=9075947&km_CPC_Keyword=%2Blucidchart+%2Bsign+%2Bup&gclid=EAIaIQobChMIp5355Ink_gIVlgGLCh1LcQEmEAAYASAAEgKmLfD_BwE&km_CPC_Creative=442433233598&sessionDate=2023-05-07T20%3A46%3A11.871Z&km_CPC_TargetID=kwd-336567026148&referer=https%3A%2F%2Fwww.lucidchart.com%2Fpages%2Flanding&utm_medium=cpc&km_CPC_target=&km_CPC_Device=c&anonId=0.45d5ec4b187f7f6fd97&km_CPC_AdPosition=&km_CPC_ExtensionID=&km_CPC_Network=g&sessionId=0.12a98969187f7f6fd9c&utm_campaign=_chart_en_tier3_mixed_search_brand_bmm_&km_CPC_placement=#/createAccount)   for Lucid Charts       | [Lucid Charts](https://www.lucidchart.com/)             |
-| [Signed up](https://ui.honeycomb.io/signup) for HoneyComb        | [HoneyComb.io](https://www.honeycomb.io/)            |
-| [Signed up](https://rollbar.com/signup/) for Rollbar               | [Rollbar](https://rollbar.com/)                  |
-
-
 ## Week Zero Main Tasks
 - [Cloudnative Architectures](#cloudnative-architecture)
   - [Logical Design](#creating-logical-diagram)
@@ -33,59 +20,205 @@
 - [EventBridge Health Dashboard](#hookup-health-dashboard-to-sns-using-eventbridge)
 ---
 
-# Cloudnative Architecture 
-First step towards great ideas is the discussions with both the technical and business team to ensure that the project's objectives are met in its entirety. It is also important to consider the risks, assumptions, and constraints that may be involved in the project.
+# A Path Towards Modern Solutions
 
-It is also necessary to consider the dangers, presumptions, and limitations associated with the project.
+A monolithic architecture is a traditional way of designing and developing apps. In a mono-based architecture, all of the application's code and data are contained in a single codebase. 
+
+- **It is difficult to develop**. Because all of the code and data are in a single codebase, not practical to track changes and make updates which lead to errors and bugs.
+- **It is difficult to deploy**. The entire application is deployed as a single unit, when you deploy changes to the application you can affect other parts of the application.
+- **It is difficult to scale**. If the application experiences increased traffic, it can be difficult to scale the application without targeting performance.
+
+In addressing the challenge at hand, a profound and enduring resolution emerged - the adoption of a cloud-native architecture. 
+
+This forward-thinking approach harnessed the power of cloud technologies to reshape the very fabric of our systems, opening up a world of possibilities and transformative potential
 
 
-## Architectural Diagram
-To design an effective architectural diagram, i see there are three stages to follow.
+## Build Scalable and Resilient Applications
 
-- The first stage is the **conceptual design aka Napkin design**, where the overall idea and scope of the project are defined. 
+**Cloud-native architecture** is a design methodology that utilizes cloud services to allow dynamic and agile application development techniques that take a modular approach to building, running, and updating software through a suite of cloud-based microservices versus a monolithic application infrastructure.
 
-- The second stage is the **logical design aka Blueprint**, where the system's functionality is mapped out, and the data flow is determined.
+Before the release of the app, cloud architects typically follow these steps to ensure its successful implementation.
 
-- The third stage is the **physical design**, where the physical components and infrastructure required to support the system are identified and integrated. 
+1. ***Define the project goals***<br>
+The first step towards great cloud-native architecture is the discussions with both the technical and business team to ensure that the project's objectives are met in its entirety. It is also important to consider the risks, assumptions, and constraints that may be involved in the project.
+2. ***Design the architecture***<br>
+This step involves breaking down the application into microservices, which are small, independent services that can be developed, deployed, and scaled independently. The microservices should be designed to be loosely coupled and scalable.
+3. ***Implement the microservices***<br>
+Developing the microservices using a variety of technologies and deploying them to the cloud. The cloud platform e.g AWS will provide the infrastructure for running the microservices and managing their scaling.<br>
+The µservices can be developed using a variety of technologies e.g. as Java, Go, or **Python our case**.
+4. ***Test and deploy the application***<br>
+The final step (stating point) is to test and deploy the application. This involves testing the microservices individually and then testing the application as a whole.
 
-## Design Using Lucidchart
-Lucidchart is an online diagramming and flowcharting tool that allows users to create and collaborate on a wide range of diagrams. 
+| Goals                            |   Evidence     |
+|----------------------------------|--------|
+| Define the project goals         |   [Project Scenario](resources/project-scenario.md)      |
+| Design the architecture          |  [❗Architectures ](#types-of-architectural-diagrams)     |
+| Implement the microservices      |  [Code Structure](../backend-flask/services/)      |
+| Test and deploy the application  |  [W1 using Docker](week1.md)    |
 
-<img src="assets/week0/media/simplified-arch.png">
+This project application is constructed upon this robust architecture, and we have committed to accomplishing each step outlined above. 
 
-We will be using it for AWS.
+## The Fundamental Pillars of Project Management
+In the realm of project management, certain key factors play a pivotal role in shaping the destiny of any endeavor. 
 
-The shapes are built in, from file → import data:
+***The Iron Triangle*** is a project management concept that refers to the three constraints that are commonly considered to be the most important in determining the success or failure of a project. 
+
+**The three constraints are,**
+
+| Constraint | Description |
+|---|---|
+| **Time** | Refers to the amount of time available to complete a project. The project needs to be completed within a specific timeframe, and any delays can have a significant impact on the project's success. |
+| **Cost** | Refers to the budget available to complete a project. The project needs to be completed within the allocated budget, and any cost overruns can have a significant impact on the project's success. |
+| **Scope** | Refers to the goals, deliverables, and features of a project. The project needs to meet the agreed-upon scope, and any changes or deviations from the scope can have a significant impact on the project's success. |
+
+**Benefits of the Iron Triangle**
+
+The Iron Triangle provides several benefits for project managers, including:
+
+* It helps to ensure that projects are completed on time, within budget, and with the agreed-upon scope.
+* It provides a framework for making decisions about project trade-offs.
+* It helps to identify and manage risks.
+* It provides a common language for communicating with stakeholders.
+
+**How to Use the Iron Triangle**
+
+The Iron Triangle can be used to manage projects by following these steps:
+
+1. Identify the three constraints for your project.
+2. Set realistic expectations for each constraint.
+3. Monitor the constraints throughout the project.
+4. Make trade-offs as needed to ensure that the project is completed successfully.
+
+**Additional Considerations,**
+
+| Concept | Description | Examples |
+|---|---|---|
+| **Risks** | Events that could happen and have a negative impact on the project | Late delivery, user commitment, technical problems |
+| **Assumptions** | Things that we believe to be true but that haven't been proven | The budget being approved, sufficient network bandwidth, the availability of key resources |
+| **Constraints** | Limitations that the project must adhere to | Time, budget, technical requirements |
+
+Understanding the three constraints and how they interact, also the assumptions and the risks project managers can increase their chances of success.
+
+
+## Develop a Common Dictionary
+
+- **Ask questions** — Don't be afraid to ask questions, even if you think they're obvious. This will help to ensure that everyone is on the same page.
+- **Play "be-the-packet"** — This exercise can help you to understand how data is transmitted through the network.
+- **Document everything** — This includes both technical and non-technical documentation.
+
+**By doing so, you can achive the following :==).**
+
+- *Prevents misunderstandings*<br>
+Everyone will be using the same terminology, so there will be no confusion about what different terms mean.
+- *Makes communication easier* <br>It will be easier for people to understand each other and to collaborate on projects.
+- *Improves the quality of the product* <br>When everyone is on the same page, the product will be more likely to be successful.
+How to Overcome Challenges
+
+Lastly. Be patient. It takes time.<br>
+Be consistent and use the same terminology throughout the project and be willing to compromise. 
+
+Not everyone will agree on everything, but it's important to find common ground.
+
+
+
+# Types of Architectural Diagrams
+
+Architectural diagrams are visual representations of a software system's architecture. They are used to communicate the system's design to stakeholders, and to help developers understand how the system works.
+
+There are three main types of architectural diagrams:
+
+
+- **Conceptual diagrams (aka napkin designs)** provide a high-level overview of the system. They show the system's major components and how they interact.
+
+
+
+- **Logical diagrams (aka blueprints)** show the system's functionality in more detail. They show how the system's components interact, and how data flows through the system.
+
+
+- **Physical diagrams** show the physical components of the system, such as hardware, software, and networks. They show how these components are connected, and how they interact with each other.
+
+Each type of architectural diagram has its own purpose, and they are often used together to provide a complete picture of the system's architecture.
+
+### **When to Use Each Type of Architectural Diagram**
+
+- **Conceptual diagrams** are used early in the development process, when the system's requirements are still being defined. They are a quick and easy way to communicate the overall idea of the system to stakeholders.
+- **Logical diagrams** are used later in the development process, when the system's functionality is being designed. They are a more detailed way to communicate the system's design to developers.
+- **Physical diagrams** are used in the final stages of development, when the system is being implemented. They are a way to communicate the system's design to system administrators and other technical staff.
+
+Architectural diagrams are a valuable tool for communicating the design of a software system. They really can be used to expand your vision to whoever. 
+
+### How to Create an Architectural Diagram
+here are many different tools that can be used to create architectural diagrams. I personally like first two!
+
+- Lucidchart (Paid)
+- draw.io (FREE)
+- Microsoft Visio (Paid)
+
+I used **Draw.io** extensively in weeks 5, 6, 7,8 and 9. 
+
+In week 10, you'll also find CloudFormation architectures *I* built using **Lucidchart**, which highlights the potential differences. <br>Logic, comparing a free product and a paid one.
+
+In Lucidchart, you can conveniently access built-in shapes by navigating to "File" → "Import Data," making it an ideal platform for working with AWS-related projects.
+- Here is a [DRAWIO Sample.](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/main/journal/assets/week9/CI-CD-Architect/ci-cd-architect.png)
+- Here is [Lucidchart Sample.](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/a22ddff9354e1ad1b680ed92383f5b0430d4f608/journal/assets/week11/big-bundle/0-App-Network-Buleprint.svg)
 
 <img src="assets/week0/media/use-aws-shapes-inlucid.png">
 
+Find additional [diagramming tools, and AWS icons.](https://aws.amazon.com/fr/architecture/icons/) 
 
-- [Here](https://aws.amazon.com/fr/architecture/icons/) you can find additional diagramming tools, and AWS icons.
+### **⚡Get started Now**
+If budget is a concern, I highly recommend starting with Draw.io.<br>
+There's even an [extension available in VS Code](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) for you to design directly from your favorite IDE. 
+
+I have included all the extensible files for your convenience. e.g. visit [week 8.](week8.md)<br>
+Meaning, you can easily begin by importing one of my architecture files to DRAWIO and make edits on top. 
+
+Happy diagramming!
+
 
 
 ### Creating **Logical Diagram**
-- Diagram to help in visualizing the flow of data and interactions between the product and other systems.
-- Illustrate the use of Rest APIs in the connection going between the front and the backend.
+Logical diagrams are more detailed than conceptual diagrams. They show how the system's components interact, and how data flows through the system. Logical diagrams are often used to communicate the system's design to developers.
+
+- **System architecture:** The system will be a three-tier architecture, consisting of a presentation layer, a business logic layer, and a data access layer.<br>
+- **Data flow:** The data flow will be unidirectional, with users entering data into the presentation layer, which will then pass the data to the business logic layer for processing. 
+
+The business logic layer will then pass the data to the data access layer for storage.
 
 <img src="assets/week0/media/logical-design.png">
 
-This also highlight the various components of the Cruddur product ecosystem
+This also effectively showcases the diverse components comprising the Cruddur product ecosystem.
+
+## Creating **Conceptual Design**
+
+Overall idea and scope to create a system that will allow users to share information and collaborate on projects. Conceptual diagrams are often drawn on napkins or whiteboards, hence the nickname "napkin designs.
 
 
-### Creating **Conceptual Design**
+With genuine enthusiasm and a touch of artistic flair, I created this captivating design, delicately sketching every stroke with two pens - one dipped in serene blue and the other ablaze with passionate red. We hope you like it!
+
+I ensured that the architecture was designed with the following key features in mind:
+- Secure Platform: considering Security best practices (refer to Journal).
+- Robust Data Storage System: A reliable and scalable data storage system was integrated.
+
 <img src="assets/week0/Cruddur-Architecture/cruddur-architecture.jpg">
 
-[PDF Version](assets/week0/Cruddur-Architecture/cruddur-architecture.pdf)
+When designing, the following constraints were also put forward.
+- The system must be scalable to accommodate a large number of users.
+- The system must be affordable to operate with costs considerations (refer to Journal).
+
+I believe you'll greatly appreciate my design, so I've provided it in [PDF format](assets/week0/Cruddur-Architecture/cruddur-architecture.pdf) for your convenience and enjoyment.
+
 <details>
 
-<summary> Behind the scenes! </summary>
+<summary> More! Behind the scenes </summary>
 
 <img src="assets/week0/Cruddur-Architecture/behind-the-scene.jpg">
 </details>
 
-### **Creating CI/CD Flow for week 9**
+## **Creating CI/CD Flow**
 
-Here is my go with CI/CD pipeline:
+Outlined below is the CI/CD pipeline I have designed, which aims to automate the process of code integration, testing, and deployment. This pipeline fosters collaboration and accelerates the delivery of high-quality software, facilitating a more responsive development environment.
+
 - Developer commits code to GitHub repository.
 - AWS CodePipeline is triggered.
 - The pipes are stored in the S3 pipeline bucket.
@@ -95,28 +228,39 @@ Here is my go with CI/CD pipeline:
 
 <img src="assets/week0/media/CICD-Arch.png">
 
+Week zero marked the initial phase of our journey towards establishing robust DevOps and CI/CD pipelines. 
 
-**Reference:**
+The real progress and significant advancements were witnessed [during week 9](week9.md). <br>Throughout this, we delved deep into the realm of DevOps and CI/CD pipelines, where the focus shifted from theoretical concepts to hands-on implementation and real-world application.
+
+Kindly [direct your attention to week nine](week9.md), also find belown lucidchart architectures.
 - [Twitter System Architecture](https://lucid.app/lucidchart/3dd58bb4-27dc-440d-9dc0-9bcd0154a346/edit?viewport_loc=224%2C471%2C1939%2C867%2Cu~1sbYNXU9q3&invitationId=inv_b811bc56-a51b-4481-a306-2f347e725dc5)
 - [Diagrams Design](https://lucid.app/lucidchart/f03569ad-27eb-435d-a81e-4c0d404e5951/edit?viewport_loc=-513%2C135%2C2720%2C1216%2CwcSxugjtXe~j&invitationId=inv_d8a1495b-87a4-4031-80bf-08a7067c8e12)
 
 
 
-## Frameworks
-Frameworks are simply key to reduce complexity,  the risk of errors and making the design process easier. 
+# Frameworks for Efficient Design
+Frameworks are a valuable tool for any designer, architect or a *technologist*. 
 
-### TOGAF
-A common language, methodology, and tools for enterprise architecture development to assist in aligning IT strategies with business goals.
+Frameworks are essential for reducing complexity, minimizing errors, and making the design process more efficient. 
 
-TOGAF is structured into four main components:
-- **Architecture Development Method:** is a step-by-step approach to developing and implementing enterprise architecture
-- **Enterprise Continuum:**  is a classification scheme for architecture artifacts
-- **Architecture Content Framework:** defines the skills, processes, and tools required to develop and manage enterprise architecture
-- **Architecture Capability Framework:** defines the content of enterprise architecture.
+Frameworks provide a common language and methodology for teams to follow, which can help to ensure that everyone is on the same page and that the final product meets the desired requirements.
 
 
-### AWS Well-Architected Tool
-We were first encouraged to think about and reflect on these critical pillars:
+## The Open Group Architecture Framework
+TOGAF is a widely used framework for enterprise architecture. It provides a comprehensive set of tools and techniques for designing, implementing, and managing enterprise architecture. TOGAF is structured into four main components:
+
+
+- A**rchitecture Development Method:** A systematic approach to creating and implementing enterprise architecture.
+- **Enterprise Continuum:** A classification scheme for organizing architecture artifacts.
+- **Architecture Content Framework:** Defining the necessary skills, processes, and tools for efficient enterprise architecture development and management.
+- **Architecture Capability Framework:** Establishing the core content of enterprise architecture.
+
+
+## Paving the Way for Robust Systems
+Emphasizing six critical pillars, the AWS Well-Architected Tool fosters the creation of highly reliable, secure, performant, and cost-efficient systems, while enabling agile responses to changing market trends and customer needs. 
+
+**These pillars are,**
+
 | Pillar | Focus |
 | --- | --- |
 | Operational Excellence | Utilizing a fully automated operations pipeline for IT operations |
@@ -126,422 +270,40 @@ We were first encouraged to think about and reflect on these critical pillars:
 | Cost Optimization | Reducing costs by utilizing cost optimization principles |
 | Business Agility | Enabling rapid responses to changing customer requirements and market trends |
 
-## AWS Well-Architected Framework  as Service
 
-The tool includes a set of questions related to above pillars of well-architected frameworks. 
+
+## Empowering Design with AWS Well-Architected Framework
+
+The AWS Well-Architected  can be used to assess the current state of your applications and to identify areas where you can improve your architecture. The tool also provides recommendations for how to improve your architecture.
+
+
+The AWS Well-Architected Framework incorporates a set of insightful questions aligned with the aforementioned pillars of the well-architected approach. Based on the inputs provided, the framework generates a comprehensive report, aiding businesses in achieving optimal and sustainable design outcomes.
 
 Based on these inputs, a report will be prepared in the end:
 
 <img src="assets/week0/media/aws-arch-frame-service.png">
 
 
----
 
-# Security Considerations
-Implementing security measures are very critical and can help mitigate risks by reducing the likelihood of security breaches and unauthorized access.
-- Use strong authentication and authorization mechanisms: IAM, MFA & STS.
-- Implement network security, Enable encryption and continiously monitor your resources using e.g. CloudTrail and CloudWatch.
-- Use secure coding practices to ensure that your applications are secure from the ground up
+***aws***
+:  Is a term I use before a name to refer the act of searching a service in the console.
 
 
-## Applying MFA
+To get started, from the console aws `AWS Well-Architected`.
 
-As the most powerful user in an AWS account, securing the Root user account is crucial. 
+## Unveiling the Application Layers
+An application layer is a software layer that provides a set of services for the application. The application layer is responsible for interacting with the user, processing business logic, and accessing data.
 
-- Implemen MFA provides an extra layer of protection. 
-- To set MFA → profile → security credentials → set MFA
+**The application layer is typically divided into three sublayers,**
 
-<img src="assets/week0/MFA1.png">
+- **User interface layer:** The user interface layer is responsible for interacting with the user. It provides a way for the user to input data and view output.
+- **Business logic layer:** The business logic layer is responsible for processing business logic. It implements the rules and procedures that define the application's functionality.
+- **Data access layer:** The data access layer is responsible for accessing data. It provides a way for the application to store and retrieve data from a database or other data source.
 
+The application layer is a critical part of any software application. 
 
-**Organization Unit** are logical unit within AWS Organizations
-- allows you to organize and manage your AWS accounts more effectively.
-- lets yougroup AWS accounts based on different criteria, such as business unit, department, or application.
-- lets you simplify account management tasks, such as setting up billing and cost alloca
-
-
-##  IAM User:
-IAM users are individuals or apps that use AWS resources.
-- Users can be given specific permissions to access AWS resources
-- And this is controlled through policies and roles.
-
-
-**Setting IAM User:**
-<img src="assets/week0/IAM DONE.png">
-
-> for example@example.com, possible to allias: example+alias@example.com
-
-**Connecting as IAM User:**
-<img src="assets/week0/hiiam.png">
-
-
-**Create Role:**
-- From IAM left pane select roles.
-- For the time being, select AWS Services and EC2
-- Select AdministratorAccess policy.
-<img src="assets/week0/media/role.png">
-
-
-**Attach Policy:**
--  IAM pane select policies
--  Select SecurityAudit policy and 
--  attach it to a role or a user group.
-
-<img src="assets/week0/media/attaching-policy.png">
-
-
-**Service control policies [SCPs](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html)**
-
-A type of organization policy that you can use to manage permissions in your organization.
-
-
-- e.g. apply this if you want deny whoever to quit an Org:
-
-```JSON
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Deny",
-            "Action": [
-                "organizations:LeaveOrganization"
-            ],
-            "Resource": "*"
-        }        ] 
-}
-```
-
-
-## Top 5 Security Best Practices
-- Data Protection & Residency in accordance with Security Policy
-- Identity & Access Management with the Least Privilege
-- Governance & Compliance of AWS Services being used
-   - Global vs Regional Services
-   - Compliant Services
-- Shared Responsibility of Threat Detection
-- Incident Response Plans to include Cloud
-
-
-### **Hookup Health Dashboard to SNS using EventBridge**
-
-**Configure Sub/Pub**
-
-- Create SNS Topic
-```sh
-aws sns create-topic --name eventbridge-alert
-```
-
-Returning
-
-```JSON
-{
-    "TopicArn": "arn:aws:sns:ca-central-1:598485450821:eventbridge-alert"
-}
-```
-- Subs to topic using the arn above
-
-```sh
-aws sns subscribe \
---topic-arn arn:aws:sns:<REGION>:<ACCOUNTID>:eventbridge-alert \
---protocol <email> \
---notification-endpoint <EMAIL>
-```
-
-Returning
-```JSON
-{
-    "SubscriptionArn": "pending confirmation"
-}
-```
-**Emailed**
-```txt
-You have chosen to subscribe to the topic: 
-arn:aws:sns:ca-central-1:598485450821:eventbridge-alert
-To confirm this subscription, click or visit the link below (If this was in error no action is necessary): 
-Confirm subscription
-```
-
-Confirmation:
-
-<img src="assets/week0/subs-to-topic.png">
-
-
-**Simple Notification Service:**
-
-<img src="assets/week0/sns-for-event-bridge.png">
-
-
-
-
-**Create EventBridge Rule**
-
-- Use [this file.](../aws/) and create **Event Rule**
-```sh
-aws events put-rule --name "sns-eventbridge-health" \
---event-pattern file://aws/json/sns-eventbridge.json
-```
-
-Returning
-```JSON
-{
-    "RuleArn": "arn:aws:events:ca-central-1:598485450821:rule/sns-eventbridge-health"
-}
-```
-<img src="assets/week0/sns-eventbridge-health.png">
-
-**Add a target**
-```sh
-aws events put-targets --rule sns-eventbridge-health --targets "Id"="1","Arn"="arn:aws:sns:us-east-1:<REDACTED>7434:eventbridge-alert"
-```
-
-Returning, no failure
-```JSON
-{
-    "FailedEntryCount": 0,
-    "FailedEntries": []
-}
-```
-
-**Console Overview:**
-
-<img src="assets/week0/sns-eventbridge-health-target.png">
-
+The application layer should be well-designed, well-implemented, and well-tested to ensure that the application is reliable and secure.
 
 ---
-# Spend Considerations
-The costs of services can vary depending on the type of service and the region in which it is being offered.
-
-other critical bullets incl.
-- pick what fits from On-Demand, Reserved Instances, and Spot Instances.
-- Continously monitor and get notified on spend using AWS services.
-
-
-
-
-View cost and services that are currently running.
-
-- Left pane: Profile → Billing Dashboard → Bills 
-
-
-## CloudWatch Alarm
-
-
-Billing Management Budgets are a newer method of alerting about spending that replaces alerts.
-
-- specify the below:
-
-<img src="assets/week0/1 alarm.png">
-
-
-- Notifcation on the topic:
-
-<img src="assets/week0/4- notif received.png">
-
-## Budget
-
-Notifies when:
-- actual spending reaches 85% 
-- forecasted spend is expected to reach 100%
-
-<img src="assets/week0/3 budget is set .png">
-
-
-
-## AWS Credit
-
-To redeem credits, view the credit balance.
-
-- Profile → Billing Dashboard → Credits (left pane)
-
-<img src="assets/week0/Amazing i got a credit..png">
-
-Some credit is only applicable to a few services.
-
-
-
-
-## Or AWS Free Tier
-
-To view details related to AWS free tier [https://aws.amazon.com/free](https://aws.amazon.com/free)
-
-- Each service has different types of free options.
-
-
-
-
+# ———To Be Continued————
 ---
-
-## AWS Cloudshell
-
-<img src="assets/week0/media/usingcloudshell.png">
-
-
-
-
-#### **Generate AWS Credentials:**
-
-<img src="assets/week0/CLI-WORK/1-GENERATE CREDENITIAL ACCESS KEY.png">
-
-
-**Setting Environement variables for Gitpod:**
-
-```BASH
-gp env instead of export 
-```
-
-<img src="assets/week0/CLI-WORK/6 setting the aws cli env var in gitpod auto.png">
-
-
-### **AWS CLI auto-prompt**
-
-**In Git Terminal:** <br>
-
-- adding these lines to `.bashrc`
-
-<img src="assets/week0/media/adding-aws-partial.png">
-
-
-```BASH
-export AWS_CLI_AUTO_PROMPT=on
-export PS1="\[\033[38;5;247m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;243m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;47m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\\$ \[$(tput sgr0)\]"
-
-```
-
-
-- the auto-prompt enables you to use the 'Enter' to complete the command.
-
-<img src="assets/week0/media/adding-aws-partial2.png">
-
-
-**In Gitpod:** <br>
-
-<img src="assets/week0/media/week0-extension-on-gitpod.png">
-
-
-## Install AWS CLI
-
-Get the package from CURL as ZIP:
-```BASH
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-```
-
-- unzip it:
-```
-unzip awscliv2.zip
-```
-
-- install the cli:
-```
-sudo ./aws/install
-```
-
-- Checking Connections:
-
-```
-aws sts get-caller-identity
-```
-<img src="assets/week0/CLI-WORK/5 connected to aws from gitpod .png">
-
-- Get the id only:
-
-```bash
-export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
-```
-
----
-
-## Create AWS Budget
-
-
-
-
-<img src="assets/week0/CLI-WORK/7 Budget 1.png">
-
-- Using the required env var in the below command:
-
-```
-aws budgets create-budget \
-    --account-id $AWS_ACCOUNT_ID \
-    --budget file://aws/json/budget.json \
-    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
-
-```
-
-<img src="assets/week0/CLI-WORK/8 budget 2 applied.png">
-
-
-- 2 budges listed below, from operations and terminal:
-
-<img src="assets/week0/CLI-WORK/9 budget 3 done success.png">
-
-**[Reference](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples)**
-
-## Setting SNS
-
-- creating the topic.
-
-```bash
-aws sns create-topic --name CLI-billing-alarm
-```
-
-<img src="assets/week0/CLI-WORK/11 sns cli create.png">
-
-**Subscribing SNS:**
-
-```bash
-aws sns subscribe \
-    --topic-arn="arn:aws:sns:ca-central-1:598485450821:CLI-billing-alarm" \
-    --protocol=email \
-    --notification-endpoint yahyaabulhaj@outlook.com
-```
-
-- Confirmation mail: 
-
-<img src="assets/week0/CLI-WORK/13 SNS CLI CONFIRM MAIL.png">
-
-
-- Changes took effects in the console:
-
-<img src="assets/week0/CLI-WORK/16 perfect .png">
-
-## Create CloudWatch
-
-```
-aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
-```
-<img src="assets/week0/CLI-WORK/17 cloudwatch alarm command.png">
-
-- Alarm on daily estimated charges:
-
-<img src="assets/week0/CLI-WORK/18 alarm is here notification.png">
-
-
-
-
-## **Open Support ticket**  
-
-**[Request  Service Limit](https://support.console.aws.amazon.com/support/home#/ )**
-Instructions
-- Navigate to the AWS Support Center
-- On the left side menu, select "Create Case"
-- Select "Looking for service limit increase?" from the link in the center right
-- Specify the limit or feature that you need
-- Click on "Create Case"
-- Verify that the ticket you opened reflects the necessary details
-
-<img src="assets/week0/4 case.png">
-
-- Confirmation:
-
-<img src="assets/week0/6 cased.png">
-
----
-
-
-## Takeaway
-Mirroring on my first week at this bootcamp, I can say with certainty that it was a steep learning curve for me. 
-
-I was immersed in a variety of topics and concepts, ranging from desigining architectures, Linux going to the AWS operations hands on.
-
-
-
