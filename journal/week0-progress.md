@@ -124,9 +124,6 @@ Based on these inputs, a report will be prepared in the end:
 
 ---
 
-# ———Remake V2Catchup—————
----
-
 | Requirements                              | Platform/Service        |
 |-------------------------------------|------------------------|
 | [Adding](#aws-credit)   credit  | [AWS](https://aws.amazon.com/fr/console/)                    |
@@ -310,6 +307,9 @@ Returning, no failure
 <img src="assets/week0/sns-eventbridge-health-target.png">
 
 
+---
+
+# ———Remake V2 Catchup—————
 ---
 # Spend Considerations
 The costs of services can vary depending on the type of service and the region in which it is being offered.
