@@ -307,10 +307,6 @@ Returning, no failure
 <img src="assets/week0/sns-eventbridge-health-target.png">
 
 
----
-
-# ———Remake V2 Catchup—————
----
 # Spend Considerations
 The costs of services can vary depending on the type of service and the region in which it is being offered.
 
@@ -546,8 +542,6 @@ Mirroring on my first week at this bootcamp, I can say with certainty that it wa
 
 I was immersed in a variety of topics and concepts, ranging from desigining architectures, Linux going to the AWS operations hands on.
 
-
-
 ---
-# ———————————————
+# ———Remake OK—————
 ---

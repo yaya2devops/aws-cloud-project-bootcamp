@@ -1,7 +1,64 @@
+# Week 0 — Billing and Architecture
+Welcome to the exhilarating kickoff of Week Zero in our AWS Cloud Bootcamp. <br>This is the perfect starting point for your thrilling journey into the boundless realm of the cloud.
+
+Are you ready to take the <u>first step towards mastering the cloud</u>❓
+
+We'll be talking about <u>cloud architecture, security, cost considerations, and operations.</u>
+
+Join us as we unlock the secrets of the cloud, paving the way for a dynamic future in this rapidly evolving industry. 
+
+## Week Zero Main Tasks
+
+
+- [A Path Towards Modern Solutions](#a-path-towards-modern-solutions)
+  - [Build Scalable and Resilient Applications](#build-scalable-and-resilient-applications)
+  - [The Fundamental Pillars of Project Management](#the-fundamental-pillars-of-project-management)
+  - [Develop a Common Dictionary](#develop-a-common-dictionary)
+- [Types of Architectural Diagrams](#types-of-architectural-diagrams)
+    - [When to Use Each Type](#when-to-use-each-type-of-architectural-diagram)
+    - [How to Create an Architectural Diagram](#how-to-create-an-architectural-diagram)
+    - [**Get started Diagramming Now**](#get-started-now)
+  - [Creating Logical Diagram](#creating-logical-diagram)
+  - [Creating Conceptual Design](#creating-conceptual-design)
+  - [Creating CI/CD Flow](#creating-cicd-flow)
+- [Frameworks for Efficient Design](#frameworks-for-efficient-design)
+  - [The Open Group Architecture Framework](#the-open-group-architecture-framework)
+  - [Paving the Way for Robust Systems](#paving-the-way-for-robust-systems)
+  - [AWS Well-Architected Framework](#empowering-design-with-aws-well-architected-framework)
+- [Security Considerations](#security-considerations)
+  - [ Apply MFA to the AWS Root User](#how-to-apply-mfa-to-the-aws-root-user)
+  - [What is an AWS Organization Unit?](#what-is-an-aws-organization-unit)
+  - [Managing IAM Users and Roles in AWS](#managing-iam-users-and-roles-in-aws)
+  - [Email Addresses with Aliasing](#email-addresses-with-aliasing)
+    - [📧 Real-World Application](#-real-world-application)
+  - [Seamless IAM User Connection](#seamless-iam-user-connection)
+  - [Crafting an IAM AWS Role, Policy](#crafting-an-efficient-aws-role)
+  - [Service Control Policies](#service-control-policies)
+- [Spend Considerations](#spend-considerations)
+    - [Viewing Your AWS Spending](#viewing-your-aws-spending)
+  - [CloudWatch Alarm](#cloudwatch-alarm)
+  - [AWS Budget Made Easy](#aws-budget-made-easy)
+  - [Checking and Claiming AWS Credits](#checking-and-claiming-aws-credits)
+  - [Welcome To AWS Free Tier](#welcome-to-aws-free-tier)
+- [AWS Cloudshell](#aws-cloudshell)
+  - [**AWS in Your Favorite IDE**](#aws-in-your-favorite-ide)
+  - [Go to Your Favorite IDE](#go-to-your-favorite-ide)
+  - [Install AWS CLI](#install-aws-cli)
+  - [Checking AWS Connections with Console](#checking-aws-connections-with-console)
+  - [**AWS CLI auto-prompt**](#aws-cli-auto-prompt)
+    - [**Git Bash** ](#git-bash-)
+    - [**Gitpod** ](#gitpod-)
+  - [Create AWS Budget Using the CLI](#create-aws-budget-using-the-cli)
+  - [Creating a CloudWatch Alarm](#creating-a-cloudwatch-alarm)
+  - [Open Support ticket](#open-support-ticket)
+- [Health Dashboard with SNS](#integrate-health-dashboard-with-sns-using-eventbridge)
+  - [Setting SNS](#setting-sns)
+
 # A Path Towards Modern Solutions
 A monolithic architecture is a traditional way of designing and developing apps. In a mono-based architecture, all of the application's code and data are contained in a single codebase. 
 
-![Cloud Native self-made Banner](assets/week0/cloud-native.png)
+![Cloud Native self-made Banner](assets/week0/assets/work-plz-ty.png)
+
 - **It is difficult to develop**. Because all of the code and data are in a single codebase, not practical to track changes and make updates which lead to errors and bugs.
 - **It is difficult to deploy**. The entire application is deployed as a single unit, when you deploy changes to the application you can affect other parts of the application.
 - **It is difficult to scale**. If the application experiences increased traffic, it can be difficult to scale the application without targeting performance.
@@ -11,7 +68,7 @@ In addressing the challenge at hand, a profound and enduring resolution emerged 
 This forward-thinking approach harnessed the power of cloud technologies to reshape the very fabric of our systems, opening up a world of possibilities and transformative potential
 
 ## Build Scalable and Resilient Applications
-**Cloud-native architecture** is a design methodology that utilizes cloud services to allow dynamic and agile application development techniques that take a modular approach to building, running, and updating software through a suite of cloud-based microservices versus a monolithic application infrastructure.
+**Cloud-native architecture** is a design methodology that uses cloud services to allow dynamic and agile application development techniques that take a modular approach to building, running, and updating software through a suite of cloud-based microservices versus a monolithic application infrastructure.
 
 Before the release of the app, cloud architects typically follow these steps to ensure its successful implementation.
 1. ***Define the project goals***<br>
@@ -22,14 +79,14 @@ This step involves breaking down the application into microservices, which are s
 Developing the microservices using a variety of technologies and deploying them to the cloud. The cloud platform e.g AWS will provide the infrastructure for running the microservices and managing their scaling.<br>
 The µservices can be developed using a variety of technologies e.g. as Java, Go, or [**Python our case**](../backend-flask/README.md).
 4. ***Test and deploy the application***<br>
-The final step (stating point) is to test and deploy the application. This involves [testing the microservices individually](week1.md#containerize-flask-app) and then [testing the application as a whole](week1.md#running-multiple-containers).
+The final step (Starting point) is to test and deploy the application. This involves [testing the microservices individually](week1.md#containerize-flask-app) and then [testing the application as a whole](week1.md#running-multiple-containers).
 
-| Goals                            |   Evidence     |
+| Goals                            |   Substantiation     |
 |----------------------------------|--------|
-| Define the project goals         |   [PM](resources/project-scenario.md)      |
+| Define the project goals         |   [Path to PM](#the-fundamental-pillars-of-project-management)      |
 | Design the architecture          |  [Architectures ](#types-of-architectural-diagrams)     |
 | Implement the microservices      |  [Code Structure](../backend-flask/services/)      |
-| Test and deploy the application  |  [W1 using Docker](week1.md)    |
+| Test and deploy the application  |  [Containerization](week1.md)    |
 
 This project application is constructed upon this robust architecture, and we have committed to accomplishing each step outlined above. 
 
@@ -114,7 +171,7 @@ Each type of architectural diagram has its own purpose, and they are often used 
 Architectural diagrams are a valuable tool for communicating the design of a software system. They really can be used to expand your vision to whoever. 
 
 ### How to Create an Architectural Diagram
-here are many different tools that can be used to create architectural diagrams. I personally like first two!
+Here are different tools that can be used to create architectural diagrams. <br>I personally like first two.
 
 - Lucidchart (Paid)
 - draw.io (FREE)
@@ -219,6 +276,8 @@ Kindly [direct your attention to week nine](week9.md), also find below lucidchar
 # Frameworks for Efficient Design
 Frameworks are a valuable tool for any designer, architect or a *technologist*. 
 
+![Frameworks](assets/week0/assets/frameworks.png)
+
 Frameworks are essential for reducing complexity, minimizing errors, and making the design process more efficient. 
 
 Frameworks provide a common language and methodology for teams to follow, which can help to ensure that everyone is on the same page and that the final product meets the desired requirements.
@@ -261,14 +320,12 @@ Based on the inputs provided, the framework generates a comprehensive report, ai
 
 To get started, from the console aws `AWS Well-Architected`.
 
-
-
 # Security Considerations
 AWS is literally a secure cloud platform, but it is as important to implement additional security measures to protect your data and applications. 
 
 > Zero Trust, Verify Explicitly.
 
-![Zero Trust](assets/week0/zero-trust.png)
+![Zero Trust](assets/week0/assets/zero-trust.png)
 
 - **Use strong authentication and authorization mechanisms.** Use IAM to create and manage users and roles, and requiring multi-factor authentication (MFA) for all users with access to sensitive data.
 - **Implement network security.** This includes using security groups to control network traffic, and enabling encryption for data in transit and at rest.
@@ -290,10 +347,6 @@ During camping, we addressed most security considerations. Below, you will find 
 - **Have a disaster recovery plan.** Better restore your services in the event of a disaster.
 
 Additionally, for CloudWatch configurations and continuous monitoring during the 12-week period and beyond, you can [refer back to week two](week2.md#monitor-flaskapp-with-cloudwatch).
-
-
-
-
 
 ## How to Apply MFA to the AWS Root User
 
@@ -336,16 +389,12 @@ To create an AWS Organization Unit, you can use the AWS Organizations console or
 
 You can now use it to organize your AWS accounts and to simplify account management tasks by business unit, application or department. 
 
-
-
 ##  Managing IAM Users and Roles in AWS
 IAM users and roles are the foundation of AWS security. They allow you to control who can access your AWS resources and what they can do with them.
 - **Roles:** A set of permissions that can be assumed by entities like users or services, allowing them to perform specific actions on AWS resources.
 - **Policies:** JSON documents that define what actions are allowed or denied on AWS resources, providing fine-grained control over access permissions.
 
 IAM users can be given specific roles to access AWS resources, which are controlled through policies assigned (technically attached) to these roles.
-
-
 
 #### How to Set up an IAM User
 
@@ -383,14 +432,11 @@ aws ses create-alias --alias-name example --email-address example@example.com
 - **--alias-name example:** This option specifies the name of the alias you want to create. In this case, the alias name will be "example".
 - **--email-address example@example.com:** This option specifies the email address to which the alias will be associated. In this case, the alias "example" will be associated with the email address "example@example.com".
 
-
-
 ### 📧 Real-World Application
 
 Let's say you have an online store that sends order confirmation emails to customers.
 
 The primary email address you use for sending these emails is `orders@boutiquoo.com` and this email address is already verified in Amazon SES.
-
 
 You now want to create an alias for tracking emails related to order cancellations.
 
@@ -398,11 +444,9 @@ To do this, you can use the AWS CLI with the following command:
 ```sh
 aws ses create-alias --alias-name order-cancellations --email-address orders@boutiquoo.com
 ```
-
 - The alias name is "order-cancellations".
 - The email address associated with the alias is `orders@boutiquoo.com`.
 - The alias email address itself for `order-cancellations` is `order-cancellations@boutiquoo.com`
-
 
 ### Seamless IAM User Connection
 
@@ -414,7 +458,6 @@ Once you have set up an IAM user, you can connect to the AWS Management Console 
 
 <img src="assets/week0/hiiam.png">
 
-
 ### Crafting an Efficient AWS Role:
 
 1. Select the type of role you want to create.
@@ -422,7 +465,6 @@ Once you have set up an IAM user, you can connect to the AWS Management Console 
 3. (Optional) Tag the role with metadata.
 
 <img src="assets/week0/media/role.png">
-
 
 ### Policy Attachment in AWS
 
@@ -433,9 +475,7 @@ Once you have set up an IAM user, you can connect to the AWS Management Console 
 5. Select the role or user group that you want to attach the policy to.
 6. Click **Attach**.
 
-
 <img src="assets/week0/media/attaching-policy.png">
-
 
 ### Service Control Policies
 SCPs are a type of organization policy that you can use to manage permissions in your organization. 
@@ -468,14 +508,12 @@ SCPs are enforced at the root of your organization, and they can be used to deny
 
 Once you have created your SCP, you need to attach it to the root of your [organizational unit (OU)](#what-is-an-aws-organization-unit). 
 
-
 1. In the navigation pane, select **Organization**.
 2. In the **Accounts** tab, select the root of your organization or the OU that you want to attach the SCP to.
 3. Click **Service control policies**.
 4. Click **Attach policy**.
 4. In the **Policy** list, select the SCP that you want to attach.
 5. Click **Attach.**
-
 
 | Information | Description |
 |---:|---|
@@ -485,7 +523,7 @@ Once you have created your SCP, you need to attach it to the root of your [organ
 
 The SCP will now be applied to the root of your organization or to the OU that you selected.
 
-## Integrate Health Dashboard with SNS using EventBridge
+## Integrate Health Dashboard with SNS
 
 In this part, I'll walk you through the process of configuring a Sub/Pub system with SNS and EventBridge to enable notifications for your Health Dashboard.
 
@@ -495,7 +533,6 @@ Integrating the Health Dashboard with SNS via EventBridge, you can receive real-
 
 **Step 1: Create an SNS Topic - Pub**
 
-
 Begin by creating an SNS topic using the AWS Command Line Interface (CLI):
 ```sh
 aws sns create-topic --name eventbridge-alert
@@ -504,7 +541,7 @@ aws sns create-topic --name eventbridge-alert
 This command will return the Amazon Resource Name (ARN) of the newly created topic:
 ```JSON
 {
-    "TopicArn": "arn:aws:sns:ca-central-1:<aws-id>:eventbridge-alert"
+    "TopicArn": "arn:aws:sns:<AWS-REGION>:<aws-id>:eventbridge-alert"
 }
 ```
 
@@ -551,7 +588,7 @@ aws events put-rule --name "sns-eventbridge-health" \
 2. Upon successful execution, the command will return the ARN of the created rule:
 ```JSON
 {
-    "RuleArn": "arn:aws:events:ca-central-1:598485450821:rule/sns-eventbridge-health"
+    "RuleArn": "arn:aws:events:<AWS-REGION>:<AWS-ID>:rule/sns-eventbridge-health"
 }
 ```
 <img src="assets/week0/sns-eventbridge-health.png">
@@ -559,7 +596,7 @@ aws events put-rule --name "sns-eventbridge-health" \
 **Step 4: Add a Target to the Rule**
 1. Finally, add the SNS topic as the target for the EventBridge rule:
 ```sh
-aws events put-targets --rule sns-eventbridge-health --targets "Id"="1","Arn"="arn:aws:sns:us-east-1:<REDACTED>7434:eventbridge-alert"
+aws events put-targets --rule sns-eventbridge-health --targets "Id"="1","Arn"="arn:aws:sns:<AWS-REGION>:<REDACTED>7434:eventbridge-alert"
 ```
 
 If successful, the command will return a response indicating no failure entries:
@@ -569,14 +606,381 @@ If successful, the command will return a response indicating no failure entries:
     "FailedEntries": []
 }
 ```
-
 **Step 5: Navigate to the Console**
 
 You have successfully integrated your Health Dashboard with SNS using EventBridge. 
 
 <img src="assets/week0/sns-eventbridge-health-target.png">
 
+# Spend Considerations
+The costs of services can vary depending on the type of service and the region in which it is being offered.
+
+Here are some approches, self-architected, to consider when planning your AWS spend.
+
+
+### Understanding Cost Variability
+The costs of services can vary based on factors such as the type of service and the region where it is provisioned. 
+| Factor | Description |
+|---|---|
+| **Type of service** | Some services, such as EC2 instances, are charged by the hour, while others, such as S3 buckets, are charged by the GB. |
+| **Region** | The cost of a service can vary depending on the region in which it is being offered. For example, the cost of an EC2 instance in the us-east-1 region is different from the cost of an EC2 instance in the us-west-2 region. |
+| **Amount of usage** | The more you use a service, the more you will pay. For example, if you run an EC2 instance for 10 hours, you will pay more than if you run it for 1 hour. |
+
+It's essential to be aware of these variations and make informed decisions to control expenses.
+
+
+### Choosing the Right Pricing Model
+**When selecting instances, you have three primary pricing options,**
+| Pricing Model | Description |
+|---|---|
+| **On-Demand** | Pay as you go. You are charged for the resources you use, when you use them. |
+| **Reserved Instances** | Pay a one-time upfront fee for a reserved capacity. You will receive a discount on the hourly rate for the reserved capacity. |
+| **Spot Instances** | Pay a discounted price for spare EC2 instances. Spot Instances are available when demand for resources is low. |
+
+
+### Continuously Monitor and Optimize Spending
+
+AWS offers a plethora of options and services that can be leveraged to optimize spending while maintaining high-performance levels. 
+
+| Service | Description |
+|---|---|
+| **Cost Explorer** | Cost Explorer provides a graphical view of your AWS costs. You can use Cost Explorer to track your costs over time, identify areas where you can save money, and set budgets. |
+| **AWS Budgets** | AWS Budgets allows you to set alerts and notifications when your AWS costs exceed a certain threshold. This can help you avoid unexpected costs. |
+| **Spot Instances** | Spot Instances are spare EC2 instances that are available at a discounted price. You can use Spot Instances to save money on compute resources. |
+| **AWS Trusted Advisor** | AWS Trusted Advisor offers real-time guidance to optimize your AWS infrastructure across various aspects, including cost optimization, security, performance, and fault tolerance. |
+
+
+### Viewing Your AWS Spending
+To view your AWS spending and services currently running, follow these steps:
+
+1. Log in to your AWS Management Console.
+2. In the left pane, click on **"Profile."**
+3. From the dropdown, select **"Billing Dashboard."**
+4. Click on **"Bills"** to access the detailed billing information.
+
+Gain insights into your current and past bills, helping you keep track of your AWS expenditure
+
+
+
+## CloudWatch Alarm
+
+CloudWatch alarms are a powerful way to monitor your AWS resources and take action when certain conditions are met. For example, you can create an alarm that will send you an email notification if your EC2 instance CPU utilization exceeds 80%.
+
+
+1. Go to the [CloudWatch console](https://console.aws.amazon.com/cloudwatch/).
+2. Click the **Alarms** tab.
+3. Click the **Create Alarm** button.
+4. In the **Select Metric** dialog box, select the metric that you want to monitor.
+5. In the **Threshold** dialog box, specify the threshold value and the evaluation period.
+6. In the **Actions** dialog box, specify the actions that you want to take when the alarm is triggered.
+7. Click the **Create Alarm** button.
+<img src="assets/week0/1 alarm.png">
+
+
+- **Get Notified** 
+
+Receive Cloudwatch Alarm Topic Notifications Directly to Your Inbox.
+
+<img src="assets/week0/4- notif received.png">
+
+## AWS Budget Made Easy
+
+Billing Management Budgets are a newer method of alerting about spending that replaces alerts. Budgets allow you to set a spending limit and receive notifications when your spending exceeds the limit.
+
+
+To create a Billing Management Budget, go to the [Billing console](https://console.aws.amazon.com/billing/home#/budgets) and click the **Create Budget** button.
+
+
+
+<img src="assets/week0/3 budget is set .png">
+
+**E.g. notifies when,**
+- actual spending reaches 85% 
+- forecasted spend is expected to reach 100%
+
+
+# Checking and Claiming AWS Credits
+
+AWS credits are a great way to save money on your AWS bill. There are a number of ways to get AWS credits, including:
+
+* **AWS Activate**. AWS Activate is a program that provides eligible startups with up to $100,000 in AWS credits.
+* **AWS Promotional Credits**. AWS Promotional Credits are offered to customers who meet certain criteria, such as signing up for a new AWS service or attending an AWS event.
+* **AWS Partner Credits**. AWS Partner Credits are offered by AWS partners to their customers.
+
+Once you have AWS credits, you can check your balance and claim them in the AWS Billing console. To do this, follow these steps:
+
+1. Go to the [AWS Billing console](https://console.aws.amazon.com/billing/home#/).
+2. Click the **Profile** tab.
+3. Click the **Billing Dashboard** tab.
+4. Click the **Credits** tab (left pane).
+
+The Credits tab will show you a list of your AWS credits, including the credit amount, expiration date, and remaining balance. To claim a credit, click the **Claim** button next to the credit.
+
+Once you have claimed a credit, it will be applied to your AWS bill. The credit will be applied to the first eligible charges on your bill, until it is exhausted.
+
+<img src="assets/week0/Amazing i got a credit..png">
+
+> Some credits are only applicable to a few services.
+
+
+
+
+## Welcome To AWS Free Tier
+
+
+The AWS Free Tier is a great way to try out AWS services for free. The Free Tier offers a variety of services, each with different types of free options.
+
+To view details related to AWS Free Tier, visit the [AWS Free Tier website](https://aws.amazon.com/free).
+
+**Here are some of the benefits of using the AWS Free Tier,**
+* You can try out AWS services without having to pay anything.
+* You can learn how to use AWS services without having to commit to a paid plan.
+* You can use the AWS Free Tier to build and test your applications.
+
+**Here are some of the limitations of the AWS Free Tier,**
+* The Free Tier is limited to certain services and usage levels.
+* The Free Tier does not include all AWS services.
+* The Free Tier is not available to all customers.
+
+**Here are some tips for using the AWS Free Tier,**
+* **Choose the right services.** Not all AWS services are available in the Free Tier. Choose the services that are most relevant to your needs.
+* **Track your usage.** The AWS Free Tier has usage limits. Make sure that you are not exceeding the limits.
+* **Plan for the future.** The Free Tier is not a permanent solution. Plan for how you will pay for AWS services when the Free Tier expires.
+
+## AWS Cloudshell
+
+AWS CloudShell is a browser-based shell that you can use to interact with AWS services. CloudShell is pre-configured with the AWS CLI and other tools, so you can start using AWS services right away.
+
+**To use AWS CloudShell:**
+
+1. Go to the [AWS CloudShell console](https://console.aws.amazon.com/cloudshell/).
+2. Click the **Launch CloudShell** button.
+3. A new tab will open in your browser with a pre-configured shell.
+
+<img src="assets/week0/media/usingcloudshell.png">
+
+### **AWS in Your Favorite IDE**
+
+**To generate AWS credentials**
+
+1. In the AWS CloudShell, click the **Profile** icon in the top right corner.
+2. Click the **Credentials** tab.
+3. Click the **Create New Profile** button.
+4. In the **Profile Name** field, enter a name for your profile.
+5. In the **Access Key ID** and **Secret Access Key** fields, enter your AWS credentials.
+6. Click the **Create Profile** button.
+
+
+<img src="assets/week0/CLI-WORK/1-GENERATE CREDENITIAL ACCESS KEY.png">
+
+### Go to Your Favorite IDE
+
+**Setting Environement variables for Gitpod**
+
+1. In its terminal, run the following commands:
+```BASH
+export AWS_ID=your_aws_id
+export AWS_ACCESS_KEY_ID=your_access_key_id
+export AWS_SECRET_ACCESS_KEY=your_secret_access_key
+```
+
+2. E.g. you can persist environment variables by using the command `gp env` after rerunning the above commands.
+```BASH
+gp env  AWS_ID=your_aws_id
+gp env AWS_ACCESS_KEY_ID=your_access_key_id
+gp env AWS_SECRET_ACCESS_KEY=your_secret_access_key
+```
+<img src="assets/week0/CLI-WORK/6 setting the aws cli env var in gitpod auto.png">
+
+3. Once you have set the environment variables, you can start onboarding the AWS CLI in Gitpod.
+
+## Install AWS CLI
+
+The AWS CLI is a command-line tool that allows you to interact with AWS services. It is a powerful tool that can be used to automate tasks, manage resources, and troubleshoot problems.
+
+To install the AWS CLI, you can follow these steps:
+
+1. Download the AWS CLI package from the [AWS website](https://aws.amazon.com/cli/).
+```BASH
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+```
+2. Unzip the package.
+```bash
+unzip awscliv2.zip
+```
+3. Run the `install` script.
+```bash
+sudo ./aws/install
+```
+Once you have installed the AWS CLI, you can verify that it is installed by running the following command:
+```bash
+aws --version
+```
+> This will print the version of the AWS CLI that is installed.
+
+### Checking AWS Connections with Console
+
+Once you have installed the AWS CLI, you can check that you are connected to AWS by running the following command:
+```bash
+aws sts get-caller-identity
+```
+<img src="assets/week0/CLI-WORK/5 connected to aws from gitpod .png">
+This command will return your AWS account ID and your AWS Region.
+
+You can also get your AWS account ID by running the following command:
+```bash
+export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+```
+
+This command will export the AWS account ID to the environment variable` AWS_ACCOUNT_ID`. You can then use this variable in other AWS CLI commands.
+
+## **AWS CLI auto-prompt**
+
+The AWS CLI auto-prompt is a feature that allows you to use the `Enter` key to complete commands. <br>This can save you time and effort when you are using the AWS CLI.
+
+### **Git Bash** <br>
+
+- To enable the AWS CLI auto-prompt, you need to add the following lines to your `.bashrc` file
+<img src="assets/week0/media/adding-aws-partial.png">
+
+```BASH
+export AWS_CLI_AUTO_PROMPT=on
+export PS1="\[\033[38;5;247m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;243m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\]:\[$(tput sgr0)\]\[\033[38;5;47m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]\\$ \[$(tput sgr0)\]"
+```
+Once you have enabled the AWS CLI auto-prompt, you can start using it by typing the first few characters of a command and then pressing the `Enter` key. The AWS CLI will complete the command for you.
+
+<img src="assets/week0/media/adding-aws-partial2.png">
+
+### **Gitpod** <br>
+
+To easily enable AWS CLI auto-prompt in your Gitpod environment for the AWS CLI, follow these instructions:
+
+1. Open your `.gitpod.yml` file in your Gitpod workspace.
+2. Include the `env` section within the `tasks` section related to the CLI phase.
+3. Assign it the following value.
+```yaml
+env:
+  AWS_CLI_AUTO_PROMPT: on_partial
+```
+4. Save the `.gitpod.yml`.
+
+Go to Gitpod Terminal and try it!
+<img src="assets/week0/media/week0-extension-on-gitpod.png">
+
 
 ---
-———————To Be Continued——————————
----
+
+## Create AWS Budget Using the CLI
+
+
+We did create the budget above using clickops. But now you possess the cli skills. Let's try the real magic :)
+
+Again, an AWS Budget is a way to track your AWS costs and set alerts when your costs exceed a certain threshold. 
+
+To create an AWS Budget, you can follow these steps:
+
+1. Create a [budget JSON file.](../aws/json/budget.json)
+1. Create a [notifications JSON file](../aws/json/budget-notifications-with-subscribers.json).
+2. Configure a your budget as code.
+<img src="assets/week0/CLI-WORK/7 Budget 1.png">
+3. Run the `aws budgets create-budget` command.
+
+```
+aws budgets create-budget \
+    --account-id $AWS_ACCOUNT_ID \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
+
+```
+- The [budget JSON file](../aws/json/budget.json) specifies the budget settings, such as the budget name, the budget type, the budget amount, and the budget notifications. 
+- The [notifications JSON file](../aws/json/budget-notifications-with-subscribers.json) specifies the notification settings, such as the notification topic ARN, the notification protocol.
+
+<img src="assets/week0/CLI-WORK/8 budget 2 applied.png">
+
+
+By checking the console, you will notice that there are now two budgets available. 
+
+- The first budget, "clickops," [was created earlier.](#aws-budget-made-easy) 
+- The other from the terminal. Bringing the total number of budgets to two.
+
+<img src="assets/week0/CLI-WORK/9 budget 3 done success.png">
+
+**[Reference](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples)**
+
+## Setting SNS
+
+SNS is a service that allows you to send and receive notifications. You can use SNS to send notifications to email addresses, phone numbers, and other endpoints.
+
+To set up SNS for your budget, you can follow these steps:
+
+1. Create a SNS topic.
+```bash
+aws sns create-topic --name CLI-billing-alarm
+```
+<img src="assets/week0/CLI-WORK/11 sns cli create.png">
+
+2. Subscribe to the topic.
+
+The SNS topic will be used to send notifications when your budget is exceeded. You can subscribe to the topic using email, SMS, or other protocols.
+
+Once you have created the SNS topic and subscribed to the topic, you can start receiving notifications when your budget is exceeded.
+```bash
+aws sns subscribe \
+    --topic-arn="arn:aws:sns:ca-central-1:598485450821:CLI-billing-alarm" \
+    --protocol=email \
+    --notification-endpoint yahyaabulhaj@outlook.com
+```
+<img src="assets/week0/CLI-WORK/13 SNS CLI CONFIRM MAIL.png">
+
+- Go to the console and check if the changes took effects
+<img src="assets/week0/CLI-WORK/16 perfect .png">
+
+* [AWS Budgets documentation](https://docs.aws.amazon.com/budgets/latest/userguide/budgets-getting-started.html)
+* [AWS SNS documentation](https://docs.aws.amazon.com/sns/latest/dg/)
+
+## Creating a CloudWatch Alarm
+
+A CloudWatch alarm is a way to monitor your AWS resources and take action when they exceed a certain threshold. Alarms can be used to help you avoid overspending on AWS resources and to troubleshoot problems.
+
+To create a CloudWatch alarm, you can follow these steps:
+
+1. Create a CloudWatch alarm JSON file.
+2. Run the `aws cloudwatch put-metric-alarm` command.
+
+```
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
+```
+<img src="assets/week0/CLI-WORK/17 cloudwatch alarm command.png">
+
+The CloudWatch alarm JSON file specifies the alarm settings, such as the alarm name, the metric to monitor, the threshold, and the alarm actions.
+
+Once you have created the CloudWatch alarm JSON file, and ran the `aws cloudwatch put-metric-alarm` command to create the alarm. You will see an alarm on daily estimated charges to verify.
+
+<img src="assets/week0/CLI-WORK/18 alarm is here notification.png">
+
+
+
+
+## **Open Support ticket**  
+
+The AWS Support Center is a way to get help from AWS support engineers. You can open a support ticket to request help with a problem you are having with AWS services.
+
+To open a support ticket, you can follow these steps:
+
+**[Request  Service Limit](https://support.console.aws.amazon.com/support/home#/ )**
+
+1. Navigate to the AWS Support Center.(Link Above)
+2. On the left side menu, select "Create Case".
+3. Select "Looking for service limit increase?" from the link in the center right.
+4. Specify the limit or feature that you need.
+5. Click on "Create Case".
+6. Verify that the ticket you opened reflects the necessary details.
+
+<img src="assets/week0/4 case.png">
+
+Once you have opened a support ticket, you will receive an email confirmation with the ticket number. You can use the ticket number to track the status of your ticket.
+
+<img src="assets/week0/6 cased.png">
+
+* [CloudWatch alarms documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmQuickStart.html)
+* [AWS Support Center documentation](https://docs.aws.amazon.com/awssupport/latest/userguide/troubleshooting-support-case.html)
