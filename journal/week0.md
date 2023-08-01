@@ -1,15 +1,11 @@
 # Week 0 — Billing and Architecture
-Welcome to the exhilarating kickoff of Week Zero in our AWS Cloud Bootcamp. <br>This is the perfect starting point for your thrilling journey into the boundless realm of the cloud.
+Welcome to the exhilarating kickoff of Week Zero in our AWS Cloud Bootcamp. This is the **perfect starting point** for your thrilling journey into the boundless realm of the cloud.
 
-Are you ready to take the <u>first step towards mastering the cloud</u>❓
+☁️ Are you ready to **take the first step** towards mastering the cloud❓
 
-We'll be talking about <u>cloud architecture, security, cost considerations, and operations.</u>
-
-Join us as we unlock the secrets of the cloud, paving the way for a dynamic future in this rapidly evolving industry. 
+We'll be talking about **cloud architecture, security, cost considerations, and operations**. *Join us* as we unlock the secrets of the cloud, paving the way for a dynamicfuture in this rapidly evolving industry. 
 
 ## Week Zero Main Tasks
-
-
 - [A Path Towards Modern Solutions](#a-path-towards-modern-solutions)
   - [Build Scalable and Resilient Applications](#build-scalable-and-resilient-applications)
   - [The Fundamental Pillars of Project Management](#the-fundamental-pillars-of-project-management)
@@ -34,28 +30,33 @@ Join us as we unlock the secrets of the cloud, paving the way for a dynamic futu
   - [Seamless IAM User Connection](#seamless-iam-user-connection)
   - [Crafting an IAM AWS Role, Policy](#crafting-an-efficient-aws-role)
   - [Service Control Policies](#service-control-policies)
+  - [CloudTrail for Enhanced Visibility and Security](#trailblazing-with-aws-cloudtrail)
 - [Spend Considerations](#spend-considerations)
     - [Viewing Your AWS Spending](#viewing-your-aws-spending)
   - [CloudWatch Alarm](#cloudwatch-alarm)
   - [AWS Budget Made Easy](#aws-budget-made-easy)
   - [Checking and Claiming AWS Credits](#checking-and-claiming-aws-credits)
   - [Welcome To AWS Free Tier](#welcome-to-aws-free-tier)
-- [AWS Cloudshell](#aws-cloudshell)
-  - [**AWS in Your Favorite IDE**](#aws-in-your-favorite-ide)
-  - [Go to Your Favorite IDE](#go-to-your-favorite-ide)
-  - [Install AWS CLI](#install-aws-cli)
-  - [Checking AWS Connections with Console](#checking-aws-connections-with-console)
-  - [**AWS CLI auto-prompt**](#aws-cli-auto-prompt)
+- [Open Support ticket](#open-support-ticket)
+- [Health Dashboard with SNS](#integrate-health-dashboard-with-sns-using-eventbridge)
+  - [Real-time Messaging and Notification](#real-time-messaging-and-notification)
+
+## Command AWS Like a Pro
+Welcome to *AWS CLI onboarding experience* helping you to get things done more effectively.
+
+- [Command-Line Interface In The Console](#command-line-interface-in-the-console)
+- [Empower Your Favorite IDE with AWS](#empower-your-favorite-ide-with-aws-cli)
+- [Go to Your Favorite IDE](#go-to-your-favorite-ide)
+- [Install AWS CLI](#install-aws-command-line-tool)
+- [Checking AWS Connections with Console](#checking-aws-connections-with-console)
+- [**AWS CLI auto-prompt**](#aws-cli-auto-prompt)
     - [**Git Bash** ](#git-bash-)
     - [**Gitpod** ](#gitpod-)
-  - [Create AWS Budget Using the CLI](#create-aws-budget-using-the-cli)
-  - [Creating a CloudWatch Alarm](#creating-a-cloudwatch-alarm)
-  - [Open Support ticket](#open-support-ticket)
-- [Health Dashboard with SNS](#integrate-health-dashboard-with-sns-using-eventbridge)
-  - [Setting SNS](#setting-sns)
+- [Create AWS Budget Using the CLI](#create-aws-budget-using-the-cli)
+- [Creating a CloudWatch Alarm](#creating-a-cloudwatch-alarm)
 
 # A Path Towards Modern Solutions
-A monolithic architecture is a traditional way of designing and developing apps. In a mono-based architecture, all of the application's code and data are contained in a single codebase. 
+A monolithic architecture is a traditional way of designing and developing apps where all of the application's code and data are contained in a single codebase. 
 
 ![Cloud Native self-made Banner](assets/week0/assets/work-plz-ty.png)
 
@@ -83,7 +84,7 @@ The final step (Starting point) is to test and deploy the application. This invo
 
 | Goals                            |   Substantiation     |
 |----------------------------------|--------|
-| Define the project goals         |   [Path to PM](#the-fundamental-pillars-of-project-management)      |
+| Define the project goals         |   [Fund to PM](#the-fundamental-pillars-of-project-management)      |
 | Design the architecture          |  [Architectures ](#types-of-architectural-diagrams)     |
 | Implement the microservices      |  [Code Structure](../backend-flask/services/)      |
 | Test and deploy the application  |  [Containerization](week1.md)    |
@@ -189,8 +190,8 @@ In Lucidchart, you can conveniently access built-in shapes by navigating to "Fil
 
 Find additional [diagramming tools, and AWS icons.](https://aws.amazon.com/fr/architecture/icons/) 
 
-### **⚡Get started Now**
-If budget is a concern, I highly recommend starting with Draw.io.<br>
+### **Get started Now**
+⚡If budget is a concern, I highly recommend starting with Draw.io.<br>
 There's even an [extension available in VS Code](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) for you to design directly from your favorite IDE. 
 
 I have included all the extensible files for your convenience. e.g. visit [week 8.](week8.md)<br>
@@ -231,14 +232,14 @@ Overall idea and scope to create a system that will allow users to share informa
 With genuine enthusiasm and a touch of artistic flair, I created this captivating design, delicately sketching every stroke with two pens - one dipped in serene blue and the other ablaze with passionate red. We hope you like it!
 
 I ensured that the architecture was designed with the following key features in mind:
-- Secure Platform: considering Security best practices (refer to Journal).
+- Secure Platform: considering [Security best practices](#security-considerations)
 - Robust Data Storage System: A reliable and scalable data storage system was integrated.
 
 <img src="assets/week0/Cruddur-Architecture/cruddur-architecture.jpg">
 
 When designing, the following constraints were also put forward.
 - The system must be scalable to accommodate a large number of users.
-- The system must be affordable to operate with costs considerations (refer to Journal).
+- The system must be affordable to operate with [costs considerations](#spend-considerations).
 
 I believe you'll greatly appreciate my design, so I've provided it in [PDF format](assets/week0/Cruddur-Architecture/cruddur-architecture.pdf) for your convenience and enjoyment.
 
@@ -246,7 +247,6 @@ I believe you'll greatly appreciate my design, so I've provided it in [PDF forma
 <summary> More! Behind the scenes </summary>
 
 Welcome to my cozy space, where you can indulge in the delightful aroma of my freshly brewed AWS cup of coffee while finding abundant inspiration!
-
 > When not at work, I work!
 
 <img src="assets/week0/Cruddur-Architecture/behind-the-scene.jpg">
@@ -318,16 +318,18 @@ Based on the inputs provided, the framework generates a comprehensive report, ai
 ***aws***
 :  Is a term I use before a name to refer the act of searching a service in the console.
 
-To get started, from the console aws `AWS Well-Architected`.
+To get started, from the console aws `AWS Well-Architected Framework`.
 
 # Security Considerations
 AWS is literally a secure cloud platform, but it is as important to implement additional security measures to protect your data and applications. 
 
 > Zero Trust, Verify Explicitly.
 
+Also, Microsoft champions the path of zero compromise and explicit validation, setting a resolute standard for unwavering security and reliability.
+
 ![Zero Trust](assets/week0/assets/zero-trust.png)
 
-- **Use strong authentication and authorization mechanisms.** Use IAM to create and manage users and roles, and requiring multi-factor authentication (MFA) for all users with access to sensitive data.
+- **Use strong authentication and authorization mechanisms.** Use IAM to create and manage users and roles, and requiring MFA for all users with access to sensitive data.
 - **Implement network security.** This includes using security groups to control network traffic, and enabling encryption for data in transit and at rest.
 - **Continuously monitor your resources.** Employ CloudTrail to track all API calls, and CloudWatch to monitor resource usage and performance.
 - **Use secure coding practices.** Write code that is free of vulnerabilities, and using secure development practices such as code reviews and penetration testing.
@@ -523,6 +525,29 @@ Once you have created your SCP, you need to attach it to the root of your [organ
 
 The SCP will now be applied to the root of your organization or to the OU that you selected.
 
+## Trailblazing with AWS CloudTrail
+In general, a ***trail*** refers to a marked or beaten path or track, often in a natural environment such as a forest, mountain, or wilderness area.
+
+**AWS Cloud Trail** is an auditing service that records AWS API calls and related events. 
+
+**This data can be used to,**
+* Security Analysis
+* Incident Response
+* Audit logs and compliance
+* Track user activity
+* Troubleshoot issues
+### Create a Cloud Trail
+
+1. aws AWS CloudTrail.
+2. Click **CreateTrail**.
+3. Enter a name for your trail.
+4. Select the regions and accounts that you want to monitor.
+5. Select the events that you want to log.
+6. Choose a S3 bucket to store your Cloud Trail logs.
+7. Click **Create**.
+
+![AWS CloudTrail](assets/week0/assets/aws-cloudtrail.png)
+
 ## Integrate Health Dashboard with SNS
 
 In this part, I'll walk you through the process of configuring a Sub/Pub system with SNS and EventBridge to enable notifications for your Health Dashboard.
@@ -578,7 +603,6 @@ Confirm subscription
 
 **Step 3: Create an EventBridge Rule**
 
-
 1. Use the [provided file](../aws/json/sns-event-bridge.json) to create an EventBridge rule that defines the event pattern:
 ```sh
 aws events put-rule --name "sns-eventbridge-health" \
@@ -613,10 +637,9 @@ You have successfully integrated your Health Dashboard with SNS using EventBridg
 <img src="assets/week0/sns-eventbridge-health-target.png">
 
 # Spend Considerations
-The costs of services can vary depending on the type of service and the region in which it is being offered.
+The costs of services can vary depending on many factors which it is being offered.
 
 Here are some approches, self-architected, to consider when planning your AWS spend.
-
 
 ### Understanding Cost Variability
 The costs of services can vary based on factors such as the type of service and the region where it is provisioned. 
@@ -628,7 +651,6 @@ The costs of services can vary based on factors such as the type of service and 
 
 It's essential to be aware of these variations and make informed decisions to control expenses.
 
-
 ### Choosing the Right Pricing Model
 **When selecting instances, you have three primary pricing options,**
 | Pricing Model | Description |
@@ -636,7 +658,6 @@ It's essential to be aware of these variations and make informed decisions to co
 | **On-Demand** | Pay as you go. You are charged for the resources you use, when you use them. |
 | **Reserved Instances** | Pay a one-time upfront fee for a reserved capacity. You will receive a discount on the hourly rate for the reserved capacity. |
 | **Spot Instances** | Pay a discounted price for spare EC2 instances. Spot Instances are available when demand for resources is low. |
-
 
 ### Continuously Monitor and Optimize Spending
 
@@ -649,7 +670,6 @@ AWS offers a plethora of options and services that can be leveraged to optimize 
 | **Spot Instances** | Spot Instances are spare EC2 instances that are available at a discounted price. You can use Spot Instances to save money on compute resources. |
 | **AWS Trusted Advisor** | AWS Trusted Advisor offers real-time guidance to optimize your AWS infrastructure across various aspects, including cost optimization, security, performance, and fault tolerance. |
 
-
 ### Viewing Your AWS Spending
 To view your AWS spending and services currently running, follow these steps:
 
@@ -659,8 +679,6 @@ To view your AWS spending and services currently running, follow these steps:
 4. Click on **"Bills"** to access the detailed billing information.
 
 Gain insights into your current and past bills, helping you keep track of your AWS expenditure
-
-
 
 ## CloudWatch Alarm
 
@@ -676,28 +694,24 @@ CloudWatch alarms are a powerful way to monitor your AWS resources and take acti
 7. Click the **Create Alarm** button.
 <img src="assets/week0/1 alarm.png">
 
-
 - **Get Notified** 
-
 Receive Cloudwatch Alarm Topic Notifications Directly to Your Inbox.
 
 <img src="assets/week0/4- notif received.png">
+
+I started my journey in the [US East Central region](#aws-cloudshell) and subsequently shifted to CA Central for upcoming weeks.
 
 ## AWS Budget Made Easy
 
 Billing Management Budgets are a newer method of alerting about spending that replaces alerts. Budgets allow you to set a spending limit and receive notifications when your spending exceeds the limit.
 
-
 To create a Billing Management Budget, go to the [Billing console](https://console.aws.amazon.com/billing/home#/budgets) and click the **Create Budget** button.
-
-
 
 <img src="assets/week0/3 budget is set .png">
 
 **E.g. notifies when,**
 - actual spending reaches 85% 
 - forecasted spend is expected to reach 100%
-
 
 # Checking and Claiming AWS Credits
 
@@ -722,13 +736,11 @@ Once you have claimed a credit, it will be applied to your AWS bill. The credit 
 
 > Some credits are only applicable to a few services.
 
-
-
-
 ## Welcome To AWS Free Tier
 
-
 The AWS Free Tier is a great way to try out AWS services for free. The Free Tier offers a variety of services, each with different types of free options.
+
+![Free Tier Usage Limit Budget](assets/week0/assets/aws-budget.png)
 
 To view details related to AWS Free Tier, visit the [AWS Free Tier website](https://aws.amazon.com/free).
 
@@ -747,7 +759,7 @@ To view details related to AWS Free Tier, visit the [AWS Free Tier website](http
 * **Track your usage.** The AWS Free Tier has usage limits. Make sure that you are not exceeding the limits.
 * **Plan for the future.** The Free Tier is not a permanent solution. Plan for how you will pay for AWS services when the Free Tier expires.
 
-## AWS Cloudshell
+## Command-Line Interface In The Console
 
 AWS CloudShell is a browser-based shell that you can use to interact with AWS services. CloudShell is pre-configured with the AWS CLI and other tools, so you can start using AWS services right away.
 
@@ -756,12 +768,23 @@ AWS CloudShell is a browser-based shell that you can use to interact with AWS se
 1. Go to the [AWS CloudShell console](https://console.aws.amazon.com/cloudshell/).
 2. Click the **Launch CloudShell** button.
 3. A new tab will open in your browser with a pre-configured shell.
+4. Type the following command while inside.
+```bash
+aws sts get-caller-identity
+```
+- Yes, It is Implicit authentication check.
 
 <img src="assets/week0/media/usingcloudshell.png">
 
-### **AWS in Your Favorite IDE**
+> Please refer to the shell, It is in us-east-1.
 
-**To generate AWS credentials**
+## **Empower Your Favorite IDE with AWS CLI**
+
+*W*hether  you're using Codespaces, Gitpod, your own hosted IDE on a cloud VM, or an on-premises setup, here are the typical steps you can follow to onboard yourself with the AWS Command Line Interface.
+
+### **Generate AWS credentials**
+
+To begin authenticating your AWS account with any IDE, you need to first generate the necessary credentials from your AWS console.
 
 1. In the AWS CloudShell, click the **Profile** icon in the top right corner.
 2. Click the **Credentials** tab.
@@ -770,12 +793,11 @@ AWS CloudShell is a browser-based shell that you can use to interact with AWS se
 5. In the **Access Key ID** and **Secret Access Key** fields, enter your AWS credentials.
 6. Click the **Create Profile** button.
 
-
 <img src="assets/week0/CLI-WORK/1-GENERATE CREDENITIAL ACCESS KEY.png">
 
 ### Go to Your Favorite IDE
 
-**Setting Environement variables for Gitpod**
+### **Setting Environement Variables**
 
 1. In its terminal, run the following commands:
 ```BASH
@@ -794,7 +816,7 @@ gp env AWS_SECRET_ACCESS_KEY=your_secret_access_key
 
 3. Once you have set the environment variables, you can start onboarding the AWS CLI in Gitpod.
 
-## Install AWS CLI
+## Install AWS Command-Line Tool
 
 The AWS CLI is a command-line tool that allows you to interact with AWS services. It is a powerful tool that can be used to automate tasks, manage resources, and troubleshoot problems.
 
@@ -824,14 +846,14 @@ Once you have installed the AWS CLI, you can check that you are connected to AWS
 ```bash
 aws sts get-caller-identity
 ```
+> If you are [pondering!](#setting-environement-variables)
 <img src="assets/week0/CLI-WORK/5 connected to aws from gitpod .png">
-This command will return your AWS account ID and your AWS Region.
+This command will return your AWS account ID, your AWS Region and your Arn.
 
 You can also get your AWS account ID by running the following command:
 ```bash
 export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 ```
-
 This command will export the AWS account ID to the environment variable` AWS_ACCOUNT_ID`. You can then use this variable in other AWS CLI commands.
 
 ## **AWS CLI auto-prompt**
@@ -867,11 +889,7 @@ env:
 Go to Gitpod Terminal and try it!
 <img src="assets/week0/media/week0-extension-on-gitpod.png">
 
-
----
-
 ## Create AWS Budget Using the CLI
-
 
 We did create the budget above using clickops. But now you possess the cli skills. Let's try the real magic :)
 
@@ -897,7 +915,6 @@ aws budgets create-budget \
 
 <img src="assets/week0/CLI-WORK/8 budget 2 applied.png">
 
-
 By checking the console, you will notice that there are now two budgets available. 
 
 - The first budget, "clickops," [was created earlier.](#aws-budget-made-easy) 
@@ -907,7 +924,7 @@ By checking the console, you will notice that there are now two budgets availabl
 
 **[Reference](https://docs.aws.amazon.com/cli/latest/reference/budgets/create-budget.html#examples)**
 
-## Setting SNS
+## Real-time Messaging and Notification
 
 SNS is a service that allows you to send and receive notifications. You can use SNS to send notifications to email addresses, phone numbers, and other endpoints.
 
@@ -957,9 +974,6 @@ The CloudWatch alarm JSON file specifies the alarm settings, such as the alarm n
 Once you have created the CloudWatch alarm JSON file, and ran the `aws cloudwatch put-metric-alarm` command to create the alarm. You will see an alarm on daily estimated charges to verify.
 
 <img src="assets/week0/CLI-WORK/18 alarm is here notification.png">
-
-
-
 
 ## **Open Support ticket**  
 

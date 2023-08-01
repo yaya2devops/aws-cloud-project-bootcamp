@@ -4,8 +4,6 @@
 The resources listed below were compiled out of intellectual curiosity and are provided here for your reference.<br> 
 Strategically located in 1️⃣ site.
 
-
-
 | Exploration | Description | 
 | :---: | --- | 
 | [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the overall scope|
@@ -15,9 +13,7 @@ Strategically located in 1️⃣ site.
 | [ Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
 | [ Beautify](../_docs/assets/README.md) | The Builder's  promotion of the marketing aspect of the things |
 
-<img src="res-hub-ban.png" width="640px">
-
-
+<img src="res-hub-ban.png" width="626px">
     
 | Resource | Description | 
 | :---: | --- | 
@@ -33,19 +29,16 @@ Strategically located in 1️⃣ site.
 
 </div>
 
-
 ---
 
 <div align="center" >
     
-    
 ##   [ᵃ⤻ᶻBuilding —](https://www.linkedin.com/feed/update/urn:li:activity:7060203832382808064/) Constructive Chronicles
-<img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="715">
-   
+<img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="712">  
 
 | Journal | Technologies                                                           | Start Date   | Status |
 | :-----: | -------------------------------------------------                      | ----------   | :----: |
-| [Week 0](week0.md)  | Billing and Architecture  <br>(*Under Revision*)           | Feb 11, 2023 |   ✘    |
+| [Week 0](week0.md)  | ⭐Billing and Architecture         | Feb 11, 2023 |   ✘    |
 | [Week 1](week1.md)  | ⭐Docker and App Containerization                         | Feb 18, 2023 |   ✘    |
 | [Week 2](week2.md)  | ⭐Distributed Tracing                                     | Feb 25, 2023 |   ✘    |
 | [Week 3](week3.md)  | Decentralized Authentication <br>(*Under Revision*)        | Mar 4, 2023  |   ✘   |
@@ -59,13 +52,8 @@ Strategically located in 1️⃣ site.
 | [Week 11](week11.md) | CloudFormation & SAM Templates <br> (Part 2/2)            | Apr 29, 2023 |Doing |
 | [Week ✘](week12.md) | Modern APIs & Cleanup                                      | May 6, 2023  |Doing |
 
-
 </div>
 
-
-
-
-
 <p align="center">
-    <img src="../_docs/assets/rounded-banner.png" width="800">
+    <img src="../_docs/assets/rounded-banner.png" width="715">
 </p>
