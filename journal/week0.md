@@ -1,9 +1,11 @@
 # Week 0 — Billing and Architecture
 Welcome to the exhilarating kickoff of Week Zero in our AWS Cloud Bootcamp. This is the **perfect starting point** for your thrilling journey into the boundless realm of the cloud.
 
+![Yes It is his couch developer, Andrew Brown](assets/week0/andrew-couch.jpg)
+
 ☁️ Are you ready to **take the first step** towards mastering the cloud❓
 
-We'll be talking about **cloud architecture, security, cost considerations, and operations**. *Join us* as we unlock the secrets of the cloud, paving the way for a dynamicfuture in this rapidly evolving industry. 
+We'll be talking about **cloud architecture, security, cost considerations, and operations**. *Join us* as we unlock the secrets of the cloud, paving the way for a dynamic future in this rapidly evolving industry. 
 
 ## Week Zero Main Tasks
 - [A Path Towards Modern Solutions](#a-path-towards-modern-solutions)
@@ -40,9 +42,11 @@ We'll be talking about **cloud architecture, security, cost considerations, and 
 - [Open Support ticket](#open-support-ticket)
 - [Health Dashboard with SNS](#integrate-health-dashboard-with-sns-using-eventbridge)
   - [Real-time Messaging and Notification](#real-time-messaging-and-notification)
+- [Serverless Notification API](#serverless-notification-api)
+
 
 ## Command AWS Like a Pro
-Welcome to *AWS CLI onboarding experience* helping you to get things done more effectively.
+Welcome to *AWS CLI onboarding experience* helping you **get things done** more effectively.
 
 - [Command-Line Interface In The Console](#command-line-interface-in-the-console)
 - [Empower Your Favorite IDE with AWS](#empower-your-favorite-ide-with-aws-cli)
@@ -191,7 +195,7 @@ In Lucidchart, you can conveniently access built-in shapes by navigating to "Fil
 Find additional [diagramming tools, and AWS icons.](https://aws.amazon.com/fr/architecture/icons/) 
 
 ### **Get started Now**
-⚡If budget is a concern, I highly recommend starting with Draw.io.<br>
+⚡If budget is a concern, I highly recommend [starting with Draw.io](https://app.diagrams.net/). 💯<br>
 There's even an [extension available in VS Code](https://marketplace.visualstudio.com/items?itemName=hediet.vscode-drawio) for you to design directly from your favorite IDE. 
 
 I have included all the extensible files for your convenience. e.g. visit [week 8.](week8.md)<br>
@@ -201,7 +205,7 @@ Meaning, you can easily begin by importing one of my architecture files to DRAWI
 
 ## Creating **Logical Diagram**
 Logical diagrams are more detailed than conceptual diagrams. 
-> Communicate the system's design to developers.
+> Communicate the system's design to coders.
 
 - **System architecture:** The system will be a three-tier architecture, consisting of a presentation layer, a business logic layer, and a data access layer.<br>
 - **Data flow:** The data flow will be unidirectional, with users entering data into the presentation layer, which will then pass the data to the business logic layer for processing. 
@@ -372,7 +376,37 @@ This will help to protect your account from unauthorized access.
 
 ## What is an AWS Organization Unit?
 An AWS Organization Unit (OU) is a logical grouping of AWS accounts within an AWS Organization. OUs can be used to organize and manage AWS accounts more effectively, and to simplify account management tasks.
-
+```
+Root (Management Account)/
+│
+├── Production OU /
+│   └── Production Account 1
+│   └── Production Account 2
+│   └── ...
+│
+├── Development OU /
+│   └── Development Account 1
+│   └── Development Account 2
+│   └── ...
+│
+├── Test OU /
+│   └── Test Account 1
+│   └── Test Account 2
+│   └── ...
+│
+└── Yacrud /
+    ├── Yacrud Developers
+    │   └── Yacrud Developer 1 Account
+    │   └── ...
+    │
+    ├── Yacrud Admins
+    │   └── Yacrud Admin Account
+    │   └── ...
+    │   
+    └── Yacrud Root (Responsability)
+        └── Yacrud Root Account
+        └── ...
+```
 **Why use AWS Organization Units?**
 - **To organize your AWS accounts by business unit, department, or application.** This can make it easier to track costs, assign permissions, and manage compliance.
 - **To simplify account management tasks.** For example, you can use OUs to set up billing and cost allocation, and to apply policies to groups of accounts.
@@ -780,7 +814,7 @@ aws sts get-caller-identity
 
 ## **Empower Your Favorite IDE with AWS CLI**
 
-*W*hether  you're using Codespaces, Gitpod, your own hosted IDE on a cloud VM, or an on-premises setup, here are the typical steps you can follow to onboard yourself with the AWS Command Line Interface.
+*W*hether  you're using Codespaces, Gitpod, your own hosted IDE on a VM, or an on-premises setup, allow me to guide you on the steps you can follow to onboard yourself with the AWS Command Line Interface.         
 
 ### **Generate AWS credentials**
 
@@ -954,6 +988,128 @@ aws sns subscribe \
 
 * [AWS Budgets documentation](https://docs.aws.amazon.com/budgets/latest/userguide/budgets-getting-started.html)
 * [AWS SNS documentation](https://docs.aws.amazon.com/sns/latest/dg/)
+
+## Serverless Notification API
+
+A serverless notification API is a serverless application that uses AWS Lambda and Amazon SNS to send email notifications to subscribers.
+
+- [Setting up Post Notification](#setting-up-post-notification)
+- [Create Lambda](#create-lambda)
+   - [Granting SNS Access](#granting-sns-access-to-the-lambda-function)
+- [Test Post Endpoint](#test-post-endpoint)
+
+The API works by first creating a Lambda function that accepts POST requests with a name and message. The Lambda function then publishes an SNS message with the name and message to a topic. The SNS topic is configured to send email notifications to subscribers.
+
+
+![Notification API Diagram](assets/week0/assets/notification-api.png)
+
+Here is a comprehensive and detailed representation that I have prepared for your reference.
+
+```json
+      API Request (POST)       Lambda Function      SNS Topic             Email Subscribers
+     +------------------>   +----------------->  +-------------------->  +-----------------+
+     |                      |                    |                    |  |List of EMAILs;  |
+     |     {                |   {                |   {                |  |e.g. Yaya Email  |
+     |   "name": "Yaya",    |   "name": "Yaya",  |   "name": "Yaya",  |  |                 |
+     |   "message": "Hi"    |   "message": "Hi"  |   "message": "Hi"  |  |                 |
+     | }                    | }                  | }                  |  |                 |
+     |                      |                    |                    |  |                 |
+     +<------------------   +<-----------------   +<-----------------    |                 |
+         HTTP Response         Publish SNS         Send Email            |                 |
+           Status 200          Message            Notifications          |                 |
+                               with               to Subscribers         |                 |
+                               name & message                            |                 |
+                                                                         +-----------------+
+```
+
+* An API receives a POST request with a JSON payload containing a `name` and `message`.
+* The Lambda function processes the request and extracts the `name` and `message` from the payload.
+* The Lambda function publishes an SNS message with the extracted `name` and `message` to a pre-configured SNS topic.
+* The SNS topic is configured to send email notifications to its subscribers.
+* Email subscribers receive notifications containing the `name` and `message` published by the Lambda function.
+
+
+### Setting up Post Notification
+
+1. Create a new SNS topic and subscribe to it using the following aws command:
+```bash
+aws sns create-topic --name pr-api-notification
+```
+After creating the topic, copy the SNS Topic `Amazon Resource Name` or ARN for later use.
+
+2. Subscribe to the newly created SNS topic using the aws command below. Replace `<region>` with your `AWS region`, `<account-id>` with your AWS account ID, and `<email>` with the email address you want to use for receiving notifications:
+
+```bash
+aws sns subscribe \
+--topic-arn arn:aws:sns:<region>:<account-id>:<topic-name> \
+--protocol email \
+--notification-endpoint <email>
+```
+
+### Create Lambda
+
+1. Create a Lambda function with Python `3.9` runtime.
+2. Enable the function URL in the Lambda function configuration.
+3. Set the function's to `no auth type`.
+4. Add the following code to your lambda
+
+```py
+import json
+import boto3
+
+def lambda_handler(event, context):
+    
+    client = boto3.client('sns')
+    snsArn = 'arn:aws:sns:<REGION>:<ACCOUNT ID>:<topic-name>'
+    
+    body = json.loads(event.get("body"))
+    
+    
+    response = client.publish(
+        TopicArn = snsArn,
+        Message = body.get("message"),
+        Subject= f"Hello {body['name']}"
+    )
+    
+    return {
+      'statusCode': 200,
+      'body': json.dumps(response)
+   }
+```
+5. Assign the sns arn.
+6. Deploy the Lambda function.
+
+### **Granting SNS Access to the Lambda Function**
+
+You need to enable SNS access to the Lambda function,
+
+1. Go to the Lambda Function in the AWS Management Console.
+2. Click on the **Configuration** tab.
+3. In the **Permissions** section, click on the link for the Role name associated with the Lambda function.
+4. Under **Permissions**, click on **Add Permission**.
+5. Now, choose **Attach Policies** to proceed.
+6. Filter the policy list and search for **AmazonSNSFullAccess**.
+7. Select **AmazonSNSFullAccess** and attach it to the Lambda function's role.
+
+
+### Test Post Endpoint
+
+1. Open Thunder Client. You can install its extension from vs code or any other **API testing tool**.
+
+Next,  you have to send a post request to the Lambda function URL with a name and message.
+
+2. Use the following curl command to send a POST request to the Lambda function URL. 
+```bash
+curl -X POST \
+    'https://yours.lambda-url.<region>.on.aws/' \
+    -H 'Content-Type: application/json' \
+    -d '{"num1": "10", "num2": "10"}'
+```
+Replace `https://yours.lambda-url.<region>.on.aws/` with the actual Lambda function URL.
+
+- Check your API tool returning 200 OK on success.
+- Check your subscribed email for the post notif.
+
 
 ## Creating a CloudWatch Alarm
 
