@@ -5,7 +5,7 @@ The resources listed below were compiled out of intellectual curiosity and are p
 Strategically located in 1️⃣ site.
 
 | Exploration | Description | 
-| :---: | --- | 
+| :---: | :--- | 
 | [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the overall scope|
 | [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
 | [Builder Assets](assets/README.md)  | The author's collection of resources and screenshots|
@@ -44,10 +44,10 @@ Strategically located in 1️⃣ site.
 | [Week 3](week3.md)  | Decentralized Authentication <br>(*Under Revision*)        | Mar 4, 2023  |   ✘   |
 | [Week 4](week4.md)  | SQL Database with PostgreSQL  <br>(*Under Revision*)       | Mar 11, 2023 |   ✘   |
 | [Week 5](week5.md)  | NoSQL Database with AWS DynamoDB <br>(*Under Revision*)    | Mar 18, 2023 |   ✘   |
-| [Week 6](week6.md)  | Deploying Serverless Containers  <br>(Part 1/2)            | Mar 25, 2023 |   ✘   |
-| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(Part 2/2)| Apr 1, 2023 |✘|
+| [Week 6](week6.md)  | Deploying Serverless Containers  <br>(*Under Revision*) (Part 1/2)            | Mar 25, 2023 |   ✘   |
+| [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(*Under Revision*) (Part 2/2)| Apr 1, 2023 |✘|
 | [Week 8](week8.md)  | ⭐Serverless Image Processing                                | Apr 8, 2023  | ✘ |
-| [Week 9](week9.md)  | CI/CD with AWS CodeBuild and CodePipeline                  | Apr 15, 2023 | ✘ |
+| [Week 9](week9.md)  | CI/CD with AWS CodeBuild and CodePipeline <br>(*Under Revision*)   | Apr 15, 2023 | ✘ |
 | [Week 10](week10.md) |⭐CloudFormation <br> (Part 1/2)                            | Apr 22, 2023 | ✘ |
 | [Week 11](week11.md) | CloudFormation & SAM Templates <br> (Part 2/2)            | Apr 29, 2023 |Doing |
 | [Week ✘](week12.md) | Modern APIs & Cleanup                                      | May 6, 2023  |Doing |

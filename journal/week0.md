@@ -5,7 +5,7 @@ Welcome to the exhilarating kickoff of Week Zero in our AWS Cloud Bootcamp. This
 
 ☁️ Are you ready to **take the first step** towards mastering the cloud❓
 
-We'll be talking about **cloud architecture, security, cost considerations, and operations**. *Join us* as we unlock the secrets of the cloud, paving the way for a dynamic future in this rapidly evolving industry. 
+We'll be performing **cloud architecture, security, cost considerations, and operations**. *Join us* as we unlock the secrets of the cloud, paving the way for a dynamic future in this rapidly evolving industry. 
 
 ## Week Zero Main Tasks
 - [A Path Towards Modern Solutions](#a-path-towards-modern-solutions)
@@ -79,7 +79,7 @@ Before the release of the app, cloud architects typically follow these steps to 
 1. ***Define the project goals***<br>
 The first step towards great cloud-native architecture is the discussions with both the technical and business team to ensure that the project's objectives are met in its entirety. It is also important to consider [the risks, assumptions, and constraints](#additional-considerations) that may be involved in the project.
 2. ***Design the architecture***<br>
-This step involves breaking down the application into microservices, which are small, independent services that can be developed, deployed, and scaled independently. Designs and its type will be [break down below](#⚡get-started-now).
+This step involves breaking down the application into microservices, which are small, independent services that can be developed, deployed, and scaled independently. Designs and its type will be [break down below](#get-started-now).
 3. ***Implement the microservices***<br>
 Developing the microservices using a variety of technologies and deploying them to the cloud. The cloud platform e.g AWS will provide the infrastructure for running the microservices and managing their scaling.<br>
 The µservices can be developed using a variety of technologies e.g. as Java, Go, or [**Python our case**](../backend-flask/README.md).
@@ -1000,34 +1000,30 @@ A serverless notification API is a serverless application that uses AWS Lambda a
 
 The API works by first creating a Lambda function that accepts POST requests with a name and message. The Lambda function then publishes an SNS message with the name and message to a topic. The SNS topic is configured to send email notifications to subscribers.
 
-
 ![Notification API Diagram](assets/week0/assets/notification-api.png)
 
-Here is a comprehensive and detailed representation that I have prepared for your reference.
-
-```json
-      API Request (POST)       Lambda Function      SNS Topic             Email Subscribers
-     +------------------>   +----------------->  +-------------------->  +-----------------+
-     |                      |                    |                    |  |List of EMAILs;  |
-     |     {                |   {                |   {                |  |e.g. Yaya Email  |
-     |   "name": "Yaya",    |   "name": "Yaya",  |   "name": "Yaya",  |  |                 |
-     |   "message": "Hi"    |   "message": "Hi"  |   "message": "Hi"  |  |                 |
-     | }                    | }                  | }                  |  |                 |
-     |                      |                    |                    |  |                 |
-     +<------------------   +<-----------------   +<-----------------    |                 |
-         HTTP Response         Publish SNS         Send Email            |                 |
-           Status 200          Message            Notifications          |                 |
-                               with               to Subscribers         |                 |
-                               name & message                            |                 |
-                                                                         +-----------------+
-```
-
+Here is a comprehensive and detailed representation that **I have prepared** for your reference.
 * An API receives a POST request with a JSON payload containing a `name` and `message`.
 * The Lambda function processes the request and extracts the `name` and `message` from the payload.
+```yaml
+       API Request (POST)       Lambda Function      SNS Topic             Email Subscribers
+      +------------------>   +----------------->  +-------------------->  +-----------------+ 
+  H   |                      |                    |                    |  | List of EMAILs; | Y
+  E   |    {                 |   {                |   {                |  |                 | A
+  L   |   "name": "Yaya",    |   "name": "Yaya",  |   "name": "Yaya",  |  |                 | Y
+  L   |   "message": "Hey"   |  "message": "Hey"  |   "message": "Hey" |  |      e.g.       | A
+  O   |    }                 |   }                |   }                |  |                 | 2
+      |                      |                    |                    |  |   Yaya Email    | D
+  T   +<------------------   +<-----------------  +<-----------------  |  |   Yours, etc.   | E
+  H   |    HTTP Response     |    Publish SNS     |    Send Email      |  |                 | V
+  E   |                      |    Message         |    Notifications   |  |                 | O
+  R   |     Status 200       |    with            |    to Subscribers  |  |                 | P
+  E   |                      |    name & message  |                    |  |                 | S
+      +----------------------+--------------------+--------------------+  +-----------------+ 
+```
 * The Lambda function publishes an SNS message with the extracted `name` and `message` to a pre-configured SNS topic.
 * The SNS topic is configured to send email notifications to its subscribers.
 * Email subscribers receive notifications containing the `name` and `message` published by the Lambda function.
-
 
 ### Setting up Post Notification
 
@@ -1045,7 +1041,6 @@ aws sns subscribe \
 --protocol email \
 --notification-endpoint <email>
 ```
-
 ### Create Lambda
 
 1. Create a Lambda function with Python `3.9` runtime.
@@ -1091,7 +1086,6 @@ You need to enable SNS access to the Lambda function,
 6. Filter the policy list and search for **AmazonSNSFullAccess**.
 7. Select **AmazonSNSFullAccess** and attach it to the Lambda function's role.
 
-
 ### Test Post Endpoint
 
 1. Open Thunder Client. You can install its extension from vs code or any other **API testing tool**.
@@ -1100,26 +1094,22 @@ Next,  you have to send a post request to the Lambda function URL with a name an
 
 2. Use the following curl command to send a POST request to the Lambda function URL. 
 ```bash
-curl -X POST \
-    'https://yours.lambda-url.<region>.on.aws/' \
-    -H 'Content-Type: application/json' \
-    -d '{"num1": "10", "num2": "10"}'
+curl --request POST \
+  --url     'https://yours.lambda-url.<region>.on.aws/' \
+  --header 'Content-Type: application/json' \
+  --data '{"name": "yaya2devops", "message": "NOTIFIED: Lambda Post Triggered"}'
 ```
 Replace `https://yours.lambda-url.<region>.on.aws/` with the actual Lambda function URL.
-
 - Check your API tool returning 200 OK on success.
 - Check your subscribed email for the post notif.
-
 
 ## Creating a CloudWatch Alarm
 
 A CloudWatch alarm is a way to monitor your AWS resources and take action when they exceed a certain threshold. Alarms can be used to help you avoid overspending on AWS resources and to troubleshoot problems.
 
 To create a CloudWatch alarm, you can follow these steps:
-
 1. Create a CloudWatch alarm JSON file.
 2. Run the `aws cloudwatch put-metric-alarm` command.
-
 ```
 aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
 ```
@@ -1148,9 +1138,11 @@ To open a support ticket, you can follow these steps:
 
 <img src="assets/week0/4 case.png">
 
-Once you have opened a support ticket, you will receive an email confirmation with the ticket number. You can use the ticket number to track the status of your ticket.
+Once you have opened a support ticket, you will receive an email confirmation with the ticket number. 
 
 <img src="assets/week0/6 cased.png">
+
+> You can use the ticket number to track the status of your ticket.
 
 * [CloudWatch alarms documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmQuickStart.html)
 * [AWS Support Center documentation](https://docs.aws.amazon.com/awssupport/latest/userguide/troubleshooting-support-case.html)

@@ -9,7 +9,7 @@ Awareness continues with another productive week. <br>The past days was a great 
   - [Monitoring in Observability Ecosystem](#monitoring-in-observability-ecosystem)
   - [Distrubuted Tracing](#distrubuted-tracing)
   - [Observability on AWS](#observability-on-aws)
-- [Open Telemetry with Honeycomb](#open-telemetry-with-honeycomb)
+- [**Open Telemetry with Honeycomb¹**](#open-telemetry-with-honeycomb)
   - [Product Setup](#setup)
   - [Spans and Traces in OTEL](#spans-and-traces-in-open-telemetry)
   - [Honeycomb for Better Observability](#honeycomb-for-better-observability)
@@ -18,7 +18,7 @@ Awareness continues with another productive week. <br>The past days was a great 
 - [Rethinking Why `pip` is Mhh?](#python-preferred-installer-program)
 - [Security in Observability](#security-best-practices)
 - [Spend Considerations](#spend-considerations)
-- [Onboard AWS X-RAY](#the-distributed-tracing-system-x-ray)
+- [**Onboard AWS X-RAY²**](#the-distributed-tracing-system-x-ray)
   - [AWS X-Ray SDK](#installing-the-aws-x-ray-sdk)
   - [Instrumenting with X-ray](#instrumenting-your-application)
   - [Running the X-Ray daemon](#running-the-x-ray-daemon)
@@ -26,9 +26,9 @@ Awareness continues with another productive week. <br>The past days was a great 
   - [Traces as Groups in X-Ray](#traces-as-groups-in-x-ray)
   - [Sampling Rule in AWS X-RAY](#sampling-rule-in-aws-x-ray)
   - [X-Ray Subsegmentation](#x-ray-subsegmentation)
-- [Error-Free Code with Rollbar](#error-free-code-with-rollbar)
+- [**Error-Free Code with Rollbar³**](#error-free-code-with-rollbar)
   - [Expanded Instrumentation in Rollbar](#expanded-instrumentation-in-rollbar)
-- [Monitor FlaskApp with CloudWatch](#monitor-flaskapp-with-cloudwatch)
+- [**Monitor FlaskApp with CloudWatch⁴**](#monitor-flaskapp-with-cloudwatch)
 
 # Observability
 

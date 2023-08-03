@@ -1,13 +1,17 @@
-## Creative Compilation
+# Creative Compilation
+In this section, I present a collection of assets I have handled, demonstrating my expertise in enhancing visual aesthetics. My aim is to showcase how I effectively amplify the visual appeal of various elements.
 
+## Cloud Project Bootcamp
 
-The asset below illustrates the initial deliverable that the project aims to achieve.
+The asset provided below represents the project's primary deliverable, embodying the desired outcome.
 
 <img src="GOAL.png">
 
 [**Design Use-Case**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week4#readme)
 
 ### Reworked Project Objective <small>v2</small>
+
+I initiated the process of improving the appearance by initially removing the background.
 
 To view and edit this file, use [DRAWIO](objective.drawio)
 
@@ -18,6 +22,8 @@ To view and edit this file, use [DRAWIO](objective.drawio)
 
 ### Recently Released Design  <small>v4.4</small>
 
+After pushing to the extreme, I emerged with this masterpiece, surpassing all expectations.
+
 To view and edit this file, use [DRAWIO](aware.drawio)
 
 <img src="aware.drawio.png">
@@ -27,15 +33,16 @@ To view and edit this file, use [DRAWIO](aware.drawio)
 > The link is broken because it was linked to the "week6-7" tag, which no longer exists. I split it into two separate weeks [6](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week6) and [7](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/week7) for better organization.
 
 
-### Assets Progression
+## Assets Progression
 
-After creating 16 creative essays, here are four potential changes:
-
+Having crafted 16 creative essays, I have identified four potential changes that truly exemplify my qualities and characteristics.
 
 <img src="all-samples.png">
 
 
 # Cruddur Project Banner 
+This creation is credited to the bootcamp organizer.
+
 <img src="cruddur-banner.jpg">
 
 
@@ -60,15 +67,16 @@ Refer to PostgreSQL situational captures implementation from [here.](../../journ
 
 
 ### Yacrud On RDS CRUD Activity in Week 7
-[Cruds available in csv.](yaYacrud.csv)
+[Cruds available in csv.](yayacrud.csv)
 <img src="yacrud.png">
 
 > About [Week Seven](../../journal/week7.md).
 
 ## Yacrud Hashtags
 
-- [Bachelor Guide](https://istic.computer-engineering.tech/#/)
-- [Implement Microsoft Sentinel](https://sentinel.yahya-abulhaj.dev/)
+- [**Project1:** Bachelor Guide](https://istic.computer-engineering.tech/#/)
+- [**Project2:** Implement Microsoft Sentinel](https://sentinel.yahya-abulhaj.dev/)
+- [**Project3:** Open Cyber Threat Intelligence Platform](https://opencti.yahya-abulhaj.dev/) (bonus)
 
 <img src="hashtags-are-personal.png">
 

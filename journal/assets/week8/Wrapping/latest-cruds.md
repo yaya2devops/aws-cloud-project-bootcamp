@@ -5,6 +5,7 @@ SQL Params:
 handle : yaya2devops
 >>----what's up-----<< (
 ```
+More Cruds [can be found here](../../../../_docs/assets/yayacrud.csv)
 ```JSON
 {
   "profile": {
@@ -74,6 +75,4 @@ handle : yaya2devops
     }
   ]
 }
-
-,)
 ```
