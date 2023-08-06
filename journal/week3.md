@@ -1,734 +1,257 @@
 # Week 3 — Decentralized Authentication
 
-> **Next Rework.to-come:2**  "img, #" Just kidding
+Traditional authentication systems are centralized and rely on a single point of failure which makes them more vulnerable to cyberattacks. Decentralized authentication is a more secure and private alternative that does not rely on a central authority, welcome to week three.
 
-Once upon a time, there was a passionate software developer named Yahya who spent his week(s) learning about AWS Cognito and its user pools.
+We'll be onboarding the app to a decentralized authentication system on the aws platform and we'll show you exactly how.
 
-Welcome to Week 3 Journal.
-
-<img src="assets/Week3/week3-banner.png">
+By the end of this, users should have complete ownership of their identities and control how they are shared. You can be confident that your identities are secure and that your data is not being shared without your consent.
 
 
-He was determined to master this technology and create a seamless user experience.
+# Compressing Authentication Protocols
 
-**Y**aya dove right into his work, creating Cognito User Pools not once, not twice, but three times! He wanted to ensure that he had a solid understanding of the process and could troubleshoot any issues that may arise in the future.
-
-After setting up the user pools,  Yahya created a user and forced its password. He then integrated everything with Amplify, a development framework that simplifies building web and mobile applications. He made sure to include authentication sign-in, sign-up, and password recovery features.
-
-To make sure that his project was secure, Yahya used JWToken to secure both the front and back end of the application. Everything was running smoothly until he ran out of credit on his development platform, Gitpod.
+Authentication protocols are a set of rules that allow two parties to verify each other's identities, ensuring secure online transactions and protecting users' data. 
 
 
-Yahya learned more than just the technical aspects of authentication during his week working on the Cognito User Pools. He also went over the various authentication methods and their distinct features.
+Authentication protocols have evolved over time to address security and usability challenges. 
 
-For example, Yahya noted about authentication methods like OAuth, OpenID Connect, and SAML and how they differ. While OAuth is primarily used for authorization, he discovered that OpenID Connect and SAML are used for authentication.
-
-Undeterred, Yaya switched to Codespaces, a cloud-based development environment, and continued his work there. Eventually, he decided to work locally with Docker Desktop, suddenly, his credits had been reset on Gitpod. So, he went back happy to continue that on this super smooth environement.
-
-Despite the challenges he faced, Yahya remained dedicated to his work and successfully completed his project, leaving him with a sense of pride and accomplishment. 
-
-### Table Of Contents:
-
-- [Create Amazon Cognito](#authenticate-with-amazon-cognito)
-- [Amplify Integration](#amplify-integration)
-  - [Setup Authentication](#authentication-set-up)
-  - [Setup Sign in](#sign-in-setup)
-  - [Setup Recover Page](#recover-page-setup)
-  - [Client Sign up](#client-sign-up)
-- [JSON Web Token](#cognito-jason-web-token--construction)
-  - [AWS Cognito Librairy](#flask-aws-cognito-librairy-)
-- Environments
-   - [GitHub Codespaces](#configuring-codespaces)
-   - [Docker Desktop](#codespaces-down---moving-to-local)
-   - [Gitpod](#credit-restart---back-to-gitpod)
+Following SAML to 2005, the W3C released the OpenID specification, which is a standard for decentralized authentication. OpenID has been widely adopted, and it is now one of the most popular methods of decentralized authentication.
 
 
+| Protocol        | Release | Description              |
+|-----------------|:--------------:|---------------|
+| **SAML 1.0**        | 2002         | Allows users to be authenticated and authorized across multiple domains.                       |
+| **SAML 2.0**        | 2005         | A more secure version for exchanging authentication and authorization information.              |
+| **OpenID**          | 2005         | A simple and easy-to-use protocol for single sign-on.                                          |
+| **OAuth 1.0**       | 2007         | Allowed third-party apps to access protected resources on behalf of users but was complex and less secure. |
+| **OAuth 2.0**       | 2012         | Improved OAuth 1.0 with a simpler and more secure protocol, becoming the most widely used today. |
+| **OpenID Connect**  | 2015         | A more advanced protocol that builds on top of OAuth 2.0 to provide SSO and access control.     |
 
-# Authenticate with Amazon Cognito
+## Protocols and Use Cases
 
-## Create Cognito:
-<img src="assets/Week3/cognito/1 create use pool.png">
+Below, I will outline **major use cases** and recommend the suitable for each scenario, with a particular focus on two dominant protocols.  **OAuth** use cases can also be applied with the more preferable OpenID Connect.
 
-## Password Security
-<img src="assets/Week3/cognito/2 password security.png">
+### **OAuth 2.0**
 
-## MFA costs extra:
-<img src="assets/Week3/cognito/3 mfa .png">
+- **Social Login**: Social media platform allows sign-in via Facebook, Google, or Twitter credentials.
+- **API Access**: Cloud storage provider grants third-party app access to APIs without sharing credentials.
+- **Mobile Apps**: Banking app authenticates users using existing bank credentials.
+- **Web Applications**: E-commerce website enables sign-in using credit card credentials.
 
-## We want this:
-<img src="assets/Week3/cognito/5 this.png">
+### **SAML 2.0**
 
-
-## SMS will cost EXTRA:
-<img src="assets/Week3/cognito/6 this ok for costs no sms.png">
-<br>
-
-
-## Pick the attributes
-Will redo the pool with preferred username included.
-
-<img src="assets/Week3/cognito/7 image is enough.png">
-
-
-## Pick the domain or accept Default:
-<img src="assets/Week3/cognito/8- step 4 custom reply with domain.png">
+- **Single Sign-On**: University enables students to log in to websites and apps with university credentials.
+- **Federation**: Company federates security domains with partners, allowing access using their own credentials.
+- **Authorization**: Healthcare organization exchanges authorization info with patients to control access to medical records.
 
 
-## Name your Pool &:
-Cognito UI is Nah.
+Authentication protocols have come a long way, with OAuth 2.0 as the versatile standard, SAML 2.0 for specialized scenarios, and OIDC extending OAuth with essential authentication features.
+
+- SAML protocl is **XML-based**.
+- OAuth is *Restful*, **JSON protocol**.
+- OpenID is *URI-based*, **JSON	protocol**.
+
+***OIDC* Connect builds on OAuth 2.0 for enhanced authentication and security,**
+
+- **Userinfo Endpoint:** Applications can request user information (name, email, etc.).
+- **ID Tokens:** Signed JSON objects with user info, issuer, and audience.
+- **JWT:** Uses JSON Web Tokens for secure representation of user identity and authorization.
+
+## Yacrud User Authentication
+
+[**OpenID Connect**](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html) has become the prevailing protocol among leading Fortune companies for internal authorization and authentication including Amazon, Google and Microsoft. 
+
+When a user tries to access an **`OpenID-compliant application`**
+- **`App will redirect`** the user to the **identity provider's `login page`**.
+- The **`identity provider`** will **`authenticate` the user** and **return an `authentication token`** to the application.
+- The application can then **use the `authentication` token to access `protected resources`**.
+```yaml
+    User                OpenID-Compliant          Identity Provider          Application
+     |                       Cruddur                    |                       | 
+     |------------ Redirect to Login Page ------------->|                       | Y
+     |                                                  |                       | A
+     |                <------- Login Page --------------|                       | Y
+     |                                                  |                       | A
+     |----- Redirect with Auth Token (after login)----->|                       | 2
+     |                                                  |                       | D
+     |                      <------- Auth Token --------|                       | E
+     |                                                  |                       | V
+     |------------------- Access Protected Resources -------------------------->| O
+     |                                                  |                       | P
+     |<----- Respond with Protected Resource Data ------|                       | S
+     |------------ Sign Out Operation------------------>|                       | 
+```
+
+Moreover, OIDC is offered as a service to customers, delivering to you a seamless and dependable authentication solutions of the future.
+
+## AWS Decentralized Authentication Solution
+
+AWS Cognito, The OIDC standard, is a fully managed service provided that enables developers to add user sign-up, sign-in, and access control functionalities to their applications. 
+
+It offers a scalable and secure solution for handling user authentication and identity management, making it easier to manage user data and access across various devices and platforms.
+```yaml
+User --> [AWS Cognito] --(OAuth 2.0, OpenID Connect)--> [Identity Pool] --> [Federated Identities] --> [AWS Services, Yacrud, Products..]
+```
+We will leverage the power of AWS Cognito to implement decentralized authentication, as well as enable smooth user sign-in, sign-up, and password recovery processes.
 
 
+### Create Amazon Cognito User Pool
 
+1. aws to the [Cognito](https://console.aws.amazon.com/cognito/) in the console.
+2. Click **Create a user pool**.
+3. In the **Authentication providers** section, select **Cognito user pool**.
+4. In the **Cognito user pool sign-in options** section, select **Email**. `Click Next`.
+5. In the **Security requirements** section, select **No MFA**.
+6. In the **User account recovery** section, leave the default settings. `Click Next`.
+7. In the **Required attributes** section, select **name** and **preferred_username**. `Click Next`.
+8.  In the **Email delivery** section, select **Send email with Cognito**. `Click Next`.
+9.  Enter a **User pool name**.
+10. In the **App type** section, select **Public Client** and set a **App client name**. `Click Next`.
+11. Review the settings and click **Create User Pool**.
 
-<img src="assets/Week3/cognito/9 ui is naaaahnaah.png">
+The user pool will be created and you will be able to retrieve the user pool ID and app client ID.
 
-
-
-
-## I went with this Indeed:
-<img src="assets/Week3/cognito/10 he clicked other and said public .png">
-
-
-## First App User Created, Myself
 <img src="assets/Week3/cognito/9 done .png">
 
----
+**NOTES:**
 
-# Amplify Integration
+* The `name` and `preferred_username` attributes cannot be changed after creation.
+* The `Send email with Cognito` option uses Amazon SNS to send emails.
+* There is a limit on the number of emails that can be sent for free each month.
+* The `Use the Cognito Hosted UI` option should not be used. It is not good looking.
+* AWS Cognito allows `IdP Integrations`.
+*  `Security requirements with MFA` is recommended but cost more.
 
-<img src="assets/Week3/Amplify/1 install sdk and include in json with --save tag because we need it always not just for dev.png">
 
-## Config Cognito Env:
-<img src="assets/Week3/Amplify/2 configure Amplify vars.png">
+## Amplify SDK - The Cognito Client Side
+Amplify enables conditional rendering of elements and data based on whether the user is logged in or logged out.
 
-## User pools ID:
+Amplify is employed with Amazon Cognito for client-side authentication and enable API calls for custom *login*, *signup*, and *recovery* functionality. 
+
+**The following source files require authentication implementations.**
+| Source File                                  | Description                                     |
+|-------------------------------------------|--------------------------------------------------------------|
+| `app.py`          | Backend configurations for amplify for cognito.  |
+| `docker-compose.yml`          | Cognito Environment variables and app local testing.  |
+| `HomeFeedPage.js`          | Page responsible for displaying the home feed content.  |
+| `ProfileInfo.js`      | Component for displaying user profile information.      |
+| `SigninPage.js`            | Page for user sign-in functionality.                    |
+| `SignupPage.js`           | Page for user registration.                              |
+| `DesktopNavigation.js` | Component to conditionally show links based on login status. |
+| `ConfirmationPage.js`     | Page for confirming user accounts and resending codes.   |
+| `RecoverPage.js`           | Page for user password recovery.                         |
+
+
+Leveraging Cognito with Amplify, we can achieve a secure and efficient authentication for our application.
+
+
+### Step 1: Install and Configure Amplify
+1. Install Amplify
+
+Run the following command in the frontend-react-js path to install the Amplify client-side library for Amazon Cognito
+```
+npm i aws-amplify --save
+```
+
+This will automatically update `package.json` and `package-lock.json` to include the Amplify package.
+
+2. Configure Amplify
+In `frontend-react-js/src/App.js`, add the following import:
+
+
+```js
+import { Amplify } from 'aws-amplify';
+```
+3. Below the import statements, configure Amplify with the necessary environment variables:
+```js
+Amplify.configure({
+  AWS_PROJECT_REGION: process.env.REACT_APP_AWS_PROJECT_REGION,
+  aws_cognito_region: process.env.REACT_APP_AWS_COGNITO_REGION,
+  aws_user_pools_id: process.env.REACT_APP_AWS_USER_POOLS_ID,
+  aws_user_pools_web_client_id: process.env.REACT_APP_CLIENT_ID,
+  oauth: {},
+  Auth: {
+    region: process.env.REACT_APP_AWS_PROJECT_REGION,
+    userPoolId: process.env.REACT_APP_AWS_USER_POOLS_ID,
+    userPoolWebClientId: process.env.REACT_APP_CLIENT_ID,
+  },
+});
+```
+
+4. Ensure that the necessary environment variables are added to the docker-compose.yml file under the frontend section:
+
 <img src="assets/Week3/Amplify/3 resolving code and include required.png">
 
-## App client IP:
+```yaml
+REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
+REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
+REACT_APP_AWS_USER_POOLS_ID: "${AWS_USER_POOLS_ID}"
+REACT_APP_CLIENT_ID: "${CLIENT_ID}"
+```
+
+5. Also, set the user pool ID and app client ID as environment variables using the following commands:
+
 <img src="assets/Week3/Amplify/4 another value.png">
 
-## A missing one:
-<img src="assets/Week3/Amplify/5 no trap.png">
+```sh
+export REACT_APP_AWS_USER_POOLS_ID=<USER_POOLS_ID>
+export REACT_APP_CLIENT_ID=<APP_CLIENT_ID>
+```
 
-## Coding.
+### Step 2: Authentication As Code
+
+Onboarding Cognito to these pages and require users to be authenticated to view these initial pages. This provides a more secure and seamless user experience. 
+- `HomeFeedPage.js` is the page where users will see their feed of posts.
+- `ProfileInfo.js` is the page where users can view their personal profile information and settings.
+
+
+1. Import the `Auth` module from `aws-amplify`. This module provides the functionality to interact with Cognito.
+```js
+import { Auth } from 'aws-amplify';
+```
+
+2. In the `HomeFeedPage.js` file, add the following code to check if the user is authenticated:
+
 <img src="assets/Week3/Amplify/6 look at the code.png">
 
-## See this?
-<img src="assets/Week3/Amplify/7 oh my eyes.png">
+```js
+const checkAuth = async () => {
+  Auth.currentAuthenticatedUser({
+    bypassCache: false,
+  })
+    .then((user) => {
+      console.log("user", user);
+      return Auth.currentAuthenticatedUser();
+    })
+    .then((cognito_user) => {
+      setUser({
+        display_name: cognito_user.attributes.name,
+        handle: cognito_user.attributes.preferred_username,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+```
 
-## Outplay:
-<img src="assets/Week3/Amplify/8 ok thats bette.png">
+This code will first check if the user is authenticated by calling the `currentAuthenticatedUser` method. If the user is authenticated, the method will return the user's Cognito user object. The user's name and preferred username will then be set on the `setUser` function.
 
-## Navigating codebase:
+3. In the `ProfileInfo.js` file, replace the old `signOut` function with the following code:
+
 <img src="assets/Week3/Amplify/9 ctrl ALT GOOOO.png">
 
-
-## Critical Thinking:
-<img src="assets/Week3/Amplify/10 update amplify instead of cookies in profileinfo.png">
-
-## However, blank:
-<img src="assets/Week3/Amplify/11 awesome itss blank.png">
-
-## Shooting issues:
-<img src="assets/Week3/Amplify/12 troubleshooting.png">
-
-## Analyzing situation
-<img src="assets/Week3/Amplify/13 hm check from frontshell they are sett.png">
-
-## Issue found:
-<img src="assets/Week3/Amplify/14 should be same.png">
-
-## Strategic decision-making:
-
-<img src="assets/Week3/Amplify/15 solving.png">
-
-## Solved:
-<img src="assets/Week3/Amplify/16 its back ok.png">
-
-
-## Authentication Set up:
-<img src="assets/Week3/Amplify/17 sign in page.png">
-
-## Coding requirements:
-<img src="assets/Week3/Amplify/18 change it to email yea.png">
-
-
-## System Established:
-<img src="assets/Week3/Amplify/19 user do not exist.png">
-
-## Navigating complexity:
-<img src="assets/Week3/Amplify/20 another.png">
-
-## Troubleshooting Signin page:
-<img src="assets/Week3/Amplify/21 touchpoint.png">
-
-## Touchpoints:
-<img src="assets/Week3/Amplify/22 touchpoint.png">
-
-<img src="assets/Week3/Amplify/23 deep foucs on doing this.png">
-
-## Sign in Setup:
-
-<img src="assets/Week3/Amplify/24 yay.png">
-
-## Creating myself in Cognito & Strong PW:
-<img src="assets/Week3/Amplify/26 set pw strong.png">
-
-
-## Additionnal Client Infos:
-<img src="assets/Week3/Amplify/27 user.png">
-
-
-## User created:
-<img src="assets/Week3/Amplify/28 user created.png">
-
-
-> required after creation:
-
+```js
+const signOut = async () => {
+  try {
+    await Auth.signOut({ global: true });
+    window.location.href = "/";
+  } catch (error) {
+    console.log('error signing out: ', error);
+  }
+};
 ```
-aws cognito-idp admin-set-user-password \
-  --user-pool-id <your-user-pool-id> \
-  --username <username> \
-  --password <password> \
-  --permanent
-```
+This will sign the user out of Cognito and redirect them to the home page.
 
-## Enforcing PW Status:
-<img src="assets/Week3/Amplify/29 enfocing pw for user.png">
 
 
-## Cognito Status Done:
-<img src="assets/Week3/Amplify/30 cognito status.png">
-
-## Logging Success BUT?
-<img src="assets/Week3/Amplify/32 working.png">
-
-> will see.
-
----
-
-# User recreation with attributes:
-
-<img src="assets/Week3/Complete/1 cognito again with preffered name.png">
-
-## Specify new user pool:
-<img src="assets/Week3/Complete/2 specify new user pool as required.png">
-
-
-## New client name:
-<img src="assets/Week3/Complete/3 client name.png">
-
-
-## Specify new connection:
-<img src="assets/Week3/Complete/4 specify new connection.png">
-
-## New user validate:
-<img src="assets/Week3/Complete/5- creation of user new .png">
-
-## Public Client:
-<img src="assets/Week3/Complete/6 requires mroe.png">
-
-
-## Enforcing PW:
-<img src="assets/Week3/Complete/7 new pool new user force pw etc.png">
-
-## Enforced:
-<img src="assets/Week3/Complete/8 proof after running that command.png">
-
-## Had to specify this:
-<img src="assets/Week3/Complete/9 had to specify this.png">
-
-## Overall users:
-<img src="assets/Week3/Complete/10 current users.png">
-
-## Verified User:
-<img src="assets/Week3/Complete/11 cbn.png">
-
-## Self-Digital Confirmation:
-<img src="assets/Week3/Complete/15 auth confirm.png">
-
-## Home page Authentication:
-<img src="assets/Week3/Complete/16 auth home plus reply why not.png">
-
-## Recover Page setup:
-<img src="assets/Week3/Complete/17 recover page.png">
-
-## The pre-results:
-<img src="assets/Week3/Complete/18 the right result before fixing the preferedd name.png">
-
-## Internal User stats:
-<img src="assets/Week3/Complete/19 wasaup.png">
-
-<img src="assets/Week3/Complete/20 all set.png">
-
-## Cruddur delivered:
-<img src="assets/Week3/Complete/21 the result!.png">
-
-
----
-
-# Client Sign up
-
-## Code Sign up page:
-<img src="assets/Week3/Complete/Signup/1 add name.png">
-
-## Innovative thinking
-
-<img src="assets/Week3/Complete/Signup/2 add username.png">
-
-
-## Parameters:
-<img src="assets/Week3/Complete/Signup/3 code artist.png">
-
-
-## Confirmation page:
-<img src="assets/Week3/Complete/Signup/4 confirmation page.png">
-
-
-## Sign up UI with additionnal inputs:
-<img src="assets/Week3/Complete/Signup/5 sign up ui with the required additional inputs.png">
-
-## Error:
-<img src="assets/Week3/Complete/Signup/6 hmm error.png">
-
-
-## Resilience in the face of challenges
-<img src="assets/Week3/Complete/Signup/7 troubleshoot.png">
-
-
-<img src="assets/Week3/Complete/Signup/8 this is ok.png">
-
-
-## This is missing: 
-<img src="assets/Week3/Complete/Signup/9 for real tho OMG.png">
-
-
----
-
-# Recreation of USER Pool N3: 
-
-## Deleting existing clients:
-<img src="assets/Week3/Complete/Signup/userpool again/1- bye user pool n2.png">
-
-## Only email config:
-<img src="assets/Week3/Complete/Signup/userpool again/2 he only meant to do that LOL.png">
-
-## Sign up testing Confirmation Email:
-<img src="assets/Week3/Complete/Signup/userpool again/3 sign up.png">
-
-
-## Email Confirmed:
-<img src="assets/Week3/Complete/Signup/userpool again/5 Hm we can custom this from cognito (2).jpg" width="300">
-
-
-## Inside, we can custom this:
-
-<img src="assets/Week3/Complete/Signup/userpool again/6 Hm we can custom this from cognito (1).jpg" width="300">
-
-
-## Confirming:
-<img src="assets/Week3/Complete/Signup/userpool again/4 email sent.png">
-
-
-
-
-## Confirmed:
-
-<img src="assets/Week3/Complete/Signup/userpool again/6-6 confirmed.png">
-
-
-## Sign in after confirmation:
-<img src="assets/Week3/Complete/Signup/userpool again/7 sign in after confirmation.png">
-
-
-
-
-## Recover Notification:
-
-<img src="assets/Week3/Complete/Signup/userpool again/8r.jpg" width="300">
-
-## Password Recovery:
-
-
-<img src="assets/Week3/Complete/Signup/userpool again/8 recover pw.png">
-
-## Recovered Client's Account:
-<img src="assets/Week3/Complete/Signup/userpool again/9 perfect.png">
-
-## Client Recovered Connection✔️:
-<img src="assets/Week3/Complete/Signup/userpool again/10.png">
-
-
-> we better then login users after they confirm directly.
-
-
----
-
-# Cognito Jason Web Token — Construction
-
-
-## securing front:
-<img src="assets/Week3/Cognito JWT/1 this we have to pass it.png">
-
-
-<img src="assets/Week3/Cognito JWT/2 here, front.png">
-
-
-## Passing headers with authorization as called in homefeedpage:
-<img src="assets/Week3/Cognito JWT/3 passing headers with authorization as called in homefeedpage.png">
-
-## Blank:
-<img src="assets/Week3/Cognito JWT/4 blank screen error.png">
-
-## Shooting this:
-<img src="assets/Week3/Cognito JWT/4 trying to solve importing sys.png">
-
-
-## And this:
-<img src="assets/Week3/Cognito JWT/5 and adding stdout.png">
-
-## Yet:
-<img src="assets/Week3/Cognito JWT/6 no...png">
-
-## Trying to force flush:
-<img src="assets/Week3/Cognito JWT/7 tried to force flush.png">
-
-# Not yet:
-<img src="assets/Week3/Cognito JWT/8 no again.png">
-
-## Trying App logger:
-<img src="assets/Week3/Cognito JWT/9 trying app logger instead.png">
-
-## Still:
-<img src="assets/Week3/Cognito JWT/10 no...png">
-
-## Checking  the error:
-<img src="assets/Week3/Cognito JWT/11 out of the topic error.png">
-
-
-## We back with better error:
-<img src="assets/Week3/Cognito JWT/11-2 better error .png">
-
-## CORS Policy
-<img src="assets/Week3/Cognito JWT/12 hm cors policy.png">
-
-## Debug instead of info:
-<img src="assets/Week3/Cognito JWT/13 debu instead of info hm.png">
-
-
-## Up again:
-<img src="assets/Week3/Cognito JWT/14 cbn.png">
-
-## Where is my token:
-<img src="assets/Week3/Cognito JWT/15 these should print my token bro i dont see it.png">
-
-
-
----
-
-# Flask AWS Cognito Librairy —
-
-## Librairy source code:
-<img src="assets/Week3/Cognito JWT/Token/1 we may need thiscode -community driven nice.png">
-
-## Taking the class:
-<img src="assets/Week3/Cognito JWT/Token/2 take the class.png">
-
-## JWT Limits:
-<img src="assets/Week3/Cognito JWT/Token/3 kk he thinks there is some limitation to that.png">
-
-## Install the librairy:
-<img src="assets/Week3/Cognito JWT/Token/4 next anyway.png">
-
-## Learning about the librairy and its code base:
-<img src="assets/Week3/Cognito JWT/Token/5 u really should know about the librairy before u install it.png">
-
-
-<img src="assets/Week3/Cognito JWT/Token/6 we only need this 2 for the librairy.png">
-
-## Adjusting the code:
-<img src="assets/Week3/Cognito JWT/Token/7 adjusted as required for compose.png">
-
-## Importing the librairy:
-<img src="assets/Week3/Cognito JWT/Token/8 imported the librairy.png">
-
-## Validating the pattern:
-<img src="assets/Week3/Cognito JWT/Token/9 validate pattern.png">
-
-## Adding auth work to backend but im getting error:
-<img src="assets/Week3/Cognito JWT/Token/10 added auth work to backend but im getting error.png">
-
-## Limited librairy:
-<img src="assets/Week3/Cognito JWT/Token/11 bye limited librairy..png">
-<img src="assets/Week3/Cognito JWT/Token/12 hm.png">
-
-<img src="assets/Week3/Cognito JWT/Token/13 im just leaving you.png">
-
-## Here we are again:
-<img src="assets/Week3/Cognito JWT/Token/14 here we are again.png">
-
-## Adding these:
-<img src="assets/Week3/Cognito JWT/Token/15 We add these two.png">
-
-## And added here:
-<img src="assets/Week3/Cognito JWT/Token/16 and added here.png">
-
-## And did this:
-<img src="assets/Week3/Cognito JWT/Token/17 and do this.png">
-
-## From here:
-<img src="assets/Week3/Cognito JWT/Token/18 from here.png">
-
-## God tier plays:
-<img src="assets/Week3/Cognito JWT/Token/19 god tier plays.png">
-
-## We doing JWT so lets make it more readable:
-<img src="assets/Week3/Cognito JWT/Token/20 we doing JWT so lets make it more readable.png">
-
-## Digging deeper:
-<img src="assets/Week3/Cognito JWT/Token/21 dig it into it.png">
-
-## Adjusting librairy:
-<img src="assets/Week3/Cognito JWT/Token/22 adjust libariry name.png">
-
-## And this:
-<img src="assets/Week3/Cognito JWT/Token/23 and thisss.png">
-
-## Passing the token:
-<img src="assets/Week3/Cognito JWT/Token/24 passing the token.png">
-
-## Its fine:
-We aint changing the header.
-<img src="assets/Week3/Cognito JWT/Token/25 we aint changing the header so its fine.png">
-
-## This is not self:
-<img src="assets/Week3/Cognito JWT/Token/26 it is not self we adjusted it earlier.png">
-
-## Taking this out:
-<img src="assets/Week3/Cognito JWT/Token/28 take this out.png">
-
-## As well as this:
-<img src="assets/Week3/Cognito JWT/Token/29 and this.png">
-
-## We dont know what this class really about:
-<img src="assets/Week3/Cognito JWT/Token/30 we dont know what this class really about.png">
-
-## Maybe we can call it here, i mean in ruby nah but maybe in py:
-<img src="assets/Week3/Cognito JWT/Token/31 maybe we can call it here, i mean in ruby nah but maybe in py.png">
-
-## Import but this token service makes no sense:
-<img src="assets/Week3/Cognito JWT/Token/32 import but this token service makes no sense.png">
-
-## There is no data in here:
-<img src="assets/Week3/Cognito JWT/Token/33 there is no data i need from here.png">
-
-## The user pool is well set:
-<img src="assets/Week3/Cognito JWT/Token/34 the user pool is well set.png">
-
-## The client pool is set as well:
-<img src="assets/Week3/Cognito JWT/Token/35 client pool is also well set.png">
-
-## Errors:
-<img src="assets/Week3/Cognito JWT/Token/37 something is wrong.png">
-
-- [Troubleshoot Completion](#revert-back-to-jwt-debugging)
-
-# Gitpod is down
-<img src="assets/Week3/Codespaces/0- gitpod downbilling.png">
-
-## Configuring codespaces:
-<img src="assets/Week3/Codespaces/1 onboarding to codespaces and setup devcontainer json file .png">
-
-## Settin AWS CLI:
-<img src="assets/Week3/Codespaces/2 setting aws cli  access id.png">
-
-## Secret Key:
-<img src="assets/Week3/Codespaces/3 secret key.png">
-
-## Region:
-<img src="assets/Week3/Codespaces/4 region.png">
-
-## Overall Env var:
-<img src="assets/Week3/Codespaces/5 overall nice.png">
-
-## Setup port for front:
-<img src="assets/Week3/Codespaces/5-5 set up port env for frontend.png">
-
-## Env var port again:
-<img src="assets/Week3/Codespaces/5-5 set up ports env.png">
-
-## All set:
-<img src="assets/Week3/Codespaces/6 env var set.png">
-
-## Reloading:
-<img src="assets/Week3/Codespaces/6 reload required.png">
-
-## Rebuilding container:
-<img src="assets/Week3/Codespaces/7 rebuild container since its diff workplace and workspace.png">
-
-## Innovative thinking while loading:
-<img src="assets/Week3/Codespaces/8 rebuilding loading........png">
-
-## AWS is authenticated for the time number too much:
-<img src="assets/Week3/Codespaces/9 aws authenticated.png">
-
-## Container Launch:
-<img src="assets/Week3/Codespaces/10 after launchin the containers, hm why .png">
-
-## Codespaces is set:
-<img src="assets/Week3/Codespaces/11 cbn codespaces set.png">
-
-# Codespaces Down - Moving to local
-
-
-## AWS CLI:
-<img src="assets/Week3/docker-local/1 back vs code, set up aws.png">
-
-## Secret from UI
-<img src="assets/Week3/docker-local/2 secret.png">
-
-## Done:
-<img src="assets/Week3/docker-local/3.png">
-
-## Install AWS EXE:
-<img src="assets/Week3/docker-local/5 aws cli.png">
-
-## Checking Availability:
-<img src="assets/Week3/docker-local/6 cbn aws vscode.png">
-
-## Env var:
-<img src="assets/Week3/docker-local/7 set up env var.png">
-
-## Hm, i dont see:
-<img src="assets/Week3/docker-local/8 i dont see do youuu.png">
-
-## Exported, worked:
-<img src="assets/Week3/docker-local/9 all good all set i see now.png">
-
-## That's why we document our stuff:
-<img src="assets/Week3/docker-local/10 thats why we document our stuff officially authenticated.png">
-
-## Depedency requirements:
-<img src="assets/Week3/docker-local/11 requires npm scripts.png">
-
-## Satisfying it:
-<img src="assets/Week3/docker-local/12 doing the require.png">
-
-## Launching Docker local:
-<img src="assets/Week3/docker-local/13 docker local amazing.png">
-
-## Docker Images:
-<img src="assets/Week3/docker-local/14 docker images.png">
-
-## Available containers:
-<img src="assets/Week3/docker-local/15 containers stats.png">
-
-## Further stats:
-<img src="assets/Week3/docker-local/16 running.png">
-
-## Ops:
-<img src="assets/Week3/docker-local/16 -2 but port dont work.png">
-
-## Compose Config:
-<img src="assets/Week3/docker-local/17 because diff env required in docker compose.png">
-
-## And this:
-<img src="assets/Week3/docker-local/18 and this.png">
-
-## Close look:
-<img src="assets/Week3/docker-local/19 used to work hm.png">
-
-# Relaunching containers:
-<img src="assets/Week3/docker-local/20 try to clear caches.png">
-
-## Great News:
-We are back to the exact error before running out of credit in gitpod as well as moving to codespaces which run of space due to high volume of journal assets.
-<img src="assets/Week3/docker-local/21env is set (this is good )we back to the latest error we had before changing env.png">
-
-
-# Revert back to JWT Debugging
-
-[JWT Intial work](#cognito-jason-web-token--construction)
-
-## Backend Logs:
-<img src="assets/Week3/backend logs.png">
-
-## Browser:
-<img src="assets/Week3/more.png">
-
-## Token issue:
-<img src="assets/Week3/tokenissue.png">
-
-
-## Solved:
-<img src="assets/Week3/solved here.png">
-
-## However token is not passed: 
-
-<img src="assets/Week3/but token is not apssed.png">
-
-## Credit Restart - back to gitpod
-<img src="assets/Week3/Last-part/0-we-back-to-gitpod-credit-anyway.png">
-
-
-## Settin env:
-
-<img src="assets/Week3/Last-part/2- got it back.png">
-
-## we r BACK:
-<img src="assets/Week3/Last-part/3 solved the cors error.png">
-
-## Jwt verification:
-
-<img src="assets/Week3/Last-part/5 WEEK 3jwt  proof.png">
-
-## Wrapup Week 3: Improving UI
-
-<img src="assets/Week3/Last-part/6 WEEK 3 improved UI.png">
-
-
-
-
-
-
-
-
----
-
-# Week Three To-Do & Student Status
-| Task                                        | Status |
-|---------------------------------------------|--------|
-| Watched Ashish's Week 3                     |   ✅   |
-| Provision via ClickOps a Amazon Cognito User Pool                      |   ✅   |
-|Implement API calls to Amazon Coginto for custom login|✅|
-|Install and configure Amplify client-side library for Amazon Congito|✅|
-| Implement Custom Signup Page                 |   ✅   |
-| Implement Custom Confirmation Page           |   ✅   |
-| Implement Custom Recovery Page               |   ✅   |
-| Watch about different approaches to verifying JWTs  |   ✅   |
-|Verify JWT Token server side to serve authenticated API endpoints in Flask Application|✅|
-
-
-
----
-
-
-
-## Security Quiz
-
-| Question | Answer |
-| --- | --- |
-| Which additional AWS service should be enabled and monitored alongside Cognito to help detect malicious Cognito user behavior? | Cloud Trail |
-| When it comes to single-sign-on, what does the acronym SAML stand for? | Security Assertion Markup Language |
-| Which AWS service should be used with Cognito to enable rate limiting, and setup allow/deny rule lists? | WAF (Web Application Firewall) |
-| Which of the following is NOT an industry standard for authentication and authorization? | YAML |
-| Your Cognito deployment should only be in the AWS region which you are legally allowed to hold user data in | FALSE |
-
-
----
-
-| Alternatives and Considerations                                                                 | 
-|-------------------------------------------------------------------------------------------------|
-| We could have used Auth0 which is a popular decentralized authentication service which has a free-tier. Since we are building a social media website we have to consider the cost of Monthly Active Users (MAUs) |
-| In practice a social media platform would likely roll its own decentralized authentication service |
-| AuthN would have put on a good technical path to roll own decentralized authentication service however it requires Postgres and Redis so it would be too many extra moving parts and costs considerations for the scope of this bootcamp |
-| Azure AD B2C is another possible solution. Its low cost has support for many Identity Providers (IpDs) |
+- Amazon Cognito documentation on OpenID Connect: https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html
+- OpenID Connect website: https://openid.net/
+- OAuth 2.0 website: https://oauth.net/

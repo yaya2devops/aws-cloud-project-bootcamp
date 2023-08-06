@@ -48,5 +48,5 @@ ruby "./bin/backend/generate-env"
 ruby "./bin/backend/generate-env"
  ```
 Please consult the gitpod automation setup.
-- For the frontend, refer to [`.gitpod.yml` line 28](../.gitpod.yml#28).
-- For the backend, refer to [`.gitpod.yml` line 42](../.gitpod.yml#42).
+- For the frontend, refer to [`.gitpod.yml` line 28](../.gitpod.yml#L27).
+- For the backend, refer to [`.gitpod.yml` line 42](../.gitpod.yml#L41).
