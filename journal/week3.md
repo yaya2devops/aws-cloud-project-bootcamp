@@ -21,10 +21,14 @@ We'll be onboarding the app to a decentralized authentication system on the aws 
   - [Step 7: Testing the Confirmation Page](#step-7-testing-the-confirmation-page)
   - [Step 8: Creating Recovery Page](#step-8-creating-recovery-page)
   - [Step 9: Testing Recovery Page](#step-9-testing-recovery-page)
-
+- [Future of Cryptographic Passports](#the-future-of-cryptographic-passports)
+  - [Design JSON Web Tokens](#beyond-basics--design-personalized-jwt)
+  - [Serve Authenticated API Endpoints](#serve-authenticated-api-endpoints)
 # Compressing Protocols
 
 Authentication protocols are a set of rules that allow two parties to verify each other's identities, ensuring secure online transactions and protecting users' data. 
+
+![The Future Of Trust](assets/Week3/assets/future-trust.png)
 
 Authentication protocols have evolved over time to address security and usability challenges. 
 
@@ -92,7 +96,7 @@ When a user tries to access an **`OpenID-compliant application`**
 Moreover, OIDC is offered as a service to customers, delivering to you a seamless and dependable authentication solutions of the future.
 
 ## AWS Decentralized Authentication Solution
-AWS Cognito, The OIDC standard, is a fully managed service provided that enables developers to add user sign-up, sign-in, and access control functionalities to their applications. 
+AWS Cognito is a fully managed service provided that enables developers to add user sign-up, sign-in, and access control functionalities to their applications. 
 
 It offers a scalable and secure solution for handling user authentication and identity management, making it easier to manage user data and access across various devices and platforms.
 ```yaml
@@ -117,6 +121,7 @@ We will leverage the power of AWS Cognito to implement decentralized authenticat
 The user pool will be created and you will be able to retrieve the user pool ID and app client ID.
 
 <img src="assets/Week3/cognito/9 done .png">
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 1.0: Cruddur Cognito User Pool </div>
 
 **NOTES:**
 
@@ -197,7 +202,6 @@ export REACT_APP_CLIENT_ID=<APP_CLIENT_ID>
 ```
 
 ## Step 2: Authentication As Code
-
 Onboarding Cognito to these pages and require users to be authenticated to view these initial pages. This provides a more secure and seamless user experience. 
 - `HomeFeedPage.js` is the page where users will see their feed of posts.
 - `ProfileInfo.js` is the page where users can view their personal profile information and settings.
@@ -328,10 +332,7 @@ const onsubmit = async (event) => {
 };
 ```
 
-
 ## Step 4: Manual Sign-Ins Tests
-
-
 1. Go to the **Sign in** page of the user pool.
 2. Enter the user's email address and password.
 3. Click on the **Sign in** button.
@@ -342,7 +343,6 @@ const onsubmit = async (event) => {
 **Note:** The email address will be used to verify the user's account.
 
 #### Troubleshooting Above Error
-
 To address the error, follow these steps:
 
 1. Open your terminal or command prompt.
@@ -358,7 +358,6 @@ aws cognito-idp admin-set-user-password --username <username> --password <passwo
 - Replace `<userpool_id>` with the ID of your user pool.
 
 #### Re-attempt Sign-In
-
 1. After resetting the password, attempt to sign in again.
 
 <img src="assets/Week3/Amplify/32 working.png">
@@ -387,6 +386,7 @@ To effectively inspect user data, follow these steps
 3. Re-operate and sign in the a real user.
 
 <img src="assets/Week3/Complete/21 the result!.png">
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 2.0: Cruddur User Sign-In with Handle </div>
 
 #### Deleting User and Sign Out
 1. If needed, return to the AWS Cognito dashboard.
@@ -394,7 +394,6 @@ To effectively inspect user data, follow these steps
 3. Sign out of the Cruddur application to ensure a clean session.
 
 ## Step 5: Creating Sign-Up Page
-
 1. Open the `signupPage.js` file.
 2. Replace the `cookies` import with the following:
 ```js
@@ -422,7 +421,6 @@ const onsubmit = async (event) => {
 ```
 - The first line, `event.preventDefault()`, prevents the default behavior of the submit button, which would be to reload the page.
 - The next line, `setErrors('')`, clears the `errors` state variable.
-
 
 The goal is to keep your users signed in and engaged on the platform once they've logged in.
 
@@ -481,6 +479,7 @@ const onsubmit = async (event) => {
 5. Save the Sign-Up page and verify it.
 
 <img src="assets/Week3/Complete/Signup/userpool again/3 sign up.png">
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 3.0: Cruddur Sign Up Page </div>
 
 Once you have created the page it will now use the AWS Amplify library to sign up users.
 
@@ -490,7 +489,7 @@ Once you have created the page it will now use the AWS Amplify library to sign u
 ```js
 import { Auth } from 'aws-amplify';
 ```
-1. Locate the `resend_code` function and add the new code to handle Confirmation.
+2. Locate the `resend_code` function and add the new code to handle Confirmation.
 ```js
 const resend_code = async (event) => {
   setErrors('');
@@ -562,6 +561,8 @@ After incorporating these modifications, proceed through the following steps to 
 If necessary, you have the option to utilize the "Resend code" feature on the confirmation page, which allows you to obtain a fresh activation code via email.
 
 <img src="assets/Week3/Complete/Signup/userpool again/4 email sent.png">
+
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 4.0: Cruddur Confirmation Page POC </div>
 
 ### Post-Verification Steps
 
@@ -653,7 +654,6 @@ const onsubmit_confirm_code = async (event) => {
   return false;
 }
 ```
-
 ## Step 9: Testing Recovery Page
 
 1. Save the changes to the file and refresh the webpage in your browser.
@@ -665,14 +665,481 @@ const onsubmit_confirm_code = async (event) => {
 
 5. On the webpage, enter the recovery code along with your new password.
 
-
 <img src="assets/Week3/Complete/Signup/userpool again/8 recover pw.png">
 
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 4.0: Cruddur Recover Page - Forgot URL </div>
 
 6. Click the `Reset` button to finalize the password recovery process.
 7. Sign In again using the recovered password.
 
 <img src="assets/Week3/Complete/Signup/userpool again/10.png">
+
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 5.0: Cruddur SignIn After Recovery </div>
+
+# The Future of Cryptographic Passports
+Tokens have been used for authentication purposes in computing for quite some time. In a broader sense, a token is a piece of data that represents a user's identity, authentication session, or some other form of authorization. 
+
+![The Future Of Cryptography](assets/Week3/assets/crypto-banner-w3.png)
+
+Tokens are often used as an alternative to transmitting sensitive information like passwords over the network and come in various forms, such as, 
+- session cookies; User session management via browser cookies.
+- bearer tokens;  Access tokens for API authorization.
+- JWTs; Compact, self-contained data for secure information exchange.
+  
+The idea is to provide a secure and efficient way to authenticate users and authorize their access to protected resources.
+ 
+
+## JSON Web Tokens
+JWTs tend to be more complex and involve encoding claims, specifying algorithms, and managing signatures for secure information exchange. Let me uncover it for you.
+
+JWT was first proposed in 2011 by Auth0 and IANA. It is based on the JSON Web Signature (JWS) and JSON Web Encryption (JWE) standards.
+
+JSON Web Tokens is a compact, URL-safe means of representing claims to be transferred between two parties. 
+These claims can be used for authentication and authorization purposes. 
+
+JWTs consist of three parts,
+- **Header:** The header typically consists of two parts: the type of token and the signing algorithm being used, such as HMAC SHA256 or RSA.
+- **Payload:** The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data. There are three types of claims itself: registered, public, and private claims.
+- **Signature:** To create the signature part, you take the encoded header, encoded payload, a secret, the algorithm specified in the header, and sign that.
+
+We will leverage a custom JWT for Cruddur Application for user authentication, securing API endpoints, and transmitting information in a compact and verifiable way.
+
+**NOTE**<br>
+JWTs can be vulnerable to man-in-the-middle attacks if they are not transmitted securely. Additionally, JWTs can only be used to transmit a limited amount of data.
+
+
+## Beyond Basics — Design Personalized JWT
+
+1. Create a file `cognito_jwt_token.py` in the lib directory. This file will contain the code for verifying JWT tokens.
+2. Import the from following modules; `time`, `requests`, `jose`, `jose.exceptions`, `jose.utils`:
+```py
+import time
+import requests
+from jose import jwk, jwt
+from jose.exceptions import JOSEError
+from jose.utils import base64url_decode
+```	
+
+3. Create the following classes `FlaskAWSCognitoError` and `TokenVerifyError` exceptions to raise errors. 
+```py
+class FlaskAWSCognitoError(Exception):
+  pass
+
+class TokenVerifyError(Exception):
+  pass
+```
+
+The FlaskAWSCognitoError exception is raised for errors that are not related to the JWT token, such as errors that occur when loading the JWK keys. 
+
+4. Create extract_access_token function to extract the access token that takes the request headers as input and returns the access token if it is found. 
+
+```py
+def extract_access_token(request_headers):
+    access_token = None
+    auth_header = request_headers.get("Authorization")
+    if auth_header and " " in auth_header:
+        _, access_token = auth_header.split()
+    return access_token
+```
+This function is a good example of how to use regular expressions to extract data from strings. The regular expression `" "` in `auth_header` checks if the Authorization header contains a space character. The regular expression `_`, `access_token = auth_header.split()` splits the Authorization header on the space character and returns the second part of the header as the access token.
+
+5. Start creating the `CognitoJwtToken` Class with the following methods and decoders.
+```py
+class CognitoJwtToken:
+    def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
+    # To be Continued
+
+    def _load_jwk_keys(self):
+    # To be Continued
+
+    @staticmethod
+    def _extract_headers(token):
+    # To be Continued
+
+    def _find_pkey(self, headers):
+    # To be Continued
+
+    @staticmethod
+    def _verify_signature(token, pkey_data):
+    # To be Continued
+
+    @staticmethod
+    def _extract_claims(token):
+    # To be Continued
+
+    @staticmethod
+    def _check_expiration(claims, current_time):
+    # To be Continued
+
+    def _check_audience(self, claims):
+    # To be Continued
+
+    def verify(self, token, current_time=None):
+    # To be Continued
+```
+
+* Create `__init__` method to initializes the class with the AWS region, user pool ID, user pool client ID, and a request client.
+```py
+    def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
+        self.region = region
+        if not self.region:
+            raise FlaskAWSCognitoError("No AWS region provided")
+        self.user_pool_id = user_pool_id
+        self.user_pool_client_id = user_pool_client_id
+        self.claims = None
+        if not request_client:
+            self.request_client = requests.get
+        else:
+            self.request_client = request_client
+        self._load_jwk_keys()
+```
+* Add `_load_jwk_keys` to loads the JSON Web Key keys from the Cognito user pool.
+```py
+    def _load_jwk_keys(self):
+        keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"
+        try:
+            response = self.request_client(keys_url)
+            self.jwk_keys = response.json()["keys"]
+        except requests.exceptions.RequestException as e:
+            raise FlaskAWSCognitoError(str(e)) from e
+```
+* `_extract_headers` which Extracts the headers from the JWT token.
+```py
+    @staticmethod
+    def _extract_headers(token):
+        try:
+            headers = jwt.get_unverified_headers(token)
+            return headers
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+```
+*  Finds the public key for the JWT token in the JWK keys using `_find_pkey`.
+```py
+    def _find_pkey(self, headers):
+        kid = headers["kid"]
+        key_index = -1
+        for i in range(len(self.jwk_keys)):
+            if kid == self.jwk_keys[i]["kid"]:
+                key_index = i
+                break
+        if key_index == -1:
+            raise TokenVerifyError("Public key not found in jwks.json")
+        return self.jwk_keys[key_index]
+```
+* `_verify_signature` - Verifies the signature of the JWT token.
+```py
+    @staticmethod
+    def _verify_signature(token, pkey_data):
+        try:
+            public_key = jwk.construct(pkey_data)
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+        message, encoded_signature = str(token).rsplit(".", 1)
+        decoded_signature = base64url_decode(encoded_signature.encode("utf-8"))
+        if not public_key.verify(message.encode("utf8"), decoded_signature):
+            raise TokenVerifyError("Signature verification failed")
+
+```
+The `@staticmethod` decorator is used to create a static method that can be called without needing to instantiate an object of the class. 
+* `_extract_claims` - Extracts the claims from the JWT token.
+```py
+    @staticmethod
+    def _extract_claims(token):
+        try:
+            claims = jwt.get_unverified_claims(token)
+            return claims
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+```
+* Create`_check_expiration` to check if the JWT token has expired.
+```py
+    @staticmethod
+    def _check_expiration(claims, current_time):
+        if not current_time:
+            current_time = time.time()
+        if current_time > claims["exp"]:
+            raise TokenVerifyError("Token is expired") 
+```
+* `_check_audience` - Checks if the JWT token is intended for the specified audience.
+```py
+    def _check_audience(self, claims):
+        audience = claims["aud"] if "aud" in claims else claims["client_id"]
+        if audience != self.user_pool_client_id:
+            raise TokenVerifyError("Token was not issued for this audience")
+```
+* Verify the JWT token and returns the claims using `verify`.
+```py
+    def verify(self, token, current_time=None):
+        """ https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py """
+        if not token:
+            raise TokenVerifyError("No token provided")
+
+        headers = self._extract_headers(token)
+        pkey_data = self._find_pkey(headers)
+        self._verify_signature(token, pkey_data)
+
+        claims = self._extract_claims(token)
+        self._check_expiration(claims, current_time)
+        self._check_audience(claims)
+
+        self.claims = claims 
+        return claims
+```
+
+The `verify` method is the most important method in the class. It takes a JWT token as input and returns the claims if the token is valid. The method first extracts the headers from the token and then finds the public key for the token in the JWK keys. 
+
+The method then verifies the signature of the token and extracts the claims. Finally, the method checks if the token has expired and if it is intended for the specified audience. If all of the checks pass, the method returns the claims. Otherwise, the method raises an exception.
+
+Here we are, having completed the design of our JWT token. Please verify It looks like this.
+```py
+import time
+import requests
+from jose import jwk, jwt
+from jose.exceptions import JOSEError
+from jose.utils import base64url_decode
+
+class FlaskAWSCognitoError(Exception):
+  pass
+
+class TokenVerifyError(Exception):
+  pass
+
+def extract_access_token(request_headers):
+    access_token = None
+    auth_header = request_headers.get("Authorization")
+    if auth_header and " " in auth_header:
+        _, access_token = auth_header.split()
+    return access_token
+
+class CognitoJwtToken:
+    def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
+        self.region = region
+        if not self.region:
+            raise FlaskAWSCognitoError("No AWS region provided")
+        self.user_pool_id = user_pool_id
+        self.user_pool_client_id = user_pool_client_id
+        self.claims = None
+        if not request_client:
+            self.request_client = requests.get
+        else:
+            self.request_client = request_client
+        self._load_jwk_keys()
+
+    def _load_jwk_keys(self):
+        keys_url = f"https://cognito-idp.{self.region}.amazonaws.com/{self.user_pool_id}/.well-known/jwks.json"
+        try:
+            response = self.request_client(keys_url)
+            self.jwk_keys = response.json()["keys"]
+        except requests.exceptions.RequestException as e:
+            raise FlaskAWSCognitoError(str(e)) from e
+
+    @staticmethod
+    def _extract_headers(token):
+        try:
+            headers = jwt.get_unverified_headers(token)
+            return headers
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+
+    def _find_pkey(self, headers):
+        kid = headers["kid"]
+        key_index = -1
+        for i in range(len(self.jwk_keys)):
+            if kid == self.jwk_keys[i]["kid"]:
+                key_index = i
+                break
+        if key_index == -1:
+            raise TokenVerifyError("Public key not found in jwks.json")
+        return self.jwk_keys[key_index]
+
+    @staticmethod
+    def _verify_signature(token, pkey_data):
+        try:
+            public_key = jwk.construct(pkey_data)
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+        message, encoded_signature = str(token).rsplit(".", 1)
+        decoded_signature = base64url_decode(encoded_signature.encode("utf-8"))
+        if not public_key.verify(message.encode("utf8"), decoded_signature):
+            raise TokenVerifyError("Signature verification failed")
+
+    @staticmethod
+    def _extract_claims(token):
+        try:
+            claims = jwt.get_unverified_claims(token)
+            return claims
+        except JOSEError as e:
+            raise TokenVerifyError(str(e)) from e
+
+    @staticmethod
+    def _check_expiration(claims, current_time):
+        if not current_time:
+            current_time = time.time()
+        if current_time > claims["exp"]:
+            raise TokenVerifyError("Token is expired")
+
+    def _check_audience(self, claims):
+        audience = claims["aud"] if "aud" in claims else claims["client_id"]
+        if audience != self.user_pool_client_id:
+            raise TokenVerifyError("Token was not issued for this audience")
+
+    def verify(self, token, current_time=None):
+        """ https://github.com/awslabs/aws-support-tools/blob/master/Cognito/decode-verify-jwt/decode-verify-jwt.py """
+        if not token:
+            raise TokenVerifyError("No token provided")
+
+        headers = self._extract_headers(token)
+        pkey_data = self._find_pkey(headers)
+        self._verify_signature(token, pkey_data)
+
+        claims = self._extract_claims(token)
+        self._check_expiration(claims, current_time)
+        self._check_audience(claims)
+
+        self.claims = claims 
+        return claims
+```
+
+
+
+Now, it's time to move forward with its implementation.
+
+
+## Serve Authenticated API Endpoints
+
+
+1. In `HomeFeedPage.js`, under the `loadData` function, add the following code to the `const` declaration to include the required authorization headers when making a GET request:
+
+```js
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+```
+
+This code will add an Authorization header to the request, with the value of the access token stored in localStorage. This will tell the backend that the request is authenticated.
+
+2. In `components/ProfileInfo.js`, modify the code in the `signOut()` function to remove the access token from localStorage:
+```js
+const signOut = async () => {
+    try {
+        await Auth.signOut({ global: true });
+        window.location.href = "/"
+        localStorage.removeItem("access_token")
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+  }
+```
+
+The addition will remove the access token from localStorage, so that the user will be logged out when they sign out.
+
+3. In the backend, update the CORS configuration in `app.py` to allow the `Authorization` header to be passed in requests to the backend API.
+<img src="assets/Week3/Cognito JWT/14 cbn.png">
+
+```py
+cors = CORS(
+    app,
+    resources={r"/api/*": {"origins": origins}},
+    headers=["Content-Type", "Authorization", "traceparent"],
+    expose_headers="Authorization",
+    methods="OPTIONS,GET,HEAD,POST",
+)
+```
+
+4. In the `app.py`, add a logger statement to the `data_home()` route to print the Authorization header so that you can verify that it is being passed in correctly.
+<img src="assets/Week3/Cognito JWT/3 passing headers with authorization as called in homefeedpage.png">
+
+```py
+app.logger.debug("AUTH HEADER", request.headers.get("Authorization"))
+```
+
+5. Open the backend logs and verify that the `Authorization` header is being printed. 
+
+Once you have verified that it is working correctly, you can delete the logger statement or leave it.
+
+6. In the `app.py`, import the cognito_jwt_token module.
+```py
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+```
+7. Initialize a CognitoJwtToken object in the app object below main.
+
+```python
+cognito_jwt_token = CognitoJwtToken(
+    region=os.getenv("AWS_DEFAULT_REGION"),
+    user_pool_client_id=os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
+    user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"),
+)
+```
+
+8. Update the data_home route to verify the JWT token before returning the data.
+```python
+@app.route("/api/activities/home", methods=["GET"])
+def data_home():
+    access_token = extract_access_token(request.headers)
+    try:
+        claims = cognito_jwt_token.verify(access_token)
+        # authenticated request
+        app.logger.debug("authenticated")
+        app.logger.debug(claims)
+        app.logger.debug(claims["username"])
+        data = HomeActivities.run(cognito_user_id=claims["username"])
+    except TokenVerifyError as e:
+        # unauthenticated request
+        app.logger.debug(e)
+        app.logger.debug("unauthenticated")
+        data = HomeActivities.run()
+    return data, 200
+```
+9. Update the `home_activities.py` file to add a new cognito_user_id argument to the run function.
+```python
+if cognito_user_id != None:
+    extra_crud = {
+      'uuid': '248959df-3079-4947-b847-9e0892d1baz4',
+      'handle':  'Lore',
+      'message': 'My dear brother, it the humans that are the problem',
+      'created_at': (now - timedelta(hours=1)).isoformat(),
+      'expires_at': (now + timedelta(hours=12)).isoformat(),
+      'likes': 1042,
+      'replies': []
+    }
+    results.insert(0,extra_crud)
+```
+10. Add a new if statement to the run function to check if the `cognito_user_id` is not None. If it is not None, then add a new crud object to the results list.
+
+11. Add `python-jose` packages to the requirements.txt file.
+```
+requests
+python-jose
+```
+12. Install the packages using `pip install -r` `requirements.txt`.
+
+13. Update the `signOut` function in the `components/ProfileInfo.js` file to clear the `access_token` from local storage.
+```jsx
+const signOut = async () => {
+    try {
+        await Auth.signOut({ global: true });
+        window.location.href = "/"
+        localStorage.removeItem("access_token")
+    } catch (error) {
+        console.log('error signing out: ', error);
+    }
+  }
+```
+
+
+- When you log in to the app, the `data_home` route will verify the JWT token and return the data. 
+- If you are logged out, the `data_home` route will not verify the JWT token and will return an error.
+
+Now try logging in and out and consult applicatoin logs.
+
+<img src="assets/Week3/Last-part/5 WEEK 3jwt  proof.png">
+
+
+
+
+
+
+
 
 **Reference**
 - [Amazon Cognito OpenID Connect](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html) 
