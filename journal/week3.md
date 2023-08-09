@@ -1,8 +1,10 @@
 # Week 3 — Decentralized Authentication
 
-Traditional authentication systems are centralized and rely on a single point of failure which makes them more vulnerable to cyberattacks. Decentralized authentication is a more secure and private alternative that does not rely on a central authority, welcome to week three.
+Week three marks the introduction of decentralized authentication, a robust and confidential alternative to the conventional centralized authentication systems that rely on a single point of failure which makes them more vulnerable to cyberattacks. 
 
-By the end of this, users should have complete ownership of their identities and control how they are shared. You can be confident that your identities are secure and that your data is not being shared without your consent.
+Decentralized authentication is a more secure and private alternative that does not rely on a central authority.
+
+By the end of this, users should have complete ownership of their identities and control how they are shared. You can be confident that your digital individuality is secure and that your data is not being shared without your consent.
 
 ## Week Three Main Tasks
 We'll be onboarding the app to a decentralized authentication system on the aws platform and we'll show you exactly how.
@@ -22,8 +24,10 @@ We'll be onboarding the app to a decentralized authentication system on the aws 
   - [Step 8: Creating Recovery Page](#step-8-creating-recovery-page)
   - [Step 9: Testing Recovery Page](#step-9-testing-recovery-page)
 - [Future of Cryptographic Passports](#the-future-of-cryptographic-passports)
-  - [Design JSON Web Tokens](#beyond-basics--design-personalized-jwt)
+  - [Tokenize Your Authentication](#create-a-json-web-token)
+  - [Design JWTs Verification System](#beyond-basics--design-personalized-jwt)
   - [Serve Authenticated API Endpoints](#serve-authenticated-api-endpoints)
+- [Improving UI Contrast and Implementing CSS Variables ](#pixel-perfect-pro-ui-and-css-variables)
 # Compressing Protocols
 
 Authentication protocols are a set of rules that allow two parties to verify each other's identities, ensuring secure online transactions and protecting users' data. 
@@ -32,10 +36,10 @@ Authentication protocols are a set of rules that allow two parties to verify eac
 
 Authentication protocols have evolved over time to address security and usability challenges. 
 
-Following SAML to 2005, the W3C released the OpenID specification, which is a standard for decentralized authentication. OpenID has been widely adopted, and it is now one of the most popular methods of decentralized authentication.
+Following SAML in 2005, the W3C introduced the OpenID specification, establishing a standard for decentralized authentication. This specification has gained significant traction and is currently among the most widely embraced approaches for decentralized authentication.
 
 | Protocol        | Release | Description              |
-|-----------------|:--------------:|---------------|
+|-----------------:|:--------------:|:---------------|
 | **SAML 1.0**        | 2002         | Allows users to be authenticated and authorized across multiple domains.                       |
 | **SAML 2.0**        | 2005         | A more secure version for exchanging authentication and authorization information.              |
 | **OpenID**          | 2005         | A simple and easy-to-use protocol for single sign-on.                                          |
@@ -102,7 +106,7 @@ It offers a scalable and secure solution for handling user authentication and id
 ```yaml
 User --> [AWS Cognito] --(OAuth 2.0, OpenID Connect)--> [Identity Pool] --> [Federated Identities] --> [AWS Services, Yacrud, Products..]
 ```
-We will leverage the power of AWS Cognito to implement decentralized authentication, as well as enable smooth user sign-in, sign-up, and password recovery processes.
+We will leverage the power of AWS Cognito to implement the above decentralized authentication processes for our great users.
 
 
 ### Create Amazon Cognito User Pool
@@ -202,7 +206,8 @@ export REACT_APP_CLIENT_ID=<APP_CLIENT_ID>
 ```
 
 ## Step 2: Authentication As Code
-Onboarding Cognito to these pages and require users to be authenticated to view these initial pages. This provides a more secure and seamless user experience. 
+Onboarding Cognito to the below web app pages require users to be authenticated. <br>
+This provides a more secure and seamless user experience. 
 - `HomeFeedPage.js` is the page where users will see their feed of posts.
 - `ProfileInfo.js` is the page where users can view their personal profile information and settings.
 
@@ -688,8 +693,7 @@ Tokens are often used as an alternative to transmitting sensitive information li
   
 The idea is to provide a secure and efficient way to authenticate users and authorize their access to protected resources.
  
-
-## JSON Web Tokens
+## Create a JSON Web Token
 JWTs tend to be more complex and involve encoding claims, specifying algorithms, and managing signatures for secure information exchange. Let me uncover it for you.
 
 JWT was first proposed in 2011 by Auth0 and IANA. It is based on the JSON Web Signature (JWS) and JSON Web Encryption (JWE) standards.
@@ -702,13 +706,132 @@ JWTs consist of three parts,
 - **Payload:** The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data. There are three types of claims itself: registered, public, and private claims.
 - **Signature:** To create the signature part, you take the encoded header, encoded payload, a secret, the algorithm specified in the header, and sign that.
 
-We will leverage a custom JWT for Cruddur Application for user authentication, securing API endpoints, and transmitting information in a compact and verifiable way.
+```yaml
++--------------------------------------------------------------------+
+|                              JWT                                   |
+|--------------------------------------------------------------------|
+|                        Header (Base64)                             |
+|--------------------------------------------------------------------|
+|                        Payload (Base64)                            |
+|--------------------------------------------------------------------|
+|                       Signature (Base64)                           |
++--------------------------------------------------------------------+
+```
+### Why Base64?
 
-**NOTE**<br>
+**Base64** is a binary-to-text encoding scheme that is commonly used to represent binary data in a printable ASCII string format. This allows to safely transmit and store our token.
+
+JWTs need to be compact and easily transmissible. To achieve this, the JSON header is first converted into a string and then encoded in Base64Url format. 
+
+Base64Url encoding is a variation of Base64 that is URL-safe and *does not* include characters that might cause issues in URLs or filenames.
+
+1. **Header (Base64Url encoded JSON):**
+```JSON
+{
+  "alg": "HS256",   // Algorithm used for signing (e.g., HMAC SHA-256)
+  "typ": "JWT"      // Token type
+}
+```
+
+* `alg` (Algorithm): Specifies the algorithm used to sign the token, such as HMAC SHA-256 (HS256) or RSA (RS256).
+* `typ` (Type): Describes the type of token, which is JWT in this case.
+* For instance, if the above JSON header is Base64Url encoded: `eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9`
+
+2. **Payload (Base64Url encoded JSON):**
+```JSON
+{
+  "sub": "1234567890",    // Subject (user id)
+  "name": "Yaya DevOps",     // User's name
+  "iat": 1516239022      // Issued at (timestamp)
+}
+```
+- The payload contains claims, which are statements about an entity (typically the user) and additional metadata. 
+- These claims can include user information, expiration time `exp`, issuer `iss`, and more.
+* Payload might as well look like: `eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ`
+
+3. **Signature:**
+The signature is created by combining the encoded header, encoded payload, and a secret key using the specified algorithm. It ensures the integrity of the JWT and verifies that it hasn't been tampered with. The signature is then **Base64Url** encoded.
+
+* Signature: `SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`
+
+4. The complete JWT is a concatenation of the Base64Url-encoded header, payload, and signature, separated by periods.
+```YAML
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.
+SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+Again, the signature is generated using the header and payload along with a secret key and a chosen algorithm. <br>The recipient can use the same secret key to validate the signature and ensure the JWT's integrity.
+
+- [🟡 Ready to Empower Yourself? Craft Your Own JWT Instantly! 🚀](https://jwt.io/)
+
+What is required further is to establish libraries and frameworks that handle JWT creation and verification which is what we will be working on next.	
+
+We will leverage a custom verify JWT for Cruddur Application on Python Flask.
+
+**Considerations**<br>
 JWTs can be vulnerable to man-in-the-middle attacks if they are not transmitted securely. Additionally, JWTs can only be used to transmit a limited amount of data.
 
-
 ## Beyond Basics — Design Personalized JWT
+Without a robust verification system, the validity of these tokens cannot be guaranteed, exposing applications to potential vulnerabilities. The process of verifying JWT tokens involves a series of crucial steps aimed at confirming the authenticity and trustworthiness of incoming tokens. 
+
+This verification system acts as a safeguard, mitigating the risks associated with unauthorized access, token tampering, and expired sessions.
+
+**Please envision the following as a mental visualization of the verification process;**
+```yaml
+   ┌──────────────────┐              ┌────────────────┐
+   │   Receive JWT    │              │ Parse Token    │
+   │     Token        ◄────────────▶    (Header,       
+   └──────────────────┘              │   Payload,     │
+                                     │   Signature)   │
+                                     └────────────────┘
+                                                 │
+                                                 ▼
+                               ┌───────────────────────┐
+                               │   Validate Header     │
+                               │  (Algorithm Check)    │
+                               └───────────────────────┘
+                                                 │
+                                                 ▼
+                     ┌─────────────────────────────────────┐
+                     │ Validate Issuer and Audience        │
+                     └─────────────────────────────────────┘
+                                                 │
+                                                 ▼
+              ┌─────────────────────────────────────────────────┐
+              │ Check Expiration Time (exp) and Not Before (nbf)│
+              └─────────────────────────────────────────────────┘
+                                                 │
+                                                 ▼
+                 ┌────────────────────────────────────────┐
+                 │    Check Issued At (iat) if Necessary  │
+                 └────────────────────────────────────────┘
+                                                 │
+                                                 ▼
+    ┌───────────────────────────────────────────────────────────┐
+    │     Verify Signature (Using Secret Key or Public Key)     │
+    └───────────────────────────────────────────────────────────┘
+                                                 │
+                                                 ▼
+                         ┌─────────────────────────────────┐
+                         │   Make Token Validity Decision  │
+                         └─────────────────────────────────┘
+                                                 │
+                                                 ▼
+                       ┌──────────────────────────────────┐
+                       │ Perform Additional Custom Checks │
+                       └──────────────────────────────────┘
+                                                 │
+                                                 ▼
+                           ┌────────────────────────┐
+                           │     Process Request    │
+                           └────────────────────────┘
+                            │  │  │
+                            ▼  ▼  ▼   
+     ┌──────────────────────────────────────────────┐
+     │    Resource Access, Response Generation      │
+     └──────────────────────────────────────────────┘                
+```
+We aim to accomplish the aboves by crafting our unique JWT verification mechanism using Python. If ready, let's do it.
 
 1. Create a file `cognito_jwt_token.py` in the lib directory. This file will contain the code for verifying JWT tokens.
 2. Import the from following modules; `time`, `requests`, `jose`, `jose.exceptions`, `jose.utils`:
@@ -777,7 +900,6 @@ class CognitoJwtToken:
     def verify(self, token, current_time=None):
     # To be Continued
 ```
-
 * Create `__init__` method to initializes the class with the AWS region, user pool ID, user pool client ID, and a request client.
 ```py
     def __init__(self, user_pool_id, user_pool_client_id, region, request_client=None):
@@ -1000,10 +1122,7 @@ class CognitoJwtToken:
         return claims
 ```
 
-
-
 Now, it's time to move forward with its implementation.
-
 
 ## Serve Authenticated API Endpoints
 
@@ -1045,23 +1164,20 @@ cors = CORS(
     methods="OPTIONS,GET,HEAD,POST",
 )
 ```
-
 4. In the `app.py`, add a logger statement to the `data_home()` route to print the Authorization header so that you can verify that it is being passed in correctly.
 <img src="assets/Week3/Cognito JWT/3 passing headers with authorization as called in homefeedpage.png">
 
 ```py
 app.logger.debug("AUTH HEADER", request.headers.get("Authorization"))
 ```
-
 5. Open the backend logs and verify that the `Authorization` header is being printed. 
 
 Once you have verified that it is working correctly, you can delete the logger statement or leave it.
-
-6. In the `app.py`, import the cognito_jwt_token module.
+6. In the `app.py`, import the `cognito_jwt_token` module.
 ```py
 from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
 ```
-7. Initialize a CognitoJwtToken object in the app object below main.
+7. Initialize a `CognitoJwtToken` object in the app object below main.
 
 ```python
 cognito_jwt_token = CognitoJwtToken(
@@ -1070,8 +1186,7 @@ cognito_jwt_token = CognitoJwtToken(
     user_pool_id=os.getenv("AWS_COGNITO_USER_POOL_ID"),
 )
 ```
-
-8. Update the data_home route to verify the JWT token before returning the data.
+8. Update the `data_home` route to verify the JWT token before returning the data.
 ```python
 @app.route("/api/activities/home", methods=["GET"])
 def data_home():
@@ -1090,7 +1205,7 @@ def data_home():
         data = HomeActivities.run()
     return data, 200
 ```
-9. Update the `home_activities.py` file to add a new cognito_user_id argument to the run function.
+9. Update the `home_activities.py` file to add a new `cognito_user_id` argument to the run function.
 ```python
 if cognito_user_id != None:
     extra_crud = {
@@ -1105,7 +1220,6 @@ if cognito_user_id != None:
     results.insert(0,extra_crud)
 ```
 10. Add a new if statement to the run function to check if the `cognito_user_id` is not None. If it is not None, then add a new crud object to the results list.
-
 11. Add `python-jose` packages to the requirements.txt file.
 ```
 requests
@@ -1125,21 +1239,163 @@ const signOut = async () => {
     }
   }
 ```
-
-
 - When you log in to the app, the `data_home` route will verify the JWT token and return the data. 
 - If you are logged out, the `data_home` route will not verify the JWT token and will return an error.
 
-Now try logging in and out and consult applicatoin logs.
+Now try logging in and out and consult application logs.
 
 <img src="assets/Week3/Last-part/5 WEEK 3jwt  proof.png">
 
+##  Pixel Perfect Pro: UI and  CSS Variables 
 
+In the following segment, we'll elevate the website's visual allure through meticulous CSS refinement and precision tuning of the user interface.
 
+<img src="assets/Week3/Cognito JWT/Token/37 something is wrong.png">
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 6.0: Cruddur Stale User Interface </div>
 
+1. Define the color palette in the `index.css` file to create an appealing design variables.
+```css
+:root {
+  --bg: rgb(61,13,123);
+  --fg: rgb(8,1,14);
 
+  --field-border: rgb(255,255,255,0.29);
+  --field-border-focus: rgb(149,0,255,1);
+  --field-bg: rgb(31,31,31);
+}
+```
+2. In the same `index.css` file, set the `background-color` property in `html,body` element.
+```css
+* { box-sizing: border-box; }
+html,body { 
+  height: 100%; 
+  width: 100%; 
+/* background: rgb(14,3,28); */
+  background: var(--bg);
+}
+```
+3. Within the `src/app.css` file, update the background color of the `.content` element to match the `--fg` color variable.
+```css
+.content {
+  width: 600px;
+  height: 100%;
+  /* background: #000;*/
+  background: var(--fg);
+}
+```
+4. Navigate to `components/ActivityItem.css` and enhance the appearance by modifying the `border-bottom` style within the `.activity_item` class.
+```css
+.activity_item {
+  display: flex;
+  flex-direction: column;
+  /*border-bottom: solid 1px rgb(31,36,49);*/
+  border-bottom: solid 1px rgb(60,54,79);
+  overflow: hidden;
+  padding: 16px;
+}
+```
+5. Make the UI more vibrant by changing the color of `section footer a` links in the `components/DesktopSidebar.css` file.
+```css
+section footer a {
+  text-decoration: none;
+  /*color: rgba(255,255,255,0.2);*/
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+```
+6. Inside `/components/JoinSection.css`, apply the defined color scheme by setting the `background-color` and `border` properties for `.search_field input[type='text']`.
+```css
+.join {
+  display: flex;
+  flex-direction: column;
+  /*background: #000;*/
+  background: var(--fg);
+  border-radius: 8px;
+  margin-top: 24px;
+}
+```
+7. Continue in the same file and improve the focus style of the `.search_field input[type='text']` element by adjusting its border.
+```css
+.search_field input[type='text'] {
+  /*border: solid 1px rgba(149,0,255,0.1);*/
+  /*background: rgba(149,0,255,0.1);*/
+  border: solid 1px var(--field-border);
+  background: var(--field-bg);
+  padding: 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+  color: #fff;
+}
 
+.search_field input[type='text']:focus {
+  /*border: solid 1px rgb(149,0,255,1);*/
+  border: solid 1px var(--field-border-focus)
+}
+```
+8. Open `signinpage.css` and update the border and background of `input[type='text']` and `input[type='password']` within the `article.signin-article` class.
+```css
+article.signin-article input[type='text'],
+article.signin-article input[type='password'] {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  display: block;
+  outline: none;
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  /*border: solid 1px #555555;*/
+  /*background: #1f1f1f;*/
+  border: solid 1px var(--field-border);
+  background: var(--field-bg);
+  color: #fff;
+}
+```
+9. In the same file, enhance the focus style of `input[type='text']` and `input[type='password']` within the `article.signin-article` class.
+```css
+article.signin-article input[type='text']:focus ,
+article.signin-article input[type='password']:focus {
+  /*border: solid 1px rgb(149,0,255,1);*/
+  border: solid 1px var(--field-border-focus);
+}
+```
+10. For the signup page, provide a consistent look by adding the border color to `input[type='text']` and `input[type='password']` elements within `article.signup-article`.
+```css
+article.signup-article input[type='text'],
+article.signup-article input[type='password'] {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  display: block;
+  outline: none;
+  resize: none;
+  width: 100%;
+  padding: 16px;
+  /*border: solid 1px #555555;*/
+  border: solid 1px var(--field-border);
+  background: #1f1f1f;
+  color: #fff;
+}
+```
+11. Complete the signup page by enhancing the focus style of `input[type='text']` and `input[type='password']` elements within the `article.signup-article` class.
+```css
+article.signup-article input[type='text']:focus ,
+article.signup-article input[type='password']:focus {
+  /*border: solid 1px rgb(149,0,255,1);*/
+  border: solid 1px var(--field-border-focus);
+}
+```
+12. Make your way to the frontend to experience firsthand the brilliance of the applied design.
 
+ [**💻 Code Commit**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/731380cbf21db6f8c7b17896d715bf6251edbe44)
+<img src="assets/Week3/Last-part/6 WEEK 3 improved UI.png">
+<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 7.0: Cruddur CSS Visual Contrast</div>
 
 **Reference**
 - [Amazon Cognito OpenID Connect](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html) 
