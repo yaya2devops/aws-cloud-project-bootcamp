@@ -4,7 +4,7 @@ Week three marks the introduction of decentralized authentication, a robust and 
 
 Decentralized authentication is a more secure and private alternative that does not rely on a central authority.
 
-By the end of this, users should have complete ownership of their identities and control how they are shared. You can be confident that your digital individuality is secure and that your data is not being shared without your consent.
+By the end of this, users should have complete ownership of their identities and control how they are shared. You can be confident that your digital individuality is safe and that your data is not being shared without your consent with ultimate Protection.
 
 ## Week Three Main Tasks
 We'll be onboarding the app to a decentralized authentication system on the aws platform and we'll show you exactly how.
@@ -27,9 +27,18 @@ We'll be onboarding the app to a decentralized authentication system on the aws 
   - [Tokenize Your Authentication](#create-a-json-web-token)
   - [Design JWTs Verification System](#beyond-basics--design-personalized-jwt)
   - [Serve Authenticated API Endpoints](#serve-authenticated-api-endpoints)
-- [Improving UI Contrast and Implementing CSS Variables ](#pixel-perfect-pro-ui-and-css-variables)
-# Compressing Protocols
+- [Improving UI Contrast and Implementing CSS Variables ](#pixel-css-perfect-pro-max)
 
+## Table Of Figures
+- [Fig 1.0: Cruddur Cognito User Pool](#cognito-figure)
+- [Fig 2.0: Cruddur User Sign-In with Handle](#signin-figure)
+- [Fig 3.0: Cruddur Sign Up Page ](#signup-figure)
+- [Fig 4.0: Cruddur Confirmation Page POC](#confirm-figure)
+- [Fig 5.0: Cruddur SignIn After Recovery](#recover-figure)
+- [Fig 6.0: Cruddur Stale User Interface](#staleui-figure)
+- [Fig 7.0: Cruddur CSS Visual Contrast](#cssed-figure)
+
+# Compressing Protocols
 Authentication protocols are a set of rules that allow two parties to verify each other's identities, ensuring secure online transactions and protecting users' data. 
 
 ![The Future Of Trust](assets/Week3/assets/future-trust.png)
@@ -38,14 +47,14 @@ Authentication protocols have evolved over time to address security and usabilit
 
 Following SAML in 2005, the W3C introduced the OpenID specification, establishing a standard for decentralized authentication. This specification has gained significant traction and is currently among the most widely embraced approaches for decentralized authentication.
 
-| Protocol        | Release | Description              |
-|-----------------:|:--------------:|:---------------|
-| **SAML 1.0**        | 2002         | Allows users to be authenticated and authorized across multiple domains.                       |
-| **SAML 2.0**        | 2005         | A more secure version for exchanging authentication and authorization information.              |
-| **OpenID**          | 2005         | A simple and easy-to-use protocol for single sign-on.                                          |
-| **OAuth 1.0**       | 2007         | Allowed third-party apps to access protected resources on behalf of users but was complex and less secure. |
-| **OAuth 2.0**       | 2012         | Improved OAuth 1.0 with a simpler and more secure protocol, becoming the most widely used today. |
-| **OpenID Connect**  | 2015         | A more advanced protocol that builds on top of OAuth 2.0 to provide SSO and access control.     |
+| Protocol            | Release        | Description              |
+|-----------------:   |:--------------:|:---------------|
+| **SAML 1.0**        | 2️⃣0️⃣0️⃣2️⃣     | Allows users to be authenticated and authorized across multiple domains.                      |
+| **SAML 2.0**        | 2️⃣0️⃣0️⃣5️⃣     | A more secure version for exchanging authentication and authorization information.             |
+| **OpenID**          | 2️⃣0️⃣0️⃣5️⃣     | A simple and easy-to-use protocol for single sign-on.      |
+| **OAuth 1.0**       | 2️⃣0️⃣0️⃣7️⃣     | Allowed third-party apps to access protected resources on behalf of users but was complex and less secure. |
+| **OAuth 2.0**       | 2️⃣0️⃣1️⃣2️⃣     | Improved OAuth 1.0 with a simpler and more secure protocol, becoming the most widely used today. |
+| **OpenID Connect**  | 2️⃣0️⃣1️⃣5️⃣     | A more advanced protocol that builds on top of OAuth 2.0 to provide SSO and access control.     |
 
 ## Protocols and Use Cases
 
@@ -108,7 +117,6 @@ User --> [AWS Cognito] --(OAuth 2.0, OpenID Connect)--> [Identity Pool] --> [Fed
 ```
 We will leverage the power of AWS Cognito to implement the above decentralized authentication processes for our great users.
 
-
 ### Create Amazon Cognito User Pool
 1. aws to the [Cognito](https://console.aws.amazon.com/cognito/) in the console.
 2. Click **Create a user pool**.
@@ -125,10 +133,9 @@ We will leverage the power of AWS Cognito to implement the above decentralized a
 The user pool will be created and you will be able to retrieve the user pool ID and app client ID.
 
 <img src="assets/Week3/cognito/9 done .png">
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 1.0: Cruddur Cognito User Pool </div>
+<div id="cognito-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 1.0: Cruddur Cognito User Pool </div>
 
 **NOTES:**
-
 * The `name` and `preferred_username` attributes cannot be changed after creation.
 * The `Send email with Cognito` option uses Amazon SNS to send emails.
 * There is a limit on the number of emails that can be sent for free each month.
@@ -141,20 +148,20 @@ Amplify enables conditional rendering of elements and data based on whether the 
 
 Amplify is employed with Amazon Cognito for client-side authentication and enable API calls for custom *login*, *signup*, and *recovery* functionality. 
 
-**The following source files require authentication implementations.**
-| Source File                                  | Description                                     |
-|-------------------------------------------|--------------------------------------------------------------|
-| `app.py`          | Backend configurations for amplify for cognito.  |
+**As we proceed to shape the forthcoming code to meet our authentication requirements,**
+| Source File  | Description                                                  |
+|-------------:|:--------------------------------------------------------------|
+| `app.py`          | Backend configurations for amplify for cognito.         |
 | `docker-compose.yml`          | Cognito Environment variables and app local testing.  |
-| `HomeFeedPage.js`          | Page responsible for displaying the home feed content.  |
-| `ProfileInfo.js`      | Component for displaying user profile information.      |
-| `SigninPage.js`            | Page for user sign-in functionality.                    |
-| `SignupPage.js`           | Page for user registration.                              |
+| `HomeFeedPage.js`          | Page responsible for displaying the home feed content.   |
+| `ProfileInfo.js`      | Component for displaying user profile information.            |
+| `SigninPage.js`            | Page for user sign-in functionality.                     |
+| `SignupPage.js`           | Page for user registration.                               |
 | `DesktopNavigation.js` | Component to conditionally show links based on login status. |
-| `ConfirmationPage.js`     | Page for confirming user accounts and resending codes.   |
+| `ConfirmationPage.js`     | Page for confirming user accounts and resending codes.    |
 | `RecoverPage.js`           | Page for user password recovery.                         |
 
-Leveraging Cognito with Amplify, we can achieve a secure and efficient authentication for our application.
+Leveraging Cognito with Amplify, we can achieve a secure and efficient authentication mechanism for our application.
 
 ## Step 1: Install and Configure Amplify
 1. Install Amplify
@@ -344,7 +351,6 @@ const onsubmit = async (event) => {
 
 <img src="assets/Week3/Amplify/21 touchpoint.png">
 
-
 **Note:** The email address will be used to verify the user's account.
 
 #### Troubleshooting Above Error
@@ -391,7 +397,7 @@ To effectively inspect user data, follow these steps
 3. Re-operate and sign in the a real user.
 
 <img src="assets/Week3/Complete/21 the result!.png">
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 2.0: Cruddur User Sign-In with Handle </div>
+<div id="signin-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 2.0: Cruddur User Sign-In with Handle </div>
 
 #### Deleting User and Sign Out
 1. If needed, return to the AWS Cognito dashboard.
@@ -484,7 +490,7 @@ const onsubmit = async (event) => {
 5. Save the Sign-Up page and verify it.
 
 <img src="assets/Week3/Complete/Signup/userpool again/3 sign up.png">
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 3.0: Cruddur Sign Up Page </div>
+<div id="signup-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 3.0: Cruddur Sign Up Page </div>
 
 Once you have created the page it will now use the AWS Amplify library to sign up users.
 
@@ -567,7 +573,7 @@ If necessary, you have the option to utilize the "Resend code" feature on the co
 
 <img src="assets/Week3/Complete/Signup/userpool again/4 email sent.png">
 
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 4.0: Cruddur Confirmation Page POC </div>
+<div id="confirm-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 4.0: Cruddur Confirmation Page POC </div>
 
 ### Post-Verification Steps
 
@@ -679,7 +685,7 @@ const onsubmit_confirm_code = async (event) => {
 
 <img src="assets/Week3/Complete/Signup/userpool again/10.png">
 
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 5.0: Cruddur SignIn After Recovery </div>
+<div id="recover-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 5.0: Cruddur SignIn After Recovery </div>
 
 # The Future of Cryptographic Passports
 Tokens have been used for authentication purposes in computing for quite some time. In a broader sense, a token is a piece of data that represents a user's identity, authentication session, or some other form of authorization. 
@@ -701,11 +707,9 @@ JWT was first proposed in 2011 by Auth0 and IANA. It is based on the JSON Web Si
 JSON Web Tokens is a compact, URL-safe means of representing claims to be transferred between two parties. 
 These claims can be used for authentication and authorization purposes. 
 
-JWTs consist of three parts,
-- **Header:** The header typically consists of two parts: the type of token and the signing algorithm being used, such as HMAC SHA256 or RSA.
-- **Payload:** The second part of the token is the payload, which contains the claims. Claims are statements about an entity (typically, the user) and additional data. There are three types of claims itself: registered, public, and private claims.
-- **Signature:** To create the signature part, you take the encoded header, encoded payload, a secret, the algorithm specified in the header, and sign that.
-
+*JWTs consist of three parts,*
+- **Header:** The header typically consists of two parts: the type of token and the signing algorithm being used, such as `HMAC` `SHA256` or `RSA`.
+- **Payload:** The second part of the token is the payload, which contains the claims. Claims are statements about an `entity` (typically, the user) and additional `data`. There are three types of claims itself: `registered`, `public`, and `private` claims.
 ```yaml
 +--------------------------------------------------------------------+
 |                              JWT                                   |
@@ -717,6 +721,8 @@ JWTs consist of three parts,
 |                       Signature (Base64)                           |
 +--------------------------------------------------------------------+
 ```
+- **Signature:** To create the signature part, you take the `encoded header`, `encoded payload`, a `secret`, the `algorithm` specified in the header, and `sign` that.
+
 ### Why Base64?
 
 **Base64** is a binary-to-text encoding scheme that is commonly used to represent binary data in a printable ASCII string format. This allows to safely transmit and store our token.
@@ -728,8 +734,8 @@ Base64Url encoding is a variation of Base64 that is URL-safe and *does not* incl
 1. **Header (Base64Url encoded JSON):**
 ```JSON
 {
-  "alg": "HS256",   // Algorithm used for signing (e.g., HMAC SHA-256)
-  "typ": "JWT"      // Token type
+  "alg": "HS256",   
+  "typ": "JWT"      
 }
 ```
 
@@ -740,9 +746,9 @@ Base64Url encoding is a variation of Base64 that is URL-safe and *does not* incl
 2. **Payload (Base64Url encoded JSON):**
 ```JSON
 {
-  "sub": "1234567890",    // Subject (user id)
-  "name": "Yaya DevOps",     // User's name
-  "iat": 1516239022      // Issued at (timestamp)
+  "sub": "1234567890",    
+  "name": "Yahya Abulhaj",     
+  "iat": 1516239022      
 }
 ```
 - The payload contains claims, which are statements about an entity (typically the user) and additional metadata. 
@@ -764,9 +770,75 @@ Again, the signature is generated using the header and payload along with a secr
 
 - [🟡 Ready to Empower Yourself? Craft Your Own JWT Instantly! 🚀](https://jwt.io/)
 
-What is required further is to establish libraries and frameworks that handle JWT creation and verification which is what we will be working on next.	
+## From Here to Infinity: The Path Ahead
 
-We will leverage a custom verify JWT for Cruddur Application on Python Flask.
+What is required further is to establish libraries and frameworks that handle JWT creation and verification which is what we will be working.
+
+The design comes in two ways and the choice between symmetric and asymmetric JWTs lies in the way they are signed or verified.
+
+- Symmetric JWTs use a single secret key for both signing and verification. They are simpler and faster but require careful management of the secret key to prevent unauthorized access.
+- Asymmetric JWTs use a private key for signing and a corresponding public key for verification. They provide higher security and are suitable for scenarios where multiple parties need to verify tokens or where token verification is distributed.
+
+Other factors when architecting Include security requirements, infrastructure, and performance considerations. We will leverage a **custom verify JWT** for Cruddur Application on Python Flask using  the **asymmetric cryptography** to verify the signature.
+
+### Extending User Sessions
+
+In a typical authentication flow with JWTs, a user logs in using their credentials (username and password), and if the credentials are valid, the server issues both an access token and a refresh token to the client.
+
+```YAML
+Login:   --------------------------------------+
+                  | User Enters |    Server    |
+                  | Credentials |    Validates |
+                  -----------------------------+
+                                   |           +
+                                   v           +
+Access Token:  --------------------------------+
+                  | Server Generates |         +
+                  | Access Token     |         +
+                  -----------------------------+
+                                   |
+                                   v
+Refresh Token: ---------------------------------+
+                  | Server Generates |          +
+                  | Refresh Token    |          +
+                  ------------------------------+
+                                   |
+                                   v
+Access Token:  ---------------------------------+
+                  | Client Sends    |           +
+                  | Access Token    |           +
+                  | in Requests     |           +
+                  ------------------------------+
+                                   |
+                                   v
+           -------------------------------------+
+          | Access Token Expires,               |
+          | Client Uses Refresh Token to Request|
+          | a New Access Token                  +
+           -------------------------------------+
+                                   |
+                                   v
+Access Token:     -------------------------------+
+                  | Server Validates|            +
+                  | Refresh Token   |            +
+                  | and Generates   |            +
+                  | New Access Token|            +
+                  -------------------------------+
+                                   |
+                                   v
+          +--------------------------------------+
+          | Client Sends New Access Token in     |
+          |  Next Requests                       +
+          +--------------------------------------+
+```
+* The user logs in with `credentials`.
+* The server generates an `access token` (short-lived) and a `refresh token` (long-lived).
+* The client uses the `access token` to make requests to protected resources.
+* When the access token expires, the client uses the `refresh token` to request a new access token without the need for the user to log in again.
+* The server validates the `refresh token` and generates a `new access token.
+* The client uses the `new access token` to continue accessing protected resources.
+
+This is an approach worth informing that enhances security by reducing the exposure of user credentials and provides a smoother user experience.
 
 **Considerations**<br>
 JWTs can be vulnerable to man-in-the-middle attacks if they are not transmitted securely. Additionally, JWTs can only be used to transmit a limited amount of data.
@@ -793,7 +865,7 @@ This verification system acts as a safeguard, mitigating the risks associated wi
                                                  │
                                                  ▼
                      ┌─────────────────────────────────────┐
-                     │ Validate Issuer and Audience        │
+                     │    Validate Issuer and Audience     │
                      └─────────────────────────────────────┘
                                                  │
                                                  ▼
@@ -1173,6 +1245,7 @@ app.logger.debug("AUTH HEADER", request.headers.get("Authorization"))
 5. Open the backend logs and verify that the `Authorization` header is being printed. 
 
 Once you have verified that it is working correctly, you can delete the logger statement or leave it.
+
 6. In the `app.py`, import the `cognito_jwt_token` module.
 ```py
 from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
@@ -1246,12 +1319,13 @@ Now try logging in and out and consult application logs.
 
 <img src="assets/Week3/Last-part/5 WEEK 3jwt  proof.png">
 
-##  Pixel Perfect Pro: UI and  CSS Variables 
+##  Pixel CSS Perfect Pro Max
 
 In the following segment, we'll elevate the website's visual allure through meticulous CSS refinement and precision tuning of the user interface.
 
 <img src="assets/Week3/Cognito JWT/Token/37 something is wrong.png">
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 6.0: Cruddur Stale User Interface </div>
+<div id="staleui-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 6.0: Cruddur Stale User Interface </div>
+<br>
 
 1. Define the color palette in the `index.css` file to create an appealing design variables.
 ```css
@@ -1395,9 +1469,12 @@ article.signup-article input[type='password']:focus {
 
  [**💻 Code Commit**](https://github.com/yaya2devops/aws-cloud-project-bootcamp/commit/731380cbf21db6f8c7b17896d715bf6251edbe44)
 <img src="assets/Week3/Last-part/6 WEEK 3 improved UI.png">
-<div align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 7.0: Cruddur CSS Visual Contrast</div>
+<div id="cssed-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 7.0: Cruddur CSS Visual Contrast</div>
+
+> How I made this in three brief minutes? [Love Open Source💕](https://chat.openai.com/share/eba490ec-78dc-4923-80f6-c74991833712)
 
 **Reference**
+- [JWTs - Internet Engineering Task Force](https://www.rfc-editor.org/rfc/rfc7519)
 - [Amazon Cognito OpenID Connect](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html) 
 - [OpenID Connect website](https://openid.net/) 
 - [OAuth 2.0 website](https://oauth.net/)

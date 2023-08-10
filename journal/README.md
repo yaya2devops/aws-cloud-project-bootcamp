@@ -41,7 +41,7 @@ Strategically located in 1️⃣ site.
 | [Week 0](week0.md)  | ⭐Billing and Architecture         | Feb 11, 2023 |   ✘    |
 | [Week 1](week1.md)  | ⭐Docker and App Containerization                         | Feb 18, 2023 |   ✘    |
 | [Week 2](week2.md)  | ⭐Distributed Tracing                                     | Feb 25, 2023 |   ✘    |
-| [Week 3](week3.md)  | Decentralized Authentication <br>(*Under Revision*)        | Mar 4, 2023  |   ✘   |
+| [Week 3](week3.md)  | ⭐Decentralized Authentication       | Mar 4, 2023  |   ✘   |
 | [Week 4](week4.md)  | SQL Database with PostgreSQL  <br>(*Under Revision*)       | Mar 11, 2023 |   ✘   |
 | [Week 5](week5.md)  | NoSQL Database with AWS DynamoDB <br>(*Under Revision*)    | Mar 18, 2023 |   ✘   |
 | [Week 6](week6.md)  | Deploying Serverless Containers  <br>(*Under Revision*) (Part 1/2)            | Mar 25, 2023 |   ✘   |
