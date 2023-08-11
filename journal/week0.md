@@ -25,7 +25,7 @@ We'll be performing **cloud architecture, security, cost considerations, and ope
   - [AWS Well-Architected Framework](#empowering-design-with-aws-well-architected-framework)
 - [Security Considerations](#security-considerations)
   - [ Apply MFA to the AWS Root User](#how-to-apply-mfa-to-the-aws-root-user)
-  - [What is an AWS Organization Unit?](#what-is-an-aws-organization-unit)
+  - [What is an AWS Organization, OU?](#account-management-with-aws-organizations)
   - [Managing IAM Users and Roles in AWS](#managing-iam-users-and-roles-in-aws)
   - [Email Addresses with Aliasing](#email-addresses-with-aliasing)
     - [📧 Real-World Application](#-real-world-application)
@@ -144,17 +144,19 @@ Have you ever wondered what would be a valuable tip I could share with you? READ
 - **Play "be-the-packet"** — This exercise can help you to understand how data is transmitted through the network.
 - **Document everything** — This includes both technical and non-technical documentation.
 
-**By doing so, you can achive the following :==)**
+**By doing so, you can**
 - *Prevents misunderstandings*<br>
 Everyone will be using the same terminology, so there will be no confusion about what different terms mean.
 - *Makes communication easier* <br>It will be easier for people to understand each other and to collaborate on projects.
 - *Improves the quality of the product* <br>When everyone is on the same page, the product will be more likely to be successful.
-How to Overcome Challenges
 
-Lastly. Be patient. It takes time.💯<br>
+**How to Overcome Challenges?**
+
+Be patient. It takes time.💯<br>
 Be consistent and use the same terminology throughout the project and be willing to compromise. 
 
-Not everyone will agree on everything, but it's important to find common ground.
+Not everyone will agree on everything.<br> 
+But it's important to find common ground.
 
 # Types of Architectural Diagrams
 
@@ -374,6 +376,21 @@ To enable MFA for the root user, follow these steps:
 Once you have enabled MFA for the root user, you will need to provide your MFA token when you sign in. <br>
 This will help to protect your account from unauthorized access.
 
+
+## Account Management with AWS Organizations
+AWS Organizations is a service provided by AWS that enables centralized management of multiple AWS accounts within an organization. 
+
+The standard procedure for integrating into your team generally involves the sequential stages outlined below, which we will proceed to implement.
+
+[☁️ Get Started w/ AWS NOW.](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tutorials_basic.html)
+![AWS Orgs For Startups](https://docs.aws.amazon.com/images/organizations/latest/userguide/images/tutorialorgs.png)
+
+This helps businesses efficiently manage their cloud resources by allowing them to create a hierarchy of accounts, which can represent different departments, projects, or teams.
+
+Starting out, you have no organizational units except for a root unit.
+
+![Root UI](assets/week0/assets/aws-org.png)
+
 ## What is an AWS Organization Unit?
 An AWS Organization Unit (OU) is a logical grouping of AWS accounts within an AWS Organization. OUs can be used to organize and manage AWS accounts more effectively, and to simplify account management tasks.
 ```
@@ -423,6 +440,8 @@ To create an AWS Organization Unit, you can use the AWS Organizations console or
 5. (Optional) Enter a description for the OU.
 6. Click the **Create** button.
 
+![AWS OUs](assets/week0/assets/create-ounits.png)
+
 You can now use it to organize your AWS accounts and to simplify account management tasks by business unit, application or department. 
 
 ##  Managing IAM Users and Roles in AWS
@@ -438,7 +457,7 @@ An IAM user is an individual or application that uses AWS resources. To set up a
 
 1. Create a user name and password for the user.
 2. (Optional) Tag the user with metadata.
-3. Click next or "Suivant" ;)
+3. Click next or `Suivant` ;)
 
 <img src="assets/week0/IAM DONE.png">
 
@@ -1029,10 +1048,14 @@ Here is a comprehensive and detailed representation that **I have prepared** for
 
 1. Create a new SNS topic and subscribe to it using the following aws command:
 ```bash
-aws sns create-topic --name pr-api-notification
+aws sns create-topic --name <topic-name>
 ```
-After creating the topic, copy the SNS Topic `Amazon Resource Name` or ARN for later use.
-
+After creating the topic, copy the SNS Topic `Amazon Resource Name` or ARN for later use e.g. output:
+```bash
+{
+    "TopicArn": "arn:aws:sns:<region>:<aws-id>:<topic-name>"
+}
+```
 2. Subscribe to the newly created SNS topic using the aws command below. Replace `<region>` with your `AWS region`, `<account-id>` with your AWS account ID, and `<email>` with the email address you want to use for receiving notifications:
 
 ```bash
@@ -1041,12 +1064,17 @@ aws sns subscribe \
 --protocol email \
 --notification-endpoint <email>
 ```
+
+3. Confirm your subscription to the topic.
+
+![Confirm seconds later](assets/week0/postapi/postapi-confirm.png)
+
 ### Create Lambda
 
 1. Create a Lambda function with Python `3.9` runtime.
-2. Enable the function URL in the Lambda function configuration.
-3. Set the function's to `no auth type`.
-4. Add the following code to your lambda
+2. Enable the function URL in the Lambda function configuration 
+3. Check box none to auth or [leave both steps for later.](#assign-url-for-lambda)
+3. Add the following code to your lambda
 
 ```py
 import json
@@ -1071,8 +1099,8 @@ def lambda_handler(event, context):
       'body': json.dumps(response)
    }
 ```
-5. Assign the sns arn.
-6. Deploy the Lambda function.
+4. Assign the sns arn.
+5. Deploy the Lambda function.
 
 ### **Granting SNS Access to the Lambda Function**
 
@@ -1085,6 +1113,36 @@ You need to enable SNS access to the Lambda function,
 5. Now, choose **Attach Policies** to proceed.
 6. Filter the policy list and search for **AmazonSNSFullAccess**.
 7. Select **AmazonSNSFullAccess** and attach it to the Lambda function's role.
+
+![SNS Full Access Policy Attached](assets/week0/postapi/postapi-lambda-per.png)
+
+### Assign URL for Lambda
+You have to generate an URL to make use of in our post request.
+
+1. Open the `configuration pane`.
+2. In the left pane, navigate to the `function URL` section.
+3. Generate a new URL and select the `No Authorization` option (`Auth Type; NONE`).
+4. observe the policy sattements you have just made.
+```JSON
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "StatementId": "FunctionURLAllowPublicAccess",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "lambda:InvokeFunctionUrl",
+      "Resource": "arn:aws:lambda:<region>:<aws-id>:function:postapi",
+      "Condition": {
+        "StringEquals": {
+          "lambda:FunctionUrlAuthType": "NONE"
+        }
+      }
+    }
+  ]
+}
+```
+5. Verify the modifications if you haven't performed the aforementioned actions during the initial setup.
 
 ### Test Post Endpoint
 
@@ -1100,8 +1158,12 @@ curl --request POST \
   --data '{"name": "yaya2devops", "message": "NOTIFIED: Lambda Post Triggered"}'
 ```
 Replace `https://yours.lambda-url.<region>.on.aws/` with the actual Lambda function URL.
-- Check your API tool returning 200 OK on success.
-- Check your subscribed email for the post notif.
+
+3. Check your API tool returning 200 OK on success.
+![Thunder Client Vs Code Extension](assets/week0/postapi/postapi-poc.png)
+
+4. Check your subscribed email for the post notif.
+![Post API Email](assets/week0/postapi/postapi-email.png)
 
 ## Creating a CloudWatch Alarm
 
