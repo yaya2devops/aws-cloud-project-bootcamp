@@ -56,7 +56,7 @@ The challenges are additional tasks presented as an exciting opportunity for boo
 | Implement a Container Sidecar pattern using AWS’s official Aws-jwt-verify.js library             | Hard       |  ❗❗     |
 | Decouple the JWT verify process by using Envoy as a sidecar                                      | Hard       |       ❗❗ |
 | Implement a IdP login (e.g. Login with Amazon or Facebook or Apple)                               | Hard       |    ❗❗   |
-| Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ❗❗     |
+| Implement MFA that sends an SMS (text message) (Note: This may have additional costs)             | Easy       |   ✅     |
 
 
 ---

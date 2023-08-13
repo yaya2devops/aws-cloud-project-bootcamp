@@ -8,8 +8,8 @@ Strategically located in 1️⃣ site.
 | :---: | :--- | 
 | [Project Scenario](resources/project-scenario.md)  |Review the project scenario to determine the overall scope|
 | [Student Portal](resources/student-portal.md) | Online portal for accessing course materials and weekly tasks |
-| [Builder Assets](assets/README.md)  | The author's collection of resources and screenshots|
 | [Required Tasks](resources/required-tasks.md)  | My current standing with regard to the required bootcamp duties|
+| [Builder Assets](assets/README.md)  | The author's collection of resources and screenshots|
 | [ Challenges](resources/homework.md)  | Bonus tasks for those seeking more homework challenges|
 | [ Beautify](../_docs/assets/README.md) | The Builder's  promotion of the marketing aspect of the things |
 
@@ -17,15 +17,14 @@ Strategically located in 1️⃣ site.
     
 | Resource | Description | 
 | :---: | --- | 
-| [Gitpod Migration](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
-| [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
+| [Gitpod Migate](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
+| [SAM Templates](../ddb/README.md) |  Provisioning Infrastructure with AWS SAM Templates  | 
+| [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
 | [AWS Guidebook](../aws/README.md) | Developer references for AWS Console resources | 
 | [AWS CDK](../thumbing-serverless-cdk/README.md) |  Provision Cloud Resources with AWS CDK in Typescript  | 
-| [SAM Templates](../ddb/README.md) |  Provisioning Infrastructure with AWS SAM Templates  | 
 | [VS Code Tasks](../.vscode/README.md) |  Automate processes and run scripts using vscode tasks | 
-| [Discord Issues](assets/week4/Discord/README.md)  | Troubleshooting exchanged with community in Discord |
-| [ Stories](resources/instagram-stories.md)  | Bootcamp Assets shared to community on instagram |
+| [ Issues,](assets/week4/Discord/README.md) [Stories](resources/instagram-stories.md)  | Troubleshooting and assets exchanged with community |
 
 </div>
 
