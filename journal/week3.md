@@ -2,7 +2,9 @@
 
 Week three marks the introduction of decentralized authentication, a robust and confidential alternative to the conventional centralized authentication systems that rely on a single point of failure which makes them more vulnerable to cyberattacks. 
 
-Decentralized authentication is a more secure and private alternative that does not rely on a central authority.
+Decentralized authentication offers a heightened level of security and privacy by eliminating the dependence on a central authority.
+
+![My Banner Back!](assets/Week3/week3-banner.png)
 
 By the end of this, users should have complete ownership of their identities and control how they are shared. You can be confident that your digital individuality is safe and that your data is not being shared without your consent with ultimate Protection.
 
@@ -1471,7 +1473,8 @@ article.signup-article input[type='password']:focus {
 <img src="assets/Week3/Last-part/6 WEEK 3 improved UI.png">
 <div id="cssed-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 7.0: Cruddur CSS Visual Contrast</div>
 
-> How I made this in three brief minutes? [Love Open Source💕](https://chat.openai.com/share/eba490ec-78dc-4923-80f6-c74991833712)
+| :information_source:        | Crafting CSS in just 3 minutes! [Click](https://chat.openai.com/share/eba490ec-78dc-4923-80f6-c74991833712) to redirect.      |
+|---------------|:------------------------|
 
 **Reference**
 - [JWTs - Internet Engineering Task Force](https://www.rfc-editor.org/rfc/rfc7519)
