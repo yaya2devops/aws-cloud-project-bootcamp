@@ -1473,11 +1473,13 @@ article.signup-article input[type='password']:focus {
 <img src="assets/Week3/Last-part/6 WEEK 3 improved UI.png">
 <div id="cssed-figure" align="center" style="font-weight: bold; margin-bottom:12px; padding-top:0px">Fig 7.0: Cruddur CSS Visual Contrast</div>
 
-| :information_source:        | Crafting CSS in just 3 minutes! [Click](https://chat.openai.com/share/eba490ec-78dc-4923-80f6-c74991833712) to redirect.      |
-|---------------|:------------------------|
+<br>
 
 **Reference**
 - [JWTs - Internet Engineering Task Force](https://www.rfc-editor.org/rfc/rfc7519)
 - [Amazon Cognito OpenID Connect](https://docs.aws.amazon.com/cognito/latest/developerguide/open-id.html) 
 - [OpenID Connect website](https://openid.net/) 
 - [OAuth 2.0 website](https://oauth.net/)
+
+| :information_source:        | Crafting CSS in just 3 minutes! [Click](https://chat.openai.com/share/eba490ec-78dc-4923-80f6-c74991833712) to redirect.      |
+|---------------|:------------------------|

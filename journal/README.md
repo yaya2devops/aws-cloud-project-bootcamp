@@ -17,7 +17,8 @@ Strategically located in 1️⃣ site.
     
 | Resource | Description | 
 | :---: | --- | 
-| [Gitpod Migate](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
+| [Mermaid ](resources/mermaid.md) | A powerful and intuitive text-based diagramming tool| 
+| [Gitpod Migrate](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
 | [SAM Templates](../ddb/README.md) |  Provisioning Infrastructure with AWS SAM Templates  | 
 | [Weekly Tagging](resources/tagging.md) | Guide for properly tagging and labeling project resources | 
