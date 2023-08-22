@@ -37,7 +37,7 @@ Strategically located in 1️⃣ site.
 <img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="712">  
 
 | Journal | Technologies                                                           | Start Date   | Status |
-| :-----: | -------------------------------------------------                      | ----------   | :----: |
+| :-----: | :-------------------------------------------------                      | ----------   | :----: |
 | [Week 0](week0.md)  | ⭐Billing and Architecture         | Feb 11, 2023 |   ✘    |
 | [Week 1](week1.md)  | ⭐Docker and App Containerization                         | Feb 18, 2023 |   ✘    |
 | [Week 2](week2.md)  | ⭐Distributed Tracing                                     | Feb 25, 2023 |   ✘    |

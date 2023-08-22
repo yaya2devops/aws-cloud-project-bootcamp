@@ -2,8 +2,6 @@
 
 Mermaid is a text-based diagramming and visualization tool that empowers users to create intricate and professional diagrams using simple textual descriptions.
 
-
-I employed this technology in week 4 along postgresql and databases.
 ```mermaid
 graph TD
     A[Users] -->|1| B[Posts]
