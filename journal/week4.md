@@ -1,67 +1,26 @@
 # Week 4 — SQL Databases
 
-In the fourth week, we will harness the power of Structured Query Language. This advanced database will serve as the repository for user profiles, seamlessly integrating their platform activities, which encompass Create, Read, Update, and Delete operations. 
+In the 4th week, we will leverage the capabilities of **Structured Query Language**, a powerful tool for working with databases. The sophisticated system will function as the repository for user profiles, seamlessly integrating their platform activities which encompass **Create, Read, Update, and Delete operations**. 
 
-Through this exploration, we aspire to deepen our understanding of how databases intricately manage user interactions, thereby augmenting our practical skill set in a significant manner.
+Through this exploration, we aspire to deepen our understanding of how databases intricately manage user interactions, thereby **augmenting our practical skill** set in a *significant manner*.
 
 ## Week Four Main Tasks
-- [Week 4 — SQL Databases](#week-4--sql-databases)
-  - [Opting for PostgreSQL](#opting-for-postgresql)
-    - [Pathways to Success in Database](#pathways-to-success-in-database)
+- [Pathways to Success In Databases](#pathways-to-success-in-database)
+- [Opting for PostgreSQL](#opting-for-postgresql)
   - [Amazon Relational Database Service](#amazon-relational-database-service)
-    - [Creating an RDS Instance in AWS Console](#creating-an-rds-instance-in-aws-console)
-    - [Creating an RDS Instance in AWS CLI](#creating-an-rds-instance-in-aws-cli)
-  - [PSQL for Everyone](#psql-for-everyone)
-    - [SQL Maestro Pro](#sql-maestro-pro)
+    - [Creating an RDS Instance In The Console](#creating-an-rds-instance-in-aws-console)
+    - [Creating an RDS Instance In AWS CLI](#creating-an-rds-instance-in-aws-cli)
+- [PSQL for Everyone](#psql-for-everyone)
+  - [SQL Maestro Pro](#sql-maestro-pro)
   - [Cruddur Database Create](#cruddur-database-create)
-  - [Design PSQL Schema](#design-psql-schema)
-    - [Step 1 : PostgreSQL UUID](#step-1--postgresql-uuid)
-    - [Step 2 : Load Intial PSQL Schema](#step-2--load-intial-psql-schema)
-    - [Step 3: Expand Dropping Tables](#step-3-expand-dropping-tables)
-    - [Step 4: Creating the `users` Table](#step-4-creating-the-users-table)
-    - [Step 5: Creating the `activities` Table](#step-5-creating-the-activities-table)
-    - [Step 6: Schema Successfully Established](#step-6-schema-successfully-established)
-    - [Step 7: RELOAD SQL Schema](#step-7-reload-sql-schema)
-  - [Simplify Connecting To PSQL](#simplify-connecting-to-psql)
-  - [Connecting to AWS RDS Instance in Gitpod](#connecting-to-aws-rds-instance-in-gitpod)
-    - [Step 1: Set Environment Variable](#step-1-set-environment-variable)
-    - [Step 2: Adjust Security Group Inbound Rules](#step-2-adjust-security-group-inbound-rules)
-    - [Step 3: Test Database Connection](#step-3-test-database-connection)
-    - [Step 4: Security Group Update](#step-4-security-group-update)
-    - [Step 5: Automate Security Group Update](#step-5-automate-security-group-update)
-    - [Step 6: Load Schema to RDS](#step-6-load-schema-to-rds)
-    - [Step 7: Test Prod Connection and Schema](#step-7-test-prod-connection-and-schema)
-  - [Bash Scripts for Database Operations](#bash-scripts-for-database-operations)
-    - [Step 1: Organize Script Files](#step-1-organize-script-files)
-    - [Step 2: Add Shebang and Permissions](#step-2-add-shebang-and-permissions)
-    - [Step 3: Implement Database Operation Scripts](#step-3-implement-database-operation-scripts)
-    - [Step 4: Synergizing Scripts for Speed](#step-4-synergizing-scripts-for-speed)
-    - [Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
+  - [Design PSQL Schema — 7 Steps](#design-psql-schema)
+- [Bash Scripts for Database Operations — 5 Steps](#bash-scripts-for-database-operations)
+   - [Step Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
+   - [Transform Text with Stream editor a.k.a `sed`](#text-transformation-with-stream-editor)
+- [Simplify Connecting To PSQL](#simplify-connecting-to-psql)
+- [Connecting to AWS RDS Instance in Gitpod — 7 Steps](#connecting-to-aws-rds-instance-in-gitpod)
 
-## Opting for PostgreSQL
-
-![PostgreSQL Top Pick](assets/week4/lq-w4-banner.png)
-
-PostgreSQL is a top database engine in the market for a reason. It offers a wide range of powerful features, it is reliable and robust, and it has a large and active community of users and developers.
-
-```mermaid
-pie title Core PSQL Features
-"Advanced Features" : 40
-"Robustness and Reliability" : 35
-"Community Support" : 20
-"Extensibility" : 25
-"Standards Compliance" : 30
-```
-
-* **Open source and free:** It is freely available to use, modify, and distribute.
-* **ACID compliance:** PostgreSQL guarantees that all transactions are atomic, consistent, isolated, and durable.
-* **JSON and XML support:** The engine supports the JSON and XML data types, which makes it a good choice for applications that need to store and query semi-structured data.
-* **Full-text search:** PostgreSQL has built-in full-text search capabilities, which makes it easy to find data within large datasets.
-* **Replication and clustering:** PostgreSQL supports replication and clustering, which makes it possible to scale the database to meet the needs of growing applications.
-
-**Our** initial steps will involve creating the database, establishing a connection to it, and subsequently outlining a schema that aligns with the specifications mentioned earlier.
-
-### Pathways to Success in Database
+# Pathways to Success in Database
 I am surpassing my initial expectations with this section, and I am creating a clear path for you, driven by my affection towards you.
 
 DBAs are more concerned with the technical aspects of database management and maintenance, while Data Analysts focus on extracting meaningful insights from the data for decision-making purposes.
@@ -89,10 +48,10 @@ If you possess a keen interest in the realm of data, I recommend embarking on a 
 
 | Role                     | Responsibilities                                                                                     |
 |--------------------------:|:-------------------------------------------------------------------------------------------------------|
-| Data Analyst             | **Data Manipulation**<br>► Analyze Data: Extract insights and patterns using SQL and analysis tools.   |
-| Database Administrator   | **Designing Tables**<br>► Define Schema: Design efficient database schema with tables and relationships.<br><br>**Data Manipulation**<br>► Insert Records: Ensure data integrity during record insertion.<br>► Update Entries: Enforce data constraints during updates.<br><br>**Optimizing Queries:**<br>► Optimize Queries: Enhance query performance using indexes and analysis.<br><br>**Maintenance:**<br>► Backup Data: Perform data backups for recovery.<br>► Monitor Performance: Identify and resolve performance issues.<br>► Fine-Tune System: Optimize system resources. |
-| Data Engineer            | **Data Management**<br>► ETL Processes: Develop and manage Extract, Transform, Load (ETL) processes.<br>► Data Integration: Integrate data from various sources into cohesive pipelines.<br><br>**Infrastructure**<br>► Data Storage: Design and manage data storage solutions.<br>► Data Transformation: Develop data transformation logic for analysis and reporting.<br><br>**Data Quality:**<br>► Data Cleansing: Ensure data quality and consistency.<br>► Data Pipeline Monitoring: Monitor data flows for accuracy and reliability. |
-| Data Architect           | **System Design**<br>► Architect Data Solutions: Design scalable and efficient data architecture.<br>► Data Modeling: Create advanced data models for complex business needs.<br><br>**Leadership**<br>► Team Collaboration: Lead data teams, aligning efforts with business objectives.<br>► Technology Selection: Evaluate and select appropriate data technologies
+| **Data Analyst**             | **Data Manipulation**<br>► Analyze Data: Extract insights and patterns using SQL and analysis tools.   |
+| **Database Administrator**   | **Designing Tables**<br>► Define Schema: Design efficient database schema with tables and relationships.<br><br>**Data Manipulation**<br>► Insert Records: Ensure data integrity during record insertion.<br>► Update Entries: Enforce data constraints during updates.<br><br>**Optimizing Queries**<br>► Optimize Queries: Enhance query performance using indexes and analysis.<br><br>**Maintenance**<br>► Backup Data: Perform data backups for recovery.<br>► Monitor Performance: Identify and resolve performance issues.<br>► Fine-Tune System: Optimize system resources. |
+| **Data Engineer**            | **Data Management**<br>► ETL Processes: Develop and manage Extract, Transform, Load (ETL) processes.<br>► Data Integration: Integrate data from various sources into cohesive pipelines.<br><br>**Infrastructure**<br>► Data Storage: Design and manage data storage solutions.<br>► Data Transformation: Develop data transformation logic for analysis and reporting.<br><br>**Data Quality**<br>► Data Cleansing: Ensure data quality and consistency.<br>► Data Pipeline Monitoring: Monitor data flows for accuracy and reliability. |
+| **Data Architect**         | **System Design**<br>► Architect Data Solutions: Design scalable and efficient data architecture.<br>► Data Modeling: Create advanced data models for complex business needs.<br><br>**Leadership**<br>► Team Collaboration: Lead data teams, aligning efforts with business objectives.<br>► Technology Selection: Evaluate and select appropriate data technologies
 
 You can follow the path I outlined, founded on trust and practical expertise. Drawing from my firsthand experience in working with data and effectively leveraging Google Cloud, Azure, and AWS services for substantial big data and machine learning projects, you can have full confidence in the credibility of this roadmap.
 
@@ -102,6 +61,27 @@ Each role builds upon the previous, culminating in an enriching journey marked b
 | 💡  | I can direct you towards a range of tech, Incl. Amazon Redshift, BigQuery, and [Google Looker](assets/week4/poc/looker-for-data.png).     |
 |---------------|:------------------------|
 
+# Opting for PostgreSQL
+
+![PostgreSQL Top Pick](assets/week4/lq-w4-banner.png)
+
+PostgreSQL is a top database engine in the market for a reason. It offers a wide range of powerful features, it is reliable and robust, and it has a large and active community of users and developers.
+
+* **Open source and free:** It is freely available to use, modify, and distribute.
+* **ACID compliance:** PostgreSQL guarantees that all transactions are atomic, consistent, isolated, and durable.
+* **JSON and XML support:** The engine supports the JSON and XML data types, which makes it a good choice for applications that need to store and query semi-structured data.
+```mermaid
+pie
+"Advanced Features" : 40
+"Robustness and Reliability" : 35
+"Community Support" : 20
+"Extensibility" : 25
+"Standards Compliance" : 30
+```
+* **Full-text search:** PostgreSQL has built-in full-text search capabilities, which makes it easy to find data within large datasets.
+* **Replication and clustering:** PostgreSQL supports replication and clustering, which makes it possible to scale the database to meet the needs of growing applications.
+
+**Our** initial steps will involve creating the database, establishing a connection to it, and subsequently outlining a schema that aligns with the specifications mentioned earlier.
 
 ## Amazon Relational Database Service
 RDS is a cutting-edge cloud-based solution that has revolutionized the way databases are managed and hosted. 
@@ -185,7 +165,7 @@ Please await the RDS status to transition to the "Available" stated by the green
 #### Considerations
 **5432** is the default port used by PostgreSQL. Many attackers will scan for databases on the default port, so changing it might reduce the number of automated attacks targeting your database.
 
-## PSQL for Everyone
+# PSQL for Everyone
 
 In this segment, I will make every effort to equip you with SQL knowledge. We are going to initiate our local PostgreSQL instance and establish a connection to it.
 
@@ -204,7 +184,7 @@ gitpod /workspace/aws-cloud-project-bootcamp (main) $ psql -Upostgres -h localho
 
 <img src="assets/week4/2- localwork/2 opla we are back.png">
 
-### SQL Maestro Pro
+## SQL Maestro Pro
 
 The array of tasks and activities that can be accomplished within the realm of database management is remarkably extensive.
 1. To start off, initiate the process by creating your own database, for instance;
@@ -254,10 +234,9 @@ DROP DATABASE database_name;
 | UNION           | Combine result sets of multiple SELECT statements (removes duplicates).                              | `SELECT column1 FROM table1 UNION SELECT column1 FROM table2;` |
 | UNION ALL       | Similar to UNION, but includes duplicate rows.                                                        | `SELECT column1 FROM table1 UNION ALL SELECT column1 FROM table2;` |
 
-I'm new Yaya! Sure [check this](https://www.w3schools.com/sql/sql_syntax.asp)
+I'm new Yaya! Sure, [check this out.](https://www.w3schools.com/sql/sql_syntax.asp)
 
 </details>
-
 
 ## Cruddur Database Create
 1. To get started, simply prepare your databse by creating one.
@@ -442,7 +421,7 @@ Once we have successfully refined our schema, it's time to reload it along with 
 psql cruddur < db/schema.sql -h localhost -U postgres
 ```
 
-<img src="assets/week4/2- localwork/20 schema done.png">
+![Without Script Schema Load]()
 
 Now you have the `public.users` and `public.activities` tables ready to store data for your application along the previously loaded extension.
 
@@ -476,6 +455,18 @@ gp env CONNECTION_URL="postgresql://postgres:password@localhost:5432/cruddur"
 psql $CONNECTION_URL
 ```
 
+5. Reflect on schema design by running the following command
+```psql
+\dt
+```
+```
+           List of relations
+ Schema |    Name    | Type  |  Owner   
+--------+------------+-------+----------
+ public | activities | table | postgres
+ public | users      | table | postgres
+```
+
 **Production PostgreSQL**<br>
 Following the approach employed earlier, we will once again incorporate the URL from the RDS instance we established at the outset.
 
@@ -487,8 +478,7 @@ export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:54
 gp env PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:5432/cruddur"
 ```
 
-<img src="assets/week4/2- localwork/9 set up prod connection.png">
-
+![Prod Connection?]()
 
 ## Connecting to AWS RDS Instance in Gitpod
 
@@ -650,7 +640,7 @@ These scripts will be relocated to bin/db ([Week Six](week6.md)), attributed to 
 - [Step 2: Add Shebang and Permissions](#step-2-add-shebang-and-permissions)
 - [Step 3: Implement Database Operation Scripts](#step-3-implement-database-operation-scripts)
 - [Step 4: Synergizing Scripts for Speed](#step-4-synergizing-scripts-for-speed)
-- [Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
+- [Step Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
 
 ### Step 1: Organize Script Files
 
@@ -663,7 +653,7 @@ mkdir bin
 touch bin/db-create
 touch bin/db-drop
 touch bin/db-connect
-touch bin/db-connections
+touch bin/db-sessions
 touch bin/db-setup
 touch bin/db-seed
 touch bin/db-schema-load
@@ -720,6 +710,8 @@ WRAPPING in dollar sign so we can assign it to our env var
 NO_DB_CONNECTION=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL"
 ```
 
+For more, refer to the [sed command.](#text-transformation-with-stream-editor)
+
 2. Develop `db-drop` script
 ```sh
 #! /usr/bin/bash
@@ -747,6 +739,14 @@ psql $URL
      - If argument is "prod," use production URL.
      - Otherwise, use default connection URL.
    - Use the determined URL to connect using `psql`.
+```bash
+./bin/db-connect
+psql (13.10 (Ubuntu 13.10-1.pgdg22.04+1))
+Type "help" for help.
+
+
+cruddur=#
+```
 4. Develop `db-sessions` script
 ```sh
 #! /usr/bin/bash
@@ -773,6 +773,16 @@ from pg_stat_activity;"
   - Otherwise, use default connection URL.
 - Modify the determined connection URL, store in `NO_DB_URL`.
 - Use `psql` to execute a SQL query that retrieves process information from the PostgreSQL `pg_stat_activity` view.
+
+```bash
++-------------+----------+----------+--------------+------+---------+
+| Process ID  |   User   |    DB    | Client Addr  | App  |  State  |
++-------------+----------+----------+--------------+------+---------+
+|      A      | postgres | postgres | x.y.z.a      | psql | active  |
+|      B      | postgres | cruddur  | x.y.z.a      |      | idle    |
++-------------+----------+----------+--------------+------+---------+
+```
+
 
 5. Develop `seed.sql` for the testing data.
 
@@ -842,7 +852,14 @@ psql $CONNECTION_URL cruddur < $seed_path
   - If `prod,` use production connection URL.
   - Else, use default connection URL.
 - Use psql to execute seed SQL file on specified database (cruddur) using determined connection URL.
-
+```sql
+./bin/db-seed
+== db-seed
+db-seed
+running in development
+INSERT 0 2
+INSERT 0 1
+```
 6. Develop `db-schema-load` script
 ```sh
 #! /usr/bin/bash
@@ -945,6 +962,48 @@ printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
 3. Execute the step script to experience the visual enhancements in action.
 
 <img src="assets/week4/3- psqlquery/8 all at once.png">
+
+### Text Transformation with Stream editor
+The `sed` command is a stream editor in Unix that can be used to perform various operations on text files, such as searching, replacing, inserting, and deleting text. 
+
+<img src="assets/week4/2- localwork/17 using sed will solve it.png">
+
+
+It is a powerful tool that can be used to automate many text processing tasks.
+
+The basic syntax of the sed command is as follows:
+```sh
+sed [options] 'command' [file]
+```
+- The `options` are optional modifiers that control the behavior of the sed command. 
+- The `command` is the actual text processing operation that you want to perform. 
+- The `file` is the name of the file that you want to process.
+The sed command supports a variety of commands, but some of the most common ones include:
+- `s` - Substitute text. This command replaces all instances of a specified text with another text.
+- `d` - Delete text. This command deletes all lines that match a specified pattern.
+- `i` - Insert text. This command inserts text at the beginning of each line that matches a specified pattern.
+- `p` - Print text. This command prints all lines that match a specified pattern.
+
+**Open Example**<br>
+The following example shows how to use the sed command to replace all instances of the word "dog" with the word "cat" in a file called `yaya.txt`
+```sh
+sed 's/dog/cat/g' yaya.txt
+```
+This command will read the file `yaya.txt` line by line and replace all instances of the word "dog" with the word "cat". The output of the sed command will be written to the standard output.
+
+**Cruddur Example: Removing Substring from Database Connection URLs**<br>
+Take our drop script for instance without the shebang.
+```sh
+# Using sed to remove '/cruddur' from CONNECTION_URL
+NO_DB_CONNECTION_URL=$(sed 's/\/cruddur//g' <<< "$CONNECTION_URL")
+psql "$NO_DB_CONNECTION_URL" -c "drop database cruddur;"
+```
+The sed command is used to replace all occurrences of `/cruddur` with an empty string in the `CONNECTION_URL` variable. The modified URL is then used to drop the database named `cruddur` using the psql command.
+
+This example assumes that the `/cruddur` portion of the URL is related to a specific endpoint and is not required for database operations such as dropping or creating databases.
+
+**Conclude**<br>
+Overall, the sed command is a versatile and powerful tool that can be used to perform a variety of text processing tasks. It is a good choice for simple text processing tasks, but it may not be the best choice for complex tasks.
 
 ---
 *To Be Continued..*
