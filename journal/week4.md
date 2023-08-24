@@ -7,18 +7,19 @@ Through this exploration, we aspire to deepen our understanding of how databases
 ## Week Four Main Tasks
 - [Pathways to Success In Databases](#pathways-to-success-in-database)
 - [Opting for PostgreSQL](#opting-for-postgresql)
-  - [Amazon Relational Database Service](#amazon-relational-database-service)
-    - [Creating an RDS Instance In The Console](#creating-an-rds-instance-in-aws-console)
-    - [Creating an RDS Instance In AWS CLI](#creating-an-rds-instance-in-aws-cli)
+- [Amazon Relational Database Service](#amazon-relational-database-service)
+  - [Creating an RDS Instance In The Console](#creating-an-rds-instance-in-aws-console)
+  - [Creating an RDS Instance In AWS CLI](#creating-an-rds-instance-in-aws-cli)
 - [PSQL for Everyone](#psql-for-everyone)
   - [SQL Maestro Pro](#sql-maestro-pro)
   - [Cruddur Database Create](#cruddur-database-create)
-  - [Design PSQL Schema — 7 Steps](#design-psql-schema)
-- [Bash Scripts for Database Operations — 5 Steps](#bash-scripts-for-database-operations)
+  - [Design PSQL Schema — **`8 Steps`**](#design-psql-schema)
+- [Bash Scripts for Database Operations — **`5 Steps`**](#bash-scripts-for-database-operations)
    - [Step Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
-   - [Transform Text with Stream editor a.k.a `sed`](#text-transformation-with-stream-editor)
+   - [Transform Text with `sed`, The Stream editor](#text-transformation-with-stream-editor)
 - [Simplify Connecting To PSQL](#simplify-connecting-to-psql)
-- [Connecting to AWS RDS Instance in Gitpod — 7 Steps](#connecting-to-aws-rds-instance-in-gitpod)
+- [Connecting to AWS RDS Instance in Gitpod — **`7 Steps`**](#connecting-to-aws-rds-instance-in-gitpod)
+- [Implement PostgreSQL Flask Client — **`6 Steps`**](#implement-postgresql-client)
 
 # Pathways to Success in Database
 I am surpassing my initial expectations with this section, and I am creating a clear path for you, driven by my affection towards you.
@@ -316,10 +317,7 @@ psql cruddur < db/schema.sql -h localhost -U postgres
 4. **Terminal Output:** If the schema file is loaded successfully, you'll see output analogous to the one I had:
 
  ```
-$ psql cruddur < db/schema.sql -h localhost -U postgres
-Password for user postgres: 
-
-CREATE EXTENSION 
+$ psql cruddur < db/schema.sql -h localhost -U postgres 
  ```
 
 <img src="assets/week4/2- localwork/6 executing extension.png">
@@ -380,6 +378,8 @@ CREATE TABLE public.activities (
 
 <img src="assets/week4/2- localwork/31 create table and explicit public for microservice later for efverydomain.png">
 
+The SQL table provided above lacks a comma, which previously took me a while to troubleshoot and resolve. Quite amusing, actually!
+
 ### Step 6: Schema Successfully Established
 Review your design, Mr. Database Architect, and ensure its alignment with the following structure and adequately meets your business requirements.
 
@@ -421,7 +421,15 @@ Once we have successfully refined our schema, it's time to reload it along with 
 psql cruddur < db/schema.sql -h localhost -U postgres
 ```
 
-![Without Script Schema Load]()
+ ```
+Password for user postgres: 
+
+CREATE EXTENSION 
+ ```
+
+- Verify by listing the current relations in your psql using `\dt` 
+
+<img src="assets/week4/2- localwork/41 beautify create.png">
 
 Now you have the `public.users` and `public.activities` tables ready to store data for your application along the previously loaded extension.
 
@@ -478,7 +486,7 @@ export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:54
 gp env PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:5432/cruddur"
 ```
 
-![Prod Connection?]()
+![Asset Not Found. 👇Read Just Below]()
 
 ## Connecting to AWS RDS Instance in Gitpod
 
@@ -635,6 +643,8 @@ This week initiates the launch of the much-awaited bin directory's construction.
 ```
 
 These scripts will be relocated to bin/db ([Week Six](week6.md)), attributed to the implementation of diverse technological scripts in a proactive development approach. 
+
+> Check the [ 🌲Great Bin Directory!](../bin/README.md)
 
 - [Step 1: Organize Script Files](#step-1-organize-script-files)
 - [Step 2: Add Shebang and Permissions](#step-2-add-shebang-and-permissions)
@@ -951,25 +961,30 @@ Here's a table presenting the colors to choose from;
 | Reset    | '\033[0m'    | NO_COLOR='\033[0m' | Reset color to default     |
 
 
-1. Enhance the visual appeal of the scripts within the step script by applying colors that align with your preferences, such as using red for "drop" and green for "create," and so on.
-2. Add this visual to the step script itself
+1. Enhance the visual appeal of the script**s** within the setup script by applying colors that align with your preferences, such as using red for "drop" and green for "create," and so on.
+2. Add this visual to the *setup* script itself
 ```sh
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
 LABEL="sqldb-welcome-setup"
 printf "${CYAN}==== ${LABEL}${NO_COLOR}\n"
 ```
-3. Execute the step script to experience the visual enhancements in action.
+3. Execute the *Setup* script to experience the visual enhancements in action.
 
 <img src="assets/week4/3- psqlquery/8 all at once.png">
 
-### Text Transformation with Stream editor
+## Text Transformation with Stream editor
 The `sed` command is a stream editor in Unix that can be used to perform various operations on text files, such as searching, replacing, inserting, and deleting text. 
+
+It is a powerful tool that can be used to automate many text processing tasks.
+
+First, we will start by elucidating the command. Subsequently, we will delve into structured examples, enabling you to ultimately attain the `sed` mastery.
+- [Quickstart Example](#open-example)
+- [`Sed` Cruddur Use Case](#cruddur-removing-substring-from-database-connection-urls)
+- [`Sed` For The Real World](#sed-for-the-real-world)
 
 <img src="assets/week4/2- localwork/17 using sed will solve it.png">
 
-
-It is a powerful tool that can be used to automate many text processing tasks.
 
 The basic syntax of the sed command is as follows:
 ```sh
@@ -978,20 +993,21 @@ sed [options] 'command' [file]
 - The `options` are optional modifiers that control the behavior of the sed command. 
 - The `command` is the actual text processing operation that you want to perform. 
 - The `file` is the name of the file that you want to process.
+
 The sed command supports a variety of commands, but some of the most common ones include:
 - `s` - Substitute text. This command replaces all instances of a specified text with another text.
 - `d` - Delete text. This command deletes all lines that match a specified pattern.
 - `i` - Insert text. This command inserts text at the beginning of each line that matches a specified pattern.
 - `p` - Print text. This command prints all lines that match a specified pattern.
 
-**Open Example**<br>
+### Open Example
 The following example shows how to use the sed command to replace all instances of the word "dog" with the word "cat" in a file called `yaya.txt`
 ```sh
 sed 's/dog/cat/g' yaya.txt
 ```
 This command will read the file `yaya.txt` line by line and replace all instances of the word "dog" with the word "cat". The output of the sed command will be written to the standard output.
 
-**Cruddur Example: Removing Substring from Database Connection URLs**<br>
+### Cruddur Removing Substring from Database Connection URLs
 Take our drop script for instance without the shebang.
 ```sh
 # Using sed to remove '/cruddur' from CONNECTION_URL
@@ -1002,8 +1018,294 @@ The sed command is used to replace all occurrences of `/cruddur` with an empty s
 
 This example assumes that the `/cruddur` portion of the URL is related to a specific endpoint and is not required for database operations such as dropping or creating databases.
 
-**Conclude**<br>
-Overall, the sed command is a versatile and powerful tool that can be used to perform a variety of text processing tasks. It is a good choice for simple text processing tasks, but it may not be the best choice for complex tasks.
+
+### `Sed` For The Real World
+This was part of my great time on Google Cloud. I made sure to keep it close, and the time comes to expose it for you, beautifully presented!
+
+Consider you work for a doctor and possess a configuration file that requires customization for client-associated IDs and related information.
+```JSON
+{
+  "VISION_TOPIC": "projects/[PROJECT-ID]/topics/visionapiservice",
+  "VIDEOINTELLIGENCE_TOPIC": "projects/[PROJECT-ID]/topics/videointelligenceservice",
+  "BIGQUERY_TOPIC": "projects/[PROJECT-ID]/topics/bqinsert",
+  "REJECTED_BUCKET": "[FLAGGED_BUCKET_NAME]",
+  "RESULT_BUCKET": "[FILTERED_BUCKET_NAME]",
+  "DATASET_ID": "[DATASET_ID]",
+  "TABLE_NAME": "[TABLE_NAME]",
+  "GCS_AUTH_BROWSER_URL_BASE": "https://storage.cloud.google.com/" ,
+  "API_Constants": {
+        "ADULT" : "adult",
+        "VIOLENCE" : "violence",
+        "SPOOF" : "spoof",
+        "MEDICAL" : "medical"
+  }
+}
+```
+Instead of manually changing each ID and making specific modifications, you can efficiently use the `sed` command. 	
+```
+sed -i 's/[PROJECT-ID]/$PROJECT_ID/g' config.json
+```
+This command tells the sed command to open the file config.json in interactive mode and replace all occurrences of the text [PROJECT-ID] with the value of the environment variable $PROJECT_ID. 
+
+The `-i` flag tells sed to make the changes to the file in place.
+
+The following commands work in a similar way:
+```sh
+sed -i 's/[FLAGGED_BUCKET_NAME]/$FLAGGED_BUCKET_NAME/g' config.json
+sed -i 's/[FILTERED_BUCKET_NAME]/$FILTERED_BUCKET_NAME/g' config.json
+sed -i 's/[DATASET_ID]/$DATASET_ID/g' config.json
+sed -i 's/[TABLE_NAME]/$TABLE_NAME/g' config.json
+```
+Assuming you have the following environment variables defined.
+- `$PROJECT_ID` with a value like `"yaya-project"`
+- `$FLAGGED_BUCKET_NAME` with a value like `"flagged-bucket"`
+- `$FILTERED_BUCKET_NAME` with a value like `"filtered-bucket"`
+- `$DATASET_ID` with a value like `"yaya-dataset"`
+- `$TABLE_NAME` with a value like `"yaya-table"`
+
+After running these commands, the content of config.json would be updated as follows:
+```JSON
+{
+  "VISION_TOPIC": "projects/yaya-project/topics/visionapiservice",
+  "VIDEOINTELLIGENCE_TOPIC": "projects/yaya-project/topics/videointelligenceservice",
+  "BIGQUERY_TOPIC": "projects/yaya-project/topics/bqinsert",
+  "REJECTED_BUCKET": "flagged-bucket",
+  "RESULT_BUCKET": "filtered-bucket",
+  "DATASET_ID": "yaya-dataset",
+  "TABLE_NAME": "yaya-table",
+  "GCS_AUTH_BROWSER_URL_BASE": "https://storage.cloud.google.com/" ,
+  "API_Constants": {
+        "ADULT" : "adult",
+        "VIOLENCE" : "violence",
+        "SPOOF" : "spoof",
+        "MEDICAL" : "medical"
+  }
+}
+```
+And there you have it, ladies and gentlemen, a compelling use case of the `sed` command.<br> 
+This process can be further streamlined by scripting these commands into one.
+
+## Implement PostgreSQL Client
+
+Currently, the data we have access to is in a simulated state. In order to retrieve actual information from our database—essentially making a connection between PostgreSQL and Python—we need to develop a PostgreSQL client specifically designed for Python integration using a database pooling.
+
+- [Step 1: Install Required Libraries](#step-1-install-required-libraries)
+- [Step 2: Set Environment Variable](#step-2-set-environment-variable)
+- [Step 3: Create `db.py` Utility Library](#step-3-create-dbpy-utility-library)
+- [Step 4: Integrate `db.py` into Activities](#step-4-integrate-dbpy-into-activities)
+- [Step 5: Refactor API Call in home_activities](#step-5-refactor-api-call-in-home_activities)
+- [Step 6: Verify and Test](#step-6-verify-and-test)
+
+The following file structure is our target for this implementation:
+```sh
+./backend-flask
+├── db
+│   └── seed.sql
+├── lib
+│   └── db.py
+├── services
+│   └── home_activities.py
+└── requirements.txt
+```
+### Step 1: Install Required Libraries
+1. Add the necessary libraries to your `backend-flask/requirements.txt` file:
+
+```
+psycopg[binary]
+psycopg[pool]
+```
+
+2. Install the libraries using the following command:
+
+<img src="assets/week4/4- Driver and query/1 install psql driver psychopg.png">
+
+```
+pip install -r requirements.txt
+```
+
+### Step 2: Set Environment Variable
+In your `docker-compose.yml` file, set the environment variable for your backend-flask application:
+
+```
+CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
+```
+**Important:** Avoid using a password that ends with the character '!' because this can lead to an issue with the URL structure. The combination of '!' and '@' in the URL might trigger errors when launching certain commands.
+
+
+### Step 3: Create `db.py` Utility Library
+
+Create a utility library named `db.py` under the `backend-flask/lib`.
+
+- **Purpose:** This file is a utility library that manages interactions with a PostgreSQL database in the Python application.
+- **Import:** The `psycopg_pool` library's `ConnectionPool` is imported to handle connection pooling.
+- **Import:** The `os` module is imported to access environment variables.
+
+```py
+from psycopg_pool import ConnectionPool
+import os
+```
+- **Function `query_wrap_object(template)`:**
+  - This function wraps a provided SQL query template in a structure that fetches a single JSON object result.
+  - It uses the `row_to_json` function to convert the result row into a JSON object.
+  - The `COALESCE` function ensures that an empty JSON object is returned if the result is null.
+```py
+def query_wrap_object(template):
+    sql = f"""
+    (SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
+    {template}
+    ) object_row);
+    """
+    return sql
+```
+- **Function `query_wrap_array(template)`:**
+  - This function wraps a provided SQL query template in a structure that fetches a JSON array of rows.
+  - It employs `array_to_json` and `array_agg` functions to convert result rows into a JSON array.
+  - The `COALESCE` function handles cases where the result is null, returning an empty JSON array.
+```py
+def query_wrap_array(template):
+    sql = f"""
+    (SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+    {template}
+    ) array_row);
+    """
+    return sql
+```
+- **Connection URL:**
+  - The environment variable `CONNECTION_URL` is fetched using `os.getenv`.
+  - This URL is necessary for establishing a connection to the PostgreSQL database.
+```py
+connection_url = os.getenv("CONNECTION_URL")
+pool = ConnectionPool(connection_url)
+```
+
+<img src="assets/week4/4- Driver and query/7 andrew way to get json.png">
+
+- **Connection Pool:**
+  - The `ConnectionPool` is instantiated using the fetched `CONNECTION_URL`.
+  - Connection pooling optimizes database connections for efficiency and performance.
+
+
+### Step 4: Integrate `db.py` into Activities
+1. Import the required functions and objects from `db.py` into your `home_activities`:
+```py
+from lib.db import pool, query_wrap_array
+```
+2. Initiate a basic query
+
+<img src="assets/week4/5- Establish RDS-Connection/and the FFF bro.png">
+
+3. Inject the current SQL and examine the user interface.
+
+<img src="assets/week4/4- Driver and query/10 our query data is showing.png">
+
+4. Design the required to retrieve specific columns from two tables: `activities` and `users`.
+```SQL
+SELECT
+  activities.uuid,
+  users.display_name,
+  users.handle,
+  activities.message,
+  activities.replies_count,
+  activities.reposts_count,
+  activities.likes_count,
+  activities.reply_to_activity_uuid,
+  activities.expires_at,
+  activities.created_at
+FROM public.activities
+LEFT JOIN public.users ON users.uuid = activities.user_uuid
+ORDER BY activities.created_at DESC
+```
+- Columns being retrieved:
+  - `activities.uuid`: Unique identifier for each activity.
+  - `users.display_name`: Display name of the user associated with the activity.
+  - `users.handle`: User's handle or username.
+  - `activities.message`: Content or message of the activity.
+  - `activities.replies_count`: Number of replies received by the activity.
+  - `activities.reposts_count`: Number of times the activity has been reposted.
+  - `activities.likes_count`: Number of likes received by the activity.
+  - `activities.reply_to_activity_uuid`: UUID of the activity to which this activity is a reply.
+  - `activities.expires_at`: Expiry date of the activity.
+  - `activities.created_at`: Timestamp of when the activity was created.
+- The `LEFT JOIN` operation connects the `users` table with the `activities` table using the UUIDs, linking user information to each activity.
+- The results are ordered by the `created_at` timestamp in descending order.
+
+5. Pass it to sql and create multi-line strings with `"""`
+```
+sql = """
+  QUERY GOES HERE
+ """
+```
+- Using triple quotes eliminates the need to escape line breaks or other special characters within the query.
+
+6. Print the SQL to help you up verify the query and debug any issues.
+```
+print(sql)
+```
+7. Fetch data from a database, and handling the results. 
+```py
+span.set_attribute("app.result_length", len(results))
+with pool.connection() as conn:
+    with conn.cursor() as cur:
+        cur.execute(sql)
+        json = cur.fetchall()
+return json[0]
+```
+- Sets an attribute related to the length of query results.
+- Establishes a connection to the database using a connection pool.
+- Creates a cursor to interact with the database.
+- Executes the SQL query using the cursor.
+- Fetches all results from the executed query.
+- Returns the first row of fetched data as a tuple.
+
+This process effectively retrieves data from the database, processes it, and returns a specific data point for further handling or display.
+
+8. Replace the existing code in the `home_activities` script with the code we just created.
+
+```py
+sql = """
+      SELECT
+        activities.uuid,
+        users.display_name,
+        users.handle,
+        activities.message,
+        activities.replies_count,
+        activities.reposts_count,
+        activities.likes_count,
+        activities.reply_to_activity_uuid,
+        activities.expires_at,
+        activities.created_at
+      FROM public.activities
+      LEFT JOIN public.users ON users.uuid = activities.user_uuid
+      ORDER BY activities.created_at DESC
+      """
+print(sql)
+span.set_attribute("app.result_length", len(results))
+with pool.connection() as conn:
+    with conn.cursor() as cur:
+        cur.execute(sql)
+        json = cur.fetchall()
+return json[0]
+```
+
+<img src="assets/week4/4- Driver and query/12 what about from this getting the entire query.png">
+
+Reechoing, the code is responsible for executing the SQL query, fetching data from a PostgreSQL database, and processing the results.
+
+### Step 5: Refactor API Call in home_activities
+Refactor the API call in the `home_activities` script to load SQL templates and query data using the functions from `db.py`:
+
+```py
+sql = db.load_template('activities', 'home')
+params = {}
+results = db.query_array_json(sql, params)
+return results
+```
+
+### Step 6: Verify and Test
+After composing your Docker containers, the home page should display activity data from the `db/seed.sql` file instead of mock data.
+
+<img src="assets/week4/4- Driver and query/13 boom here it is.png">
+
 
 ---
 *To Be Continued..*

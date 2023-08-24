@@ -2,6 +2,7 @@
 
 Devcontainer and [`.gitpod.yml`](../.gitpod.yml) are both used to define the development environment.
 
+> [devcontainer.json Use Case](../journal/assets/week4/poc/dev-containers-codespaces-poc.png)
 
 ### Comparison Features
 

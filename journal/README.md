@@ -16,7 +16,7 @@ Strategically located in 1️⃣ site.
 <img src="res-hub-ban.png" width="626px">
     
 | Resource | Description | 
-| :---: | --- | 
+| :---: | :--- | 
 | [Mermaid ](resources/mermaid.md) | A powerful and intuitive text-based diagramming tool| 
 | [Gitpod Migrate](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
@@ -25,6 +25,7 @@ Strategically located in 1️⃣ site.
 | [AWS Guidebook](../aws/README.md) | Developer references for AWS Console resources | 
 | [AWS CDK](../thumbing-serverless-cdk/README.md) |  Provision Cloud Resources with AWS CDK in Typescript  | 
 | [VS Code Tasks](../.vscode/README.md) |  Automate processes and run scripts using vscode tasks | 
+| [Dev Container](../.devcontainer/README.md) |  Automate processes and run scripts using vscode tasks | 
 | [ Issues,](assets/week4/Discord/README.md) [Stories](resources/instagram-stories.md)  | Troubleshooting and assets exchanged with community |
 
 </div>
@@ -42,7 +43,7 @@ Strategically located in 1️⃣ site.
 | [Week 1](week1.md)  | ⭐Docker and App Containerization                         | Feb 18, 2023 |   ✘    |
 | [Week 2](week2.md)  | ⭐Distributed Tracing                                     | Feb 25, 2023 |   ✘    |
 | [Week 3](week3.md)  | ⭐Decentralized Authentication       | Mar 4, 2023  |   ✘   |
-| [Week 4](week4.md)  | SQL Database with PostgreSQL  <br>(*Under Revision*)       | Mar 11, 2023 |   ✘   |
+| [Week 4](week4.md)  | ⭐SQL Database with PostgreSQL        | Mar 11, 2023 |   ✘   |
 | [Week 5](week5.md)  | NoSQL Database with AWS DynamoDB <br>(*Under Revision*)    | Mar 18, 2023 |   ✘   |
 | [Week 6](week6.md)  | Deploying Serverless Containers  <br>(*Under Revision*) (Part 1/2)            | Mar 25, 2023 |   ✘   |
 | [Week 7](week7.md)  | Solving CORS with a Custom Domain and Load Balancing <br>(*Under Revision*) (Part 2/2)| Apr 1, 2023 |✘|
