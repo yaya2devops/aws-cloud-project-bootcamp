@@ -15,11 +15,13 @@ Through this exploration, we aspire to deepen our understanding of how databases
   - [Cruddur Database Create](#cruddur-database-create)
   - [Design PSQL Schema — **`8 Steps`**](#design-psql-schema)
 - [Bash Scripts for Database Operations — **`5 Steps`**](#bash-scripts-for-database-operations)
-   - [Step Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
+   - [Step Bonus: Aesthetics in Bash Scripts](#bonus-step-aesthetics-in-bash-scripts)
    - [Transform Text with `sed`, The Stream editor](#text-transformation-with-stream-editor)
 - [Simplify Connecting To PSQL](#simplify-connecting-to-psql)
 - [Connecting to AWS RDS Instance in Gitpod — **`7 Steps`**](#connecting-to-aws-rds-instance-in-gitpod)
 - [Implement PostgreSQL Flask Client — **`6 Steps`**](#implement-postgresql-client)
+- [A Database of Experiences](#a-database-of-experiences)
+  - [Cognito **Users** Post Confirmation — **`11 Steps`**](#lambda-for-cognito-post-confirmation)
 
 # Pathways to Success in Database
 I am surpassing my initial expectations with this section, and I am creating a clear path for you, driven by my affection towards you.
@@ -378,7 +380,7 @@ CREATE TABLE public.activities (
 
 <img src="assets/week4/2- localwork/31 create table and explicit public for microservice later for efverydomain.png">
 
-The SQL table provided above lacks a comma, which previously took me a while to troubleshoot and resolve. Quite amusing, actually!
+The SQL table provided above lacks a comma, which previously took me a while to troubleshoot and resolve. <br>Quite amusing, actually!
 
 ### Step 6: Schema Successfully Established
 Review your design, Mr. Database Architect, and ensure its alignment with the following structure and adequately meets your business requirements.
@@ -430,6 +432,8 @@ CREATE EXTENSION
 - Verify by listing the current relations in your psql using `\dt` 
 
 <img src="assets/week4/2- localwork/41 beautify create.png">
+
+> Do you like the terminal color? [Me too.](#bonus-step-aesthetics-in-bash-scripts)
 
 Now you have the `public.users` and `public.activities` tables ready to store data for your application along the previously loaded extension.
 
@@ -486,7 +490,7 @@ export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:54
 gp env PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:5432/cruddur"
 ```
 
-![Asset Not Found. 👇Read Just Below]()
+![Asset Not Found. 👇Find Out Just Below]()
 
 ## Connecting to AWS RDS Instance in Gitpod
 
@@ -508,8 +512,8 @@ Get ready for the complete solution.
 ### Step 1: Set Environment Variable
 In your GitPod environment, i you haven't already, set the `PROD_CONNECTION_URL` environment variable in the following format:
 ```sh
-export PROD_CONNECTION_URL="postgresql://<user>:<password>@<RDS endpoint>:5432/<master database name>"
-gp env PROD_CONNECTION_URL="postgresql://<user>:<password>@<RDS endpoint>:5432/<master database name>"
+export PROD_CONNECTION_URL="postgresql://<user>:<password>@<RDS>:5432/<master-db-name>"
+gp env PROD_CONNECTION_URL="postgresql://<user>:<password>@<RDS>:5432/<master-db-name>"
 ```
 
 ### Step 2: Adjust Security Group Inbound Rules
@@ -521,6 +525,9 @@ gp env PROD_CONNECTION_URL="postgresql://<user>:<password>@<RDS endpoint>:5432/<
 GITPOD_IP=$(curl ifconfig.me)
 ```
 4. Add an inbound rule to the RDS security group for the Gitpod IP address (`$GITPOD_IP`).
+
+<img src="assets/week4/5- Establish RDS-Connection/12 overview.png">
+
 
 ### Step 3: Test Database Connection
 1. Run the command:
@@ -564,7 +571,7 @@ aws ec2 modify-security-group-rules \
 ```
 4. Verify the ip is updated in the console
 
-<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/6 hey applied perfect ready to include it in a script.png">
+<img src="assets/week4/5- Establish RDS-Connection/7 the solution will be to configure a security rule to allow trafic from gitpod postgre to aws.png">
 
 ### Step 5: Automate Security Group Update
 1. Create a file named `rds-update-sg-rule` inside the `/bin` with the following content:
@@ -583,6 +590,7 @@ chmod u+x rds-update-sg-rule
 ```
 <img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/11 applied the script.png">
 
+And now, each time you initiate it, updates are reflected in the console in real-time.
 
 3. Update `.gitpod.yml` to run the script on environment startup part of postgre setup:
 ```yaml
@@ -642,7 +650,7 @@ This week initiates the launch of the much-awaited bin directory's construction.
 └── db-rds-update-sg-rule
 ```
 
-These scripts will be relocated to bin/db ([Week Six](week6.md)), attributed to the implementation of diverse technological scripts in a proactive development approach. 
+These scripts will be relocated to bin/db ([Week Seven](week7.md#refactor-bin-directory)), attributed to the implementation of diverse technological scripts in a proactive development approach. 
 
 > Check the [ 🌲Great Bin Directory!](../bin/README.md)
 
@@ -650,7 +658,7 @@ These scripts will be relocated to bin/db ([Week Six](week6.md)), attributed to 
 - [Step 2: Add Shebang and Permissions](#step-2-add-shebang-and-permissions)
 - [Step 3: Implement Database Operation Scripts](#step-3-implement-database-operation-scripts)
 - [Step 4: Synergizing Scripts for Speed](#step-4-synergizing-scripts-for-speed)
-- [Step Bonus: Aesthetics in Bash Scripts](#bonus-aesthetics-in-bash-scripts)
+- [Step Bonus: Aesthetics in Bash Scripts](#bonus-step-aesthetics-in-bash-scripts)
 
 ### Step 1: Organize Script Files
 
@@ -802,8 +810,8 @@ from pg_stat_activity;"
 └── sql/
     └── seed.sql
 ```
+
 ```SQL
-```sql
 -- this file was manually created
 
 INSERT INTO
@@ -933,7 +941,7 @@ This script is designed to automate the process of managing a database. It perfo
 - `python "$DB_PATH/migrate"`: Executes a Python script named `migrate` for database migrations.
 - `python "$DB_PATH/update_cognito_user_ids"`: Executes a Python script for updating user IDs cognito
 
-### Bonus: Aesthetics in Bash Scripts
+### Bonus Step: Aesthetics in Bash Scripts
 Incorporating color into Bash scripts is a way to elevate their visual appeal and clarity. Instead of monotonous plain text, you can add vibrancy using colored outputs. 
 
 To achieve this effect, a combination of escape codes and variables is employed.
@@ -951,7 +959,7 @@ When combined in the printf statement, it creates visually appealing output with
 Here's a table presenting the colors to choose from; 
 
 | Color    | Escape Code   | Example Variable   | Example Usage               |
-|----------|---------------|--------------------|-----------------------------|
+|:----------|:---------------|:--------------------|:-----------------------------|
 | Red      | '\033[1;31m' | RED='\033[1;31m' | printf "${RED}Text\${NO_COLOR}\\n" |
 | Green    | '\033[1;32m' | GREEN='\033[1;32m' | printf "${GREEN}Text\${NO_COLOR}\\n" |
 | Blue     | '\033[1;34m' | BLUE='\033[1;34m' | printf "${BLUE}Text\${NO_COLOR}\\n" |
@@ -979,9 +987,9 @@ The `sed` command is a stream editor in Unix that can be used to perform various
 It is a powerful tool that can be used to automate many text processing tasks.
 
 First, we will start by elucidating the command. Subsequently, we will delve into structured examples, enabling you to ultimately attain the `sed` mastery.
-- [Quickstart Example](#open-example)
-- [`Sed` Cruddur Use Case](#cruddur-removing-substring-from-database-connection-urls)
-- [`Sed` For The Real World](#sed-for-the-real-world)
+- [`sed` Quickstart](#open-example-for-cats-and-dogs)
+- [`sed` Cruddur Use Case](#cruddur-removing-substring-from-database-connection-urls)
+- [`sed` For The Real World](#sed-for-the-real-world)
 
 <img src="assets/week4/2- localwork/17 using sed will solve it.png">
 
@@ -1000,12 +1008,24 @@ The sed command supports a variety of commands, but some of the most common ones
 - `i` - Insert text. This command inserts text at the beginning of each line that matches a specified pattern.
 - `p` - Print text. This command prints all lines that match a specified pattern.
 
-### Open Example
-The following example shows how to use the sed command to replace all instances of the word "dog" with the word "cat" in a file called `yaya.txt`
-```sh
-sed 's/dog/cat/g' yaya.txt
+### Open Example For Cats and Dogs
+The following example shows how to use the sed command to replace all instances of
+- The word "dog" with the word "cat" 
+- The word "lovely" with "funny"
+
+In a file called `yaya.txt`
+```txt
+A dog is lovely.
 ```
-This command will read the file `yaya.txt` line by line and replace all instances of the word "dog" with the word "cat". The output of the sed command will be written to the standard output.
+This command will read the file `yaya.txt` line by line and replace all instances of the word "dog" with the word "cat" and the word funny with lovely
+```sh
+sed 's/dog/cat/g; s/lovely/funny/g' yaya.txt
+```
+
+The output of the sed command will be written to the standard output.
+```txt
+A cat is funny.
+```
 
 ### Cruddur Removing Substring from Database Connection URLs
 Take our drop script for instance without the shebang.
@@ -1019,8 +1039,8 @@ The sed command is used to replace all occurrences of `/cruddur` with an empty s
 This example assumes that the `/cruddur` portion of the URL is related to a specific endpoint and is not required for database operations such as dropping or creating databases.
 
 
-### `Sed` For The Real World
-This was part of my great time on Google Cloud. I made sure to keep it close, and the time comes to expose it for you, beautifully presented!
+### `sed` For The Real World
+This was part of [my great time on Google Cloud](https://www.cloudskillsboost.google/public_profiles/664bbb5a-6ea0-4005-b3cf-817644fa9c0b). I made sure to keep it close, and the time comes to expose it for you, beautifully presented!
 
 Consider you work for a doctor and possess a configuration file that requires customization for client-associated IDs and related information.
 ```JSON
@@ -1063,7 +1083,7 @@ Assuming you have the following environment variables defined.
 - `$DATASET_ID` with a value like `"yaya-dataset"`
 - `$TABLE_NAME` with a value like `"yaya-table"`
 
-After running these commands, the content of config.json would be updated as follows:
+After running these commands, the content of `config.json` would be updated as follows:
 ```JSON
 {
   "VISION_TOPIC": "projects/yaya-project/topics/visionapiservice",
@@ -1306,6 +1326,298 @@ After composing your Docker containers, the home page should display activity da
 
 <img src="assets/week4/4- Driver and query/13 boom here it is.png">
 
+#  A Database of Experiences
+This development holds immense significance within our application. We'll ensure the storage of users and activities in a production environment, aligned with our SQL schema design.
+
+## Lambda for Cognito Post Confirmation
+Upon user sign-in , we will ensure their entry into the users table. To achieve this, we are considering the implementation of an AWS Lambda function that triggers the user sign up process and store it in RDS.
+
+Get your strokes ready; We'll create and employ the following.
+```
+├── aws
+│   ├── lambdas
+│   │   └── cruddur-post-confirmation.py
+│   └── policies
+│       └── LambdaVPCAccessPolicy.json
+├── bin
+│   ├── db-schema-load prod
+│   ├── db-connect prod
+└── docker-compose.yml
+```
+**Step 0 :** Create in `aws/lambdas/` a `cruddur-post-confirmation.py` in your codebase.
+
+- [Step 1: Create Lambda Function](#step-1-create-lambda-function)
+- [Step 2: Configure Environment Variables](#step-2-configure-environment-variables)
+- [Step 3: Add `Psycopg2` Layer](#step-3-add-psycopg2-layer)
+- [Step 4: Connect Lambda to VPC](#step-4-connect-lambda-to-vpc)
+- [Step 5: Create Lambda Code](#step-5-create-lambda-code)
+- [Step 6: Configure Execution Role Permissions](#step-6-configure-execution-role-permissions)
+- [Step 7: Deploy Lambda Function](#step-7-deploy-lambda-function)
+- [Step 8: Configure Cognito Trigger](#step-8-configure-cognito-trigger)
+- [Step 9: Testing and Verifying](#step-9-testing-and-verifying)
+- [Step 10 : Post Verify](#step-10--post-verify)
+
+### Step 1: Create Lambda Function
+1. Navigate to the AWS Management Console.
+2. Open the Lambda service.
+3. Click on "Create function."
+4. Choose "Author from scratch."
+5. Provide the function name as `cognito-post-confirm-function` and select runtime as "Python 3.8."
+6. Keep the default settings for other configurations and click "Create function."
+
+<img src="assets/week4/6- Lambda Time/2- create function.png">
+
+### Step 2: Configure Environment Variables
+1. In the Lambda function's configuration, go to the "Environment variables" section.
+2. Add a new variable with the key as `CONNECTION_URL` and the value as your `PROD_CONNECTION_URL`.
+3. In your `docker-compose.yml` make backend environment as follows:
+```
+    CONNECTION_URL: "${PROD_CONNECTION_URL}"
+```
+
+### Step 3: Add `Psycopg2` Layer
+PostgreSQL libraries being unavailable in the AWS Lambda AMI image, it was necessary for us to undertake the compilation of psycopg2 along with the inclusion of the PostgreSQL libpq.
+1. In the "Layers" section of the Lambda configuration, click on "Add a layer."
+2. Use the ARN of Psycopg2 layer to your Lambda function: 
+```sh
+arn:aws:lambda:us-east-1:898466741470:layer:psycopg2-py38:2
+```
+
+### Step 4: Connect Lambda to VPC
+
+1. Open the Functions page of the Lambda console.
+2. Choose a function.
+3. Choose Configuration go to Network
+4. Under Network, choose Edit.
+5. Choose the VPC.<br>
+For reference, I used [this link](https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html)
+
+<img src="assets/week4/6- Lambda Time/45 re doing the vpc again.png">
+
+### Step 5: Create Lambda Code
+
+Let me break down the magic of this function for you.
+1. Start by the import of the Required Modules
+
+```py
+import json
+import psycopg2
+import os
+```
+Here the necessary modules are imported: `json` for JSON manipulation, `psycopg2` for PostgreSQL database interaction, and `os` for accessing environment variables.
+
+2. Define the Lambda Handler
+```py
+def lambda_handler(event, context):
+```
+The `lambda_handler` function is the entry point for the Lambda function. It takes two arguments, `event` (containing input data) and `context` (Lambda runtime information).
+
+3. Extract User Attributes
+```py
+    user = event["request"]["userAttributes"]
+```
+Here, the user attributes are extracted from the incoming `event` dictionary.
+
+4. Establish Database Connection
+
+```py
+    try:
+        conn = psycopg2.connect(os.getenv("CONNECTION_URL"))
+        cur = conn.cursor()
+```
+a connection to the PostgreSQL database is established using the connection URL retrieved from the environment variables. A cursor object is created to execute SQL commands.
+
+5. Prepare SQL Parameters using a Parameters List
+```sql
+        parameters = [
+            user["name"],
+            user["email"],
+            user["preferred_username"],
+            user["sub"],
+        ]
+
+        sql = f"INSERT INTO public.users (display_name, email, handle, cognito_user_id) VALUES (%s, %s, %s, %s)"
+```
+In this part, a list of parameters is created from the extracted user attributes. The SQL command for insertion is prepared using placeholders to avoid SQL injection.
+
+6. Or Assigning Variables Directly
+```sql
+user_display_name  = user['name']
+user_email         = user['email']
+user_handle        = user['preferred_username']
+user_cognito_id    = user['sub']
+
+sql = f"""
+  INSERT INTO public.users(
+    display_name,
+    email, 
+    handle, 
+    cognito_user_id)
+  VALUES ( %s, %s, %s, %s)
+"""
+```
+Both approaches achieve the same result. <br>
+This one provides better readability and allows you to use more descriptive variable names, making the code more self-explanatory. 
+
+7. Execute SQL Command
+```py
+        cur.execute(sql, *parameters)
+```
+The SQL command is executed using the cursor, and the parameters are passed in to complete the insertion operation.
+
+8. Commit Changes and Handle Exceptions
+```py
+        conn.commit()
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+```
+The changes are committed to the database. If an exception occurs during the database interaction, the error is printed.
+
+9. Close Database Connection
+```py
+    finally:
+        if conn is not None:
+            cur.close()
+            conn.close()
+            print("Database connection closed.")
+```
+In the `finally` block, the cursor and connection are closed to ensure proper resource management.
+
+10.  Return Event
+```py
+    return event
+```
+
+The Lambda function concludes by returning the `event` dictionary.
+
+11. After undergoing rigorous development, your function's code now appears as follows:
+```python
+import json
+import psycopg2
+import os
+
+def lambda_handler(event, context):
+    user = event['request']['userAttributes']
+    user_display_name  = user['name']
+    user_email         = user['email']
+    user_handle        = user['preferred_username']
+    user_cognito_id    = user['sub']
+    
+    sql = f"""
+      INSERT INTO public.users(
+        display_name,
+        email, 
+        handle, 
+        cognito_user_id)
+      VALUES ( %s, %s, %s, %s)
+    """
+
+    params = [user_display_name, user_email, user_handle, user_cognito_id]
+    
+    try:
+        conn = psycopg2.connect(os.getenv('CONNECTION_URL'))
+        cur = conn.cursor()
+        cur.execute(sql, *params)
+        conn.commit() 
+
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        
+    finally:
+        if conn is not None:
+            cur.close()
+            conn.close()
+            print('Database connection closed.')
+
+    return event
+```
+
+<img src="assets/week4/6- Lambda Time/11 specify the value.png">
+
+Remember to replace `CONNECTION_URL` with the actual environment variable name that holds your PostgreSQL connection URL.
+
+
+### Step 6: Configure Execution Role Permissions
+1. Create a policy named `LambdaVPCAccessPolicy` in IAM Policies. You can employ this right away.
+
+<img src="assets/week4/6- Lambda Time/37 lets go create ours too.png">
+
+```python
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DescribeNetworkInterfaces"
+                ],
+                "Resource": "*"
+        }]
+}
+```
+<img src="assets/week4/6- Lambda Time/39 lets do it json.png">
+
+2. Attach the `LambdaVPCAccessPolicy` policy to the execution role of your Lambda function.
+
+<img src="assets/week4/6- Lambda Time/40 policy creatted.png">
+
+### Step 7: Deploy Lambda Function
+1. In the Lambda function's configuration, click "Deploy" to deploy the code.
+
+<img src="assets/week4/6- Lambda Time/9- console function deploy they mean save lmao.png">
+
+That's what the step about. Deploy your Lambda when It is ready.
+
+### Step 8: Configure Cognito Trigger
+1. Open your AWS Cognito User Pool settings.
+2. Under the "Triggers" tab, configure a trigger for "Post Confirmation."
+3. Go to User Pool Properties.
+4. Assign the previously created Lambda function (`cognito-post-confirm-function`) to this trigger.
+5. Click Add Lambda Trigger.
+
+<img src="assets/week4/6- Lambda Time/16 setting trigger with lambda.png">
+
+
+### Step 9: Testing and Verifying
+1. Ensure your Docker environment is up using `docker-compose up`.
+2. Load the production database schema using `./bin/db-schema-load prod`.
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/14 reload schema.png">
+
+3. Sign up to the Cruddur web app.
+4. Connect to the prod DB using `./bin/db-connect prod`
+5. Verify that the newly signed-up user is added to the users table using the database command:
+
+```sql
+SELECT * FROM users;
+```
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/31 new users looking good after cleaning data.png">
+
+```bash
+cruddur=> 
+-[ RECORD 1 ]---+-------------------------------------
+uuid            | UUID1
+display_name    | Yahya Abulhaj
+handle          | yaya2devops
+email           | yah..@..
+cognito_user_id | UUID2
+created_at      | DATE TIME.ID
+```
+
+### Step 10 : Post Verify
+We can ensure absolute certainty regarding this process by consulting the CloudWatch logs.
+1. Open CloudWatch.
+2. Navigate to "Log groups".
+3. Select "/aws/lambda/cruddur-post-confirmation".
+4. Review the logs displayed.
+
+<img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/29 perfect again.png">
+
+I had too many erros before getting to the state above Included in [this directory.](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/main/journal/assets/week4/6-%20Lambda%20Time/troubleshoot-Lambda)
 
 ---
 *To Be Continued..*
