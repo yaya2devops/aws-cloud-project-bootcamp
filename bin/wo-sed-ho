@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Replace these with your actual values
+PROJECT_ID="your_project_id"
+FLAGGED_BUCKET_NAME="your_flagged_bucket"
+FILTERED_BUCKET_NAME="your_filtered_bucket"
+DATASET_ID="your_dataset_id"
+TABLE_NAME="your_table_name"
+
+# Define a function to perform the sed replacement
+replace_value() {
+    sed -i "s/\[$1\]/$2/g" config.json
+}
+
+# Run the sed commands concurrently
+replace_value "PROJECT-ID" "$PROJECT_ID" &
+replace_value "FLAGGED_BUCKET_NAME" "$FLAGGED_BUCKET_NAME" &
+replace_value "FILTERED_BUCKET_NAME" "$FILTERED_BUCKET_NAME" &
+replace_value "DATASET_ID" "$DATASET_ID" &
+replace_value "TABLE_NAME" "$TABLE_NAME" &
+
+# Wait for all background processes to finish
+wait
+
+echo "Replacement complete!"

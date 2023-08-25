@@ -100,7 +100,8 @@ The creation was developed systematically, strategically and in a thoughtful app
 ├── bootstrap
 ├── busybox
 ├── clustermine
-└── prepare
+├── prepare
+└── wo-sed-ho
 ```
 
 > [🌳Build](../aws/README.md#lets-talk-about-trees) a tree.

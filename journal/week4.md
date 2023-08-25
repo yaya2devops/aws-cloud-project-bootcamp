@@ -314,11 +314,11 @@ psql cruddur < db/schema.sql -h localhost -U postgres
 - `-h localhost`: This specifies the **host** (in this case, your local machine).
 - `-U postgres`: This specifies the **PostgreSQL username** to use (in this case, "postgres").
 
-3. **Password Prompt:** When you run the command, you'll be prompted to enter the password for the "postgres" user. Enter the correct password associated with the "postgres" user.
+3. **Password Prompt:** When you run the command, you'll be prompted to enter the password for the "postgres" user. Enter the correct password associated with the "postgres" user equals `password`.
 
 4. **Terminal Output:** If the schema file is loaded successfully, you'll see output analogous to the one I had:
 
- ```
+ ```sql
 $ psql cruddur < db/schema.sql -h localhost -U postgres 
  ```
 
@@ -490,7 +490,7 @@ export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:54
 gp env PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:5432/cruddur"
 ```
 
-![Asset Not Found. 👇Find Out Just Below]()
+![Asset Not Found. 👇Find Out Why!]()
 
 ## Connecting to AWS RDS Instance in Gitpod
 
@@ -571,7 +571,8 @@ aws ec2 modify-security-group-rules \
 ```
 4. Verify the ip is updated in the console
 
-<img src="assets/week4/5- Establish RDS-Connection/7 the solution will be to configure a security rule to allow trafic from gitpod postgre to aws.png">
+<img src="assets/week4/5- Establish RDS-Connection/AutomateRDSrules/4 testing manually changing the inbound ip.png">
+
 
 ### Step 5: Automate Security Group Update
 1. Create a file named `rds-update-sg-rule` inside the `/bin` with the following content:
@@ -810,7 +811,7 @@ from pg_stat_activity;"
 └── sql/
     └── seed.sql
 ```
-
+> Take me to [where this worked.](#step-6-verify-and-test)
 ```SQL
 -- this file was manually created
 
@@ -1009,24 +1010,22 @@ The sed command supports a variety of commands, but some of the most common ones
 - `p` - Print text. This command prints all lines that match a specified pattern.
 
 ### Open Example For Cats and Dogs
-The following example shows how to use the sed command to replace all instances of
-- The word "dog" with the word "cat" 
-- The word "lovely" with "funny"
+The following example shows how to use the sed command to replace:
+- The word `dog` with the word `cat`;
+- The word `lovely` with `funny`;
 
 In a file called `yaya.txt`
 ```txt
 A dog is lovely.
 ```
-This command will read the file `yaya.txt` line by line and replace all instances of the word "dog" with the word "cat" and the word funny with lovely
+This command will read the file `yaya.txt` line by line and replace **all** instances of the word `dog` with the word `cat` and the word funny with lovely
 ```sh
 sed 's/dog/cat/g; s/lovely/funny/g' yaya.txt
 ```
-
 The output of the sed command will be written to the standard output.
 ```txt
 A cat is funny.
 ```
-
 ### Cruddur Removing Substring from Database Connection URLs
 Take our drop script for instance without the shebang.
 ```sh
@@ -1037,7 +1036,6 @@ psql "$NO_DB_CONNECTION_URL" -c "drop database cruddur;"
 The sed command is used to replace all occurrences of `/cruddur` with an empty string in the `CONNECTION_URL` variable. The modified URL is then used to drop the database named `cruddur` using the psql command.
 
 This example assumes that the `/cruddur` portion of the URL is related to a specific endpoint and is not required for database operations such as dropping or creating databases.
-
 
 ### `sed` For The Real World
 This was part of [my great time on Google Cloud](https://www.cloudskillsboost.google/public_profiles/664bbb5a-6ea0-4005-b3cf-817644fa9c0b). I made sure to keep it close, and the time comes to expose it for you, beautifully presented!
@@ -1062,7 +1060,7 @@ Consider you work for a doctor and possess a configuration file that requires cu
 }
 ```
 Instead of manually changing each ID and making specific modifications, you can efficiently use the `sed` command. 	
-```
+```sh
 sed -i 's/[PROJECT-ID]/$PROJECT_ID/g' config.json
 ```
 This command tells the sed command to open the file config.json in interactive mode and replace all occurrences of the text [PROJECT-ID] with the value of the environment variable $PROJECT_ID. 
@@ -1102,9 +1100,50 @@ After running these commands, the content of `config.json` would be updated as f
   }
 }
 ```
-And there you have it, ladies and gentlemen, a compelling use case of the `sed` command.<br> 
+And there you have it, ladies and gentlemen, a compelling use case of the `sed` command.
+
 This process can be further streamlined by scripting these commands into one.
 
+1. Create a file and call it `wo-sed-ho`
+```sh
+#!/bin/bash
+
+# Replace these with your actual values
+PROJECT_ID="your_project_id"
+FLAGGED_BUCKET_NAME="your_flagged_bucket"
+FILTERED_BUCKET_NAME="your_filtered_bucket"
+DATASET_ID="your_dataset_id"
+TABLE_NAME="your_table_name"
+
+# Define a function to perform the sed replacement
+replace_value() {
+    sed -i "s/\[$1\]/$2/g" config.json
+}
+
+# Run the sed commands concurrently
+replace_value "PROJECT-ID" "$PROJECT_ID" &
+replace_value "FLAGGED_BUCKET_NAME" "$FLAGGED_BUCKET_NAME" &
+replace_value "FILTERED_BUCKET_NAME" "$FILTERED_BUCKET_NAME" &
+replace_value "DATASET_ID" "$DATASET_ID" &
+replace_value "TABLE_NAME" "$TABLE_NAME" &
+
+# Wait for all background processes to finish
+wait
+
+echo "Yaya Gains You Time. Replaced!"
+```
+
+2. Make the file executable
+```
+chmod u+x wo-sed-ho
+```
+
+3. Run the `wo-sed-ho` script
+```sh
+./bin/wo-sed-ho
+
+Yaya Gains You Time. Replaced!
+```
 ## Implement PostgreSQL Client
 
 Currently, the data we have access to is in a simulated state. In order to retrieve actual information from our database—essentially making a connection between PostgreSQL and Python—we need to develop a PostgreSQL client specifically designed for Python integration using a database pooling.
@@ -1146,7 +1185,7 @@ pip install -r requirements.txt
 ### Step 2: Set Environment Variable
 In your `docker-compose.yml` file, set the environment variable for your backend-flask application:
 
-```
+```yaml
 CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
 ```
 **Important:** Avoid using a password that ends with the character '!' because this can lead to an issue with the URL structure. The combination of '!' and '@' in the URL might trigger errors when launching certain commands.
@@ -1324,16 +1363,20 @@ return results
 ### Step 6: Verify and Test
 After composing your Docker containers, the home page should display activity data from the `db/seed.sql` file instead of mock data.
 
-<img src="assets/week4/4- Driver and query/13 boom here it is.png">
+<img src="assets/week4/seed-yaya.png">
 
 #  A Database of Experiences
 This development holds immense significance within our application. We'll ensure the storage of users and activities in a production environment, aligned with our SQL schema design.
 
+![Jk. Get serious—Mark Zuckerberg](assets/week4/your-data-is-ours.png)
+
+
 ## Lambda for Cognito Post Confirmation
-Upon user sign-in , we will ensure their entry into the users table. To achieve this, we are considering the implementation of an AWS Lambda function that triggers the user sign up process and store it in RDS.
+Upon user sign-ups , we lay their entry into the users table. To achieve this, we are considering the implementation of an AWS Lambda function that triggers the user sign up process and store it in RDS.
 
 Get your strokes ready; We'll create and employ the following.
-```
+```sh
+./aws-cloud-project-bootcamp
 ├── aws
 │   ├── lambdas
 │   │   └── cruddur-post-confirmation.py
@@ -1492,6 +1535,9 @@ In the `finally` block, the cursor and connection are closed to ensure proper re
 The Lambda function concludes by returning the `event` dictionary.
 
 11. After undergoing rigorous development, your function's code now appears as follows:
+
+<img src="assets/week4/6- Lambda Time/7 coding the function.png">
+
 ```python
 import json
 import psycopg2
@@ -1610,14 +1656,14 @@ created_at      | DATE TIME.ID
 
 ### Step 10 : Post Verify
 We can ensure absolute certainty regarding this process by consulting the CloudWatch logs.
-1. Open CloudWatch.
-2. Navigate to "Log groups".
-3. Select "/aws/lambda/cruddur-post-confirmation".
+1. Open `CloudWatch`.
+2. Navigate to `Log groups`.
+3. Select `/aws/lambda/cruddur-post-confirmation`.
 4. Review the logs displayed.
 
 <img src="assets/week4/6- Lambda Time/troubleshoot-Lambda/29 perfect again.png">
 
-I had too many erros before getting to the state above Included in [this directory.](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/main/journal/assets/week4/6-%20Lambda%20Time/troubleshoot-Lambda)
+I *encountered* several errors prior to reaching the above state. <br>You can find more in [this directory.](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/main/journal/assets/week4/6-%20Lambda%20Time/troubleshoot-Lambda)
 
 ---
 *To Be Continued..*
