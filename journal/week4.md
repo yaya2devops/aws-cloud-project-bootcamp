@@ -21,7 +21,9 @@ Through this exploration, we aspire to deepen our understanding of how databases
 - [Connecting to AWS RDS Instance in Gitpod — **`7 Steps`**](#connecting-to-aws-rds-instance-in-gitpod)
 - [Implement PostgreSQL Flask Client — **`6 Steps`**](#implement-postgresql-client)
 - [A Database of Experiences](#a-database-of-experiences)
-  - [Cognito **Users** Post Confirmation — **`11 Steps`**](#lambda-for-cognito-post-confirmation)
+  - [Cognito **Users Post** Confirmation — **`11 Steps`**](#lambda-for-cognito-post-confirmation)
+  - [Implement Cruddur **User Activities** — **`6 Steps`**](#cruddur-user-activities)
+- [Reference](#reference)
 
 # Pathways to Success in Database
 I am surpassing my initial expectations with this section, and I am creating a clear path for you, driven by my affection towards you.
@@ -1665,6 +1667,530 @@ We can ensure absolute certainty regarding this process by consulting the CloudW
 
 I *encountered* several errors prior to reaching the above state. <br>You can find more in [this directory.](https://github.com/yaya2devops/aws-cloud-project-bootcamp/tree/main/journal/assets/week4/6-%20Lambda%20Time/troubleshoot-Lambda)
 
----
-*To Be Continued..*
----
+
+## Cruddur User Activities
+
+We need to code more in order to  create and show activity feed. will implement creating new activities with a database insert.
+
+Head over psql and check the activities table. 
+1. Start Your RDS Instance and Connect to the psql prod
+3. List the activities.
+```sh
+cruddur=# SELECT * FROM activities;
+-[ RECORD 1 ]----------+-------------------------------------
+```
+
+Nothing to see, Exact. Not for too long.
+
+We'll code functions that enable us to retrieve JSON directly from the database to Cruddur. 
+
+- [Step 1: Develop `home_activities.py' SQL Query](#step-1-develop-home_activitiespy-sql-query)
+- [Step 2: Develop `create_activity.py` Endpoint](#step-2-develop-create_activitypy-endpoint)
+- [Step 3: The SQL Activity Manager](#step-3-the-sql-activity-manager)
+- [Step 4: Create PSQL Library](#step-4-create-psql-library)
+- [Thoughful Step : Debug and Resolve](#thoughful-step--debug-and-resolve)
+- [Final Step: Test Activity Prod](#final-step-test-activity-prod)
+
+To do so we are making use of the following;
+```sh
+./cloud-project-bootcamp
+├── backend-flask/
+│   ├── lib/
+│   │   └── db.py
+│   ├── db/
+│   │   └── sql/
+│   │       └── activities/
+│   │           ├── create.sql
+│   │           ├── home.sql
+│   │           └── object.sql
+│   ├── services/
+│   │   ├── create_activity.py
+│   │   └── home_activities.py
+│   └── app.py
+├── frontend-react-js/
+│   ├── src/
+│   │   ├── pages/
+│   │   │   └── HomeFeedPage.js
+│   │   └── components/
+└──────── └── ActivityForm.js
+```
+
+### Step 1: Develop `home_activities.py` SQL Query
+1. Inside the 'HomeActivities' class Load an SQL query template for retrieving home activity data
+```py
+        sql = db.load_template('activities', 'home')
+        params = {}
+```
+2. Query the database for activity data using the template and parameters
+```py
+        results = db.query_array_json(sql, params)
+```
+3. Return the retrieved activity data with `return results` and compare your code with mine.
+
+```py
+from datetime import datetime, timedelta, timezone
+from lib.db import db
+
+class HomeActivities:
+    def run(logger, cognito_user_id=None):
+        sql = db.load_template('activities', 'home')
+        params = {}
+
+        results = db.query_array_json(sql, params)
+
+        return results
+```
+
+* **Import Statement**: The import for `db` from `lib.db` is included to enable database-related operations.
+* **SQL Query Template**: The line `sql = db.load_template('activities', 'home')` loads the SQL query template for retrieving home activity data. The template name is `'home'`, which is specific to retrieving activity data for the home page.
+* **Parameters**: The `params` dictionary is kept empty, as it appears that no specific parameters are being passed to the SQL query template for the home activity.
+* **Database Query**: The line `results = db.query_array_json(sql, params)` executes the SQL query using the loaded template and parameters. It retrieves an array of activity data in JSON format.
+* **Result Return**: The variable `results` contains the retrieved activity data, which is then returned from the `run()` method.
+
+Updated have been implemented, including the instrumentation of the endpoint for both CloudWatch and Honeycomb. Further the refactoring.<br>To learn more, refer to the details provided in the [file itself](../backend-flask/services/home_activities.py), routes and lib directories within the backend.
+
+### Step 2: Develop `create_activity.py` Endpoint
+
+1. Create `create_activity()` method responsible for creating a new activity entry in the database
+```py
+   def create_activity(handle, message, expires_at):
+        """
+        this method creates a crud and commits in RDS
+        """
+        sql = db.load_template('activities', 'create')
+        params = {'handle': handle, 'message': message,
+                  'expires_at': expires_at}
+        user_uuid = db.query_commit(sql, params)
+        return user_uuid
+```
+   - Parameters:
+       - `handle` (user handle)
+       - `message` (activity message)
+       - `expires_at` (expiry timestamp)
+   - Generates SQL query template for activity creation.
+   - Executes query and commits data to the database.
+   - Returns the UUID of the new activity.
+
+2. Create `query_object_activity(uuid)` method that retrieves details of an activity based on its UUID.
+```python
+    def query_object_activity(activity_uuid):
+        """
+        select crud data to show on front-end
+        """
+        sql = db.load_template('activities', 'object')
+        params = {'uuid': activity_uuid}
+        return db.query_object_json(sql, params)
+```
+   - Parameter:
+       - `uuid` (activity's unique identifier)
+   - Generates SQL query template for selecting activity details.
+   - Retrieves activity data from the database in JSON format.
+   - Returns JSON representation of activity details.
+3. Create `run(message, user_handle, ttl)` that coordinates the process of creating an activity, handling errors, and preparing the response model.
+
+```py
+    def run(message, user_handle, ttl):
+        """
+        Executes the activity creation process and prepares the model response.
+        """
+        model = {"errors": None, "data": None}
+
+        now = datetime.now(timezone.utc).astimezone()
+
+        ttl_offsets = {
+            "30-days": timedelta(days=30),
+            "7-days": timedelta(days=7),
+            "3-days": timedelta(days=3),
+            "1-day": timedelta(days=1),
+            "12-hours": timedelta(hours=12),
+            "3-hours": timedelta(hours=3),
+            "1-hour": timedelta(hours=1)
+        }
+
+        if ttl in ttl_offsets:
+            ttl_offset = ttl_offsets[ttl]
+        else:
+            model["errors"] = ["ttl_blank"]
+
+        if not user_handle or len(user_handle) < 1:
+            model["errors"] = ["user_handle_blank"]
+
+        if not message or len(message) < 1:
+            model["errors"] = ["message_blank"]
+        elif len(message) > 280:
+            model["errors"] = ["message_exceed_max_chars"]
+
+        if model["errors"]:
+            model["data"] = {"handle": user_handle, "message": message}
+        else:
+            expires_at = now + ttl_offset
+            created_activity_uuid = CreateActivity.create_activity(user_handle, message, expires_at)
+
+            object_json = CreateActivity.query_object_activity(created_activity_uuid)
+            model["data"] = object_json
+        return model
+```
+   - Coordinates activity creation, error handling, and response model preparation.
+   - Parameters:
+       - `message` (activity message)
+       - `user_handle` (user's handle)
+       - `ttl` (time-to-live duration)
+   - Calculates current time and TTL offset based on provided value.
+   - Validates input data and populates "errors" field in response model if needed.
+   - Calculates expiry timestamp, creates new activity, queries details, and populates "data" field in response model.
+   - Returns the prepared response model.
+
+
+This revised version of `create_activity.py` ensures that the creation and querying of activities are performed using actual database operations rather than mocked data. 
+
+
+### Step 3: The SQL Activity Manager
+
+We are creating the SQL functions queries in `/db/sql/here` that way we are adhering to the principle of **separation of concerns, code organization, modularity, and maintainability**. 
+
+<img src="assets/week4/7- DB Activities/6 take sql outside.png">
+
+Further, that was used to load the above code in both `home_activities.py' and `create_activity.py`.
+```sh
+├── db/
+│   └── sql/
+│       └── activities/
+│           ├── create.sql
+│           ├── home.sql
+└─          └── object.sql
+```
+1. `create.sql` - Inserting a New Activity
+This query is designed to insert a new activity into the database when a user initiates a new activity.
+
+<img src="assets/week4/7- DB Activities/8 for create activity.png">
+
+```SQL
+INSERT INTO public.activities (
+  user_uuid,
+  message,
+  expires_at
+)
+VALUES (
+  (SELECT uuid 
+    FROM public.users 
+    WHERE users.handle = %(handle)s
+    LIMIT 1
+  ),
+  %(message)s,
+  %(expires_at)s
+) RETURNING uuid;
+```
+- Adds a new activity to the database and associates it with a specific user.
+- Allows users to create and contribute new activities.
+- Enables tracking of user-generated content in the activity feed.
+
+2. `home.sql` - Retrieving Activities for Home Feed
+This query retrieves a list of activities for display in a user's home activity feed.
+```SQL
+SELECT
+  activities.uuid,
+  users.display_name,
+  users.handle,
+  activities.message,
+  activities.replies_count,
+  activities.reposts_count,
+  activities.likes_count,
+  activities.reply_to_activity_uuid,
+  activities.expires_at,
+  activities.created_at
+FROM public.activities
+LEFT JOIN public.users ON users.uuid = activities.user_uuid
+ORDER BY activities.created_at DESC;
+```
+- Populates the home activity feed with a list of activities and relevant user details.
+- Provides users with a personalized feed showcasing various activities.
+- Facilitates user engagement and content discovery.
+
+3. `object.sql` - Fetching a Created Activity for a User
+This query fetches details about a specific activity created by a user, enhancing the user experience.
+```SQL
+SELECT
+  activities.uuid,
+  users.display_name,
+  users.handle,
+  activities.message,
+  activities.created_at,
+  activities.expires_at
+FROM public.activities
+INNER JOIN public.users ON users.uuid = activities.user_uuid 
+WHERE 
+  activities.uuid = %(uuid)s;
+```
+- Displays detailed information about an activity that a user has created.
+- Allows users to view and interact with their own content easily.
+- Provides a seamless way to access and manage one's own activities.
+
+
+### Step 4: Create PSQL Library
+We have imported the library in both files, but does it actually exist? The answer is yes, as long as we create it at this moment.
+
+1. Create a folder named `lib` in the root directory of your project. This folder will contain your custom libraries/modules.
+2. Inside the newly created `lib` folder, create a file named `db.py`.
+3. Paste the provided code into the `db.py` file. This code defines a Python class called `Db` for database interactions.
+```py
+from psycopg_pool import ConnectionPool
+import os
+import re
+import sys
+from flask import current_app as app
+
+class Db:
+    def __init__(self):
+        self.pool = ConnectionPool(os.getenv("CONNECTION_URL"))
+
+    # ... (rest of the code)
+    
+    # Define all the methods and functions here
+    
+    # ...
+    
+db = Db()
+```
+* The code starts by importing necessary modules and classes.
+* The `Db` class is defined, which contains methods to interact with the database.
+* The `__init__` method initializes a connection pool using the provided connection URL.
+* The class includes various methods for querying and interacting with the database.
+* The `db = Db()` line creates an instance of the `Db` class, which can be used to access the database methods.
+
+4. Lets go over and create required methods for our requirements.
+
+<img src="assets/week4/7- DB Activities/2 too much coding.png">
+
+5. Create **`template(self, *args)`**:
+```py
+def template(self, *args):
+    pathing = list(
+        (
+            app.root_path,
+            "db",
+            "sql",
+        )
+        + args
+    )
+    pathing[-1] = pathing[-1] + ".sql"
+
+    template_path = os.path.join(*pathing)
+
+    green = "\033[92m"
+    no_color = "\033[0m"
+    print("\n")
+    print(f"{green} Load SQL Template: {template_path} {no_color}")
+
+    with open(template_path, "r") as f:
+        template_content = f.read()
+    return template_content
+```
+
+<img src="assets/week4/7- DB Activities/19 create this template class.png">
+
+- Constructs a file path based on input arguments.
+- Reads and returns the content of an SQL template file.
+
+6. Create **`print_params(self, params)`**:
+```py
+def print_params(self, params):
+        blue = "\033[94m"
+        no_color = "\033[0m"
+        print(f"{blue} SQL Params:{no_color}")
+        for key, value in params.items():
+            print(key, ":", value)
+```
+   - Prints SQL parameters for debugging purposes.
+
+7. Create **`print_sql(self, title, sql)`**:
+```py
+def print_sql(self, title, sql):
+    cyan = "\033[96m"
+    no_color = "\033[0m"
+    print(f"{cyan} SQL STATEMENT-[{title}]------{no_color}")
+    print(sql)
+```
+<img src="assets/week4/7- DB Activities/21 including para.png">
+
+- Prints an SQL statement for debugging.
+- Includes a specified title before printing the SQL.
+
+8. Create **`query_commit(self, sql, params={})`**:
+```py
+def query_commit(self, sql, params={}):
+    self.print_sql("commit with returning", sql)
+
+    pattern = r"\bRETURNING\b"
+    is_returning_id = re.search(pattern, sql)
+
+    try:
+        with self.pool.connection() as conn:
+            cur = conn.cursor()
+            cur.execute(sql, params)
+            if is_returning_id:
+                returning_id = cur.fetchone()[0]
+            conn.commit()
+            if is_returning_id:
+                return returning_id
+    except Exception as err:
+        self.print_sql_err(err)
+```
+   - Executes SQL queries involving changes (inserts, updates).
+   - If SQL contains "RETURNING", fetches returning value and commits.
+   - Commits transaction if no "RETURNING" in SQL.
+
+9. Create **`query_array_json(self, sql, params={})`**:
+```py
+def query_array_json(self, sql, params={}):
+    self.print_sql("array", sql)
+
+    wrapped_sql = self.query_wrap_array(sql)
+    with self.pool.connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(wrapped_sql, params)
+            json = cur.fetchone()
+            return json[0]
+```
+   - Executes SQL query, returning a JSON array result.
+
+10. Create **`query_object_json(self, sql, params={})`**:
+```py
+def query_object_json(self, sql, params={}):
+      self.print_sql("json", sql)
+      self.print_params(params)
+      wrapped_sql = self.query_wrap_object(sql)
+
+      with self.pool.connection() as conn:
+          with conn.cursor() as cur:
+              cur.execute(wrapped_sql, params)
+              json = cur.fetchone()
+              if json == None:
+                  "{}"
+              else:
+                  return json[0]
+```
+   - Executes SQL query, returning a JSON object result.
+
+11. Create **`query_wrap_object(self, template)`**:
+```py
+def query_wrap_object(self, template):
+    sql = f"""
+(SELECT COALESCE(row_to_json(object_row),'{{}}'::json) FROM (
+{template}
+) object_row);
+"""
+    return sql
+```
+- Wraps SQL template in a query converting result to JSON object.
+
+<img src="assets/week4/7- DB Activities/1 re design db lib.png">
+
+12. Create **`query_wrap_array(self, template)`**:
+```py
+def query_wrap_array(self, template):
+    sql = f"""
+(SELECT COALESCE(array_to_json(array_agg(row_to_json(array_row))),'[]'::json) FROM (
+{template}
+) array_row);
+"""
+    return sql
+```
+   - Wraps SQL template in a query converting result to JSON array.
+
+13. Create **`print_sql_err(self, err)`**:
+```py
+def print_sql_err(self, err):
+    #  Details the exception
+    err_type, err_obj, traceback = sys.exc_info()
+
+    # get the line number when exception occured
+    line_num = traceback.tb_lineno
+
+    # print the connect() error
+    print("\npsycopg ERROR:", err, "on line number:", line_num)
+    print("psycopg traceback:", traceback, "-- type:", err_type)
+
+    # print the pgcode and pgerror exceptions
+    print("pgerror:", err.pgerror)
+    print("pgcode:", err.pgcode, "\n")
+```
+- Prints PostgreSQL error details for debugging.
+- The `Db` class encapsulates these methods for PostgreSQL.
+
+14. Going back to `home_activities.py`, `create_activity.py`, etc.), you should find the import and the `db` call.
+
+In essence, this library streamlines psql interactions to Cruddur by providing methods for querying, handling query results in JSON format, and assisting in debugging by printing SQL statements and parameters.
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/33 here.png">
+
+Too much errors occured on the prcocess that It took me too much critical thinking to resolve.
+
+| 💡 |In Python, both def is used to define functions, and functions are often referred to as methods when they are defined within a class. |
+|:-----:|-------------|
+
+### Thoughful Step : Debug and Resolve
+The backend displays an error indicating **UUID: None**. Follow the instructions provided below sequentially to set up the process for creating CRUDs with varying expiration dates and shipping the data straight to RDS.
+
+1. Update the ActivityForm component in `pages/HomeFeedPage.js` to include the user_handle prop:
+
+```js
+<ActivityForm
+  user_handle={user}
+  popped={popped}
+  setPopped={setPopped}
+  setActivities={setActivities}
+/>
+```
+2. Within the `components/ActivityForm.js` component, enhance the fetch request body to encompass the `user_handle`:
+```js
+body: JSON.stringify({
+  user_handle: props.user_handle.handle,
+  message: message,
+  ttl: ttl
+}),
+```
+3. In the `app.py` file, specifically within the `/api/activities` route, assign the `user_handle` variable as follows:
+```js
+user_handle = request.json["user_handle"]
+```
+4. Adjust the `api/activities` route's user_handle to reflect your authentication username e.g.
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/11 lets see.png">
+
+```js
+user_handle = yaya2devops
+```
+
+### Final Step: Test Activity Prod
+1. Sign in-ups to the platform
+2. Write great insights and click post a.k.a `Crud`
+
+<img src="assets/week4/7- DB Activities/new cruds/hello.png">
+
+3. Connect to Prod PSQL
+
+```
+./bin/db-connect prod
+```
+
+4. List Activities From the prod DB using the following command
+
+```sql
+SELECT * FROM activities
+```
+
+<img src="assets/week4/7- DB Activities/new cruds/5 here.png">
+
+5. Check the logs on Crud clicks:
+
+<img src="assets/week4/7- DB Activities/CRUD-TEST/30 looking ok.png">
+
+### Reference
+
+- [The future of PostgreSQL in an automated world](https://www.techzine.eu/blogs/data-management/105022/the-future-of-postgres-in-an-automated-world/)
+- [What is Database Privacy?](https://www.easytechjunkie.com/what-is-database-privacy.htm)
+- [Google: Data will be unified, flexible, and accessible](https://cloud.google.com/resources/the-future-of-data)
+- [Compelete Guide To System Design](https://www.educative.io/blog/complete-guide-to-system-design)
+- [DBMS Normalization](https://www.javatpoint.com/dbms-normalization)
+- [Data Governance and Compliance](https://link.springer.com/book/10.1007/978-981-33-6877-4)
+- [IBM About Data Modeling](https://www.ibm.com/topics/data-modeling#:~:text=Data%20modeling%20is%20the%20process,between%20data%20points%20and%20structures.)
