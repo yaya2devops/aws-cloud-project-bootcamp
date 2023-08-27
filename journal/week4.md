@@ -23,7 +23,7 @@ Through this exploration, we aspire to deepen our understanding of how databases
 - [A Database of Experiences](#a-database-of-experiences)
   - [Cognito **Users Post** Confirmation — **`11 Steps`**](#lambda-for-cognito-post-confirmation)
   - [Implement Cruddur **User Activities** — **`6 Steps`**](#cruddur-user-activities)
-- [Reference](#reference)
+- [Additional PSQL Reference](#reference)
 
 # Pathways to Success in Database
 I am surpassing my initial expectations with this section, and I am creating a clear path for you, driven by my affection towards you.
@@ -1018,14 +1018,20 @@ The following example shows how to use the sed command to replace:
 
 In a file called `yaya.txt`
 ```txt
+THIS IS TEXT FILE
+
+I am same
 A dog is lovely.
 ```
 This command will read the file `yaya.txt` line by line and replace **all** instances of the word `dog` with the word `cat` and the word funny with lovely
 ```sh
-sed 's/dog/cat/g; s/lovely/funny/g' yaya.txt
+sed 's/dog/cat/g; s/lovely/funny/g; s/same/not/g' yaya.txt
 ```
 The output of the sed command will be written to the standard output.
 ```txt
+THIS IS TEXT FILE
+
+I am not
 A cat is funny.
 ```
 ### Cruddur Removing Substring from Database Connection URLs
@@ -1370,6 +1376,9 @@ After composing your Docker containers, the home page should display activity da
 #  A Database of Experiences
 This development holds immense significance within our application. We'll ensure the storage of users and activities in a production environment, aligned with our SQL schema design.
 
+- [Implement Users Sign Ups System](#lambda-for-cognito-post-confirmation)
+- [Implement User Activities System](#cruddur-user-activities)
+
 ![Jk. Get serious—Mark Zuckerberg](assets/week4/your-data-is-ours.png)
 
 
@@ -1474,14 +1483,14 @@ a connection to the PostgreSQL database is established using the connection URL 
 
 5. Prepare SQL Parameters using a Parameters List
 ```sql
-        parameters = [
-            user["name"],
-            user["email"],
-            user["preferred_username"],
-            user["sub"],
-        ]
+parameters = [
+    user["name"],
+    user["email"],
+    user["preferred_username"],
+    user["sub"],
+]
 
-        sql = f"INSERT INTO public.users (display_name, email, handle, cognito_user_id) VALUES (%s, %s, %s, %s)"
+sql = f"INSERT INTO public.users (display_name, email, handle, cognito_user_id) VALUES (%s, %s, %s, %s)"
 ```
 In this part, a list of parameters is created from the extracted user attributes. The SQL command for insertion is prepared using placeholders to avoid SQL injection.
 
@@ -1506,32 +1515,32 @@ This one provides better readability and allows you to use more descriptive vari
 
 7. Execute SQL Command
 ```py
-        cur.execute(sql, *parameters)
+cur.execute(sql, *parameters)
 ```
 The SQL command is executed using the cursor, and the parameters are passed in to complete the insertion operation.
 
 8. Commit Changes and Handle Exceptions
 ```py
-        conn.commit()
+    conn.commit()
 
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+except (Exception, psycopg2.DatabaseError) as error:
+    print(error)
 ```
 The changes are committed to the database. If an exception occurs during the database interaction, the error is printed.
 
 9. Close Database Connection
 ```py
-    finally:
-        if conn is not None:
-            cur.close()
-            conn.close()
-            print("Database connection closed.")
+finally:
+    if conn is not None:
+        cur.close()
+        conn.close()
+        print("Database connection closed.")
 ```
 In the `finally` block, the cursor and connection are closed to ensure proper resource management.
 
 10.  Return Event
 ```py
-    return event
+return event
 ```
 
 The Lambda function concludes by returning the `event` dictionary.
@@ -1670,9 +1679,10 @@ I *encountered* several errors prior to reaching the above state. <br>You can fi
 
 ## Cruddur User Activities
 
-We need to code more in order to  create and show activity feed. will implement creating new activities with a database insert.
+We should engage in further coding to establish and present the activity feed. This will involve incorporating a database insert to enable the creation of new activities.
 
-Head over psql and check the activities table. 
+Please proceed to the psql interface and examine the contents of the activities table.
+
 1. Start Your RDS Instance and Connect to the psql prod
 3. List the activities.
 ```sh
@@ -1682,9 +1692,9 @@ cruddur=# SELECT * FROM activities;
 
 Nothing to see, Exact. Not for too long.
 
-We'll code functions that enable us to retrieve JSON directly from the database to Cruddur. 
+We will develop functions that allow us to directly retrieve JSON bidirectional from the database and the Web App Cruddur.
 
-- [Step 1: Develop `home_activities.py' SQL Query](#step-1-develop-home_activitiespy-sql-query)
+- [Step 1: Develop `home_activities.py` SQL Query](#step-1-develop-home_activitiespy-sql-query)
 - [Step 2: Develop `create_activity.py` Endpoint](#step-2-develop-create_activitypy-endpoint)
 - [Step 3: The SQL Activity Manager](#step-3-the-sql-activity-manager)
 - [Step 4: Create PSQL Library](#step-4-create-psql-library)
@@ -1850,8 +1860,10 @@ We are creating the SQL functions queries in `/db/sql/here` that way we are adhe
 
 <img src="assets/week4/7- DB Activities/6 take sql outside.png">
 
-Further, that was used to load the above code in both `home_activities.py' and `create_activity.py`.
+Further, that was used to load the above code in both `home_activities.py` and `create_activity.py` .
+
 ```sh
+./backend-flask
 ├── db/
 │   └── sql/
 │       └── activities/
@@ -1859,7 +1871,7 @@ Further, that was used to load the above code in both `home_activities.py' and `
 │           ├── home.sql
 └─          └── object.sql
 ```
-1. `create.sql` - Inserting a New Activity
+1. `create.sql` - Inserting a New Activity —
 This query is designed to insert a new activity into the database when a user initiates a new activity.
 
 <img src="assets/week4/7- DB Activities/8 for create activity.png">
@@ -1885,7 +1897,7 @@ VALUES (
 - Enables tracking of user-generated content in the activity feed.
 
 2. `home.sql` - Retrieving Activities for Home Feed
-This query retrieves a list of activities for display in a user's home activity feed.
+ — This query retrieves a list of activities for display in a user's home activity feed.
 ```SQL
 SELECT
   activities.uuid,
@@ -1907,7 +1919,7 @@ ORDER BY activities.created_at DESC;
 - Facilitates user engagement and content discovery.
 
 3. `object.sql` - Fetching a Created Activity for a User
-This query fetches details about a specific activity created by a user, enhancing the user experience.
+ — This query fetches details about a specific activity created by a user, enhancing the user experience.
 ```SQL
 SELECT
   activities.uuid,
@@ -2125,8 +2137,8 @@ In essence, this library streamlines psql interactions to Cruddur by providing m
 
 Too much errors occured on the prcocess that It took me too much critical thinking to resolve.
 
-| 💡 |In Python, both def is used to define functions, and functions are often referred to as methods when they are defined within a class. |
-|:-----:|-------------|
+| 💡 |In Python, Functions are often referred to as methods when they are defined within a class. |
+|:-----:|:-------------|
 
 ### Thoughful Step : Debug and Resolve
 The backend displays an error indicating **UUID: None**. Follow the instructions provided below sequentially to set up the process for creating CRUDs with varying expiration dates and shipping the data straight to RDS.
@@ -2184,6 +2196,8 @@ SELECT * FROM activities
 5. Check the logs on Crud clicks:
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/30 looking ok.png">
+
+> [Week Four ScreenCast](assets/week4) —  T🔙
 
 ### Reference
 
