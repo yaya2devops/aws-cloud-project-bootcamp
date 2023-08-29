@@ -22,7 +22,7 @@ Through this exploration, we aspire to deepen our understanding of how databases
 - [Implement PostgreSQL Flask Client — **`6 Steps`**](#implement-postgresql-client)
 - [A Database of Experiences](#a-database-of-experiences)
   - [Cognito **Users Post** Confirmation — **`11 Steps`**](#lambda-for-cognito-post-confirmation)
-  - [Implement Cruddur **User Activities** — **`6 Steps`**](#cruddur-user-activities)
+  - [Implement Cruddur **Users Activities** — **`6 Steps`**](#cruddur-user-activities)
 - [Additional PSQL Reference](#reference)
 
 # Pathways to Success in Database
@@ -484,7 +484,7 @@ psql $CONNECTION_URL
 **Production PostgreSQL**<br>
 Following the approach employed earlier, we will once again incorporate the URL from the RDS instance we established at the outset.
 
-- Set and presist the connection URL for the production RDS DB;
+- Set and persist the connection URL for the production RDS DB;
 
 ```bash
 export PROD_CONNECTION_URL="postgresql://cruddurroot:<password>@<DB_endpoint>:5432/cruddur"
@@ -635,7 +635,7 @@ Type "help" for help.
 cruddur=>
 ```
 
-## Bash Scripts for Database Operations
+# Bash Scripts for Database Operations
 
 In this comprehensive instructional guide, we will walk you through the process of setting up a series of bash scripts to manage various database operations, such as creating and dropping databases, loading schemas, and seeding data. 
 
@@ -680,7 +680,7 @@ touch bin/db-seed
 touch bin/db-schema-load
 touch bin/db-rds-update-sg-rule
 ```
-Benefits of naming scripts without extensions Inlc. **Clear Intent, Portability, File Type Agnostic and looks *n*ice**.
+Benefits of naming scripts without extensions Incl. **Clear Intent, Portability, File Type Agnostic and looks *n*ice**.
 
 ### Step 2: Add Shebang and Permissions
 1. For each script file, add the shebang line at the top to indicate that the script should be executed with Bash.
@@ -1377,7 +1377,7 @@ After composing your Docker containers, the home page should display activity da
 This development holds immense significance within our application. We'll ensure the storage of users and activities in a production environment, aligned with our SQL schema design.
 
 - [Implement Users Sign Ups System](#lambda-for-cognito-post-confirmation)
-- [Implement User Activities System](#cruddur-user-activities)
+- [Implement Users Activities System](#cruddur-user-activities)
 
 ![Jk. Get serious—Mark Zuckerberg](assets/week4/your-data-is-ours.png)
 
@@ -1698,7 +1698,7 @@ We will develop functions that allow us to directly retrieve JSON bidirectional 
 - [Step 2: Develop `create_activity.py` Endpoint](#step-2-develop-create_activitypy-endpoint)
 - [Step 3: The SQL Activity Manager](#step-3-the-sql-activity-manager)
 - [Step 4: Create PSQL Library](#step-4-create-psql-library)
-- [Thoughful Step : Debug and Resolve](#thoughful-step--debug-and-resolve)
+- [Thoughful Step : Debug and Resolve](#thoughtful-step--debug-and-resolve)
 - [Final Step: Test Activity Prod](#final-step-test-activity-prod)
 
 To do so we are making use of the following;
@@ -2135,12 +2135,12 @@ In essence, this library streamlines psql interactions to Cruddur by providing m
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/33 here.png">
 
-Too much errors occured on the prcocess that It took me too much critical thinking to resolve.
+Too much errors occured on the process that It took me too much critical thinking to resolve.
 
 | 💡 |In Python, Functions are often referred to as methods when they are defined within a class. |
 |:-----:|:-------------|
 
-### Thoughful Step : Debug and Resolve
+### Thoughtful Step : Debug and Resolve
 The backend displays an error indicating **UUID: None**. Follow the instructions provided below sequentially to set up the process for creating CRUDs with varying expiration dates and shipping the data straight to RDS.
 
 1. Update the ActivityForm component in `pages/HomeFeedPage.js` to include the user_handle prop:
@@ -2193,7 +2193,7 @@ SELECT * FROM activities
 
 <img src="assets/week4/7- DB Activities/new cruds/5 here.png">
 
-5. Check the logs on Crud clicks:
+5. Please review the logs pertaining to CRUD operation and verify whether the executed operations are generating the anticipated SQL queries.
 
 <img src="assets/week4/7- DB Activities/CRUD-TEST/30 looking ok.png">
 
@@ -2204,7 +2204,7 @@ SELECT * FROM activities
 - [The future of PostgreSQL in an automated world](https://www.techzine.eu/blogs/data-management/105022/the-future-of-postgres-in-an-automated-world/)
 - [What is Database Privacy?](https://www.easytechjunkie.com/what-is-database-privacy.htm)
 - [Google: Data will be unified, flexible, and accessible](https://cloud.google.com/resources/the-future-of-data)
-- [Compelete Guide To System Design](https://www.educative.io/blog/complete-guide-to-system-design)
+- [Complete Guide To System Design](https://www.educative.io/blog/complete-guide-to-system-design)
 - [DBMS Normalization](https://www.javatpoint.com/dbms-normalization)
 - [Data Governance and Compliance](https://link.springer.com/book/10.1007/978-981-33-6877-4)
 - [IBM About Data Modeling](https://www.ibm.com/topics/data-modeling#:~:text=Data%20modeling%20is%20the%20process,between%20data%20points%20and%20structures.)

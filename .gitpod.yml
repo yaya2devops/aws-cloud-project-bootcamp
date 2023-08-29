@@ -22,11 +22,11 @@ tasks:
       unzip awscliv2.zip
       sudo ./aws/install
       cd $THEIA_WORKSPACE_ROOT
-  - name: react-js
+  - name: react-js-w-cspell
     command: |
       ruby "./bin/frontend/generate-env" &&
       cd frontend-react-js
-      npm i
+      npm i && npm install -g cspell
   - name: postgres
     before: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg

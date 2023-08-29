@@ -16,7 +16,7 @@ Strategically located in 1️⃣ site.
 <img src="res-hub-ban.png" width="626px">
     
 | Resource | Description | 
-| :---: | :--- | 
+| ---: | :--- | 
 | [Mermaid ](resources/mermaid.md) | A powerful and intuitive text-based diagramming tool| 
 | [Gitpod Migrate](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
 | [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
