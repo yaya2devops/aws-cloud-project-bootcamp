@@ -1,822 +1,281 @@
-# Week 5 — NoSQL with Amazon DynamoDB
+# Week 5 — NoSQL with DynamoDB
 
-<img src="assets/week5/week5-banner.png">
-
-
-## Table Of Contents
-
-- [Data Modelling and Patterns](#dynamodb-data-modeling)
-
-- **Implement Setup Scripts**
-  - [Implement Schema Load Script](#dynamo-loading-schema-script)
-  - [Implement Seed Script](#implement-seed-script)
-  - [Implement Scan Script](#implement-scan-script)
-
-- **DynamoDB Patterns**
-  - [Implement Pattern Scripts](#dynamodb-patterns)
-  - [Automate Cognito ID ](#update-cognito-id-script-for-postgres)
-  - [Implement Pattern A](#implement-pattern-a)
-  - [Implement Pattern B](#implement-pattern-b)
-  - [Implement Pattern C](#implement-pattern-c)
-  - [Implement Pattern D](#implement-pattern-d)
-  - [Implement Pattern E](#implement-pattern-e)
+This week, we're diving headfirst into the exciting world of NoSQL, harnessing the power of AWS DynamoDB to revolutionize the messaging functionality within our application.
 
 
----
-
-# DynamoDB Data Modeling
-
-The NoSQL data modeling approach in DynamoDB  varies and here i summarized it in the below bullet points:
+My data journey began with my Microsoft Azure Fundamentals experience. You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you.
 
 
-**Single table design:** All related data should be stored in a single table to simplify data access and reduce complexity.<br>
-**Access patterns(our-case):** Data modeling should take into account the most common access patterns to ensure efficient and performant data retrieval.<br>
-**Partitioning:** Data is partitioned across multiple nodes for horizontal scalability, with partition keys chosen carefully to avoid hotspots.<br>
-**Global secondary indexes:** Additional indexes can be created on different partition and sort keys to support additional query patterns.<br>
-**Local secondary indexes:** Additional sort keys can be created within a partition to support specific query patterns.
+Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
 
-## **CRUDDUR Spreadsheet Data Modeling** 
-This tabluar data modeling represent  our use case to retrieve the messages from the MG.
+
+## Personalizing Your NoSQL Experience
+The term **NoSQL** was first coined in 1998 by Carlo Strozzi, who used it to describe his lightweight, open-source relational database that did not expose the standard Structured Query Language (SQL) interface. 
+
+The concept of NoSQL databases has its roots in the early days of the internet—early 2000s, when developers began to realize that traditional relational databases were not well-suited for storing and querying large amounts of unstructured data.
+
+
+#### Different types of NoSQL databases;
+
+
+
+There are many different types of NoSQL databases, each with its own strengths and weaknesses.
+
+```mermaid
+graph TB
+    subgraph Application
+        A((User Interface))
+        B((Application Server))
+    end
+
+    subgraph NoSQL Database
+        C((Document Store))
+        D((Key-Value Store))
+        E((Column-Family Store))
+        F((Graph Database))
+    end
+
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    B --> F
+```
+
+* **Key-value stores(Our DynamoDB):** Key-value stores store data in the form of key-value pairs. The key is used to uniquely identify the data, and the value is the data itself.
+* **Document stores:** Document stores store data in the form of documents. Documents are like JSON objects, and they can contain a variety of data types.
+* **Columnar stores:** Columnar stores store data in columns. This can be useful for applications that need to scan large amounts of data for specific values.
+* **Graph databases:** Graph databases store data in the form of graphs. Graphs are made up of nodes and edges, and they can be used to represent relationships between data.
+
+A number of NoSQL databases were developed, including Bigtable, Cassandra, and MongoDB and were designed to be more scalable, flexible, and fault-tolerant. Later in 2012, Amazon Web Services introduced DynamoDB in response to the growing demand and to make it easier for you to develop on the NoSQL model.
+
+
+## NoSQL VS SQL
+
+NoSQL databases are designed to be flexible and scalable, while SQL databases are designed for querying and reporting.
+
+In SQL databases, the schema is fixed and must be desined first. NoSQL databases do not have a fixed schema. 
+
+**Observe the self-generated insights to empower you on this topic;**
+
+```mermaid
+classDiagram
+    class NoSQL {
+        - Schema: Not required
+        - Flexibility: More flexible
+        - Scalability: More scalable
+        - Throughput: Higher throughput for writes
+        - Latency: Higher latency for reads
+        - Cost: Lower cost for large volumes of data
+        - Use cases: Big data, real-time applications, applications with changing data models
+    }
+
+    class SQL {
+        - Schema: Required
+        - Flexibility: Less flexible
+        - Scalability: Less scalable
+        - Throughput: Higher throughput for reads
+        - Latency: Lower latency for reads
+        - Cost: Higher cost for small volumes of data
+        - Use cases: OLTP applications, applications with complex queries
+    }
+
+    NoSQL --|> SQL
+
+```
+
+* NoSQL databases are often used for big data applications. The data model must be able to handle large volumes of data.
+* NoSQL databases are often used for real-time applications.The data model must be able to keep the data consistent in real time.
+
+NoSQL databases offer a dynamic approach to data modeling but it is a complex task. This flexibility can be advantageous in scenarios where the data's structure is not well-known in advance or where rapid development and scalability are essential. 
+
+Nonetheless, achieving data integrity and efficient querying demands thoughtful planning and design. Let's go over the process of architecting the data model for our application.
+
+
+# A Masterclass On NoSQL Schema
+
+Data modeling in DynamoDB differs from traditional relational databases due to its schema-less nature, which allows for flexibility but requires careful planning to achieve optimal performance.
+
+```mermaid
+graph LR
+    subgraph DynamoDB
+        A(Schema-less)
+        B(Flexibility)
+        C(Optimal Performance)
+    end
+
+    subgraph Traditional DB
+        D(Structured Schema)
+        E(Less Flexibility)
+        F(Performance Tuning)
+    end
+
+    A --> B
+    A --> C
+    D --> E
+    E --> F
+```
+
+It's quite remarkable that you can integrate Amazon DynamoDB, a NoSQL database service, into a [SQL-based environment](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html).
+
+## Pre-Data Model
+
+The following steps serve as acknowledged guidelines that will steer you towards establishing a solid foundation for designing your NoSQL data modeling that will be showcased through our Cruddur app development.
+
+1. **Understand Your Data Access Patterns**
+   - Understand [the primary access patterns](#cruddur-access-patterns-design) of your application. 
+   - Identify the [common queries](assets/week5/resources/patternsdb.md) that your application will perform.
+   -  Apply frequently used patterns in your app before optimization.
+2. **Denormalization is Key**
+   - DynamoDB doesn't support complex JOIN operations like relational databases.
+   - Design for flat tables instead.
+   - Using one table instead of linked tables boosts scalability.
+   - Duplicate some information across multiple tables to optimize read operations. 
+3. **Choose the Right Partition Key**
+   - The hash key determines how data is distributed across DynamoDB partitions. 
+   - Common choices for partition keys include user IDs, timestamps, or unique identifiers.
+   - Key condition expressions for query only for RANGE, HASH is only equality
+   - Generate a UUID for an entity only when needed for a specific access pattern.
+   - Each query requires a partition key (pk) and, if available in the table, a sort key (sk).
+4. **Design Secondary Indexes**
+   - Design these indexes based on your access patterns.
+   - Store data as a JSON document in a string field If you're not indexing
+   - Repeating data for better indexing is acceptable.
+   - Be aware that secondary indexes come with additional costs and write capacity requirements.
+   - Changing a key (simple.pk or composite.sk) requires creating a new item.
+5. **Use Composite Primary Keys Sparingly**
+   - Composite primary keys consist of both a partition key and a sort key (range key) e.g. pk = 'yaya2devops'
+   - Data keys can serve as a third key or store JSON documents
+   - Useful for modeling hierarchical data but should be used judiciously because they limit your query flexibility.
+6. **Understand Provisioned Throughput vs. On-Demand Capacity**
+   - DynamoDB offers both provisioned and on-demand capacity modes. 
+   - Provisioned capacity requires you to specify the read and write capacity units
+   - On-demand automatically scales capacity based on your actual usage.
+   - Choose the capacity mode that aligns with your workload and budget.
+7. **Monitor and Optimize**
+   - Regularly monitor your DynamoDB tables using CloudWatch metrics and AWS X-Ray for tracing. 
+   - Adjust your table's provisioned capacity or indexes as needed based on real usage patterns.
+   - Use tools like the AWS DynamoDB Auto Scaling feature to automate capacity adjustments.
+8. **Use Conditional Writes**
+   - Allow you to make changes to your data only if specific conditions are met. 
+   - Help yourself with data consistency and integrity.
+9. **Understand the Consistency Models**
+   - DynamoDB offers two consistency models: eventually consistent reads and strongly consistent reads. 
+   - Choose the one that fits your application's requirements.
+10. **Leverage DynamoDB Streams**
+    - DynamoDB Streams can be used to capture changes to your data and trigger other AWS services, enabling real-time processing and event-driven architectures(Employed).
+11. **Consider Data Size and Item Size Limits**
+    - DynamoDB's maximum item size limit (400 KB) 
+    - Partition size limit (10 GB). 
+    - Design your data model accordingly.
+12. **Use the AWS SDK for DynamoDB**
+    - Utilize the AWS SDKs, which provide convenient APIs for working with DynamoDB, making it easier to interact with your data.
+
+Continuously reevaluate and retest your data model to verify its alignment with your performance and scalability prerequisites. Let me take you into our application's data modeling for further insight.
+
+
+## DynamoDB Data Modeling
+
+This tabular data model represents our use case for retrieving messages. This table is used to store messages in a DynamoDB table. This is available just for You in [CSV](assets/week5/Spreadsheet-DynamoDBData%20Modeling.csv) and [PDF](assets/week5/Spreadsheet-DynamoDBData%20Modeling.pdf)!
+
 
 | pk                | sk                   | data                       | uuid                                | display_name    | handle       | message               | user_uuid                            | message_group_uuid                   |
 |-------------------|----------------------|----------------------------|------------------------------------|----------------|--------------|-----------------------|--------------------------------------|--------------------------------------|
-| MSG#{message_group_uuid} | MSG#{created_at} |                            | 32423432-235325-3525-325235352-235235 | Yahya ABULHAJ  | yaya2devops  | Hey Bayko             | 232cfd0f-3841-47bc-ad8b-44d9d3b7264f | 23523532-6433634643-234234234-23423525 |
+| MSG#{message_group_uuid} | MSG#{created_at} |                            | 32423432-235325-3525-325235352-235235 | Yahya Abulhaj  | yaya2devops  | Hey Bayko             | 232cfd0f-3841-47bc-ad8b-44d9d3b7264f | 23523532-6433634643-234234234-23423525 |
 | GRP#{my_user_uuid}      | GRP#{last_reply_at} |                          |                                    | Andrew Bayko   | bayko        | Hey - Yaya, The legend. | 2342342-52353252-23523523-23424    | 23523532-6433634643-234234234-23423525 |
-| GRP#{my_user_uuid}      | GRP#{last_reply_at} |                          |                                    | Yahya ABULHAJ  | yaya2devops  | Ty. Love the cloud!    | 232cfd0f-3841-47bc-ad8b-44d9d3b7264f | 23523532-6433634643-234234234-23423525 |
+| GRP#{my_user_uuid}      | GRP#{last_reply_at} |                          |                                    | Yahya Abulhaj  | yaya2devops  | Ty. Love the cloud!    | 232cfd0f-3841-47bc-ad8b-44d9d3b7264f | 23523532-6433634643-234234234-23423525 |
+
+The table can be queried by the `message_group_uuid` or the `created_at` field.<br> The data column can be used to retrieve the data for a specific message
+
+Refer to the following to get a clear overview of each attribute within our DynamoDB table.
+- **pk (Primary Key)**: A combination of the `message_group_uuid` and `created_at` fields, ensuring unique message identification.
+- **sk (Sort Key)**: Represents the `created_at` field, ensuring messages are sorted chronologically.
+- **data**: A JSON object containing message data, including message text, sender's username, and sender's UUID.
+- **uuid**: Unique identifier for each message.
+- **display_name**: The sender's display name used for identification.
+- **handle**: The sender's username used for logging into the application.
+- **message**: The actual text content of the message.
+- **user_uuid**: Unique identifier for the sender.
+- **message_group_uuid**: Unique identifier for the message group.
+
+I made sure not to place [similar formats](assets/week5/resources/other-format-dynamdb.md) in close proximity.
 
 
-We used a single table design, with a partition key (pk) and sort key (sk) that are specific to each item 
+## Cruddur Messanging Access Patterns
+To enable messaging functionality, we employed five DynamoDB patterns for implementation.
+We will uncover each access pattern A through E and explain how to implement them effectively.
 
-The table incl more attributes such as uuid, display_name, handle, message, user_uuid, and message_group_uuid, it is designed to handle multiple types of items, with different partition and sort keys for each type. 
+Before delving deeper, take a moment to examine the following comprehensive architecture that encapsulates the key aspects. The representation of patterns describe the different ways in which we will access and query data using the NoSQL approach.
 
-we also used indexes for retrieving messages by the message_group_uuid.
-
-For your convenience, the model is available in [CSV](assets/week5/Spreadsheet-DynamoDBData%20Modeling.csv) or [PDF](assets/week5/Spreadsheet-DynamoDBData%20Modeling.pdf).
-
-### **DynamoDB Modeling Patterns** -  [SVG](assets/week5/DynamoDB%20Modelling-Patterns.svg)
-This below representation of patterns describe the different ways in which we will access and query data using the NoSQL approach.
-
-
-Meaning, we are developing a messaging application that offers diverse communication options to users. 
-
-We have **Five patterns**:
 <img src="assets/week5/DynamoDB Modelling-Patterns.svg">
 
-The application will allow users to view grouped messages (A) and navigate between different conversations using message groups (B). Users will be able to add new messages to an existing conversation (C) or start a new conversation (D) to connect with other users in novel ways. Additionally, we will use DynamoDB Streams (E) to track changes to message groups, providing real-time updates when messages are added, edited, or deleted.
 
-## Implement DynamoDB Local
+Proceed to my complete guide about the access patterns prior to our implemention.
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/6 our db back.png">
+- [A. Listing Messages in Message Group into Application](#a-listing-messages-in-message-group-into-application)
+- [B. Listing Messages Group into Application](#b-listing-messages-group-into-application)
+- [C. Creating a Message for an existing Message Group into Application](#c-creating-a-message-for-an-existing-message-group-into-application)
+- [D. Creating a Message for a new Message Group into Application](#d-creating-a-message-for-a-new-message-group-into-application)
+- [E. Updating a Message Group using DynamoDB Streams](#e-updating-a-message-group-using-dynamodb-streams)
 
-#### **Dynamo Loading Schema Script**
+### A. Listing Messages in Message Group into Application
 
-- Create a new folder ddb inside backend-flask/bin/ddb
-- Add schema-load script to this folder and make it executable
+This pattern is used to list all the messages in a message group. The following steps are involved in implementing this pattern:
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/7 our python based dynamodb schema.png">
+1. Create a DynamoDB table with the following schema:
 
+- `MessageGroupID:` The primary key of the table. This is a partition key.
+- `MessageID:` The secondary index of the table. This is a sort key.
+- `Message:` The message content.
+2. Create a Lambda function that will be triggered when a new message is added to the table. The Lambda function should list all the messages in the message group and return them to the application.
 
-- make it exe using:
-```sh
-chmod u+x backend-flask/bin/ddb/schema-load
-```
-- Add boto3 to the requirements.txt file and run pip install.
+3. Call the Lambda function to list all the messages in the message group.
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/1 install boto thpythondsk.png">
+### B. Listing Messages Group into Application
 
-- Automate it:
+This pattern is used to list all the message groups. The following steps are involved in implementing this pattern:
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/1 x add itautomate install all bib.png">
+1. Create a DynamoDB table with the following schema:
 
+- `MessageGroupID:` The primary key of the table. This is a partition key.
+- `Name:` The name of the message group.
+2. In the application, query the DynamoDB table for all the message groups.
 
+### C. Creating a Message for an existing Message Group into Application
 
-- run script `./bin/ddb/schema-load`
+This pattern is used to create a new message for an existing message group. The following steps are involved in implementing this pattern:
 
+1. Create a DynamoDB table with the following schema:
 
+- `MessageGroupID:` The primary key of the table. This is a partition key.
+- `MessageID:` The secondary index of the table. This is a sort key.
+- `Message:` The message content.
+2. In the application, create a new message and add it to the DynamoDB table.
 
-Do the same for scripts to:
+### D. Creating a Message for a new Message Group into Application
 
-- [**list-tables**](../bin/ddb/list-tables)
+This pattern is used to create a new message group and a new message in the message group. The following steps are involved in implementing this pattern:
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/11 listed.png">
+1.Create a DynamoDB table with the following schema:
 
- <br>
+- `MessageGroupID:` The primary key of the table. This is a partition key.
+- `MessageID:` The secondary index of the table. This is a sort key.
+- `Message:` The message content.
+2. In the application, create a new message group and add a new message to the message group.
 
--  [**drop**](../bin/ddb/drop)
+### E. Updating a Message Group using DynamoDB Streams
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/13 dropping db file.png">
+This pattern is used to update a message group using DynamoDB Streams. DynamoDB Streams is a feature of DynamoDB that allows you to track changes to your data. The following steps are involved in implementing this pattern:
 
-Performing the drop:
+1. Enable DynamoDB Streams on the table that contains the message group.
+2. Create a Lambda function that will be triggered when a change is made to the message group.
+3. In the Lambda function, update the message group accordingly.
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/16 that is what we called it - deleting it.png">
-
-#### **Implement Seed Script**
-
-This script is used to seed conversation into from the database to the product interface.
-<img src="assets/week5/1- DynamoDb Utility Scrips/18 required to seed.png">
-
-- Create `backend-flask/bin/ddb/seed` and make it executable.
-
-
-- Seed PSQL:
-<img src="assets/week5/1- DynamoDb Utility Scrips/19 seed.png">
-
-This may not be the most efficient way to accomplish this. It is sometimes far more efficient to use BatchWriteItem.
-
-Run 
-
-```sh
-./bin/ddb/seed to seed the DynamoDB
-```
-
-<img src="assets/week5/1- DynamoDb Utility Scrips/20 seed from dynamo.png">
-
-
-
-
-
-
-
-
-
-
-#### **Implement Scan Script**
-This script to list all data in ddb - kinda verification.
-In our case, i saw the exact data i seed.
-
-
-- Create `backend-flask/bin/ddb/scan` and make it executable.
-
-<img src="assets/week5/1- DynamoDb Utility Scrips/26 SCAN EXE.png">
-
-```sh
-./bin/ddb/scan
-```
-
-<img src="assets/week5/1- DynamoDb Utility Scrips/26 tu peux scan here.png">
 
 
 
 ---
 
-# DynamoDB Patterns
-
-### **Implement Get  Conversations Script:**
-
-Create `backend-flask/bin/ddb/patterns/get-conversation` and make it executable.
-
-<img src="assets/week5/1- DynamoDb Utility Scrips/27 get conversation file and exe.png">
-
-```sh
-./bin/ddb/patterns/get-conversation
-```
-
-
-<img src="assets/week5/1- DynamoDb Utility Scrips/27 here convo get.png">
-
-
-
-### **Implement List Conversations Script:**
-
-- Add this to function to db.py
-
-```python
-  def query_value(self, sql, params={}):
-      self.print_sql("value", sql, params)
-
-      with self.pool.connection() as conn:
-          with conn.cursor() as cur:
-              cur.execute(sql, params)
-              json = cur.fetchone()
-              return json[0]
-
-```
-
-- Create `backend-flask/bin/ddb/patterns/list-conversation` and make it exe
-
-
-Get it from [here.](../bin/ddb/patterns/list-conversations)
-
-
-- Update `print_sql` function and prereq in `db.py` to pass params.
-
-
-```python
-def print_sql(self,title,sql,params={}):
-    cyan = '\033[96m'
-    no_color = '\033[0m'
-    print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
-    print(sql,params)
-```
-<img src="assets/week5/1- DynamoDb Utility Scrips/31 coding before listing validation.png">
-
-
-Run the command:
-
-
-```sh
-./bin/ddb/patterns/list-conversation
-```
-<img src="assets/week5/1- DynamoDb Utility Scrips/32 listed validation.png">
-
-
-### **Update Cognito ID** Script for Postgre:
-
-- Create  `backend-flask/bin/cognito/list-users` and make it exe using `chmod`
-
-
-
-
-
-
-- Consult user details:
-
- ```sh
- ./backend-flask/bin/cognito/list-users
- ```
-
-<img src="assets/week5/2- ImplementConversations/3 the required script.png">
-
-- Create `backend-flask/bin/db/update_cognito_user_ids` and `chmod`
-
-<img src="assets/week5/2- ImplementConversations/4 script to update user pool.png">
-
-
-- Add this to `backend-flask/bin/db/setup`
-
-```bash
-python3 "$bin_path/db/update_cognito_user_ids"
-```
-
-- Create  `backend-flask/db/sql/users/uuid_from_cognito_user_id.sql`
-
-```sql
-SELECT users.uuid
-FROM public.users
-WHERE
-    users.cognito_user_id = %(cognito_user_id)s
-LIMIT 1
-```
-
-**Updated:**
-
-<img src="assets/week5/2- ImplementConversations/10 done.png">
-
-
-
-### Implement **Pattern A** 
-Listing Messages in Message Group into Application:
-
-
-- create `backend-flask/lib/ddb.py`
-
-- Add environment variable to backend service, Docker Compose to connect to the local DynamoDB:
-
-```yaml
-AWS_ENDPOINT_URL: "http://dynamodb-local:8000"
-```
-
-- in `app.py` update `data_message_group` function like this
-
-```python
-@app.route("/api/message_groups", methods=["GET"])
-def data_message_groups():
-    claims = request.environ["claims"]
-    cognito_user_id = claims["sub"]
-    model = MessageGroups.run(cognito_user_id=cognito_user_id)
-
-    if model["errors"] is not None:
-        return model["errors"], 422
-    else:
-        return model["data"], 200
-```
-
-- Remove @ sign from `data_messages` route in app.py.
-- Update `backend-flask/services/message_groups.py`
-- Update `backend-flask/bin/ddb/patterns/list-conversation`
-- Update `backend-flask/bin/ddb/patterns/get-conversation`
-
-
-
-**Authorization Portability:**<br>
-Start with including this in the required code files and eliminate any cookies:
-
-```jsx
-headers: {
-  'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
-},
-```
-
-- frontend-react-js/src/pages/MessageGroupPage.js
-- frontend-react-js/src/pages/MessageGroupsPage.js
-- frontend-react-js/src/components/MessageForm.js
-
-
-**Create the file independent `frontend-react-js/src/lib/CheckAuth.js`**
-
-```jsx
-import { Auth } from "aws-amplify";
-
-const checkAuth = async (setUser) => {
-    Auth.currentAuthenticatedUser({
-        bypassCache: false,
-    })
-        .then((user) => {
-            console.log("user", user);
-            return Auth.currentAuthenticatedUser();
-        })
-        .then((cognito_user) => {
-
-            setUser({
-                display_name: cognito_user.attributes.name,
-                handle: cognito_user.attributes.preferred_username,
-            });
-        })
-        .catch((err) => console.log(err));
-};
-```
-
-- Import this in `HomeFeedPage.js`, `MessageGroupPage.js`, and `MessageGroupsPage.js`
-
-
-```jsx
-import checkAuth from '../lib/CheckAuth'
-```
-
-- Update `checkAuth();` function call in `HomeFeedPage.js` , `MessageGroupPage.js`, and `MessageGroupsPage.js`:
-
-```jsx
-checkAuth(setUser);
-```
-
-
-- update `App.js` route.
-
-```jsx
-{
-  path: "/messages/:message_group_uuid",
-  element: <MessageGroupPage />,
-},
-```
-
-- Update `frontend-react-js/src/pages/MessageGroupPage.js`
-
-```jsx
-const loadMessageGroupData = async () => {
-    try {
-      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/messages/${params.message_group_uuid}`
-      const res = await fetch(backend_url, {
-        method: "GET"
-      });
-      let resJson = await res.json();
-      if (res.status === 200) {
-        setMessages(resJson)
-      } else {
-        console.log(res)
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-```
-
-- Update classe `frontend-react-js/src/components/MessageGroupItem.js`
-
-```jsx
-const classes = () => {
-    let classes = ["message_group_item"];
-    if (params.message_group_uuid == props.message_group.uuid) {
-      classes.push("active");
-    }
-    return classes.join(" ");
-  };
-
-  return (
-    <Link className={classes()} to={`/messages/` + props.message_group.uuid}>
-```
-
-**Bayko Message Group:**
-
-<img src="assets/week5/3- NeatDelivery/pattern A (without seed).png">
-
+**To Be Continued..**
 
 ---
-
-### Implement **Pattern B** 
-
-Listing Messages Group into Application:
-
-
-- Update `data_messages` in `app.py`
-- Update `backend-flask/services/messages.py`
-- Update `backend-flask/services/create_message.py`
-
-**Seed data from DynamoDB local:**
-
-<img src="assets/week5/3- NeatDelivery/pattern B.png">
-
-
-### Implement **Pattern C** 
-
-Creating a Message for an existing Message Group into Application
-
-Remove @ before uuid if messages are not visible.
-- Create `backend-flask/db/sql/users/create_message_users.sql`
-
-```sql
-SELECT 
-  users.uuid,
-  users.display_name,
-  users.handle,
-  CASE users.cognito_user_id = %(cognito_user_id)s
-  WHEN TRUE THEN
-    'sender'
-  WHEN FALSE THEN
-    'recv'
-  ELSE
-    'other'
-  END as kind
-FROM public.users
-WHERE
-  users.cognito_user_id = %(cognito_user_id)s
-  OR 
-  users.handle = %(user_receiver_handle)s
-```
-
-- Update `onsubmit` in `frontend-react-js/src/components/MessageForm.js`
-- Update `data_create_message()` in `app.py`
-
-**Posting message to a message group:**
-
-<img src="assets/week5/3- NeatDelivery/pattern C.png">
-
-- Add this to routes in `App.js`
-
-```python
-import MessageGroupNewPage from "./pages/MessageGroupNewPage";
-
-{
-  path: "/messages/new/:handle",
-  element: <MessageGroupNewPage />,
-},
-```
-
-- Create a new User Group `/pages/MessageGroupNewPage.js`
-- Update `backend-flask/db/seed.sql`
-
-```sql
--- this file was manually created
-INSERT INTO
-    public.users (
-        display_name,
-        email,
-        handle,
-        cognito_user_id
-    )
-VALUES (
-        'Yahya Abulhaj',
-        'yahyaincloud@gmail.com',
-        'yaya2devops',
-        'MOCK'
-    ), (
-        'Andrew Bayko',
-        'bayko@exampro.co',
-        'bayko',
-        'MOCK'
-    ), (
-        'Londo Mollari',
-        'lmollari@centari.com',
-        'londo',
-        'MOCK'
-    );
-    
-
-INSERT INTO
-    public.activities (user_uuid, message, expires_at)
-VALUES ( (
-            SELECT uuid
-            from public.users
-            WHERE
-                users.handle = 'yaya2devops'
-            LIMIT
-                1
-        ), 'This was imported as seed data!', current_timestamp + interval '10 day'
-    )
-```
-
-- Add this to `app.py`
-
-```python
-from services.users_short import *
-
-@app.route("/api/users/@<string:handle>/short", methods=["GET"])
-def data_users_short(handle):
-    data = UsersShort.run(handle)
-    return data, 200
-```
-
-- Create `backend-flask/services/users_short.py` and add
-
-```python
-from lib.db import db
-
-class UsersShort:
-    def run(handle):
-        sql = db.template("users", "short")
-        results = db.query_object_json(sql, {"handle": handle})
-        return results
-```
-
-- Create `backend-flask/db/sql/users/short.sql` and add
-
-```python
-SELECT
-    users.uuid,
-    users.handle,
-    users.display_name
-FROM public.users
-WHERE users.handle = %(handle)s
-```
-
-- Create `frontend-react-js/src/components/MessageGroupNewItem.js` and add
-
-
-In Case Cognito UUID didnt take effects:
-
-```SQL
-UPDATE public.users SET cognito_user_id='f73f4b05-a59e-468b-8a29-a1c39e7a2222' WHERE users.handle='bayko';
-```
-
-
-
-### Implement **Pattern D** 
-
- Creating a Message for a new Message Group into Application
- 
- - Update `frontend-react-js/src/components/MessageGroupFeed.js`
-
-
-- Go to this URL to start chat with a new user
-
-```shell
-http://3000-URL/messages/new/londo
-```
-
-<img src="assets/week5/3- NeatDelivery/pattern D.png">
-
-
-- Update the portion below `frontend-react-js/src/components/MessageForm.js` using this code
-
-```jsx
-let data = await res.json();
-if (res.status === 200) {
-  console.log('data:',data)
-  if (data.message_group_uuid) {
-    console.log('redirect to message group')
-    window.location.href = `/messages/${data.message_group_uuid}`
-  } else {
-    props.setMessages(current => [...current,data]);
-  }
-} else {
-  console.log(res)
-}
-} catch (err) {
-console.log(err);
-}
-}
-```
-
-- When you send a message to the new user, it should now send and redirect the user to this page.
-
-**Sending message to Londo message group - NEW MG:**
-
-<img src="assets/week5/3- NeatDelivery/patternABCD.png">
-
-###  Implement **Pattern E** 
-Updating a Message Group using DynamoDB Streams:
-
-
-
-
-
-Create table in dynamo:
-
-<img src="assets/week5/3- NeatDelivery/streams/1 dynamo.png">
-
-- Add this to `backend-flask/bin/ddb/schema-load` in **AttributeDefinitions** list.
-
-```python
-{"AttributeName": "message_group_uuid", "AttributeType": "S"},
-```
-- and update GSI
-
-```python
-GlobalSecondaryIndexes=[
-        {
-            "IndexName": "message-group-sk-index",
-            "KeySchema": [
-                {"AttributeName": "message_group_uuid", "KeyType": "HASH"},
-                {"AttributeName": "sk", "KeyType": "RANGE"},
-            ],
-            "Projection": {
-                "ProjectionType": "ALL",
-            },
-            "ProvisionedThroughput": {
-                "ReadCapacityUnits": 5,
-                "WriteCapacityUnits": 5,
-            },
-        },
-    ],
-```
-
-- Create schema in ddb prod.
-
-```bash
-./backend-flask/bin/ddb/schema-load prod
-```
-
-<img src="assets/week5/1- DynamoDb Utility Scrips/9 it outputs our table.png">
-
-- From **Exports and streams** tab turn on **DynamoDB stream details** with **New Image** attribute.
-
-**VPC Endpoint:**
-
-- Go to **VPC** console.
-- Click on **Endpoints** tab in main window
-- Click **Create Endpoint**
-- Select **DynamoDB** from **Services.**
-- Select Default VPC
-- Choose the available **Route tables**
-- Select **Full Access**
-- And **Create**
-
-<img src="assets/week5/3- NeatDelivery/streams/2 vpc.png">
-
-### Lambda function -  message stream
-
-> Another way to create the function is using AWS SAM template.
-
-
-- In DDB you cannot update something instead you have to delete and create it with updated data
-- Create a new lambda function with python 3.9 runtime
-- From **Change default execution role** choose **Create a new role with basic Lambda permissions**
-- From **Advanced settings** select **Enable VPC** and choose the VPC
-- Choose 3 subnets
-- Choose **Default Security groups** and create
-- Add this code to lambda function also create a copy in `aws/lambdas/cruddur-messaging-stream.py`
-
-```python
-import json
-import boto3
-from boto3.dynamodb.conditions import Key, Attr
-
-dynamodb = boto3.resource(
- 'dynamodb',
- region_name='<region>',
- endpoint_url="http://dynamodb.<region>.amazonaws.com"
-)
-
-def lambda_handler(event, context):
-	print("event-data", event)
-
-  eventName = event["Records"][0]["eventName"]
-  if eventName == "REMOVE":
-      print("skip REMOVE event")
-      return
-
-  pk = event['Records'][0]['dynamodb']['Keys']['pk']['S']
-  sk = event['Records'][0]['dynamodb']['Keys']['sk']['S']
-  if pk.startswith('MSG#'):
-    group_uuid = pk.replace("MSG#","")
-    message = event['Records'][0]['dynamodb']['NewImage']['message']['S']
-    print("GRUP ===>",group_uuid,message)
-    
-    table_name = 'cruddur-messages'
-    index_name = 'message-group-sk-index'
-    table = dynamodb.Table(table_name)
-    data = table.query(
-      IndexName=index_name,
-      KeyConditionExpression=Key('message_group_uuid').eq(group_uuid)
-    )
-    print("RESP ===>",data['Items'])
-    
-    # recreate the message group rows with new SK value
-    for i in data['Items']:
-      delete_item = table.delete_item(Key={'pk': i['pk'], 'sk': i['sk']})
-      print("DELETE ===>",delete_item)
-      
-      response = table.put_item(
-        Item={
-          'pk': i['pk'],
-          'sk': sk,
-          'message_group_uuid':i['message_group_uuid'],
-          'message':message,
-          'user_display_name': i['user_display_name'],
-          'user_handle': i['user_handle'],
-          'user_uuid': i['user_uuid']
-        }
-      )
-      print("CREATE ===>",response)
-```
-
-- From **Configuration → Permissions → Execution role** click **Role name.**
-- From **Permissions policies → Add Permissions → Attach Policy.**
-- Select this policy `AWSLambdaInvocation-DynamoDB` and add it.
-- **Add Permissions → Create Inline Policy** and add this json to create policy
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:PutItem",
-                "dynamodb:DeleteItem",
-                "dynamodb:Query"
-            ],
-            "Resource": [
-                "arn:aws:dynamodb:<region>:<account_id>:table/cruddur-messages/index/message-group-sk-index",
-                "arn:aws:dynamodb:<region>:<account_id>:table/cruddur-messages"
-            ]
-        }
-    ]
-}
-```
-
-**Or using the console:**
-
-| Account       | Region       | Table Name         | Index Name              |
-|---------------|--------------|--------------------|-------------------------|
-| ur aws ID     | Yours        | cruddur-messages   | message-group-sk-index  |
-| Your aws ID   | Yours        | cruddur-messages   | message-group-sk-index  |
-
-
-<img src="assets/week5/3- NeatDelivery/streams/6 custom policy.png">
-
-**It Gave Effect**:
-
-<img src="assets/week5/3- NeatDelivery/streams/6 the policy.png">
-
-
-**Overview:**
-<img src="assets/week5/3- NeatDelivery/streams/7 attached.png">
-
-
-
-
-
-
-
-
-#### Setup Trigger in Dynamo
-
-
-- From **Exports and streams** tab create trigger.
-- Select Lambda function
-- Leave rest as default and create trigger
-
-#### Going back to our dev env
-
-- Comment local ddb endpoint in docker-compose.yaml and docker compose up
-- Type in URL:
-
-```python
-http://3000-URL/messages/new/bayko
-```
-- Send a new message:
-
-<img src="assets/week5/3- NeatDelivery/streams/8 pattern E.png">
-
-**Streams Data in DynamoDB:**
-
-<img src="assets/week5/3- NeatDelivery/streams/9 patternE-Dynamo.png">
-
-
-**Streams Logs In Cloudwatch:**
-
-Traceability of logs is available in [CSV](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.csv) and [JSON](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.json).
-
-<img src="assets/week5/3- NeatDelivery/streams/10- patternE-Cloudwatch.png">
-
-
-
-
-Access All Week Five Catalog from [this location](assets/week5/)
-
-
----
-
-
-
-**DynamoDB Reference:**
-
-Thanks to my experience with AWS, I have developed a strong foundation in Dynamo, as evidenced by my proficiency badge [here.](https://www.credly.com/badges/e3006b62-c8ee-430d-8dec-5da2a75b2c32)
-
-
-Additionally, I also...
-- [Read about DynamoDB in Official website](https://aws.amazon.com/fr/dynamodb/?trk=94bf4df1-96e1-4046-a020-b07a2be0d712&sc_channel=ps&s_kwcid=AL!4422!3!610000101513!e!!g!!dynamodb&ef_id=Cj0KCQjwwtWgBhDhARIsAEMcxeDoOTqTBoS97XAHp4vUA5eci9pKGYnVyneMfNsopppX474j1f_e8X8aAjVCEALw_wcB:G:s&s_kwcid=AL!4422!3!610000101513!e!!g!!dynamodb)
-- [Learned more how Dynamo works](https://docs.getcommandeer.com/docs/DynamoDB/viewing-your-dynamodb-er-diagram/#viewing-your-dynamodb-er-diagram)
-- [Watched this playlist from Serverless Land](https://www.youtube.com/playlist?list=PLJo-rJlep0EDNtcDeHDMqsXJcuKMcrC5F)
-
