@@ -24,4 +24,4 @@ Yaya2DevOps: Ah, that's a tough one! I enjoy working with a variety of technolog
 Fan: Thanks for sharing your favorites, Yaya2DevOps! Your insights are incredibly valuable. I'll keep that in mind as I continue my journey in the world of development. Keep up the fantastic work!
 Yaya2DevOps: You're very welcome! I'm glad I could help. Feel free to reach out anytime if you have more questions or just want to chat about tech. Keep learning and coding, and best of luck with your development journey! 
 """
-```py
+```

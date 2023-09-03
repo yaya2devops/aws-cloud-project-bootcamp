@@ -2,37 +2,43 @@
 
 This week, we're diving headfirst into the exciting world of NoSQL, harnessing the power of AWS DynamoDB to revolutionize the messaging functionality within our application.
 
-My data journey began with my Microsoft Azure Fundamentals experience. You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you.
+My data journey began with my Microsoft Azure Fundamentals experience. <br>You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you. <br> I passed that with a 900 points plus score, Its [open sourced too](https://github.com/yaya2devops/ExperienceInCloud/blob/main/Certifications!/2%C2%B0DP-900.pdf).
 
-- [Week 5 — NoSQL with Amazon DynamoDB](#week-5--nosql-with-amazon-dynamodb)
-  - [Personalizing Your NoSQL Experience](#personalizing-your-nosql-experience)
+
+- [Personalizing Your NoSQL Experience](#personalizing-your-nosql-experience)
+  - [Different types of NoSQL databases](#different-types-of-nosql-databases)
   - [The Data Manager Battle](#the-data-manager-battle)
 - [A Masterclass On NoSQL Schema](#a-masterclass-on-nosql-schema)
   - [Pre-Data Model](#pre-data-model)
   - [DynamoDB Data Modeling](#dynamodb-data-modeling)
-  - [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
 - [The DynamoDB Encyclopedia](#the-dynamodb-encyclopedia)
     - [DynamoDB Local](#dynamodb-local)
     - [Design Schema Load Script](#design-schema-load-script)
-  - [The NoSQL Quick Operator](#the-nosql-quick-operator)
+  - [A Rapid NoSQL Operator](#a-rapid-nosql-operator)
     - [Create List Tables Script - `list-tables`](#create-list-tables-script---list-tables)
     - [Drop Table Script - `drop`](#drop-table-script---drop)
     - [Implement Seed Script - `seed`](#implement-seed-script---seed)
     - [Implement Scan Script - `scan`](#implement-scan-script---scan)
+  - [Access Patterns Scripts and More](#scripted-solutions-for-access-patterns-and-beyond)
+    - [Conversation Script Generator](#conversation-script-generator)
+      - [Step 1 : Shebang and Imports](#step-1--shebang-and-imports)
+      - [Step 2: Configuration](#step-2-configuration)
+      - [Step 3: DynamoDB Client Setup](#step-3-dynamodb-client-setup)
+    - [Customer Focused Script](#customer-focused-script)
+    - [Amazon Cognito Meets PostgreSQL](#amazon-cognito-meets-postgresql)
+      - [Script `list-users`](#script-list-users)
+      - [Script `update_cognito_user_ids`](#script-update_cognito_user_ids)
+- [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
 
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
-
 
 ## Personalizing Your NoSQL Experience
 The term **NoSQL** was first coined in 1998 by Carlo Strozzi, who used it to describe his lightweight, open-source relational database that did not expose the standard Structured Query Language (SQL) interface. 
 
 The concept of NoSQL databases has its roots in the early days of the internet—early 2000s, when developers began to realize that traditional relational databases were not well-suited for storing and querying large amounts of unstructured data.
 
-
 #### Different types of NoSQL databases;
-
-
 
 There are many different types of NoSQL databases, each with its own strengths and weaknesses.
 
@@ -411,8 +417,8 @@ We import the `boto3` library to interact with AWS services.
       print(response)
      ```      
 
-   - Ace your script with The `#! /usr/bin/env python3` shebang line at the start indicates that this is a py script
-<img src="assets/week5/1- DynamoDb Utility Scrips/7 our python based dynamodb schema.png">
+   - Ace your script with The `#! /usr/bin/env python3` shebang line at the start indicates that this is a py script.
+   <img src="assets/week5/1- DynamoDb Utility Scrips/7 our python based dynamodb schema.png">
 
 
 After independently designing each component of the schema loading script, validate the script as follows.
@@ -453,13 +459,9 @@ print(response)
 
 5. Execute the script using `./schema-load` to create the specified DynamoDB table with the defined schema. 
 
-```
-poc
-```
+![PoC Required]()
 
-<img src="assets/week5/1- DynamoDb Utility Scrips/19 seed.png">
-
-## The NoSQL Quick Operator 
+## A Rapid NoSQL Operator
 
 Hey Operator, I'll provide you with the necessary scripts to work with the NoSQL system. Once your schema is created, it will generate a single table in DynamoDB. With this table in place, you'll have the capability to perform actions such as listing the tables and dropping. Also, you can populate this table with data and subsequently scan its contents. 
 
@@ -470,7 +472,7 @@ We welcome you to explore and engage in these operations as I guide you through 
 - [Implement Seed Script - `seed`](#implement-seed-script---seed)
 - [Implement Scan Script - `scan`](#implement-scan-script---scan)
 
-Let's recap our directory structure. We've already created the 'load-schema' script in the 'ddb' directory. Now, we'll also add the following scripts that we discussed:
+Let's recap our directory structure. We've already created the `load-schema` script in the `ddb` directory. Now, we'll also add the following scripts that we discussed:
 ```
 bin/ddb/
 ├── schema-load (done King!)
@@ -710,7 +712,7 @@ create_message_group(
 ```py
 conversation = """
 Yaya2DevOps: Hello You Gotta Understand Years Of Experience Have nothing To Do with Experience!
-Fan: Yes, truth ! I love it. You look very experienced in a young age!
+Fan123: Yes, truth ! I love it. You look very experienced in a young age!
 Fan123: Hi again Yaya! I'm a huge fan of your work. Can we chat about your latest project?
 Yaya2DevOps: Of course! I'd love to chat about my latest project. What would you like to know?
 Fan123: I'm really interested in the technology stack you used for your project. Can you share some details?
@@ -799,7 +801,7 @@ for item in items:
 - **scan()** method is called on the table object to scan the table.
 - **print()** statement prints the response from the scan() method to the console.
 
-Execute the Python script to scan for data using
+Execute the Python script to scan for data using the following command;
 
 ```sh
 ./bin/ddb/scan
@@ -807,12 +809,670 @@ Execute the Python script to scan for data using
 
 <img src="assets/week5/1- DynamoDb Utility Scrips/26 tu peux scan here.png">
 
+```bash
+.............Scanning Return..............
+
+{
+  "user_uuid": "{{user_uuid_1}}",
+  "user_handle": "{{user_handle_1}}",
+  "sk": "{{sk_1}}",
+  "pk": "{{pk_1}}",
+  "message_uuid": "{{message_uuid_1}}",
+  "message": "{{message_1}}",
+  "user_display_name": "{{user_display_name_1}}"
+}
+{
+  "user_uuid": "{{user_uuid_2}}",
+  "user_handle": "{{user_handle_2}}",
+  "sk": "{{sk_2}}",
+  "pk": "{{pk_2}}",
+  "message_uuid": "{{message_uuid_2}}",
+  "message": "{{message_2}}",
+  "user_display_name": "{{user_display_name_2}}"
+}
+{
+  "user_uuid": "{{user_uuid_3}}",
+  "user_handle": "{{user_handle_3}}",
+  "sk": "{{sk_3}}",
+  "pk": "{{pk_3}}",
+  "message_uuid": "{{message_uuid_3}}",
+  "message": "{{message_3}}",
+  "user_display_name": "{{user_display_name_3}}"
+}
+............................................
+```
+
+## Scripted Solutions for Access Patterns and Beyond
+
+We will be incorporating the necessary design patterns into our app that plays a crucial role in facilitating interaction with Cruddur DynamoDB designed patterns later.
+- [Get conversations:](#conversation-script-generator) Get conversations from various groups and years, with applied filters.
+- [List conversioanations:](#customer-focused-script)  Display conversations specific to a user identified by their UUID, without duration-based filtering.
+- [List Cognito Users:](#script-list-users) Display sign ups users from cognito to the CLI.
+- [Update Cognito ID:](#script-update_cognito_user_ids) Update Cognito ID Script for PostgresSQL Database
+
+```sh
+/
+├── bin/
+│   ├── cognito/
+│   │   └── list-users  # psql+cognito          
+│   ├── ddb/
+│   │   └── patterns/
+│   │       ├── get-conversation  
+│   │       └── list-conversation   
+│   └── db/
+│       └── update_cognito_user_ids # psql+cognito
+└── lib/
+    └── db.py
+```
+
+The first script will use composite keys (pk and sk) for querying, while the second script relies on a single partition key (pk) for user-specific queries.
 
 
+### Conversation Script Generator
+
+The get script is designed to query our DynamoDB table for messages and get conversations. It filters messages from a specific year  e.g. we tried (2023) and displays that.
+
+#### Step 1 : Shebang and Imports
+
+1. Import the following library;
+- AWS SDK library
+- The sys module for command-line arguments
+- JSON module for data serialization 
+- The datetime module for date and time manipulation.
+
+```python
+#!/usr/bin/env python3
+
+import boto3
+import sys
+import json
+import datetime
+```
+
+#### Step 2: Configuration
+
+1. Set default local DynamoDB endpoint 
+```python
+attrs = {"endpoint_url": "http://localhost:8000"}
+```
+
+2. Check if there's one command-line argument and it contains "prod"
+
+```python
+if len(sys.argv) == 2:
+    if "prod" in sys.argv[1]:
+        attrs = {}
+```
+If in production, use default AWS configuration.
+
+#### Step 3: DynamoDB Client Setup
+1. Create a DynamoDB client
+```python
+dynamodb = boto3.client("dynamodb", **attrs)
+```
+ 2. Define Table Name and Message Group UUID
+```python
+table_name = "cruddur-messages"
+
+message_group_uuid = "5ae290ed-55d1-47a0-bc6d-fe2bc2700399"
+```
+
+3. Define Query Parameters, Set the partition key and Filter for the year 2023.
+```python
+query_params = {
+    "TableName": table_name,
+    "ScanIndexForward": False,
+    "Limit": 20,
+    "KeyConditionExpression": "pk = :pk AND begins_with(sk, :year)",
+    "ExpressionAttributeValues": {
+        ":pk": {"S": f"MSG#{message_group_uuid}"},
+        ":year": {"S": "2023"},
+    },
+    "ReturnConsumedCapacity": "TOTAL",
+}
+```
+4. Execute Query DynamoDB and Print Query Response, in JSON and Consumed Capacity;
+
+```py
+response = dynamodb.query(**query_params)
+
+print(json.dumps(response, sort_keys=True, indent=2))
+
+print(json.dumps(response["ConsumedCapacity"], sort_keys=True, indent=2))
+```
+5. Process and Display Results
+```py
+items = response["Items"]
+```
+
+6. Loop through the items in reverse order
+```py
+for item in reversed(items):
+    sender_handle = item["user_handle"]["S"]
+    message = item["message"]["S"]
+    timestamp = item["sk"]["S"]
+    dt_object = datetime.datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%f%z")
+    formatted_datetime = dt_object.strftime("%Y-%m-%d %I:%M %p")
+    print(f"{sender_handle: <16}{formatted_datetime: <22}{message[:40]}...")
+```
+
+7. Make the file executable and run `./bin/ddb/patterns/get-conversations`
+
+- `{{response_date}}`: This variable represents the date value in the "ResponseMetadata" section, which could be replaced with an actual date value (e.g., "Wed, 22 Mar 2023 08:35:09 GMT").
+- `{{server}}`: Represents the server value in the "ResponseMetadata" section, which could be replaced with the server information (e.g., "Jetty(9.4.48.v20220622)").
+- `{{x_amz_crc32}}`: Represents the x-amz-crc32 value in the "ResponseMetadata" section, which could be replaced with an actual CRC32 value.
+- `{{request_id}}`: Represents both the "RequestId" in the "ResponseMetadata" section and the "x-amzn-requestid" in the "HTTPHeaders" section. This can be replaced with a unique request ID.
+- `{{http_status_code}}`: Represents the HTTP status code in the "ResponseMetadata" section, which should be replaced with an actual HTTP status code (e.g., 200).
+- `{{retry_attempts}}`: Represents the number of retry attempts in the "ResponseMetadata" section. You can replace it with the actual number of retry attempts.
+
+```JSON
+"ResponseMetadata": {
+    "HTTPHeaders": {
+      "content-type": "application/x-amz-json-1.0",
+      "date": "{{response_date}}",
+      "server": "{{server}}",
+      "transfer-encoding": "chunked",
+      "x-amz-crc32": "{{x_amz_crc32}}",
+      "x-amzn-requestid": "{{request_id}}"
+    },
+    "HTTPStatusCode": {{http_status_code}},
+    "RequestId": "{{request_id}}",
+    "RetryAttempts": {{retry_attempts}}
+  },
+  "ScannedCount": {{scanned_count}}
+}
+{
+  "CapacityUnits": {{capacity_units}},
+  "TableName": "{{table_name}}"
+}
+{{user_handle_1}}           {{user_sk_1}}   Hi again Yaya! I'm a huge fan of your work. Can we...
+{{user_handle_2}}     {{user_sk_2}}   Of course! I'd love to chat about my latest projec...
+{{user_handle_1}}           {{user_sk_3}}   I'm really interested in the technology stack you used for...
+{{user_handle_2}}     {{user_sk_4}}   Sure thing! For this project, I used Python for the backend, React for the frontend, and AWS DynamoDB as the database. It was a challenging but rewarding tech stack to work with.
+{{user_handle_1}}           {{user_sk_5}}   That sounds fascinating! Did you encounter any particularly interesting challenges while working with DynamoDB?
+{{user_handle_2}}     {{user_sk_6}}   Oh, absolutely! DynamoDB's NoSQL nature was both a blessing and a challenge. The schema-less design gave us flexibility, but we had to carefully plan our data model to optimize queries and avoid bottlenecks.
+```
+
+- `{{scanned_count}}`: Represents the "ScannedCount" value, which can be replaced with the actual count of scanned items.
+- `{{capacity_units}}`: Represents the "CapacityUnits" value, which can be replaced with an actual numerical value (e.g., 1.0).
+- `{{table_name}}`: Represents the "TableName" value, which should be replaced with the actual table name (e.g., "cruddur-messages").
+- `{{user_handle_X}}`: These variables represent the user handles in the subsequent data entries. Replace them with the actual user handles.
+- `{{user_sk_X}}`: These variables represent the "sk" values associated with each user in the subsequent data entries. Replace them with the actual values, which might represent timestamps or sorting keys.
+
+<img src="assets/week5/1- DynamoDb Utility Scrips/27 here convo get.png">
+
+Overall, the code sets up a script to query a DynamoDB table for messages, filter by a specific year, and print the results which is our get all convo.
+
+
+### Customer Focused Script
+
+The script is tailored to listing conversations for a specific user. 
+
+- [ Step 0 : Custom Library Inspections](#step-0--custom-library-inspections)
+- [Step 1: Set up paths and imports](#step-1-set-up-paths-and-imports)
+- [Step 2: Configure DynamoDB client](#step-2-configure-dynamodb-client)
+- [Step 3: Define the DynamoDB table name](#step-3-define-the-dynamodb-table-name)
+- [Step 4: Define a function to get the user's UUID](#step-4-define-a-function-to-get-the-users-uuid)
+- [Step 5: Call the function to get the user's UUID](#step-5-call-the-function-to-get-the-users-uuid)
+- [Step 6: Define the query parameters for DynamoDB](#step-6-define-the-query-parameters-for-dynamodb)
+- [Step 7: Query and print the DynamoDB table and execute](#step-7-query-and-print-the-dynamodb-table-and-execute)
+
+We have to first start updading our libary before creating the script. It also includes a custom module (lib.db) for database operations.
+
+####  Step 0 : Custom Library Inspections
+1. Create query_value function in our self made libary `db.py` to simplify the retrieval of a single value from the database.
+
+```python
+  def query_value(self, sql, params={}):
+      self.print_sql("value", sql, params)
+
+      with self.pool.connection() as conn:
+          with conn.cursor() as cur:
+              cur.execute(sql, params)
+              json = cur.fetchone()
+              return json[0]
+```
+The Function abstracts away the details of executing a query, fetching the value, and returning it. This simplifies code in other parts of your application where you need to retrieve single values from the database.
+
+<img src="assets/week5/1- DynamoDb Utility Scrips/31 coding before listing validation.png">
+
+
+2. Add The print_sql function in `db.py` to include a new parameter `(params)` and slightly modify its output format.
+
+```python
+def print_sql(self,title,sql,params={}):
+    print(sql,params)
+```
+
+This allows the `print_sql` function to display the query parameters alongside the SQL statement. This is helpful for debugging and understanding which values are being used in the query.
+
+3. Add some great color to the SQL statement, making it stand out for easier identification in the console output.
+```py
+    cyan = '\033[96m'
+    no_color = '\033[0m'
+    print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
+```
+4. Make sure the print_sql looks like this;
+
+```python
+def print_sql(self,title,sql,params={}):
+    cyan = '\033[96m'
+    no_color = '\033[0m'
+    print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
+    print(sql,params)
+```
+
+
+#### Step 1: Set up paths and imports
+1. Determine the script's parent directory and add it to the system path for imports
+
+```
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, "..", "..", ".."))
+sys.path.append(parent_path)
+```
+
+2.  Import a custom module 'db' from 'lib.db'
+```
+from lib.db import db
+```
+
+#### Step 2: Configure DynamoDB client
+1. Set a default local DynamoDB endpoint for testing
+```py
+attrs = {"endpoint_url": "http://localhost:8000"}
+```
+
+2. Check for command-line arguments to configure for production if needed like we've done above.
+
+```py
+if len(sys.argv) == 2:
+    if "prod" in sys.argv[1]:
+        attrs = {}
+
+dynamodb = boto3.client("dynamodb", **attrs)
+```
+
+#### Step 3: Define the DynamoDB table name
+```
+table_name = "cruddur-messages"
+```
+####  Step 4: Define a function to get the user's UUID
+1. Start by creating the function.
+```
+def get_my_user_uuids():
+   # lets do this!
+```
+2. Define an SQL query to select the user's UUID based on their handle
+```py
+    sql = """
+        SELECT 
+            users.uuid
+        FROM users
+        WHERE
+            users.handle = %(handle)s
+    """
+```
+3. Execute the SQL query using the 'db' module and return the UUID
+```py
+    uuid = db.query_value(sql, {"handle": "andrewbrown"})
+
+    return uuid
+```
+
+
+#### Step 5: Call the function to get the user's UUID
+```py
+my_user_uuid = get_my_user_uuids()
+print("my user uuid >>>>", my_user_uuid)
+```
+#### Step 6: Define the query parameters for DynamoDB
+```py
+query_params = {
+    "TableName": table_name,
+    "KeyConditionExpression": "pk = :pk",  # Query based on the partition key
+    "ExpressionAttributeValues": {":pk": {"S": f"GRP#{my_user_uuid}"}},  # Set the partition key value
+    "ReturnConsumedCapacity": "TOTAL",
+}
+```
+
+#### Step 7: Query and print the DynamoDB table and execute
+
+1. add this line to query the table:
+```py
+response = dynamodb.query(**query_params)
+```
+2. Print the items returned by the query
+```py
+print(json.dumps(response, sort_keys=True, indent=2))
+```
+
+3. make the file executable and run 
+
+```
+./bin/ddb/patterns/list-coversations
+```
+
+<img src="assets/week5/1- DynamoDb Utility Scrips/32 listed validation.png">
+
+```JSON
+  "Items": [
+    {
+      "message": {
+        "S": "this is a filler message"
+      },
+      "message_group_uuid": {
+        "S": "{{message_group_uuid}}"
+      },
+      "pk": {
+        "S": "{{pk}}"
+      },
+      "sk": {
+        "S": "{{sk}}"
+      },
+      "user_display_name": {
+        "S": "{{user_display_name}}"
+      },
+      "user_handle": {
+        "S": "{{user_handle}}"
+      },
+      "user_uuid": {
+        "S": "{{user_uuid}}"
+      }
+```
+
+This script is more user-specific and lists conversations for a specific user based on their UUID, without filtering by year!
+
+
+### Amazon Cognito Meets PostgreSQL
+
+We require a way to view the user details stored in your AWS Cognito user pool this the `list-users` script and then we will go to script the record update to psql using the `update_cognito_user_ids`.
+
+- [Script `list-users`](#script-list-users)
+- [Script `update_cognito_user_ids`](#script-update_cognito_user_ids)
+
+```sh
+/
+├── bin/
+│   ├── cognito/
+│   │   └── list-users            
+│   └── db/
+└       └── update_cognito_user_ids 
+```
+
+#### Script `list-users`
+
+1. Import the required lib json, boto3, and os.
+```py
+#!/usr/bin/env python3
+
+import boto3
+import os
+import json
+```
+
+2. Get the User Pool ID from environment variables
+```py
+userpool_id = os.getenv("AWS_USER_POOLS_ID")
+```
+It retrieves the User Pool ID from the environment variable `AWS_USER_POOLS_ID` using `os.getenv`.
+
+3. Create a Cognito client
+```py
+client = boto3.client("cognito-idp")
+```
+
+4.  Define parameters for listing users
+```py
+params = {
+    "UserPoolId": userpool_id,
+    "AttributesToGet": ["preferred_username", "sub"],
+}
+```
+
+5. List users in the Cognito user pool
+```py
+response = client.list_users(**params)
+users = response["Users"]
+```
+
+6. Create a dictionary to store user data
+```py
+dict_users = {}
+```
+
+7. Iterate through the list of users
+```py
+for user in users:
+    attrs = user["Attributes"]
+    sub = next((a for a in attrs if a["Name"] == "sub"), None)
+    handle = next((a for a in attrs if a["Name"] == "preferred_username"), None)
+    dict_users[handle["Value"]] = sub["Value"]
+```
+
+8. Print the user details in a formatted JSON format. This allows you to see the list of users and their Cognito user IDs.
+```py
+print(json.dumps(dict_users, sort_keys=True, indent=2, default=str))
+```
+
+
+This script essentially fetches user data from your AWS Cognito user pool and presents it in a readable JSON format, which can be useful for debugging or monitoring purposes.
+
+
+9. Make sure the dev is well completed and your code is like this;
+```python
+#!/usr/bin/env python3
+
+import boto3
+import os
+import json
+
+userpool_id = os.getenv("AWS_USER_POOLS_ID")
+client = boto3.client("cognito-idp")
+params = {"UserPoolId": userpool_id, "AttributesToGet": ["preferred_username", "sub"]}
+response = client.list_users(**params)
+users = response["Users"]
+
+print(json.dumps(users, sort_keys=True, indent=2, default=str))
+
+dict_users = {}
+for user in users:
+    attrs = user["Attributes"]
+    sub = next((a for a in attrs if a["Name"] == "sub"), None)
+    handle = next((a for a in attrs if a["Name"] == "preferred_username"), None)
+    dict_users[handle["Value"]] = sub["Value"]
+
+print(json.dumps(dict_users, sort_keys=True, indent=2, default=str))
+```
+
+10. Save it in `/bin/cognito/list-users`, make it executable and run that.
+
+<img src="assets/week5/2- ImplementConversations/3 the required script.png">
+
+
+```bash
+{
+  "theclientwinner": "UUID-1",
+  "yayaincloud": "UUID-2",
+}
+```
+
+#### Script `update_cognito_user_ids`
+
+We know have to update user records in a Postgres database based on information obtained from an AWS Cognito user pool. It takes a user's handle  and their Cognito user ID as parameters and performs an SQL update operation.
+
+If ready lets go design this as well.
+
+1. Your imports and python shebang;
+
+```py
+#!/usr/bin/env python3
+
+import boto3
+import os
+import sys
+```
+
+2. Set up the path to import custom modules
+
+```py
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, "..", ".."))
+sys.path.append(parent_path)
+from lib.db import db
+```
+
+
+3. Prepare your functions;
+
+```python
+def update_users_with_cognito_user_id(handle, sub):
+     # To be continued..
+def get_cognito_user_ids():
+     # To be continued..
+```
+
+
+4. Start by creating your `update_users_with_cognito_user_id` Function:
+```py
+def update_users_with_cognito_user_id(handle, sub):
+    sql = """
+    UPDATE public.users
+    SET cognito_user_id = %(sub)s
+    WHERE
+      users.handle = %(handle)s;
+  """
+    db.query_commit(sql, {"handle": handle, "sub": sub})
+```	
+
+- It takes two parameters: `handle` (presumably a user's handle or username) and `sub` (Cognito user ID).
+- It defines an SQL query (`sql`) to update the `cognito_user_id` field in the `public.users` table for a specific user (identified by `handle`).
+- The `db.query_commit` function is used to execute the SQL query with the provided parameters.
+
+5. Create `get_cognito_user_ids` Function:
+
+
+```py
+def get_cognito_user_ids():
+    userpool_id = os.getenv("AWS_USER_POOLS_ID")
+    client = boto3.client("cognito-idp")
+    params = {
+        "UserPoolId": userpool_id,
+        "AttributesToGet": ["preferred_username", "sub"],
+    }
+    response = client.list_users(**params)
+    users = response["Users"]
+    dict_users = {}
+    for user in users:
+        attrs = user["Attributes"]
+        sub = next((a for a in attrs if a["Name"] == "sub"), None)
+        handle = next((a for a in attrs if a["Name"] == "preferred_username"), None)
+        dict_users[handle["Value"]] = sub["Value"]
+    return dict_users
+```
+
+This function is responsible for retrieving user data from an AWS Cognito user pool.
+
+- It first fetches the `AWS_USER_POOLS_ID` environment variable, which presumably contains the User Pool ID for your Cognito pool.
+- It then creates a Cognito client using `boto3.client`.
+- The `params` dictionary specifies that you want to retrieve the "preferred_username" and "sub" (Cognito user ID) attributes for each user.
+- It calls `client.list_users(**params)` to list the users in the Cognito user pool and stores the result in the `users` variable.
+- It iterates through the list of users, extracting their attributes, including "sub" (Cognito user ID) and "preferred_username," and adds this data to a dictionary named `dict_users`. The keys are user handles, and the values are Cognito user IDs.
+- Finally, it returns this dictionary.
+
+It will then provide this data for further processing, in updating user records in a database.
+
+
+3. Execute the script as code
+```py
+users = get_cognito_user_ids()
+
+for handle, sub in users.items():
+    print("----", handle, sub)
+    update_users_with_cognito_user_id(handle=handle, sub=sub)
+```
+
+4. Overall the following is what the  execution part will work to achive.
+
+**Retrieve Cognito User Data:**
+   - It starts by calling the `get_cognito_user_ids` function, which retrieves user data from an AWS Cognito user pool.
+   - The resulting data is stored in the `users` dictionary, which contains user handles (usernames) as keys and their corresponding Cognito user IDs as values.
+
+**Iterate Through User Data:**
+   - The script then iterates through the `users` dictionary using a `for` loop.
+   - For each user, it extracts the user's handle (username) and Cognito user ID.
+
+**Print User Data:**
+   - Inside the loop, it prints the user's handle and Cognito user ID with the format `"----", handle, sub`.
+   - This allows you to view the user data in the console or log.
+
+**Update Database Records:**
+   - After printing the user data, the script calls the `update_users_with_cognito_user_id` function for each user.
+   - The function is responsible for updating user records in a PostgreSQL database with the corresponding Cognito user ID.
+   - It ensures that the database is kept up-to-date with Cognito user IDs for each user.
+
+
+5. Once done developing, please make sure It looks like this. Or close in logic;
+
+```py
+#!/usr/bin/env python3
+
+import boto3
+import os
+import sys
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.abspath(os.path.join(current_path, "..", ".."))
+sys.path.append(parent_path)
+from lib.db import db
+
+def update_users_with_cognito_user_id(handle, sub):
+    sql = """
+    UPDATE public.users
+    SET cognito_user_id = %(sub)s
+    WHERE
+      users.handle = %(handle)s;
+  """
+    db.query_commit(sql, {"handle": handle, "sub": sub})
+
+def get_cognito_user_ids():
+    userpool_id = os.getenv("AWS_USER_POOLS_ID")
+    client = boto3.client("cognito-idp")
+    params = {
+        "UserPoolId": userpool_id,
+        "AttributesToGet": ["preferred_username", "sub"],
+    }
+    response = client.list_users(**params)
+    users = response["Users"]
+    dict_users = {}
+    for user in users:
+        attrs = user["Attributes"]
+        sub = next((a for a in attrs if a["Name"] == "sub"), None)
+        handle = next((a for a in attrs if a["Name"] == "preferred_username"), None)
+        dict_users[handle["Value"]] = sub["Value"]
+    return dict_users
+
+users = get_cognito_user_ids()
+
+for handle, sub in users.items():
+    print("----", handle, sub)
+    update_users_with_cognito_user_id(handle=handle, sub=sub)
+```
+
+6. Make sure It is automated along your other required setup scripts.
+
+```bash
+python3 "$bin_path/db/update_cognito_user_ids"
+```
+<img src="assets/week5/2- ImplementConversations/4 script to update user pool.png">
+
+
+7. Run the script that better serve your current need to test this e.g.
+![Redacted Old Asset](assets/week5/redacted-ig.png)
 
 
 ---
 
-**To Be Continued..Patterns Implentations+Scripts**
+**To Be Continued...Patterns Implentations!**
 
 ---
