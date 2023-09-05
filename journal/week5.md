@@ -2,7 +2,7 @@
 
 This week, we're diving headfirst into the exciting world of NoSQL, harnessing the power of AWS DynamoDB to revolutionize the messaging functionality within our application.
 
-My data journey began with my Microsoft Azure Fundamentals experience. <br>You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you. <br> I passed that with a 900 points plus score, Its [open sourced too](https://github.com/yaya2devops/ExperienceInCloud/blob/main/Certifications!/2%C2%B0DP-900.pdf).
+My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedin.com/posts/yahya-abulhaj_cloud-microsoft-strategy-activity-7079118494864175104-NKq1?utm_source=share&utm_medium=member_desktop) experience. <br>You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you. <br> I passed that with a 900 points plus score, Its [open sourced too](https://github.com/yaya2devops/ExperienceInCloud/blob/main/Certifications!/2%C2%B0DP-900.pdf).
 
 
 - [Personalizing Your NoSQL Experience](#personalizing-your-nosql-experience)
@@ -15,20 +15,23 @@ My data journey began with my Microsoft Azure Fundamentals experience. <br>You c
     - [DynamoDB Local](#dynamodb-local)
     - [Design Schema Load Script](#design-schema-load-script)
   - [A Rapid NoSQL Operator](#a-rapid-nosql-operator)
-    - [Create List Tables Script - `list-tables`](#create-list-tables-script---list-tables)
-    - [Drop Table Script - `drop`](#drop-table-script---drop)
-    - [Implement Seed Script - `seed`](#implement-seed-script---seed)
-    - [Implement Scan Script - `scan`](#implement-scan-script---scan)
-  - [Access Patterns Scripts and More](#scripted-solutions-for-access-patterns-and-beyond)
-    - [Conversation Script Generator](#conversation-script-generator)
-      - [Step 1 : Shebang and Imports](#step-1--shebang-and-imports)
-      - [Step 2: Configuration](#step-2-configuration)
-      - [Step 3: DynamoDB Client Setup](#step-3-dynamodb-client-setup)
-    - [Customer Focused Script](#customer-focused-script)
-    - [Amazon Cognito Meets PostgreSQL](#amazon-cognito-meets-postgresql)
-      - [Script `list-users`](#script-list-users)
-      - [Script `update_cognito_user_ids`](#script-update_cognito_user_ids)
+    - [Create List Tables Script — `list-tables`](#create-list-tables-script---list-tables)
+    - [Drop Table Script — `drop`](#drop-table-script---drop)
+    - [Implement Seed Script — `seed`](#implement-seed-script---seed)
+    - [Implement Scan Script — `scan`](#implement-scan-script---scan)
+- [Access Patterns Scripts and More](#scripted-solutions-for-access-patterns-and-beyond)
+  - [Conversation Script Generator — `get-convo`](#conversation-script-generator)
+    - [Step 1 : Shebang and Imports](#step-1--shebang-and-imports)
+    - [Step 2: Configuration](#step-2-configuration)
+    - [Step 3: DynamoDB Client Setup](#step-3-dynamodb-client-setup)
+  - [Customer Focused Script — `list-convo`](#customer-focused-script)
+  - [Amazon Cognito Meets PostgreSQL](#amazon-cognito-meets-postgresql)
+    - [Scripting `list-users`](#script-list-users)
+    - [Scripting `update_cognito_user_ids`](#script-update_cognito_user_ids)
+- [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
 - [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
+   - [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
+    - [Implement Pattern A For Conversations — `7 Steps`](#implement-pattern-a-for-conversations)
 
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
@@ -250,9 +253,8 @@ This pattern is used to list all the messages in a message group. The following 
 - `MessageGroupID:` The primary key of the table. This is a partition key.
 - `MessageID:` The secondary index of the table. This is a sort key.
 - `Message:` The message content.
-2. Create a Lambda function that will be triggered when a new message is added to the table. The Lambda function should list all the messages in the message group and return them to the application.
 
-3. Call the Lambda function to list all the messages in the message group.
+> Complete [Pattern A Implementation]().
 
 ### B. Listing Messages Group into Application
 
@@ -263,6 +265,9 @@ This pattern is used to list all the message groups. The following steps are inv
 - `MessageGroupID:` The primary key of the table. This is a partition key.
 - `Name:` The name of the message group.
 2. In the application, query the DynamoDB table for all the message groups.
+3. Create a Lambda function that will be triggered when a new message is added to the table. The Lambda function should list all the messages in the message group and return them to the application.
+
+4. Call the Lambda function to list all the messages in the message group.
 
 ### C. Creating a Message for an existing Message Group into Application
 
@@ -475,11 +480,11 @@ We welcome you to explore and engage in these operations as I guide you through 
 Let's recap our directory structure. We've already created the `load-schema` script in the `ddb` directory. Now, we'll also add the following scripts that we discussed:
 ```
 bin/ddb/
-├── schema-load (done King!)
+├── schema-load (done King and Queen!)
 ├── list-tables
 ├── drop
-├── Seed Script
-└── Scan Script
+├── Seed 
+└── Scan 
 ```
 ### Create List Tables Script - `list-tables`
 
@@ -674,7 +679,7 @@ users = get_user_uuids()
 ```
 
 8. Create message groups:
-   - Two message groups are created using the `create_message_group` function. One message group is created from 'yaya2devops' to 'bayko', and the other from 'bayko' to 'yaya2devops'. These message groups are placeholders with a filler message and a timestamp.
+   - Two message groups are created using the `create_message_group` function. One message group is created from 'yaya2devops' to 'Fan123', and the other from 'Fan123' to 'yaya2devops'. These message groups are placeholders with a filler message and a timestamp.
 
 ```py
 create_message_group(
@@ -704,7 +709,7 @@ create_message_group(
    - The conversation is split into individual lines.
    - For each line in the conversation:
      - If the line starts with 'Person 1:', it is considered a message from 'yaya2devops'.
-     - If the line starts with 'Person 2:', it is considered a message from 'bayko'.
+     - If the line starts with 'Person 2:', it is considered a message from 'Fan123'.
      - The message content is extracted, and a timestamp is generated.
      - The `create_message` function is called to insert each message into the 'cruddur-messages' table.
 
@@ -727,13 +732,13 @@ Fan123: That sounds like a robust architecture. How about deployment and CI/CD? 
 Yaya2DevOps: Yes, we had a CI/CD pipeline set up using AWS CodePipeline and AWS CodeBuild. It allowed us to automate the deployment process, ensuring that updates were tested and deployed seamlessly.
 Fan123: That's impressive! One last question: what advice do you have for aspiring developers looking to work on similar projects?
 Yaya2DevOps: My advice would be to dive deep into your chosen technologies, stay updated with best practices, and never stop learning. Also, don't be afraid to seek help from the developer community—it's a valuable resource.
-Fan: Thank you for the advice, Yaya2DevOps! I'll definitely take that to heart. By the way, I've been following your work for a while now, and I'm really impressed with your projects. How do you manage to stay so productive and motivated?
+Fan123: Thank you for the advice, Yaya2DevOps! I'll definitely take that to heart. By the way, I've been following your work for a while now, and I'm really impressed with your projects. How do you manage to stay so productive and motivated?
 Yaya2DevOps: I appreciate the kind words! Staying productive and motivated can be a challenge at times, but I find that setting clear goals and breaking them down into smaller, achievable tasks really helps. Plus, I'm passionate about what I do, and that enthusiasm drives me to keep going. And of course, having a supportive community like you all makes a big difference!
-Fan: That's great to hear! Speaking of communities, do you have any recommendations for online communities or forums where I can connect with other developers and learn from their experiences?
+Fan123: That's great to hear! Speaking of communities, do you have any recommendations for online communities or forums where I can connect with other developers and learn from their experiences?
 Yaya2DevOps: Absolutely! There are many fantastic online communities and forums where developers gather to share knowledge and experiences. Some popular ones include Stack Overflow, GitHub Discussions, Reddit's programming subreddits, and various tech-focused Discord servers. It's a good idea to explore these platforms, find the ones that align with your interests, and start engaging with fellow developers.
-Fan: Thanks for the suggestions, Yaya2DevOps! I'll definitely check those out. One last question: Do you have any favorite programming languages or tech stacks that you enjoy working with the most?
+Fan123: Thanks for the suggestions, Yaya2DevOps! I'll definitely check those out. One last question: Do you have any favorite programming languages or tech stacks that you enjoy working with the most?
 Yaya2DevOps: Ah, that's a tough one! I enjoy working with a variety of technologies, but if I had to pick, I'd say I have a soft spot for Python and the MERN (MongoDB, Express.js, React, Node.js) stack. Python's versatility is amazing, and MERN provides a great ecosystem for web development. But remember, the best tech stack often depends on the project's requirements. 
-Fan: Thanks for sharing your favorites, Yaya2DevOps! Your insights are incredibly valuable. I'll keep that in mind as I continue my journey in the world of development. Keep up the fantastic work!
+Fan123: Thanks for sharing your favorites, Yaya2DevOps! Your insights are incredibly valuable. I'll keep that in mind as I continue my journey in the world of development. Keep up the fantastic work!
 Yaya2DevOps: You're very welcome! I'm glad I could help. Feel free to reach out anytime if you have more questions or just want to chat about tech. Keep learning and coding, and best of luck with your development journey! 
 """
 
@@ -842,7 +847,7 @@ Execute the Python script to scan for data using the following command;
 ............................................
 ```
 
-## Scripted Solutions for Access Patterns and Beyond
+# Scripted Solutions for Access Patterns and Beyond
 
 We will be incorporating the necessary design patterns into our app that plays a crucial role in facilitating interaction with Cruddur DynamoDB designed patterns later.
 - [Get conversations:](#conversation-script-generator) Get conversations from various groups and years, with applied filters.
@@ -866,7 +871,7 @@ We will be incorporating the necessary design patterns into our app that plays a
 ```
 
 The first script will use composite keys (pk and sk) for querying, while the second script relies on a single partition key (pk) for user-specific queries.
-
+Later, you'll also have the opportunity to explore additional scripts that assist with PostgreSQL and Cognito.
 
 ### Conversation Script Generator
 
@@ -965,7 +970,7 @@ for item in reversed(items):
 - `{{http_status_code}}`: Represents the HTTP status code in the "ResponseMetadata" section, which should be replaced with an actual HTTP status code (e.g., 200).
 - `{{retry_attempts}}`: Represents the number of retry attempts in the "ResponseMetadata" section. You can replace it with the actual number of retry attempts.
 
-```JSON
+```yaml
 "ResponseMetadata": {
     "HTTPHeaders": {
       "content-type": "application/x-amz-json-1.0",
@@ -980,7 +985,10 @@ for item in reversed(items):
     "RetryAttempts": {{retry_attempts}}
   },
   "ScannedCount": {{scanned_count}}
-}
+```
+- `{{scanned_count}}`: Represents the "ScannedCount" value, which can be replaced with the actual count of scanned items.
+- `{{capacity_units}}`: Represents the "CapacityUnits" value, which can be replaced with an actual numerical value (e.g., 1.0).
+```yaml
 {
   "CapacityUnits": {{capacity_units}},
   "TableName": "{{table_name}}"
@@ -992,9 +1000,6 @@ for item in reversed(items):
 {{user_handle_1}}           {{user_sk_5}}   That sounds fascinating! Did you encounter any particularly interesting challenges while working with DynamoDB?
 {{user_handle_2}}     {{user_sk_6}}   Oh, absolutely! DynamoDB's NoSQL nature was both a blessing and a challenge. The schema-less design gave us flexibility, but we had to carefully plan our data model to optimize queries and avoid bottlenecks.
 ```
-
-- `{{scanned_count}}`: Represents the "ScannedCount" value, which can be replaced with the actual count of scanned items.
-- `{{capacity_units}}`: Represents the "CapacityUnits" value, which can be replaced with an actual numerical value (e.g., 1.0).
 - `{{table_name}}`: Represents the "TableName" value, which should be replaced with the actual table name (e.g., "cruddur-messages").
 - `{{user_handle_X}}`: These variables represent the user handles in the subsequent data entries. Replace them with the actual user handles.
 - `{{user_sk_X}}`: These variables represent the "sk" values associated with each user in the subsequent data entries. Replace them with the actual values, which might represent timestamps or sorting keys.
@@ -1020,7 +1025,7 @@ The script is tailored to listing conversations for a specific user.
 We have to first start updading our libary before creating the script. It also includes a custom module (lib.db) for database operations.
 
 ####  Step 0 : Custom Library Inspections
-1. Create query_value function in our self made libary `db.py` to simplify the retrieval of a single value from the database.
+1. Create `query_value` function in our custom-built library `db.py` to simplify the retrieval of a single value from the database.
 
 ```python
   def query_value(self, sql, params={}):
@@ -1394,22 +1399,17 @@ for handle, sub in users.items():
 
 4. Overall the following is what the  execution part will work to achive.
 
-**Retrieve Cognito User Data:**
-   - It starts by calling the `get_cognito_user_ids` function, which retrieves user data from an AWS Cognito user pool.
-   - The resulting data is stored in the `users` dictionary, which contains user handles (usernames) as keys and their corresponding Cognito user IDs as values.
-
-**Iterate Through User Data:**
-   - The script then iterates through the `users` dictionary using a `for` loop.
-   - For each user, it extracts the user's handle (username) and Cognito user ID.
-
-**Print User Data:**
-   - Inside the loop, it prints the user's handle and Cognito user ID with the format `"----", handle, sub`.
-   - This allows you to view the user data in the console or log.
-
-**Update Database Records:**
-   - After printing the user data, the script calls the `update_users_with_cognito_user_id` function for each user.
-   - The function is responsible for updating user records in a PostgreSQL database with the corresponding Cognito user ID.
-   - It ensures that the database is kept up-to-date with Cognito user IDs for each user.
+| **Step**                      | **Description**                                                                                   |
+|-------------------------------:|---------------------------------------------------------------------------------------------------|
+| **Retrieve Cognito User Data**    |  Call the `get_cognito_user_ids` function to retrieve user data from an AWS Cognito user pool.   |
+|                               |  Store resulting data in the `users` dictionary, with user handles (usernames) as keys and their corresponding Cognito user IDs as values. |
+| **Iterate Through User Data**     |  Iterate through the `users` dictionary using a `for` loop.                                      |
+|                               |  Extract the user's handle (username) and Cognito user ID for each user.                          |
+| **Print User Data**               |  Inside the loop, print the user's handle and Cognito user ID in the format `"----", handle, sub`. |
+|                               |  Allows viewing of user data in the console or log.                                              |
+| **Update Database Records**       |  After printing user data, call the `update_users_with_cognito_user_id` function for each user.   |
+|                               |  Function updates user records in a PostgreSQL database with the corresponding Cognito user ID. |
+|                               |  Ensures the database stays up-to-date with Cognito user IDs for each user.                         |
 
 
 5. Once done developing, please make sure It looks like this. Or close in logic;
@@ -1471,8 +1471,573 @@ python3 "$bin_path/db/update_cognito_user_ids"
 ![Redacted Old Asset](assets/week5/redacted-ig.png)
 
 
+
+# `Ddb` Class for Conversational Feature
+
+We will create  an independent  to interact with Amazon DynamoDB. The class will provide the required methods to implementent the conversations feature in our app with the five patterns.
+
+Allow me to assist you in getting your design off the ground by guiding you through a structured process. 
+
+We'll kick things off by commencing with the essential step of importing the necessary statements.
+
+- `boto3` ;  the official AWS SDK for Python. 
+- `sys` ;   provides access to various system-specific parameters and functions.
+- classes from `datetime` module ;  (datetime, timedelta, and timezone)
+   - `datetime` is used to represent timestamps,
+   - `timedelta` is used to perform time-related calculations
+   - `timezone` is used to work with time zones.
+```py
+import boto3
+import sys
+from datetime import datetime, timedelta, timezone
+import uuid
+import os
+import botocore.exceptions
+
+class Ddb:
+  def client():
+  # Your Code goes here
+
+  def list_message_groups(client,my_user_uuid):
+  # Your Code goes here
+
+  def list_messages(client,message_group_uuid):
+  # Your Code goes here
+
+  def create_message():
+  # Your Code goes here
+
+  def create_message_group()
+  # Your Code goes here
+```
+
+
+1. Create **`client()` Method**:
+   - This method initializes and returns an AWS DynamoDB client.
+   - It checks if the `AWS_ENDPOINT_URL` environment variable is set and uses it as the endpoint URL for the client. If not set, it uses the default endpoint.
+```py
+  def client():
+    endpoint_url = os.getenv("AWS_ENDPOINT_URL")
+    if endpoint_url:
+      attrs = { 'endpoint_url': endpoint_url }
+    else:
+      attrs = {}
+    dynamodb = boto3.client('dynamodb',**attrs)
+    return dynamodb
+  def list_message_groups(client,my_user_uuid):
+    year = str(datetime.now().year)
+    table_name = 'cruddur-messages'
+    query_params = {
+      'TableName': table_name,
+      'KeyConditionExpression': 'pk = :pk AND begins_with(sk,:year)',
+      'ScanIndexForward': False,
+      'Limit': 20,
+      'ExpressionAttributeValues': {
+        ':year': {'S': year },
+        ':pk': {'S': f"GRP#{my_user_uuid}"}
+      }
+    }
+    print('query-params:',query_params)
+    print(query_params)
+    # query the table
+    response = client.query(**query_params)
+    items = response['Items']
+
+
+    results = []
+    for item in items:
+      last_sent_at = item['sk']['S']
+      results.append({
+        'uuid': item['message_group_uuid']['S'],
+        'display_name': item['user_display_name']['S'],
+        'handle': item['user_handle']['S'],
+        'message': item['message']['S'],
+        'created_at': last_sent_at
+      })
+    return results
+```
+2. Create **`list_message_groups(args)` Method**:
+   - This method retrieves a list of message groups associated with a specific user.
+   - It constructs a query to the DynamoDB table named 'cruddur-messages' to retrieve message groups for the given user UUID (`my_user_uuid`).
+```py
+  def list_message_groups(client,my_user_uuid):
+    year = str(datetime.now().year)
+    table_name = 'cruddur-messages'
+    query_params = {
+      'TableName': table_name,
+      'KeyConditionExpression': 'pk = :pk AND begins_with(sk,:year)',
+      'ScanIndexForward': False,
+      'Limit': 20,
+      'ExpressionAttributeValues': {
+        ':year': {'S': year },
+        ':pk': {'S': f"GRP#{my_user_uuid}"}
+      }
+    }
+    print('query-params:',query_params)
+    print(query_params)
+    # query the table
+    response = client.query(**query_params)
+    items = response['Items']
+
+
+    results = []
+    for item in items:
+      last_sent_at = item['sk']['S']
+      results.append({
+        'uuid': item['message_group_uuid']['S'],
+        'display_name': item['user_display_name']['S'],
+        'handle': item['user_handle']['S'],
+        'message': item['message']['S'],
+        'created_at': last_sent_at
+      })
+    return results
+```
+   - The query filters for items where the partition key (`pk`) equals 'GRP#{my_user_uuid}' and the sort key (`sk`) begins with the current year.
+   - It limits the result to 20 items and returns the results as a list of dictionaries.
+
+3. Create **`list_messages(args)` Method**:
+   - This method retrieves a list of messages within a specific message group.
+   - It constructs a query to the DynamoDB table named 'cruddur-messages' to retrieve messages for the given message group UUID (`message_group_uuid`).
+```py
+  def list_messages(client,message_group_uuid):
+    year = str(datetime.now().year)
+    table_name = 'cruddur-messages'
+    query_params = {
+      'TableName': table_name,
+      'KeyConditionExpression': 'pk = :pk AND begins_with(sk,:year)',
+      'ScanIndexForward': False,
+      'Limit': 20,
+      'ExpressionAttributeValues': {
+        ':year': {'S': year },
+        ':pk': {'S': f"MSG#{message_group_uuid}"}
+      }
+    }
+
+    response = client.query(**query_params)
+    items = response['Items']
+    items.reverse()
+    results = []
+    for item in items:
+      created_at = item['sk']['S']
+      results.append({
+        'uuid': item['message_uuid']['S'],
+        'display_name': item['user_display_name']['S'],
+        'handle': item['user_handle']['S'],
+        'message': item['message']['S'],
+        'created_at': created_at
+      })
+    return results
+```
+   - The query filters for items where the partition key (`pk`) equals 'MSG#{message_group_uuid}' and the sort key (`sk`) begins with the current year.
+   - It limits the result to 20 items and returns the results as a list of dictionaries.
+
+4. Create **`create_message(args)` Method**:
+   - This method is used to create a new message within a message group.
+```py
+  def create_message(client,message_group_uuid, message, my_user_uuid, my_user_display_name, my_user_handle):
+    now = datetime.now(timezone.utc).astimezone().isoformat()
+    created_at = now
+    message_uuid = str(uuid.uuid4())
+
+    record = {
+      'pk':   {'S': f"MSG#{message_group_uuid}"},
+      'sk':   {'S': created_at },
+      'message': {'S': message},
+      'message_uuid': {'S': message_uuid},
+      'user_uuid': {'S': my_user_uuid},
+      'user_display_name': {'S': my_user_display_name},
+      'user_handle': {'S': my_user_handle}
+    }
+    # insert the record into the table
+    table_name = 'cruddur-messages'
+    response = client.put_item(
+      TableName=table_name,
+      Item=record
+    )
+    # print the response
+    print(response)
+    return {
+      'message_group_uuid': message_group_uuid,
+      'uuid': my_user_uuid,
+      'display_name': my_user_display_name,
+      'handle':  my_user_handle,
+      'message': message,
+      'created_at': created_at
+    }
+```
+   - It generates a message UUID, constructs a DynamoDB item record with various attributes including the message content, user information, and timestamps.
+   - It then inserts this record into the 'cruddur-messages' table using the `put_item` operation.
+
+5. Create **`create_message_group(args)` Method**:
+   - This method is used to create a new message group.
+```py
+  def create_message_group(client, message,my_user_uuid, my_user_display_name, my_user_handle, other_user_uuid, other_user_display_name, other_user_handle):
+    print('== create_message_group.1')
+    table_name = 'cruddur-messages'
+
+    message_group_uuid = str(uuid.uuid4())
+    message_uuid = str(uuid.uuid4())
+    now = datetime.now(timezone.utc).astimezone().isoformat()
+    last_message_at = now
+    created_at = now
+    print('== create_message_group.2')
+
+    my_message_group = {
+      'pk': {'S': f"GRP#{my_user_uuid}"},
+      'sk': {'S': last_message_at},
+      'message_group_uuid': {'S': message_group_uuid},
+      'message': {'S': message},
+      'user_uuid': {'S': other_user_uuid},
+      'user_display_name': {'S': other_user_display_name},
+      'user_handle':  {'S': other_user_handle}
+    }
+```
+   - It generates UUIDs for the message group and message, constructs item records for both users' message groups, and the initial message within the group.
+   - It uses a batch write operation to insert these records into the 'cruddur-messages' table as a transaction.
+
+6. Include the print statements that can be used for debugging purposes. This also shows the 3 types of items of Cruddur DynamoDB table.
+
+```py
+    print('== create_message_group.3')
+    other_message_group = {
+      'pk': {'S': f"GRP#{other_user_uuid}"},
+      'sk': {'S': last_message_at},
+      'message_group_uuid': {'S': message_group_uuid},
+      'message': {'S': message},
+      'user_uuid': {'S': my_user_uuid},
+      'user_display_name': {'S': my_user_display_name},
+      'user_handle':  {'S': my_user_handle}
+    }
+
+    print('== create_message_group.4')
+    message = {
+      'pk':   {'S': f"MSG#{message_group_uuid}"},
+      'sk':   {'S': created_at },
+      'message': {'S': message},
+      'message_uuid': {'S': message_uuid},
+      'user_uuid': {'S': my_user_uuid},
+      'user_display_name': {'S': my_user_display_name},
+      'user_handle': {'S': my_user_handle}
+    }
+
+    items = {
+      table_name: [
+        {'PutRequest': {'Item': my_message_group}},
+        {'PutRequest': {'Item': other_message_group}},
+        {'PutRequest': {'Item': message}}
+      ]
+    }
+
+    try:
+      print('== create_message_group.try')
+      # Begin the transaction
+      response = client.batch_write_item(RequestItems=items)
+      return {
+        'message_group_uuid': message_group_uuid
+      }
+    except botocore.exceptions.ClientError as e:
+      print('== create_message_group.error')
+      print(e)
+```
+
+This code serves as the foundation for initiating our process of implementing the five patterns we've previously discussed. Our aim is to provide you with a solid starting point for your coding journey. So, without further ado, let's dive into the first pattern, Pattern A.
+
+
+
+
+## Implement Pattern A For Conversations
+
+- [Step 0 : Create DDB Class](#ddb-class-for-conversational-feature)
+- [Step 1 : Develop Get Conversations Script](#step-1--develop-get-conversations-script)
+- [Step 2 : Develop List Conversations Script](#step-2--develop-list-conversations-script)
+- [Step 3 : Code SQL Message Users](#step-3--code-sql-message-users)
+- [Step 4 :  Handle Route for Message groups](#step-4--handle-route-for-message-groups)
+- [Step 5 : Reusable Authentication Class](#step-5--reusable-authentication-class)
+- [Step Take A Look Pattern A](#step-take-a-look-at-pattern-a)
+
+### Step 1 : Develop Get Conversations Script
+
+1.  We will introduce the use of the `datetime` module to obtain the current year (year) as a string.
+```py
+# Updated code
+
+# ...
+
+year = str(datetime.datetime.now().year)  
+```
+
+2.  Code the `KeyConditionExpression` within the `query_params` dictionary to include the `begins_with(sk, :year)` condition, allowing the script to filter results based on the current year in the sorting key `(sk)`.
+
+```py
+query_params = {
+    "TableName": table_name,
+    "ScanIndexForward": False,
+    "Limit": 20,
+    "KeyConditionExpression": "pk = :pk AND begins_with(sk, :year)",  # Modified this line
+
+    # ... (rest of the code remains unchanged)
+}
+```
+3.  Reverse the order of messages in the items list to ensure that the most recent messages appear first in the output.
+```py
+items.reverse()  # Added this line
+# ... (rest of the code remains unchanged)
+```
+
+#### Step 2 : Develop List Conversations Script
+
+1. Same as with previous script, employ the time.
+
+```py
+# ...
+
+my_user_uuid = get_my_user_uuids()
+
+year = str(datetime.datetime.now().year)  # Added this line
+```
+
+2.  Modify the query parameters to include the 'begins_with' condition
+```py
+query_params = {
+    "TableName": table_name,
+    "KeyConditionExpression": "pk = :pk AND begins_with(sk, :year)",  # Modified this line
+    "ExpressionAttributeValues": {
+        ":year": {"S": year},
+        ":pk": {"S": f"GRP#{my_user_uuid}"},
+    },
+    "ReturnConsumedCapacity": "TOTAL",
+}
+```
+This allows the code to filter results based on the current year in the sorting key `(sk)`.
+
+### Step 3 : Code SQL Message Users
+
+This SQL query will retrieve information from a database `users` table  based on the following conditions.
+
+
+1. Create an empty `create_message_users.sql` in `backend-flask/db/sql/users/`
+
+2.  Create **SELECT Clause**:
+   - The query selects the following columns from the `users` table:
+     - `uuid`: Represents the universally unique identifier of a user.
+     - `display_name`: Denotes the display name of a user.
+     - `handle`: Represents the user's handle or username.
+     - `kind`: This column is created using a CASE statement and will be explained further below.
+```sql
+SELECT 
+  users.uuid,
+  users.display_name,
+  users.handle,
+  CASE users.cognito_user_id = %(cognito_user_id)s
+  WHEN TRUE THEN
+    'sender'
+  WHEN FALSE THEN
+    'recv'
+  ELSE
+    'other'
+  END as kind
+```
+3. Create **FROM Clause**:
+   - The query specifies that it is retrieving data from the `public.users` table, which likely refers to the `users` table in the `public` schema of the database.
+```sql
+FROM public.users
+```
+
+3. Create **WHERE Clause**:
+   - The query applies filtering conditions using the WHERE clause:
+     - `users.cognito_user_id = %(cognito_user_id)s`: This condition checks if the `cognito_user_id` in the `users` table matches the value provided as `%(cognito_user_id)s`. It filters rows where the user's `cognito_user_id` matches a specific value.
+     - `users.handle = %(user_receiver_handle)s`: This condition checks if the `handle` in the `users` table matches the value provided as `%(user_receiver_handle)s`. It filters rows where the user's handle matches a specific value.
+
+```sql
+WHERE
+  users.cognito_user_id = %(cognito_user_id)s
+  OR 
+  users.handle = %(user_receiver_handle)s
+```
+
+4. About **CASE Statement (kind)**:
+   - The `kind` column is generated using a CASE statement.
+   - The CASE statement evaluates multiple conditions and returns a value based on the first condition that is true.
+   - In this case, it evaluates the condition `users.cognito_user_id = %(cognito_user_id)s`.
+   - If this condition is TRUE, it assigns the value 'sender' to the `kind` column.
+   - If the condition is FALSE, it evaluates the condition `users.cognito_user_id = %(cognito_user_id)s`.
+   - If this second condition is TRUE, it assigns the value 'recv' to the `kind` column.
+   - If neither condition is TRUE, it assigns the value 'other' to the `kind` column.
+   - Essentially, this CASE statement categorizes users into three groups: 'sender,' 'recv' (receiver), or 'other,' based on whether their `cognito_user_id` matches the provided value or not.
+
+
+### Step 4 :  Handle Route for Message groups
+
+1. **Update the `data_message_groups` Function in `app.py`**:
+
+  - Modify the `data_message_groups` function in the `app.py` file as follows:
+
+    ```python
+    @app.route("/api/message_groups", methods=["GET"])
+    def data_message_groups():
+        claims = request.environ["claims"]
+        cognito_user_id = claims["sub"]
+        model = MessageGroups.run(cognito_user_id=cognito_user_id)
+
+        if model["errors"] is not None:
+            return model["errors"], 422
+        else:
+            return model["data"], 200
+    ```
+
+2. Code the `services/message_groups.py` file with the following code:
+
+    ```python
+    from datetime import datetime, timedelta, timezone
+
+    from lib.ddb import Ddb
+    from lib.db import db
+
+    class MessageGroups:
+        def run(cognito_user_id):
+            model = {"errors": None, "data": None}
+
+            sql = db.template("users", "uuid_from_cognito_user_id")
+            my_user_uuid = db.query_value(sql, {"cognito_user_id": cognito_user_id})
+
+            print(f"UUID: {my_user_uuid}")
+
+            ddb = Ddb.client()
+            data = Ddb.list_message_groups(ddb, my_user_uuid)
+            print("list_message_groups: ", data)
+
+            model["data"] = data
+            return model
+    ```
+    
+3. Remove the decoder Sign from that `data_messages` Route in `app.py` aka **@**.
+
+
+
+### Step 5 : Reusable Authentication Class
+
+we are taking a significant step to improve our authentication mechanism. We will create a dedicated and independent class that can be called whenever authentication is needed within our application.
+
+- [Create Reusable Authentication Component](#create-reusable-authentication-component)
+- [Implement Authentication in Various Source Code](#implement-authentication-in-source-code)
+
+This approach not only strengthens our authentication system but also enhances the overall workflow of our application.
+
+#### Create Reusable Authentication Component
+
+Create a reusable authentication component named `CheckAuth.js` in the `frontend-react-js/src/lib/` directory. This component will be used for authentication across various parts of your application.
+
+```jsx
+import { Auth } from "aws-amplify";
+
+const checkAuth = async (setUser) => {
+    Auth.currentAuthenticatedUser({
+        bypassCache: false,
+    })
+        .then((user) => {
+            console.log("user", user);
+            return Auth.currentAuthenticatedUser();
+        })
+        .then((cognito_user) => {
+
+            setUser({
+                display_name: cognito_user.attributes.name,
+                handle: cognito_user.attributes.preferred_username,
+            });
+
+        })
+        .catch((err) => console.log(err));
+};
+```
+Additionally, remove the import statement for cookies.
+
+####  Implement Authentication in Source Code
+For the following files, implement authentication using the `CheckAuth` component:
+- `frontend-react-js/src/pages/HomeFeedPage.js`
+- `frontend-react-js/src/pages/MessageGroupPage.js`
+- `frontend-react-js/src/pages/MessageGroupsPage.js`
+- `frontend-react-js/src/components/MessageForm.js`
+
+In each of these files, perform the following steps:
+
+1. Add the auth header to pass the bearer token:
+```js
+headers: {
+  'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+},
+```
+
+2. Import the `checkAuth` function:
+```py
+import checkAuth from '../lib/CheckAuth'
+```
+
+3. Call the `checkAuth` function:
+
+```py
+checkAuth(setUser);
+```
+
+4. In `MessageGroupPage.js` file, re define the asynchronous function `loadMessageGroupData`
+```py
+const loadMessageGroupData = async () => {
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/messages/${params.message_group_uuid}`
+      const res = await fetch(backend_url, {
+        method: "GET"
+      });
+      let resJson = await res.json();
+      if (res.status === 200) {
+        setMessages(resJson)
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+```
+The function first constructs the URL based on the `REACT_APP_BACKEND_URL` environment variable and `params.message_group_uuid`.
+
+5. Recode the class in `MessageGroupItem.js` component for improved UI interaction:
+
+
+```js
+const classes = () => {
+    let classes = ["message_group_item"];
+    if (params.message_group_uuid == props.message_group.uuid) {
+      classes.push("active");
+    }
+    return classes.join(" ");
+  };
+
+  return (
+    <Link className={classes()} to={`/messages/` + props.message_group.uuid}>
+      <!-- Link To Content -->
+    </Link>
+  );
+```
+
+We used this code to style a link element conditionally. If the `message_group_uuid` matches the `uuid from props.message_group`, it applies the "active" CSS class to the link, allowing for custom styling when the link represents the active message group.
+
+### Step Take A Look At Pattern A
+
+1. After incorporating the necessary modifications mentioned earlier, launch the application and ensure that it is included in your Docker Compose configuration.
+
+    ```yaml
+    AWS_ENDPOINT_URL: "http://dynamodb-local:8000"
+    ```
+2. [Reload](#design-schema-load-script) your schema, and dont [seed it with your data](#implement-seed-script---seed).
+3. Now, navigate to your application and click on the "Message" tab. In the URL, include the handle name that you previously added to the seed data. For example, use `yaya2devops`.
+4. You should observe the placeholder message, which is "good and clean." without seed this time.
+
+<img src="assets/week5/3- NeatDelivery/pattern A (without seed).png">
+
+Great, let's proceed with additional patterns to ensure the system is in an optimal state.
+
+
 ---
 
-**To Be Continued...Patterns Implentations!**
+**To Be Continued...Patterns B, C, D,& E**
 
 ---
