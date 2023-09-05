@@ -389,7 +389,7 @@ This helps businesses efficiently manage their cloud resources by allowing them 
 
 Starting out, you have no organizational units except for a root unit.
 
-![Root UI](assets/week0/assets/aws-org.png)
+![Root UI](assets/week0/from-root/week1-bonus.png)
 
 ## What is an AWS Organization Unit?
 An AWS Organization Unit (OU) is a logical grouping of AWS accounts within an AWS Organization. OUs can be used to organize and manage AWS accounts more effectively, and to simplify account management tasks.
@@ -731,7 +731,11 @@ To view your AWS spending and services currently running, follow these steps:
 3. From the dropdown, select **"Billing Dashboard."**
 4. Click on **"Bills"** to access the detailed billing information.
 
+![AWS Cost manager](assets/week0/from-root/aws-cost-manager.png)
+
 Gain insights into your current and past bills, helping you keep track of your AWS expenditure
+
+![AWS Cost manager](assets/week0/from-root/aws-billing-bootcamp.png)
 
 ## CloudWatch Alarm
 
