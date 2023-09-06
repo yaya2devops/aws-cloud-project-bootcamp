@@ -6,16 +6,14 @@ I believe I took the project to some god level. <br>So It is as important to sho
 
 I will not put too much energy in the writing but leave the assets get your mind to the top.
 
-
-
-### The average developer On GitHub
-
+## The Average Developer On GitHub
+[See Me In Full Screen](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/main/journal/resources/assets/average-dev.png)
 ![Don't be an average Developer](assets/average-dev.png)
 
 
-### You, The  Developer Master
+## Unlocking Your Developer Mastery
 
-
+[See Me In Full Screen](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/main/journal/resources/assets/pro-dev-you.png)
 ![Be a Master Developer](assets/pro-dev-you.png)
 
 

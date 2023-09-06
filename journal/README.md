@@ -11,6 +11,7 @@ Strategically located in 1️⃣ site.
 | [Builder Assets](assets/README.md)  | The author's collection of resources and screenshots|
 | [ Beautify](../_docs/assets/README.md) | The Builder's  promotion of the marketing aspect of the things |
 
+
 <img src="res-hub-ban.png" width="618px">
     
 | Resource | Description | 
@@ -38,6 +39,7 @@ Strategically located in 1️⃣ site.
 
 | Git Things|🫵 You Didn't Expect  |
 | ---: |:--- |
+| [ Ready](resources/gitgod.md) | The author showing you the art of absorbing developer content. |
 | [ Tagging](resources/tagging.md) | Streamline resource management by learning proper tagging techniques. |
 | [Undo Commits](resources/uncommit-oups.md) | Gain control over your project's history, commit one more time. |
 | [Git Stash](resources/stash.md) | Safeguard your work for later. Store changes temporarily and maintain stability |

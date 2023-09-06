@@ -30,9 +30,8 @@ My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedi
     - [Scripting `update_cognito_user_ids`](#script-update_cognito_user_ids)
 - [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
 - [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
-   - [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
     - [Implement Pattern A For Conversations — `7 Steps`](#implement-pattern-a-for-conversations)
-
+    - [Implement Conversations Pattern B — `4 Steps`](#implement-conversation-pattern-b)
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
 
@@ -232,7 +231,7 @@ We will uncover each access pattern A through E and explain how to implement the
 
 Before delving deeper, take a moment to examine the following comprehensive architecture that encapsulates the key aspects. The representation of patterns describe the different ways in which we will access and query data using the NoSQL approach.
 
-[Check me in SVG](assets/week5/DynamoDB%20Modelling-Patterns.svg)
+[Check Me In SVG](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/7de97cc70f8a5ecfc5263fdd3149faf140cabd85/journal/assets/week5/DynamoDB%20Modelling-Patterns.svg)
 <img src="assets/week5/DynamoDB Modelling-Patterns.svg">
 
 
@@ -318,12 +317,12 @@ bin/
         └── update_cognito_user_ids
 ```   
 The following is a recap of what we'll be doing.
-- **Local DynamoDB Setup—** We'll start by setting up DynamoDB locally, ensuring you have a working environment for development.
-- **Schema Design—** Next, we'll delve into the schema design, carefully crafting the structure that suits your application's needs.
-- **Data Loading—** We'll guide you through the process of loading data into DynamoDB, ensuring your database is populated with the necessary information.
-- **Basic Operations—** We'll create scripts for fundamental operations like adding, updating, and deleting records in the database.
-- **Access Patterns—** We'll take a deep dive into each access pattern presented earlier, developing scripts for tasks such as reading and listing conversations from the database.
-- **Cognito Integration—** We'll also cover scripts for seamless integration with Amazon Cognito.
+- **[Local DynamoDB Setup](#dynamodb-local)—** We'll start by setting up DynamoDB locally, ensuring you have a working environment for development.
+- **[Schema Design](#ddb-class-for-conversational-feature)—** Next, we'll delve into the schema design, carefully crafting the structure that suits your application's needs.
+- **[Data Loading](#design-schema-load-script)—** We'll guide you through the process of loading data into DynamoDB, ensuring your database is populated with the necessary information.
+- **[Basic Operations](#a-rapid-nosql-operator)—** We'll create scripts for fundamental operations like adding, updating, and deleting records in the database.
+- **[Access Patterns](#scripted-solutions-for-access-patterns-and-beyond)—** We'll take a deep dive into each access pattern presented earlier, developing scripts for tasks such as reading and listing conversations from the database.
+- **[Cognito Integration](#amazon-cognito-meets-postgresql)—** We'll also cover scripts for seamless integration with Amazon Cognito.
 
 ### DynamoDB Local
 
@@ -464,7 +463,7 @@ print(response)
 
 5. Execute the script using `./schema-load` to create the specified DynamoDB table with the defined schema. 
 
-![PoC Required]()
+![PoC Required](assets/week5/1-%20DynamoDb%20Utility%20Scrips/9%20it%20outputs%20our%20table.png)
 
 ## A Rapid NoSQL Operator
 
@@ -851,7 +850,7 @@ Execute the Python script to scan for data using the following command;
 
 We will be incorporating the necessary design patterns into our app that plays a crucial role in facilitating interaction with Cruddur DynamoDB designed patterns later.
 - [Get conversations:](#conversation-script-generator) Get conversations from various groups and years, with applied filters.
-- [List conversioanations:](#customer-focused-script)  Display conversations specific to a user identified by their UUID, without duration-based filtering.
+- [List conversioanations:](#customer-focused-script)  Display conversations specific to a user identified by their UUID.
 - [List Cognito Users:](#script-list-users) Display sign ups users from cognito to the CLI.
 - [Update Cognito ID:](#script-update_cognito_user_ids) Update Cognito ID Script for PostgresSQL Database
 
@@ -1057,6 +1056,8 @@ This allows the `print_sql` function to display the query parameters alongside t
     no_color = '\033[0m'
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
 ```
+
+> What is that, show me. → [Sure!](week4.md#bonus-step-aesthetics-in-bash-scripts)
 4. Make sure the print_sql looks like this;
 
 ```python
@@ -1304,7 +1305,7 @@ print(json.dumps(dict_users, sort_keys=True, indent=2, default=str))
 
 #### Script `update_cognito_user_ids`
 
-We know have to update user records in a Postgres database based on information obtained from an AWS Cognito user pool. It takes a user's handle  and their Cognito user ID as parameters and performs an SQL update operation.
+We now have to update user records in a Postgres database based on information obtained from an AWS Cognito user pool. It takes a user's handle  and their Cognito user ID as parameters and performs an SQL update operation.
 
 If ready lets go design this as well.
 
@@ -1397,19 +1398,14 @@ for handle, sub in users.items():
     update_users_with_cognito_user_id(handle=handle, sub=sub)
 ```
 
-4. Overall the following is what the  execution part will work to achive.
+4. Overall, the following explains how the execution will work to achieve the goal.
 
 | **Step**                      | **Description**                                                                                   |
 |-------------------------------:|---------------------------------------------------------------------------------------------------|
-| **Retrieve Cognito User Data**    |  Call the `get_cognito_user_ids` function to retrieve user data from an AWS Cognito user pool.   |
-|                               |  Store resulting data in the `users` dictionary, with user handles (usernames) as keys and their corresponding Cognito user IDs as values. |
-| **Iterate Through User Data**     |  Iterate through the `users` dictionary using a `for` loop.                                      |
-|                               |  Extract the user's handle (username) and Cognito user ID for each user.                          |
-| **Print User Data**               |  Inside the loop, print the user's handle and Cognito user ID in the format `"----", handle, sub`. |
-|                               |  Allows viewing of user data in the console or log.                                              |
-| **Update Database Records**       |  After printing user data, call the `update_users_with_cognito_user_id` function for each user.   |
-|                               |  Function updates user records in a PostgreSQL database with the corresponding Cognito user ID. |
-|                               |  Ensures the database stays up-to-date with Cognito user IDs for each user.                         |
+| **Retrieve Cognito User Data**    |  Call the `get_cognito_user_ids` function to retrieve user data from an AWS Cognito user pool. <br>Store resulting data in the `users` dictionary, with user handles (usernames) as keys and their corresponding Cognito user IDs as values.  |
+| **Iterate Through User Data**     |  Iterate through the `users` dictionary using a `for` loop.    <br>Extract the user's handle (username) and Cognito user ID for each user.                                   |
+| **Print User Data**               |  Inside the loop, print the user's handle and Cognito user ID in the format `"----", handle, sub`. <br>Allows viewing of user data in the console or log.         |
+| **Update Database Records**       |  After printing user data, call the `update_users_with_cognito_user_id` function for each user. <br>Function updates user records in a PostgreSQL database with the corresponding Cognito user ID.<br> Ensures the database stays up-to-date with Cognito user IDs for each user.     |
 
 
 5. Once done developing, please make sure It looks like this. Or close in logic;
@@ -1460,25 +1456,24 @@ for handle, sub in users.items():
 ```
 
 6. Make sure It is automated along your other required setup scripts.
-
-```bash
-python3 "$bin_path/db/update_cognito_user_ids"
-```
 <img src="assets/week5/2- ImplementConversations/4 script to update user pool.png">
+    ```bash
+    python3 "$bin_path/db/update_cognito_user_ids"
+    ```
 
+7. Re-run the setup script to see the updates in action.
 
-7. Run the script that better serve your current need to test this e.g.
-![Redacted Old Asset](assets/week5/redacted-ig.png)
+![Redacted Old Asset](assets/week5/2-%20ImplementConversations/5%20seting%20up%20with%20the%20new%20script.png)
 
 
 
 # `Ddb` Class for Conversational Feature
 
-We will create  an independent  to interact with Amazon DynamoDB. The class will provide the required methods to implementent the conversations feature in our app with the five patterns.
+We will create an independent Class to interact with Amazon DynamoDB. The last will provide the required methods to implementent the conversations feature in our app with the five patterns.
 
 Allow me to assist you in getting your design off the ground by guiding you through a structured process. 
 
-We'll kick things off by commencing with the essential step of importing the necessary statements.
+We'll kick things off with the essential step of importing the necessary statements.
 
 - `boto3` ;  the official AWS SDK for Python. 
 - `sys` ;   provides access to various system-specific parameters and functions.
@@ -2023,12 +2018,12 @@ We used this code to style a link element conditionally. If the `message_group_u
 ### Step Take A Look At Pattern A
 
 1. After incorporating the necessary modifications mentioned earlier, launch the application and ensure that it is included in your Docker Compose configuration.
-
     ```yaml
     AWS_ENDPOINT_URL: "http://dynamodb-local:8000"
     ```
+    ![The Magic Link](assets/week5/2-%20ImplementConversations/20%20setting%20the%20endpoint%20for%20dynamo.png)
 2. [Reload](#design-schema-load-script) your schema, and dont [seed it with your data](#implement-seed-script---seed).
-3. Now, navigate to your application and click on the "Message" tab. In the URL, include the handle name that you previously added to the seed data. For example, use `yaya2devops`.
+3. Now, navigate to your application and click on the "Message" tab and see! 
 4. You should observe the placeholder message, which is "good and clean." without seed this time.
 
 <img src="assets/week5/3- NeatDelivery/pattern A (without seed).png">
@@ -2036,8 +2031,372 @@ We used this code to style a link element conditionally. If the `message_group_u
 Great, let's proceed with additional patterns to ensure the system is in an optimal state.
 
 
+## Implement Conversation Pattern B
+
+Pattern B displays message groups, allowing users to conveniently access and review their ongoing conversations with other individuals.
+
+- [Step 1: Develop MessagesDotPy](#step-1-develop-messages-dot-py)
+- [Step 2: Develop CreateMessagePy](#step-2-develop-create-message-py)
+- [Step 3: Instrument AppPy](#step-3-instrument-apppy)
+- [Step Take A Look Pattern B](#step-take-a-look-pattern-b)
+
+### Step 1: Develop [Messages Dot Py](../backend-flask/services/messages.py)
+Start retrieve messages from a DynamoDB database based on a message group UUID and a user's Cognito user ID
+
+
+1. Import the Required Modules lib.ddb and lib.db we created and the Ddb and db classes.
+```py
+from datetime import datetime, timedelta, timezone
+from lib.ddb import Ddb
+from lib.db import db
+```
+2. Modify the Class and Method Signature
+```py
+class Messages:
+    def run(message_group_uuid, cognito_user_id):
+        # ...
+```
+Change the run method to accept `message_group_uuid` and `cognito_user_id` as parameters instead of `user_sender_handle` and `user_receiver_handle`.
+
+3. Replace the code responsible for generating mock message data in the first snippet with the appropriate database queries
+```py
+sql = db.template("users", "uuid_from_cognito_user_id")
+my_user_uuid = db.query_value(sql, {"cognito_user_id": cognito_user_id})
+```
+Queries a database to obtain a my_user_uuid based on the provided cognito_user_id.
+
+4. Initializes a DynamoDB client and retrieves a list of messages using the `Ddb.list_messages` method.
+```py
+ddb = Ddb.client()
+data = Ddb.list_messages(ddb, message_group_uuid)
+```
+
+5.  Update the `model['errors']` field in the model dictionary to handle erros
+```py
+model = {"errors": None, "data": None}	
+```
+
+6. Populate the `model['data']` field in the model dictionary with the data retrieved from the database or DynamoDB.
+```py
+        model["data"] = data
+```
+
+7. Returns the `model` dictionary as the result.
+```py
+  return model
+```
+
+
+8. The run function went from this;
+
+```py
+def run(user_sender_handle, user_receiver_handle):
+  model = {
+    'errors': None,
+    'data': None
+  }
+
+  now = datetime.now(timezone.utc).astimezone()
+
+  results = [
+    {
+      'uuid': '4e81c06a-db0f-4281-b4cc-98208537772a' ,
+      'display_name': 'Yahya Abulhaj',
+      'handle':  'yaya2devops',
+      'message': 'Cloud is fun!',
+      'created_at': now.isoformat()
+    },
+    {
+      'uuid': '66e12864-8c26-4c3a-9658-95a10f8fea67',
+      'display_name': 'Yahya Abulhaj',
+      'handle':  'yaya2devops',
+      'message': 'This platform is great!',
+      'created_at': now.isoformat()
+  }]
+  model['data'] = results
+```
+
+To something like this, and thoroughly test your updated code to ensure that it correctly retrieves messages from the database and handles any potential errors. Make sure it works as expected in your application.
+
+```py
+def run(message_group_uuid, cognito_user_id):
+    model = {"errors": None, "data": None}
+
+    sql = db.template("users", "uuid_from_cognito_user_id")
+    my_user_uuid = db.query_value(sql, {"cognito_user_id": cognito_user_id})
+
+    ddb = Ddb.client()
+    data = Ddb.list_messages(ddb, message_group_uuid)
+    print("list_messages")
+    print(data)
+
+    model["data"] = data
+    return model
+```
+
+Transitioning from mock data generation to interacting with a real database involves more complexity and potential challenges. Please be careful when following these instructions. Lets go further and code the run method in `message.py` that will be later used in our `app.py`.
+
+### Step 2: Develop Create Message Py
+
+Code a comprehensive implementation that can handle message creation and updates with database interactions, error checking, and user authentication. 
+
+
+1. Update the run method's parameter list. 
+```py
+def run(
+    mode,
+    message,
+    cognito_user_id,
+    message_group_uuid=None,
+    user_receiver_handle=None,
+):
+```
+
+This accepts additional parameters, including mode, `cognito_user_id`, `message_group_uuid`, and `user_receiver_handle`. Remove the parameters that are not used above.
+
+
+2. Retain the error handling logic as it is in the main source.
+3. Implement database interactions using the db and Ddb classes for our group.
+```py
+from lib.db import db
+from lib.ddb import Ddb
+```
+
+
+4. Implement the necessary database queries and operations within our `run`
+
+   - `CreateMessage` is a Python class designed to handle message creation and updates.
+
+```py
+class CreateMessage:
+    def run()
+```
+
+- The `run` method within this class accepts several parameters:
+  - `mode`: A string indicating the operation mode, either "create" or "update."
+  - `message`: The content of the message.
+  - `cognito_user_id`: The user's Cognito user ID for authentication.
+  - `message_group_uuid`: An optional identifier for the message group (required for updates).
+  - `user_receiver_handle`: An optional parameter representing the receiver's user handle (required for message creation).
+
+```py
+def run(
+    mode,
+    message,
+    cognito_user_id,
+    message_group_uuid=None,
+    user_receiver_handle=None,
+):
+    model = {"errors": None, "data": None}
+```
+- The `model` dictionary is initialized to store error information and resulting data.
+- Error checks are performed based on the operation mode:
+  - For "update" mode, it checks if `message_group_uuid` is provided and not empty.
+
+```py
+if mode == "update":
+    if message_group_uuid == None or len(message_group_uuid) < 1:
+        model["errors"] = ["message_group_uuid_blank"]
+```
+
+
+  - It also verifies the presence and length of `cognito_user_id`.
+
+```py
+if cognito_user_id == None or len(cognito_user_id) < 1:
+    model["errors"] = ["cognito_user_id_blank"]
+
+```
+
+  - For "create" mode, it checks if `user_receiver_handle` is provided and not empty.
+
+```py
+if mode == "create":
+    if user_receiver_handle == None or len(user_receiver_handle) < 1:
+        model["errors"] = ["user_reciever_handle_blank"]
+```
+  - Message content is checked for presence and length. If the message is empty or exceeds 1024 characters, it sets error messages accordingly.
+
+```py
+if message == None or len(message) < 1:
+    model["errors"] = ["message_blank"]
+elif len(message) > 1024:
+    model["errors"] = ["message_exceed_max_chars"]
+```
+
+This code checks the message content. If the message is not provided or empty, it populates `model["errors"]` with the error message `message_blank`. If the message exceeds `1024` characters in length, it populates `model["errors"]` with the error message `message_exceed_max_chars`.
+
+
+- If there are errors in the `model["errors"]`, it populates `model["data"]` with default values, including "Yahya Abulhaj" as the display name, the `user_sender_handle`, and the message content. This is done as a fallback response when there are errors.
+
+```py
+if model["errors"]:
+    model["data"] = {
+        "display_name": "Yahya Abulhaj",
+        "handle": user_sender_handle,
+        "message": message,
+    }
+```
+
+The remaining code (not shown here) includes database interactions and additional logic based on the operation mode. 
+
+Depending on whether it's a "create" or "update" operation, it interacts with the database to create a message group or update a message. 
+
+```py
+else:
+    sql = db.template("users", "create_message_users")
+
+    if user_receiver_handle == None:
+        rev_handle = ""
+    else:
+        rev_handle = user_receiver_handle
+    users = db.query_array_json(
+        sql,
+        {
+            "cognito_user_id": cognito_user_id,
+            "user_receiver_handle": rev_handle,
+        },
+    )
+
+    my_user = next((item for item in users if item["kind"] == "sender"), None)
+    other_user = next((item for item in users if item["kind"] == "recv"), None)
+
+
+    ddb = Ddb.client()
+
+    if mode == "update":
+        data = Ddb.create_message(
+            client=ddb,
+            message_group_uuid=message_group_uuid,
+            message=message,
+            my_user_uuid=my_user["uuid"],
+            my_user_display_name=my_user["display_name"],
+            my_user_handle=my_user["handle"],
+        )
+    elif mode == "create":
+        data = Ddb.create_message_group(
+            client=ddb,
+            message=message,
+            my_user_uuid=my_user["uuid"],
+            my_user_display_name=my_user["display_name"],
+            my_user_handle=my_user["handle"],
+            other_user_uuid=other_user["uuid"],
+            other_user_display_name=other_user["display_name"],
+            other_user_handle=other_user["handle"],
+        )
+```
+5. Review the data assignment logic it stays the same.
+```py
+            model["data"] = data
+        return model
+```
+6. Ensure that the transition to the second snippet is seamless and does not break any existing functionality. 
+
+You have successfully implemented `create_message.py` according to Pattern B requirements. This code snippet defines a class method (`run`) that handles message creation and updates based on various conditions and database interactions. 
+
+It also maintains error handling and returns data accordingly.
+
+#### Step 3: Instrument AppPy
+
+The main difference between the two route definitions is in the URL parameter and how it's used after coding the Messages.run method. 
+
+
+Instead of using the handle parameter from the URL to set user_receiver_handle, use message_group_uuid and retrieving cognito_user_id from the request headers.
+
+
+1.  Update the Route Definition to use message_group_uuid as the parameter
+```
+@app.route("/api/messages/<string:message_group_uuid>", methods=["GET"])
+```
+
+2. Update Variable Assignment
+
+
+you don't need to assign `user_sender_handle` and `user_receiver_handle` values directly as you did in the first snippet. Instead, you can use the `message_group_uuid` and retrieve `cognito_user_id` from the request headers.
+
+```py
+claims = request.environ["claims"]
+cognito_user_id = claims["sub"]
+model = Messages.run(
+    cognito_user_id=cognito_user_id, message_group_uuid=message_group_uuid
+)
+```
+
+Here, you're extracting the `cognito_user_id` from the claims in the request headers and passing it to `Messages.run`.
+
+3. Apply Error Handling and Response the same way
+```py
+if model["errors"] is not None:
+    return model["errors"], 422
+else:
+    return model["data"], 200
+```
+
+
+4. Reflect on your code design; the updates went from this
+```python
+@app.route("/api/messages/@<string:handle>", methods=['GET'])
+def data_messages(handle):
+  user_sender_handle = 'yaya2devops'
+  user_receiver_handle = request.args.get('user_reciever_handle')
+
+  model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
+  if model['errors'] is not None:
+    return model['errors'], 422
+  else:
+    return model['data'], 200
+  return
+```
+
+After making these changes, thoroughly test your updated route to ensure that it correctly handles the message group UUID and user authentication (if applicable) and returns the expected responses.
+
+```python
+@app.route("/api/messages/<string:message_group_uuid>", methods=["GET"])
+def data_messages(message_group_uuid):
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
+    model = Messages.run(
+        cognito_user_id=cognito_user_id, message_group_uuid=message_group_uuid
+    )
+    if model["errors"] is not None:
+        return model["errors"], 422
+    else:
+        return model["data"], 200
+    return
+```
+
+With these updates, you have transitioned from a route that used a user handle in the URL to one that uses a message group UUID and retrieves the user ID from the request headers, aligning it with the changes made in the `Messages.run` method. Let's embrace Pattern B!
+
+### Step Take A Look Pattern B
+
+1. Start your application by running the following command:
+
+```
+docker compose up
+```
+
+2. Load both your psql) and NoSQL nosql schemas using the following commands:
+
+```
+./bin/db/schema-load
+./bin/ddb/schema-load
+```
+
+3. Alternatively, you can use the setup script including the [seed](#implement-seed-script---seed):
+```
+./bin/db/setup
+```
+
+4. Access your application and perform the messanging check to validate the changes made.
+
+![Pattern B PoC](assets/week5/3-%20NeatDelivery/pattern%20B.png)
+
+
+
+
+
 ---
 
-**To Be Continued...Patterns B, C, D,& E**
+**To Be Continued...Patterns C, D,& E**
 
 ---
