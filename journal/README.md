@@ -16,18 +16,17 @@ Strategically located in 1️⃣ site.
     
 | Resource | Description | 
 | ---: | :--- | 
-| [Mermaid ](resources/mermaid.md) | A powerful and intuitive text-based diagramming tool| 
-|[Cspell Tool](resources/cspell.md)|Istant Grammar Check In Real Time|
-| [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
-| [SAM Templates](../ddb/README.md) |  Provisioning Infrastructure with AWS SAM Templates  | 
-|[Figured](resources/figure.md)| Achieve Your Desired Figure My Way|
-|[Vim Keys](resources/vim-hotkeys.md)| Your comprehensive guide to becoming a Vim expert|
 | [Gitpod](resources/new-gitpod.md) | Guide for migrating the project to another Gitpod environment | 
-| [AWS Guide](../aws/README.md) | Developer references for AWS Console resources | 
+|[Figured](resources/figure.md)| Achieve Your Desired Figure My Way|
+| [Mermaid ](resources/mermaid.md) | A powerful and intuitive text-based diagramming tool| 
+|[Vim Keys](resources/vim-hotkeys.md)| Your comprehensive guide to becoming a Vim expert|
 | [AWS CDK](../thumbing-serverless-cdk/README.md) |  Provision Cloud Resources with AWS CDK in Typescript  | 
-| [VS Code Tasks](../.vscode/README.md) |  Automate processes and run scripts using vscode tasks | 
-| [Dev Containers](../.devcontainer/README.md) |  Automate processes and run scripts using vscode tasks | 
-| [ Issues,](assets/week4/Discord/README.md) [Stories](resources/instagram-stories.md)  | Troubleshooting and assets exchanged with community |
+|[Cspell Tool](resources/cspell.md)|Istant Grammar Check In Real Time|
+| [AWS Guide](../aws/README.md) | Developer references for AWS Console resources | 
+| [VSCode Tasks](../.vscode/README.md) |  Automate processes and run scripts using vscode tasks |
+| [ Scripts Library](../bin/README.md) | Scripting Directory produced during the bootcamp | 
+| [Dev Containers](../.devcontainer/README.md) |  Automate processes and run scripts in Codespaces | 
+| [SAM Templates](../ddb/README.md) |  Provisioning Infrastructure with AWS SAM Templates  |  
 
 </div>
 
@@ -41,8 +40,9 @@ Strategically located in 1️⃣ site.
 | ---: |:--- |
 | [ Ready](resources/gitgod.md) | The author showing you the art of absorbing developer content. |
 | [ Tagging](resources/tagging.md) | Streamline resource management by learning proper tagging techniques. |
-| [Undo Commits](resources/uncommit-oups.md) | Gain control over your project's history, commit one more time. |
 | [Git Stash](resources/stash.md) | Safeguard your work for later. Store changes temporarily and maintain stability |
+| [Undo Commits](resources/uncommit-oups.md) | Gain control over your project's history, commit one more time. |
+
 
 
 <img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="712">  

@@ -30,8 +30,9 @@ My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedi
     - [Scripting `update_cognito_user_ids`](#script-update_cognito_user_ids)
 - [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
 - [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
-    - [Implement Pattern A For Conversations — `7 Steps`](#implement-pattern-a-for-conversations)
+    - [Implement Pattern A For Conversations — `6 Steps`](#implement-pattern-a-for-conversations)
     - [Implement Conversations Pattern B — `4 Steps`](#implement-conversation-pattern-b)
+    - [Implement Conversations Pattern C — `10 Steps`](#implement-conversations-pattern-c)
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
 
@@ -1121,7 +1122,7 @@ def get_my_user_uuids():
 ```
 3. Execute the SQL query using the 'db' module and return the UUID
 ```py
-    uuid = db.query_value(sql, {"handle": "andrewbrown"})
+    uuid = db.query_value(sql, {"handle": "yaya2devops"})
 
     return uuid
 ```
@@ -1457,9 +1458,10 @@ for handle, sub in users.items():
 
 6. Make sure It is automated along your other required setup scripts.
 <img src="assets/week5/2- ImplementConversations/4 script to update user pool.png">
-    ```bash
-    python3 "$bin_path/db/update_cognito_user_ids"
-    ```
+
+```bash
+python3 "$bin_path/db/update_cognito_user_ids"
+```
 
 7. Re-run the setup script to see the updates in action.
 
@@ -1745,9 +1747,8 @@ This code serves as the foundation for initiating our process of implementing th
 - [Step 0 : Create DDB Class](#ddb-class-for-conversational-feature)
 - [Step 1 : Develop Get Conversations Script](#step-1--develop-get-conversations-script)
 - [Step 2 : Develop List Conversations Script](#step-2--develop-list-conversations-script)
-- [Step 3 : Code SQL Message Users](#step-3--code-sql-message-users)
-- [Step 4 :  Handle Route for Message groups](#step-4--handle-route-for-message-groups)
-- [Step 5 : Reusable Authentication Class](#step-5--reusable-authentication-class)
+- [Step 3 :  Handle Route for Message groups](#step-3--handle-route-for-message-groups)
+- [Step 4 : Reusable Authentication Class](#step-4--reusable-authentication-class)
 - [Step Take A Look Pattern A](#step-take-a-look-at-pattern-a)
 
 ### Step 1 : Develop Get Conversations Script
@@ -1805,63 +1806,9 @@ query_params = {
 ```
 This allows the code to filter results based on the current year in the sorting key `(sk)`.
 
-### Step 3 : Code SQL Message Users
-
-This SQL query will retrieve information from a database `users` table  based on the following conditions.
 
 
-1. Create an empty `create_message_users.sql` in `backend-flask/db/sql/users/`
-
-2.  Create **SELECT Clause**:
-   - The query selects the following columns from the `users` table:
-     - `uuid`: Represents the universally unique identifier of a user.
-     - `display_name`: Denotes the display name of a user.
-     - `handle`: Represents the user's handle or username.
-     - `kind`: This column is created using a CASE statement and will be explained further below.
-```sql
-SELECT 
-  users.uuid,
-  users.display_name,
-  users.handle,
-  CASE users.cognito_user_id = %(cognito_user_id)s
-  WHEN TRUE THEN
-    'sender'
-  WHEN FALSE THEN
-    'recv'
-  ELSE
-    'other'
-  END as kind
-```
-3. Create **FROM Clause**:
-   - The query specifies that it is retrieving data from the `public.users` table, which likely refers to the `users` table in the `public` schema of the database.
-```sql
-FROM public.users
-```
-
-3. Create **WHERE Clause**:
-   - The query applies filtering conditions using the WHERE clause:
-     - `users.cognito_user_id = %(cognito_user_id)s`: This condition checks if the `cognito_user_id` in the `users` table matches the value provided as `%(cognito_user_id)s`. It filters rows where the user's `cognito_user_id` matches a specific value.
-     - `users.handle = %(user_receiver_handle)s`: This condition checks if the `handle` in the `users` table matches the value provided as `%(user_receiver_handle)s`. It filters rows where the user's handle matches a specific value.
-
-```sql
-WHERE
-  users.cognito_user_id = %(cognito_user_id)s
-  OR 
-  users.handle = %(user_receiver_handle)s
-```
-
-4. About **CASE Statement (kind)**:
-   - The `kind` column is generated using a CASE statement.
-   - The CASE statement evaluates multiple conditions and returns a value based on the first condition that is true.
-   - In this case, it evaluates the condition `users.cognito_user_id = %(cognito_user_id)s`.
-   - If this condition is TRUE, it assigns the value 'sender' to the `kind` column.
-   - If the condition is FALSE, it evaluates the condition `users.cognito_user_id = %(cognito_user_id)s`.
-   - If this second condition is TRUE, it assigns the value 'recv' to the `kind` column.
-   - If neither condition is TRUE, it assigns the value 'other' to the `kind` column.
-   - Essentially, this CASE statement categorizes users into three groups: 'sender,' 'recv' (receiver), or 'other,' based on whether their `cognito_user_id` matches the provided value or not.
-
-
-### Step 4 :  Handle Route for Message groups
+### Step 3 :  Handle Route for Message groups
 
 1. **Update the `data_message_groups` Function in `app.py`**:
 
@@ -1909,7 +1856,7 @@ WHERE
 
 
 
-### Step 5 : Reusable Authentication Class
+### Step 4 : Reusable Authentication Class
 
 we are taking a significant step to improve our authentication mechanism. We will create a dedicated and independent class that can be called whenever authentication is needed within our application.
 
@@ -2238,7 +2185,7 @@ if model["errors"]:
     }
 ```
 
-The remaining code (not shown here) includes database interactions and additional logic based on the operation mode. 
+The remaining code below includes database interactions and additional logic based on the operation mode. 
 
 Depending on whether it's a "create" or "update" operation, it interacts with the database to create a message group or update a message. 
 
@@ -2296,7 +2243,7 @@ You have successfully implemented `create_message.py` according to Pattern B req
 
 It also maintains error handling and returns data accordingly.
 
-#### Step 3: Instrument AppPy
+### Step 3: Instrument AppPy
 
 The main difference between the two route definitions is in the URL parameter and how it's used after coding the Messages.run method. 
 
@@ -2304,7 +2251,7 @@ The main difference between the two route definitions is in the URL parameter an
 Instead of using the handle parameter from the URL to set user_receiver_handle, use message_group_uuid and retrieving cognito_user_id from the request headers.
 
 
-1.  Update the Route Definition to use message_group_uuid as the parameter
+1.  Update the Route Definition to use `message_group_uuid` as the parameter
 ```
 @app.route("/api/messages/<string:message_group_uuid>", methods=["GET"])
 ```
@@ -2375,7 +2322,7 @@ With these updates, you have transitioned from a route that used a user handle i
 docker compose up
 ```
 
-2. Load both your psql) and NoSQL nosql schemas using the following commands:
+2. Load both your psql and NoSQL  schemas using the following commands:
 
 ```
 ./bin/db/schema-load
@@ -2391,12 +2338,543 @@ docker compose up
 
 ![Pattern B PoC](assets/week5/3-%20NeatDelivery/pattern%20B.png)
 
+> Take me to [this seed.](../bin/ddb/seed)
+
+
+## Implement Conversations Pattern C
+We are going to implement the C functionality to display message groups in our application. 
+
+```sh
+☁️aws-cloud-project-bootcamp
+├── 🪶 app.py
+├── 📁 backend-flask
+│   ├── 📁 db
+│   │   ├── 📁 sql
+│   │   │   ├── 📁 users
+│   │   │   │   └── 📄 create_message_users.sql
+│   │   │   └── 📄 short.sql
+│   │   ├── 📁 services
+│   │   │   └── 📄 users_short.py
+│   │   └── 📄 seed.sql
+├── 📁 frontend-react-js
+│   ├── 📁 src
+│   │   ├── 📁 components
+│   │   │   ├── 📄 MessageForm.js
+│   │   │   └── 📄 MessageGroupNewItem.js
+│   └── 📁 pages
+│       └── 📄 MessageGroupNewPage.js
+```
+For our new message group, we will be using user names like "bayko."
+
+- [Develop `MessageFormPy`](#messageformpy)
+- [Develop `data_create_message()` in AppPy](#develop-data_create_message-in-apppy)
+- [Code SQL Message Users](#code-sql-message-users)
+- [Code `MessageGroupNewPage.js`](#code-messagegroupnewpagejs)
+- [ReactJS For `MessageGroupNewPage`](#reactjs-for-messagegroupnewpage)
+- [Seed Record As Users](#seed-record-as-users)
+- [Create `UsersShortPy` and SQL Template](#create-usersshortpy-and-sql-template)
+- [AppPy Required Changes](#apppy-required-changes)
+- [Rendering All that To ReactJs](#rendering-all-that-to-reactjs)
+- [Step Take A Look Pattern C](#step-take-a-look-pattern-c)
+
+### Develop MessageFormPy
+
+1. Go to MessageForm.py and Locate the onsubmit Function:
+   - In your original code, find the onsubmit function. It should look like this:
+   ```js
+    const onsubmit = async (event) => {
+      // Existing code
+    }
+   ```
+2. **Set the `backend_url`**:
+   - It constructs the URL to which the POST request will be sent. The URL is constructed using an environment variable `REACT_APP_BACKEND_URL` (presumably defined elsewhere in your application) and appends "/api/messages" to it. This URL represents the endpoint on the backend server where the message will be sent.
+```jsx
+const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/messages`
+```
+3. **Logging Payload**:
+   - It logs the `message` variable to the console, which can be helpful for debugging purposes.
+```py
+console.log('onsubmit payload', message)
+```
+4. **Construct JSON Object**:
+   - It creates a JavaScript object `json` that contains the data to be sent in the POST request. In this case, it includes a `"message"` field with the value of the `message` variable.
+```py
+let json = {
+  "message": message
+}
+```
+5. **Conditional Field**:
+   - It checks whether `params.handle` exists. If `params.handle` is defined, it adds a `"handle"` field to the `json` object with the value of `params.handle`. Otherwise, if `params.handle` is not defined, it adds a `"message_group_uuid"` field with the value of `params.message_group_uuid`.
+This Markdown explanation summarizes what the code block does without including the JSX code snippet.
+```py
+if (params.handle) {
+  json.handle = params.handle
+} else {
+  json.message_group_uuid = params.message_group_uuid
+}
+```
+6. Create a POST request to the specified `backend_url` with the provided JSON data and includes necessary headers
+```py
+      const res = await fetch(backend_url, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("access_token")}`,
+        },
+        body: JSON.stringify(
+          json
+        ),
+```
+  - This code initiates a POST request to a specified `backend_url` using the `fetch` API.
+  - It includes the following options in the request:
+    - `method`: Specifies the HTTP method as "POST," indicating that it's a POST request.
+    - `headers`: Defines the request headers, including:
+      - `'Accept': 'application/json'`: Specifies that the client expects a JSON response from the server.
+      - `'Content-Type': 'application/json'`: Indicates that the request body contains JSON data.
+      - `'Authorization': `Bearer ${localStorage.getItem("access_token")}``: If an access token is stored in the browser's `localStorage`, it includes it in the request headers as a bearer token for authentication.
+    - `body`: Converts the `json` object into a JSON string using `JSON.stringify(json)` and sends it as the request body. This JSON data typically contains the message and, optionally, the `handle` or `message_group_uuid`.
+
+Ensure that you have defined the `params` object appropriately within your component. Also, double-check that you have the necessary environment variables and `localStorage` setup for `REACT_APP_BACKEND_URL` and the bearer token. 
+
+This now  include additional logic for handling `params.handle` and `params.message_group_uuid`, and it also includes an `Authorization`header with a bearer token from `localStorage`.
+
+### Develop `data_create_message()` in AppPy
+
+1. **Update Function Parameters**:
+   - Modify the function parameters to accept `message_group_uuid` and `handle` from the JSON request.
+```py
+def data_create_message():
+    message_group_uuid = request.json.get("message_group_uuid", None)
+    user_receiver_handle = request.json.get("handle", None)
+    message = request.json["message"]
+```
+2. **Get Cognito User ID**:
+   - Retrieve the Cognito User ID from the request environment claims.
+```py
+claims = request.environ["claims"]
+cognito_user_id = claims["sub"]
+```
+3. **Conditional Logic**:
+   - Implement conditional logic to determine whether a new message group should be created or a message should be added to an existing group. Use the `message_group_uuid` parameter to make this decision.
+```py
+if message_group_uuid is None:
+    # Create for the first time
+    model = CreateMessage.run(
+        mode="create",
+        message=message,
+        cognito_user_id=cognito_user_id,
+        user_receiver_handle=user_receiver_handle,
+    )
+else:
+    # Push onto an existing Message Group
+    model = CreateMessage.run(
+        mode="update",
+        message=message,
+        message_group_uuid=message_group_uuid,
+        cognito_user_id=cognito_user_id,
+    )
+```
+4. **Return Statements**:
+   - Update the return statements to use `model["errors"]` and `model["data"]`.
+```py
+if model["errors"] is not None:
+    return model["errors"], 422
+else:
+    return model["data"], 200
+```
+5. **Remove Unused Variables and Return Statement**:
+   - Remove the unused variables `user_sender_handle` and `user_receiver_handle` from the code.
+   - Remove the final `return` statement since it's not necessary.
+
+6. **Indentation**:
+   - Ensure that the code is properly indented based on the standard Python indentation rules.
+
+The following showcase the complete function. Make sure Its the same in code or in logic.
+```py
+@app.route("/api/messages", methods=["POST", "OPTIONS"])
+@cross_origin()
+def data_create_message():
+    message_group_uuid = request.json.get("message_group_uuid", None)
+    user_receiver_handle = request.json.get("handle", None)
+    message = request.json["message"]
+
+    claims = request.environ["claims"]
+    cognito_user_id = claims["sub"]
+
+    if message_group_uuid is None:
+        # Create for the first time
+        model = CreateMessage.run(
+            mode="create",
+            message=message,
+            cognito_user_id=cognito_user_id,
+            user_receiver_handle=user_receiver_handle,
+        )
+    else:
+        # Push onto existing Message Group
+        model = CreateMessage.run(
+            mode="update",
+            message=message,
+            message_group_uuid=message_group_uuid,
+            cognito_user_id=cognito_user_id,
+        )
+
+    if model["errors"] is not None:
+        return model["errors"], 422
+    else:
+        return model["data"], 200
+```
+
+### Code SQL Message Users
+
+This SQL query will retrieve information from a database `users` table  based on the following conditions.
+
+
+1. Create an empty `create_message_users.sql` in `backend-flask/db/sql/users/`
+
+2.  Create **SELECT Clause**:
+   - The query selects the following columns from the `users` table:
+     - `uuid`: Represents the universally unique identifier of a user.
+     - `display_name`: Denotes the display name of a user.
+     - `handle`: Represents the user's handle or username.
+     - `kind`: This column is created using a CASE statement and will be explained further below.
+```sql
+SELECT 
+  users.uuid,
+  users.display_name,
+  users.handle,
+  CASE users.cognito_user_id = %(cognito_user_id)s
+  WHEN TRUE THEN
+    'sender'
+  WHEN FALSE THEN
+    'recv'
+  ELSE
+    'other'
+  END as kind
+```
+3. Create **FROM Clause**:
+   - The query specifies that it is retrieving data from the `public.users` table, which likely refers to the `users` table in the `public` schema of the database.
+```sql
+FROM public.users
+```
+
+3. Create **WHERE Clause**:
+   - The query applies filtering conditions using the WHERE clause:
+     - `users.cognito_user_id = %(cognito_user_id)s`: This condition checks if the `cognito_user_id` in the `users` table matches the value provided as `%(cognito_user_id)s`. It filters rows where the user's `cognito_user_id` matches a specific value.
+     - `users.handle = %(user_receiver_handle)s`: This condition checks if the `handle` in the `users` table matches the value provided as `%(user_receiver_handle)s`. It filters rows where the user's handle matches a specific value.
+
+```sql
+WHERE
+  users.cognito_user_id = %(cognito_user_id)s
+  OR 
+  users.handle = %(user_receiver_handle)s
+```
+
+4. About **CASE Statement (kind)**:
+   - The `kind` column is generated using a CASE statement.
+   - The CASE statement evaluates multiple conditions and returns a value based on the first condition that is true.
+   - In this case, it evaluates the condition `users.cognito_user_id = %(cognito_user_id)s`.
+   - If this condition is TRUE, it assigns the value 'sender' to the `kind` column.
+   - If the condition is FALSE, it evaluates the condition `users.cognito_user_id = %(cognito_user_id)s`.
+   - If this second condition is TRUE, it assigns the value 'recv' to the `kind` column.
+   - If neither condition is TRUE, it assigns the value 'other' to the `kind` column.
+   - Essentially, this CASE statement categorizes users into three groups: 'sender,' 'recv' (receiver), or 'other,' based on whether their `cognito_user_id` matches the provided value or not.	 
+
+### Code `MessageGroupNewPage.js`
+
+1. **Lets start by Creating The File**:
+   - A new file named `MessageGroupNewPage.js` is created in the `/pages` directory.
+2. **Imports**:
+   - Import various dependencies and components required for the page.
+```jsx
+import './MessageGroupPage.css';
+import React from "react";
+import { useParams } from 'react-router-dom';
+import DesktopNavigation from '../components/DesktopNavigation';
+import MessageGroupFeed from '../components/MessageGroupFeed';
+import MessagesFeed from '../components/MessageFeed';
+import MessagesForm from '../components/MessageForm';
+import checkAuth from '../lib/CheckAuth';
+
+```
+3. **Function Component**:
+   - Define a functional component named `MessageGroupPage`.
+4. **State Variables**:
+   - Declare several state variables using the `useState` hook to store component-related data.
+```jsx
+const [otherUser, setOtherUser] = React.useState([]);
+const [messageGroups, setMessageGroups] = React.useState([]);
+const [messages, setMessages] = React.useState([]);
+const [popped, setPopped] = React.useState([]);
+const [user, setUser] = React.useState(null);
+const dataFetchedRef = React.useRef(false);
+const params = useParams();
+```
+5. **Data Loading Functions**:
+   - Define two asynchronous functions, `loadUserShortData` and `loadMessageGroupsData`, to fetch data from the backend server using the `fetch` API.
+6. **`useEffect` Hook**:
+   - Utilize the `useEffect` hook to load data when the component mounts. Prevent double data calls using the `dataFetchedRef` reference.
+```jsx
+React.useEffect(() => {
+    // ... (data fetching logic)
+}, []);
+```
+7. **Component Rendering**:
+   - Render the component's UI, including a desktop navigation component, a message group feed, a message feed, and a message form.
+```jsx
+return (
+    <article>
+        <DesktopNavigation user={user} active={'home'} setPopped={setPopped} />
+        <section className='message_groups'>
+            <MessageGroupFeed otherUser={otherUser} message_groups={messageGroups} />
+        </section>
+        <div className='content messages'>
+            <MessagesFeed messages={messages} />
+            <MessagesForm setMessages={setMessages} />
+        </div>
+    </article>
+);
+```
+This code defines a React component for a message group page. It fetches data from the backend server and renders a user interface that includes message groups, messages, and a message form.
+
+
+### ReactJS For `MessageGroupNewPage`
+We have now to add the routing configuration to our React application to define our new route for `MessageGroupNewPage.js`.
+
+1.  Import the MessageGroupNewPage component from the "./pages/MessageGroupNewPage" file at the top of `App.js`.
+```jsx
+import MessageGroupNewPage from "./pages/MessageGroupNewPage";
+```
+
+2. Define the new route in the application. This route is defined using an object with two properties: 
+```jsx
+{
+  path: "/messages/new/:handle",
+  element: <MessageGroupNewPage />,
+},
+```
+
+Once you include this code in your App.js file, you'll be able to access the new route by simply visiting a URL that corresponds to the defined path. 
+
+For instance, if you have a link or navigation component that generates a URL like `/messages/new/yaya2devops,` clicking it will display the MessageGroupNewPage component and transmit `yaya2devops` as a parameter via the `:handle` route variable.
+
+### Seed Record As Users
+
+We need to include the insertion of additional users in our seed data to test the messaging functionality.
+1. Add more user records are inserted into the `public.users` table. Lets adds these two additional users:
+```SQL
+-- this file was manually created
+INSERT INTO
+    public.users (
+        display_name,
+        email,
+        handle,
+        cognito_user_id
+    )
+VALUES (
+        'Yahya Abulhaj',
+        'dev@yahya-abulhaj.dev',
+        'yaya2devops',
+        'MOCK'
+    ), (
+        'Londo Mollari',
+        'lmollari@centari.com',
+        'londo',
+        'MOCK'
+    )
+```
+
+2. To ensure that everything appears consistent, make sure it follows a uniform format like this:
+```sql
+-- this file was manually created
+
+INSERT INTO
+    public.users (
+        display_name,
+        email,
+        handle,
+        cognito_user_id
+    )
+VALUES (
+        'Yahya Abulhaj',
+        'dev@yahya-abulhaj.dev',
+        'yaya2devops',
+        'MOCK'
+    ), (
+        'Londo Mollari',
+        'lmollari@centari.com',
+        'londo',
+        'MOCK'
+    ), (
+        'Andrew Brown',
+        'andrewb@exampro.co',
+        'andrewbrown',
+        'MOCK'
+    ), (
+        'Andrew Bayko',
+        'bayko@exampro.co',
+        'bayko',
+        'MOCK'
+    );
+
+INSERT INTO
+    public.activities (user_uuid, message, expires_at)
+VALUES ( (
+            SELECT uuid
+            from public.users
+            WHERE
+                users.handle = 'yaya2devops'
+            LIMIT
+                1
+        ), 'This was imported as seed data!', current_timestamp + interval '10 day'
+    )
+```
 
 
 
+### Create `UsersShortPy` and SQL Template
+
+1. **Create an SQL Query Template**:
+   - Create a SQL query file named `short.sql` in the `backend-flask/db/sql/users` directory.
+```
+# File: backend-flask/db/sql/users/short.sql
+```
+2. **SQL Query**:
+   - Inside the `short.sql` file, define an SQL query that selects specific user attributes (UUID, handle, display name) from the `public.users` table based on the provided `handle` parameter.
+```SQL
+SELECT
+    users.uuid,
+    users.handle,
+    users.display_name
+FROM public.users
+WHERE users.handle = %(handle)s
+```
+
+
+3. **users_short Creation and `short.sql` call**:
+   - Create a file named `users_short.py` in the `backend-flask/services` directory.
+```
+   # File: backend-flask/services/users_short.py
+```
+4. **Class Definition**:
+   - Define a class named `UsersShort` responsible for retrieving short user information based on a provided handle.
+```py
+class UsersShort:
+    def run(handle):
+        # ... (code for retrieving short user information)
+```
+5. **Database Query**:
+   - Inside the `UsersShort` class, construct and execute the SQL query we just created to retrieve user data from the database based on the provided handle.
+```
+        sql = db.template("users", "short")
+        results = db.query_object_json(sql, {"handle": handle})
+```
+
+6. Make sure `users_short.py` is as follows;
+
+```python
+from lib.db import db
+
+class UsersShort:
+    def run(handle):
+        sql = db.template("users", "short")
+        results = db.query_object_json(sql, {"handle": handle})
+        return results
+```
+
+### AppPy Required Changes
+1. Import the `UsersShort` class in `app.py`
+
+```python
+from services.users_short import *
+```
+
+2. Define the route that allows you to access user data by handle in `app.py`
+```py
+@app.route("/api/users/@<string:handle>/short", methods=["GET"])
+def data_users_short(handle):
+    data = UsersShort.run(handle)
+    return data, 200
+```
+
+I tell You How They Work Together;
+- When a user makes a GET request to `"/api/users/@string:handle/short"` in your application, Flask (or your web framework) routes the request to the `data_users_short` function.
+- The `data_users_short` function, in turn, uses the UsersShort class to query the database for user information using the handle provided in the URL.
+- The `UsersShort` class uses the `lib.db` module to construct and execute SQL queries, and it returns the results as JSON data.
+- The JSON data is then sent as a response to the user's request, providing them with user information in a structured format.
+
+
+### Rendering All that To ReactJs
+
+We now require to display user information such as their display name and handle and provide a link for users to start a new message conversation with that user that what's this for.
+
+1. Create `frontend-react-js/src/components/MessageGroupNewItem.js`
+2. **Component Import**:
+   - Import the necessary dependencies for the component.
+3. **Function Component**:
+   - Define a functional component named `MessageGroupNewItem`.
+4. **Component Rendering**:
+   - Render the component's UI, which includes a link (`<Link>`) to a specific route.
+   - The link is created using the `react-router-dom` library (`<Link>`) and navigates to the `/messages/new/{props.user.handle}` route when clicked.
+5. **UI Elements**:
+   - Inside the link, create a structured UI with the following elements:
+     - `<div className='message_group_avatar'>`: Represents the message group's avatar.
+     - `<div className='message_content'>`: Contains message group information.
+     - `<div className='message_group_identity'>`: Displays the user's display name and handle.
+     - `<div className='display_name'>`: Displays the user's display name.
+     - `<div className="handle">`: Displays the user's handle (with the "@" symbol).
+
+6. **CSS Styling**:
+   - The component applies CSS styles defined in an external CSS file (`MessageGroupItem.css`).
+7. **Component Export**:
+   - Export the `MessageGroupNewItem` component as the default export for use in other parts of the application.
+8. **Verify Your Frontend ReactJs Skills**
+   - Re explore the file and consult your coding.
+```jsx
+import './MessageGroupItem.css';
+import { Link } from "react-router-dom";
+
+export default function MessageGroupNewItem(props) {
+  return (
+
+    <Link className='message_group_item active' to={`/messages/new/`+props.user.handle}>
+      <div className='message_group_avatar'></div>
+      <div className='message_content'>
+        <div classsName='message_group_meta'>
+          <div className='message_group_identity'>
+            <div className='display_name'>{props.user.display_name}</div>
+            <div className="handle">@{props.user.handle}</div>
+          </div>{/* activity_identity */}
+        </div>{/* message_meta */}
+      </div>{/* message_content */}
+    </Link>
+  );
+}
+```
+
+To recap, the component includes a link to a specific route, displays user information, and applies CSS styles for styling. 
+
+Now this complete setup allows you to retrieve user data by handle through a specific API endpoint in your application.
+
+
+### Step Take A Look Pattern C
+
+1. Start by running your application using Docker Compose.
+2. Execute the setup script to configure your environment.
+3. Navigate to the "Messaging" tab in your application.
+4. Look for the seed user named "Bayko" within the messaging tab.
+4. Open the message group associated with Bayko.
+6. Compose and send a message to Bayko
+
+Verify that the process completes successfully.
+
+
+![](assets/week5/3-%20NeatDelivery/pattern%20C.png)
+
+Congratulations! You have successfully implemented Pattern C.
 
 ---
 
-**To Be Continued...Patterns C, D,& E**
+**To Be Continued...Patterns D,& E**
 
 ---
