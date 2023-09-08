@@ -30,9 +30,11 @@ My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedi
     - [Scripting `update_cognito_user_ids`](#script-update_cognito_user_ids)
 - [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
 - [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
-    - [Implement Pattern A For Conversations — `6 Steps`](#implement-pattern-a-for-conversations)
+    - [Implement Conversations Pattern A — `6 Steps`](#implement-pattern-a-for-conversations)
     - [Implement Conversations Pattern B — `4 Steps`](#implement-conversation-pattern-b)
     - [Implement Conversations Pattern C — `10 Steps`](#implement-conversations-pattern-c)
+    - [Implement Conversations Pattern D — `3 Steps`](#implement-conversations-pattern-d)
+
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
 
@@ -244,7 +246,7 @@ Proceed to my complete guide about the access patterns prior to our implemention
 - [D. Creating a Message for a new Message Group into Application](#d-creating-a-message-for-a-new-message-group-into-application)
 - [E. Updating a Message Group using DynamoDB Streams](#e-updating-a-message-group-using-dynamodb-streams)
 
-### A. Listing Messages in Message Group into Application
+### [A. Listing Messages in Message Group into Application](#implement-pattern-a-for-conversations)
 
 This pattern is used to list all the messages in a message group. The following steps are involved in implementing this pattern:
 
@@ -254,9 +256,8 @@ This pattern is used to list all the messages in a message group. The following 
 - `MessageID:` The secondary index of the table. This is a sort key.
 - `Message:` The message content.
 
-> Complete [Pattern A Implementation]().
 
-### B. Listing Messages Group into Application
+### [B. Listing Messages Group into Application](#implement-conversation-pattern-b)
 
 This pattern is used to list all the message groups. The following steps are involved in implementing this pattern:
 
@@ -265,11 +266,8 @@ This pattern is used to list all the message groups. The following steps are inv
 - `MessageGroupID:` The primary key of the table. This is a partition key.
 - `Name:` The name of the message group.
 2. In the application, query the DynamoDB table for all the message groups.
-3. Create a Lambda function that will be triggered when a new message is added to the table. The Lambda function should list all the messages in the message group and return them to the application.
 
-4. Call the Lambda function to list all the messages in the message group.
-
-### C. Creating a Message for an existing Message Group into Application
+### [C. Creating a Message for an existing Message Group into Application](#implement-conversations-pattern-c)
 
 This pattern is used to create a new message for an existing message group. The following steps are involved in implementing this pattern:
 
@@ -280,7 +278,7 @@ This pattern is used to create a new message for an existing message group. The 
 - `Message:` The message content.
 2. In the application, create a new message and add it to the DynamoDB table.
 
-### D. Creating a Message for a new Message Group into Application
+### [D. Creating a Message for a new Message Group into Application](#implement-conversations-pattern-d)
 
 This pattern is used to create a new message group and a new message in the message group. The following steps are involved in implementing this pattern:
 
@@ -298,24 +296,26 @@ This pattern is used to update a message group using DynamoDB Streams. DynamoDB 
 1. Enable DynamoDB Streams on the table that contains the message group.
 2. Create a Lambda function that will be triggered when a change is made to the message group.
 3. In the Lambda function, update the message group accordingly.
+4. Create a Lambda function that will be triggered when a new message is added to the table. The Lambda function should list all the messages in the message group and return them to the application.
+5. Call the Lambda function to list all the messages in the message group.
 
 
 # The DynamoDB Encyclopedia
 Let's embark on a journey to master the art of NoSQL database using DynamoDB. <br>We will craft all that to our great bin directory!
 ```sh
-bin/
-├── ddb/
-│   ├── patterns/
-│   │   ├── list-conversations
-│   │   └── get-conversations
-│   ├── list-tables
-│   ├── drop
-│   ├── Seed Script
-│   └── Scan Script
-└── cognito/
-    ├── list-users
-    └── db/
-        └── update_cognito_user_ids
+🌳bin/
+├── 💾ddb/
+│   ├── 📂patterns/
+│   │   ├── 📄list-conversations
+│   │   └── 📄get-conversations
+│   ├── 📄list-tables
+│   ├── 📄drop
+│   ├── 📄seed 
+│   └── 📄scan
+└── 🔐cognito/
+    ├── 📄list-users
+    └── 💾db/
+        └── 📄update_cognito_user_ids
 ```   
 The following is a recap of what we'll be doing.
 - **[Local DynamoDB Setup](#dynamodb-local)—** We'll start by setting up DynamoDB locally, ensuring you have a working environment for development.
@@ -479,12 +479,13 @@ We welcome you to explore and engage in these operations as I guide you through 
 
 Let's recap our directory structure. We've already created the `load-schema` script in the `ddb` directory. Now, we'll also add the following scripts that we discussed:
 ```
-bin/ddb/
-├── schema-load (done King and Queen!)
-├── list-tables
-├── drop
-├── Seed 
-└── Scan 
+🌳bin/
+└── 💾ddb/
+    ├── 📄schema-load (done King and Queen!)
+    ├── 📄list-tables
+    ├── 📄drop
+    ├── 📄Seed 
+    └── 📄Scan 
 ```
 ### Create List Tables Script - `list-tables`
 
@@ -856,18 +857,18 @@ We will be incorporating the necessary design patterns into our app that plays a
 - [Update Cognito ID:](#script-update_cognito_user_ids) Update Cognito ID Script for PostgresSQL Database
 
 ```sh
-/
-├── bin/
-│   ├── cognito/
-│   │   └── list-users  # psql+cognito          
-│   ├── ddb/
-│   │   └── patterns/
-│   │       ├── get-conversation  
-│   │       └── list-conversation   
-│   └── db/
-│       └── update_cognito_user_ids # psql+cognito
-└── lib/
-    └── db.py
+☁️/
+├── 📂bin/
+│   ├── 🔐cognito/
+│   │   └── 📄list-users  # psql+cognito          
+│   ├── 💾ddb/
+│   │   └── 📂patterns/
+│   │       ├── 📄get-conversation  
+│   │       └── 📄list-conversation   
+│   └── 💾db/
+│       └── 📄update_cognito_user_ids # psql+cognito
+└── 📂lib/
+    └── 📄db.py
 ```
 
 The first script will use composite keys (pk and sk) for querying, while the second script relies on a single partition key (pk) for user-specific queries.
@@ -1199,12 +1200,12 @@ We require a way to view the user details stored in your AWS Cognito user pool t
 - [Script `update_cognito_user_ids`](#script-update_cognito_user_ids)
 
 ```sh
-/
-├── bin/
-│   ├── cognito/
-│   │   └── list-users            
-│   └── db/
-└       └── update_cognito_user_ids 
+☁️/
+├── 📂bin/
+│   ├── 🔐cognito/
+│   │   └── 📄list-users            
+│   └── 💾db/
+└       └── 📄update_cognito_user_ids 
 ```
 
 #### Script `list-users`
@@ -1743,6 +1744,42 @@ This code serves as the foundation for initiating our process of implementing th
 
 
 ## Implement Pattern A For Conversations
+The initial pattern ensures that you encounter your first message group on the platform, featuring the 'bayko' user.
+
+
+
+
+
+```
+📁backend-flask/
+├── 📁lib/
+│   └── 📄ddb.py
+└── 📄app.py
+
+🌳bin/
+└── 💾ddb/
+    └── 📁patterns/
+        ├── 📄get-conversations
+        └── 📄list-conversations
+🌳bin/
+└── 💾db/
+    └── 📁setup/
+        └── 📄setup
+
+📁frontend-react-js/
+├── 📁src/
+│   ├── 📁lib/
+│   │   └── 📄CheckAuth.js
+│   ├── 📁pages/
+│   │   ├── 📄HomeFeedPage.js
+│   │   ├── 📄MessageGroupPage.js
+│   │   └── 📄MessageGroupsPage.js
+│   └── 📁components/
+│       ├── 📄MessageForm.js
+│       └── 📄MessageGroupItem.js
+```
+
+A significant amount of work encompasses both frontend and backend development, as well as scripting. We hope you enjoy the journey.
 
 - [Step 0 : Create DDB Class](#ddb-class-for-conversational-feature)
 - [Step 1 : Develop Get Conversations Script](#step-1--develop-get-conversations-script)
@@ -1980,7 +2017,20 @@ Great, let's proceed with additional patterns to ensure the system is in an opti
 
 ## Implement Conversation Pattern B
 
-Pattern B displays message groups, allowing users to conveniently access and review their ongoing conversations with other individuals.
+Pattern B displays message groups.
+```sh
+📁backend-flask/
+├── 📁services/
+│   ├── 📄messages.py
+│   ├── 📄create_message.py
+└── 📄app.py
+
+🌳bin/
+└── 💾db/
+    └── 📁setup/
+        └── 📄setup
+```
+This will allow users to conveniently access and review their ongoing conversations with other individuals.
 
 - [Step 1: Develop MessagesDotPy](#step-1-develop-messages-dot-py)
 - [Step 2: Develop CreateMessagePy](#step-2-develop-create-message-py)
@@ -2661,7 +2711,7 @@ For instance, if you have a link or navigation component that generates a URL li
 ### Seed Record As Users
 
 We need to include the insertion of additional users in our seed data to test the messaging functionality.
-1. Add more user records are inserted into the `public.users` table. Lets adds these two additional users:
+1. Add more user records are inserted into the `public.users` table. Lets adds these one additional users in `seed.sql`:
 ```SQL
 -- this file was manually created
 INSERT INTO
@@ -2675,11 +2725,6 @@ VALUES (
         'Yahya Abulhaj',
         'dev@yahya-abulhaj.dev',
         'yaya2devops',
-        'MOCK'
-    ), (
-        'Londo Mollari',
-        'lmollari@centari.com',
-        'londo',
         'MOCK'
     )
 ```
@@ -2700,12 +2745,8 @@ VALUES (
         'dev@yahya-abulhaj.dev',
         'yaya2devops',
         'MOCK'
-    ), (
-        'Londo Mollari',
-        'lmollari@centari.com',
-        'londo',
-        'MOCK'
-    ), (
+    ), 
+      (
         'Andrew Brown',
         'andrewb@exampro.co',
         'andrewbrown',
@@ -2873,8 +2914,209 @@ Verify that the process completes successfully.
 
 Congratulations! You have successfully implemented Pattern C.
 
+## Implement Conversations Pattern D
+
+
+In this pattern, it's essential to ensure that we can create a new message group and write messages to.
+
+- [Creating and Locating the User Profile](#creating-and-locating-the-user-profile)
+- [Crafting Messages to Londo](#crafting-messages-to-londo)
+- [Experiment with Londo](#experiment-with-londo)
+
+Having completed the '**Bayko**' implementation, it's now time to implement the necessary steps for a new user named '**Londo**' thus the D pattern.
+
+
+### Creating and Locating the User Profile
+
+1. Add the following user to your database by including it in your `seed.sql` file.
+
+```SQL
+-- this file was manually created
+INSERT INTO
+    public.users (
+        display_name,
+        email,
+        handle,
+        cognito_user_id
+    )
+VALUES (
+        'Londo Mollari',
+        'lmollari@centari.com',
+        'londo',
+        'MOCK'
+       )
+```
+
+2. **Step 1:** Develop `frontend-react-js/src/components/MessageGroupFeed.js`
+   - Import a new component called `MessageGroupNewItem` from the './MessageGroupNewItem' file.
+```js
+import MessageGroupNewItem from './MessageGroupNewItem';
+```
+3. **Step 2:** Declare a Variable
+   - Declare a variable named `message_group_new_item`.
+```js
+let message_group_new_item;
+```
+This variable will be used to conditionally render the `MessageGroupNewItem` component based on the presence of `props.otherUser`.
+
+4. **Step 3:** Conditional Rendering
+   - Check if the `props.otherUser` exists.
+   - If `props.otherUser` is truthy, assign a JSX element with the `MessageGroupNewItem` component to the `message_group_new_item` variable, passing `props.otherUser` as a prop.
+```js
+if (props.otherUser) {
+  message_group_new_item = <MessageGroupNewItem user={props.otherUser} />
+}
+```
+
+A conditional check is performed. If `props.otherUser` exists (i.e., it's truthy), then the `message_group_new_item` variable is assigned a JSX element, specifically the `MessageGroupNewItem` component with the user prop set to `props.otherUser`. This means that if there's another user provided as a prop, the `MessageGroupNewItem` component will be rendered.
+
+
+5. **Step 4:** Return JSX
+     - A container `div` with the class name 'message_group_feed.'
+     - A heading `div` with the class name 'message_group_feed_heading,' containing the text 'Messages.'
+```js
+return (
+  <div className='message_group_feed'>
+    <div className='message_group_feed_heading'>
+      <div className='title'>Messages</div>
+    </div>
+    <div className='message_group_feed_collection'>
+      {message_group_new_item}
+      {props.message_groups.map(message_group => {
+        return <MessageGroupItem key={message_group.uuid} message_group={message_group} />
+      })}
+    </div>
+  </div>
+);
+```
+The `MessageGroupFeed` also includes the following elements:
+
+- A collection div with the class name `message_group_feed_collection,` which contains:
+   - `{message_group_new_item}`: This is the conditional rendering of `MessageGroupNewItem` based on the presence of `props.otherUser`.
+   - `{props.message_groups.map(...)}`: This maps over the `message_groups` prop and renders `MessageGroupItem` components for each item in the array, setting the key and `message_group` props accordingly.
+
+Overall developers, the following code transformation added conditional rendering of the `MessageGroupNewItem` component based on the presence of `props.otherUser`, in addition to rendering the existing `MessageGroupItem` components for each item in the `message_groups` prop.
+
+Now, let's put this into action. <br>
+
+```sh
+https://port:dev-url/messages/new/londo
+```
+You can do so by simply navigating to our new user message group endpoint URL.
+
+
+### Crafting Messages to Londo
+
+In your MessageForm.js, we will double code the following `async` function to have it accept mesasges. This will enable you to compose a message to your friend Londo.
+
+```js
+  const onsubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/messages`
+      console.log('onsubmit payload', message)
+      const res = await fetch(backend_url, {
+        method: "POST",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: message
+        }),
+      });
+      let message = await res.json();
+      if (res.status === 200) {
+        props.setMessages(current => [message,...current]);
+      } else {
+        console.log(res)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+```
+
+**Subsequently**, our attention will be directed towards the following precise block;
+```js
+let message = await res.json();
+if (res.status === 200) {
+  props.setMessages(current => [message, ...current]);
+} else {
+  console.log(res);
+}
+```
+
+Lets Make the variable name more generic and doesn't imply that it always contains a single message.
+
+1. Change the variable `message` to `data` when parsing the JSON response from the API using `await res.json()`.
+
+```js
+let data = await res.json();
+```
+
+2. Add a conditional check to see if data has a property called ``message_group_uuid``. If it does, it means the response contains information about a message group, so you log a message and redirect the user to the corresponding message group page using `window.location.href``.
+```js
+if (res.status === 200) {
+  console.log('data:', data);
+  if (data.message_group_uuid) {
+    console.log('redirect to message group');
+    window.location.href = `/messages/${data.message_group_uuid}`;
+  }
+```
+
+3. If `data` does not have a `message_group_uuid`, it means it's a regular message object, so you add it to the `props.setMessages` array along with the current messages.
+```js
+else {
+    props.setMessages(current => [...current, data]);
+  }
+}
+```
+
+4. Finally, If the API request does not return a successful response (i.e., res.status is not 200), it logs the res object to the console. 
+```js
+else {
+  console.log(res);
+}
+```
+
+5. After meticulous design and coding, ensure that it resembles something along these lines:
+
+```js
+let data = await res.json();
+if (res.status === 200) {
+  console.log('data:', data);
+  if (data.message_group_uuid) {
+    console.log('redirect to message group');
+    window.location.href = `/messages/${data.message_group_uuid}`;
+  } else {
+    props.setMessages(current => [...current, data]);
+  }
+} else {
+  console.log(res);
+}
+```
+
+This code is ready to handle the response from our message group API request. Its also well designed to handle success, redirection, or error, and it provides appropriate logging and behavior for each case.
+
+Let's put this into practice and see how it works in action.
+
+### Experiment with Londo
+
+1. Open the Cruddur app.
+2. Sign in using your credentials.
+3. Navigate to the messaging section in the left pane.
+4. Access Londo's message group within the messaging section.
+5. Write her out! Compose and send a message to Londo.
+
+
+![Londo PoC Message Group Messanging](assets/week5/3-%20NeatDelivery/patternABCD.png)
+
+Your message should be successfully delivered, and you will see it displayed in the user interface. Our next objective is to ensure that these messages are stored in a production environment.
+
+
 ---
 
-**To Be Continued...Patterns D,& E**
+**To Be Continued.. *Pattern  E, Security, Costs.***
 
 ---
