@@ -4,7 +4,6 @@ This week, we're diving headfirst into the exciting world of NoSQL, harnessing t
 
 My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedin.com/posts/yahya-abulhaj_cloud-microsoft-strategy-activity-7079118494864175104-NKq1?utm_source=share&utm_medium=member_desktop) experience. <br>You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you. <br> I passed that with a 900 points plus score, Its [open sourced too](https://github.com/yaya2devops/ExperienceInCloud/blob/main/Certifications!/2%C2%B0DP-900.pdf).
 
-
 - [Personalizing Your NoSQL Experience](#personalizing-your-nosql-experience)
   - [Different types of NoSQL databases](#different-types-of-nosql-databases)
   - [The Data Manager Battle](#the-data-manager-battle)
@@ -34,7 +33,8 @@ My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedi
     - [Implement Conversations Pattern B — `4 Steps`](#implement-conversation-pattern-b)
     - [Implement Conversations Pattern C — `10 Steps`](#implement-conversations-pattern-c)
     - [Implement Conversations Pattern D — `3 Steps`](#implement-conversations-pattern-d)
-
+    - [Implement Conversations Pattern E — `3 Steps`](#implement-conversations-pattern-e)
+- [Primer on Premier DynamoDB: A 101 Explainer](#primer-on-premier-dynamodb-a-101-explainer)
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
 
@@ -74,7 +74,6 @@ graph TB
 * **Graph databases:** Graph databases store data in the form of graphs. Graphs are made up of nodes and edges, and they can be used to represent relationships between data.
 
 A number of NoSQL databases were developed, including Bigtable, Cassandra, and MongoDB and were designed to be more scalable, flexible, and fault-tolerant. Later in 2012, Amazon Web Services introduced DynamoDB in response to the growing demand and to make it easier for you to develop on the NoSQL model.
-
 
 ## The Data Manager Battle
 
@@ -117,7 +116,6 @@ NoSQL databases offer a dynamic approach to data modeling but it is a complex ta
 
 Nonetheless, achieving data integrity and efficient querying demands thoughtful planning and design. Let's go over the process of architecting the data model for our application.
 
-
 # A Masterclass On NoSQL Schema
 
 Data modeling in DynamoDB differs from traditional relational databases due to its schema-less nature, which allows for flexibility but requires careful planning to achieve optimal performance.
@@ -145,7 +143,6 @@ graph LR
 It's quite remarkable that you can integrate Amazon DynamoDB, a NoSQL database service, into a [SQL-based environment](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-gettingstarted.html).
 
 ## Pre-Data Model
-
 The following steps serve as acknowledged guidelines that will steer you towards establishing a solid foundation for designing your NoSQL data modeling that will be showcased through our Cruddur app development.
 
 1. **Understand Your Data Access Patterns**
@@ -199,11 +196,9 @@ The following steps serve as acknowledged guidelines that will steer you towards
 
 Continuously reevaluate and retest your data model to verify its alignment with your performance and scalability prerequisites. Let me take you into our application's data modeling for further insight.
 
-
 ## DynamoDB Data Modeling
 
 This tabular data model represents our use case for retrieving messages. This table is used to store messages in a DynamoDB table and is available just for You in [CSV](assets/week5/Spreadsheet-DynamoDBData%20Modeling.csv) and [PDF](assets/week5/Spreadsheet-DynamoDBData%20Modeling.pdf)!
-
 
 | pk                | sk                   | data                       | uuid                                | display_name    | handle       | message               | user_uuid                            | message_group_uuid                   |
 |-------------------|----------------------|----------------------------|------------------------------------|----------------|--------------|-----------------------|--------------------------------------|--------------------------------------|
@@ -226,8 +221,6 @@ Refer to the following to get a clear overview of each attribute within our Dyna
 
 I made sure not to place [similar formats](assets/week5/resources/other-format-dynamdb.md) in close proximity.
 
-
-
 ## Cruddur Messanging Pre-Access Patterns
 To enable messaging functionality, we employed five DynamoDB patterns for implementation.
 We will uncover each access pattern A through E and explain how to implement them effectively.
@@ -236,7 +229,6 @@ Before delving deeper, take a moment to examine the following comprehensive arch
 
 [Check Me In SVG](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/7de97cc70f8a5ecfc5263fdd3149faf140cabd85/journal/assets/week5/DynamoDB%20Modelling-Patterns.svg)
 <img src="assets/week5/DynamoDB Modelling-Patterns.svg">
-
 
 Proceed to my complete guide about the access patterns prior to our implemention.
 
@@ -255,7 +247,6 @@ This pattern is used to list all the messages in a message group. The following 
 - `MessageGroupID:` The primary key of the table. This is a partition key.
 - `MessageID:` The secondary index of the table. This is a sort key.
 - `Message:` The message content.
-
 
 ### [B. Listing Messages Group into Application](#implement-conversation-pattern-b)
 
@@ -289,7 +280,7 @@ This pattern is used to create a new message group and a new message in the mess
 - `Message:` The message content.
 2. In the application, create a new message group and add a new message to the message group.
 
-### E. Updating a Message Group using DynamoDB Streams
+### [E. Updating a Message Group using DynamoDB Streams](#implement-conversations-pattern-e)
 
 This pattern is used to update a message group using DynamoDB Streams. DynamoDB Streams is a feature of DynamoDB that allows you to track changes to your data. The following steps are involved in implementing this pattern:
 
@@ -298,7 +289,6 @@ This pattern is used to update a message group using DynamoDB Streams. DynamoDB 
 3. In the Lambda function, update the message group accordingly.
 4. Create a Lambda function that will be triggered when a new message is added to the table. The Lambda function should list all the messages in the message group and return them to the application.
 5. Call the Lambda function to list all the messages in the message group.
-
 
 # The DynamoDB Encyclopedia
 Let's embark on a journey to master the art of NoSQL database using DynamoDB. <br>We will craft all that to our great bin directory!
@@ -338,7 +328,6 @@ You can find guidance on configuring the DynamoDB setup locally in [my previous 
 ### Design Schema Load Script
 We now have to set up the database structure and initialize it with the necessary configuration using a schema.
 
-
 1. **Requirements and Dependencies**
 
    - Add `boto3` to the `requirements.txt` file:
@@ -354,9 +343,7 @@ We now have to set up the database structure and initialize it with the necessar
    - You can also automate the process in **Gitpod**
     <img src="assets/week5/1- DynamoDb Utility Scrips/1 x add itautomate install all bib.png">
 
-
 We import the `boto3` library to interact with AWS services.
-
 
 2. **Folder Structure**
 
@@ -425,9 +412,7 @@ We import the `boto3` library to interact with AWS services.
    - Ace your script with The `#! /usr/bin/env python3` shebang line at the start indicates that this is a py script.
    <img src="assets/week5/1- DynamoDb Utility Scrips/7 our python based dynamodb schema.png">
 
-
 After independently designing each component of the schema loading script, validate the script as follows.
-
 
 ```py  
 #! /usr/bin/env python3
@@ -515,7 +500,6 @@ The `if` statement checks to see if the `prod` argument was passed to the script
 
 The aws `dynamodb list-tables` command lists all the tables in the current account. The --query TableNames option tells the command to only return the table names. The --output table option tells the command to format the output as a table.
 
-
 ### Drop Table Script - `drop`
 This script is used to delete a DynamoDB table. You need to provide the TABLE_NAME as an argument when running the script. It also supports specifying the environment (prod or local).
 
@@ -551,7 +535,6 @@ The `--table-name` option tells the command the name of the table to be dropped.
 ### Implement Seed Script - `seed`
 
 This script is responsible for updating the PostgreSQL database schema and seeding the data into DynamoDB. 
-
 
 1. Import necessary modules:
    - Start by importing the required modules, including `boto3`, `os`, `sys`, `datetime`, `timedelta`, and `uuid`. These modules are used for various tasks such as interacting with DynamoDB, managing paths, and handling dates and times.
@@ -849,7 +832,6 @@ Execute the Python script to scan for data using the following command;
 ```
 
 # Scripted Solutions for Access Patterns and Beyond
-
 We will be incorporating the necessary design patterns into our app that plays a crucial role in facilitating interaction with Cruddur DynamoDB designed patterns later.
 - [Get conversations:](#conversation-script-generator) Get conversations from various groups and years, with applied filters.
 - [List conversioanations:](#customer-focused-script)  Display conversations specific to a user identified by their UUID.
@@ -875,11 +857,9 @@ The first script will use composite keys (pk and sk) for querying, while the sec
 Later, you'll also have the opportunity to explore additional scripts that assist with PostgreSQL and Cognito.
 
 ### Conversation Script Generator
-
 The get script is designed to query our DynamoDB table for messages and get conversations. It filters messages from a specific year  e.g. we tried (2023) and displays that.
 
 #### Step 1 : Shebang and Imports
-
 1. Import the following library;
 - AWS SDK library
 - The sys module for command-line arguments
@@ -896,7 +876,6 @@ import datetime
 ```
 
 #### Step 2: Configuration
-
 1. Set default local DynamoDB endpoint 
 ```python
 attrs = {"endpoint_url": "http://localhost:8000"}
@@ -1009,9 +988,7 @@ for item in reversed(items):
 
 Overall, the code sets up a script to query a DynamoDB table for messages, filter by a specific year, and print the results which is our get all convo.
 
-
 ### Customer Focused Script
-
 The script is tailored to listing conversations for a specific user. 
 
 - [ Step 0 : Custom Library Inspections](#step-0--custom-library-inspections)
@@ -1042,7 +1019,6 @@ The Function abstracts away the details of executing a query, fetching the value
 
 <img src="assets/week5/1- DynamoDb Utility Scrips/31 coding before listing validation.png">
 
-
 2. Add The print_sql function in `db.py` to include a new parameter `(params)` and slightly modify its output format.
 
 ```python
@@ -1069,7 +1045,6 @@ def print_sql(self,title,sql,params={}):
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
     print(sql,params)
 ```
-
 
 #### Step 1: Set up paths and imports
 1. Determine the script's parent directory and add it to the system path for imports
@@ -1127,7 +1102,6 @@ def get_my_user_uuids():
 
     return uuid
 ```
-
 
 #### Step 5: Call the function to get the user's UUID
 ```py
@@ -1191,9 +1165,7 @@ print(json.dumps(response, sort_keys=True, indent=2))
 
 This script is more user-specific and lists conversations for a specific user based on their UUID, without filtering by year!
 
-
 ### Amazon Cognito Meets PostgreSQL
-
 We require a way to view the user details stored in your AWS Cognito user pool this the `list-users` script and then we will go to script the record update to psql using the `update_cognito_user_ids`.
 
 - [Script `list-users`](#script-list-users)
@@ -1263,9 +1235,7 @@ for user in users:
 print(json.dumps(dict_users, sort_keys=True, indent=2, default=str))
 ```
 
-
 This script essentially fetches user data from your AWS Cognito user pool and presents it in a readable JSON format, which can be useful for debugging or monitoring purposes.
-
 
 9. Make sure the dev is well completed and your code is like this;
 ```python
@@ -1306,7 +1276,6 @@ print(json.dumps(dict_users, sort_keys=True, indent=2, default=str))
 ```
 
 #### Script `update_cognito_user_ids`
-
 We now have to update user records in a Postgres database based on information obtained from an AWS Cognito user pool. It takes a user's handle  and their Cognito user ID as parameters and performs an SQL update operation.
 
 If ready lets go design this as well.
@@ -1330,7 +1299,6 @@ sys.path.append(parent_path)
 from lib.db import db
 ```
 
-
 3. Prepare your functions;
 
 ```python
@@ -1339,7 +1307,6 @@ def update_users_with_cognito_user_id(handle, sub):
 def get_cognito_user_ids():
      # To be continued..
 ```
-
 
 4. Start by creating your `update_users_with_cognito_user_id` Function:
 ```py
@@ -1358,7 +1325,6 @@ def update_users_with_cognito_user_id(handle, sub):
 - The `db.query_commit` function is used to execute the SQL query with the provided parameters.
 
 5. Create `get_cognito_user_ids` Function:
-
 
 ```py
 def get_cognito_user_ids():
@@ -1390,7 +1356,6 @@ This function is responsible for retrieving user data from an AWS Cognito user p
 
 It will then provide this data for further processing, in updating user records in a database.
 
-
 3. Execute the script as code
 ```py
 users = get_cognito_user_ids()
@@ -1408,7 +1373,6 @@ for handle, sub in users.items():
 | **Iterate Through User Data**     |  Iterate through the `users` dictionary using a `for` loop.    <br>Extract the user's handle (username) and Cognito user ID for each user.                                   |
 | **Print User Data**               |  Inside the loop, print the user's handle and Cognito user ID in the format `"----", handle, sub`. <br>Allows viewing of user data in the console or log.         |
 | **Update Database Records**       |  After printing user data, call the `update_users_with_cognito_user_id` function for each user. <br>Function updates user records in a PostgreSQL database with the corresponding Cognito user ID.<br> Ensures the database stays up-to-date with Cognito user IDs for each user.     |
-
 
 5. Once done developing, please make sure It looks like this. Or close in logic;
 
@@ -1468,8 +1432,6 @@ python3 "$bin_path/db/update_cognito_user_ids"
 
 ![Redacted Old Asset](assets/week5/2-%20ImplementConversations/5%20seting%20up%20with%20the%20new%20script.png)
 
-
-
 # `Ddb` Class for Conversational Feature
 
 We will create an independent Class to interact with Amazon DynamoDB. The last will provide the required methods to implementent the conversations feature in our app with the five patterns.
@@ -1508,7 +1470,6 @@ class Ddb:
   def create_message_group()
   # Your Code goes here
 ```
-
 
 1. Create **`client()` Method**:
    - This method initializes and returns an AWS DynamoDB client.
@@ -1740,16 +1701,8 @@ class Ddb:
 
 This code serves as the foundation for initiating our process of implementing the five patterns we've previously discussed. Our aim is to provide you with a solid starting point for your coding journey. So, without further ado, let's dive into the first pattern, Pattern A.
 
-
-
-
-## Implement Pattern A For Conversations
+## Implement Pattern A For Conversations [— Go🔃](#a-listing-messages-in-message-group-into-application)
 The initial pattern ensures that you encounter your first message group on the platform, featuring the 'bayko' user.
-
-
-
-
-
 ```
 📁backend-flask/
 ├── 📁lib/
@@ -1767,16 +1720,16 @@ The initial pattern ensures that you encounter your first message group on the p
         └── 📄setup
 
 📁frontend-react-js/
-├── 📁src/
-│   ├── 📁lib/
-│   │   └── 📄CheckAuth.js
-│   ├── 📁pages/
-│   │   ├── 📄HomeFeedPage.js
-│   │   ├── 📄MessageGroupPage.js
-│   │   └── 📄MessageGroupsPage.js
-│   └── 📁components/
-│       ├── 📄MessageForm.js
-│       └── 📄MessageGroupItem.js
+└── 📁src/
+    ├── 📁lib/
+    │   └── 📄CheckAuth.js
+    ├── 📁pages/
+    │   ├── 📄HomeFeedPage.js
+    │   ├── 📄MessageGroupPage.js
+    │   └── 📄MessageGroupsPage.js
+    └── 📁components/
+        ├── 📄MessageForm.js
+        └── 📄MessageGroupItem.js
 ```
 
 A significant amount of work encompasses both frontend and backend development, as well as scripting. We hope you enjoy the journey.
@@ -1843,8 +1796,6 @@ query_params = {
 ```
 This allows the code to filter results based on the current year in the sorting key `(sk)`.
 
-
-
 ### Step 3 :  Handle Route for Message groups
 
 1. **Update the `data_message_groups` Function in `app.py`**:
@@ -1891,11 +1842,9 @@ This allows the code to filter results based on the current year in the sorting 
     
 3. Remove the decoder Sign from that `data_messages` Route in `app.py` aka **@**.
 
-
-
 ### Step 4 : Reusable Authentication Class
 
-we are taking a significant step to improve our authentication mechanism. We will create a dedicated and independent class that can be called whenever authentication is needed within our application.
+We are taking a significant step to improve our authentication mechanism. We will create a dedicated and independent class that can be called whenever authentication is needed within our application.
 
 - [Create Reusable Authentication Component](#create-reusable-authentication-component)
 - [Implement Authentication in Various Source Code](#implement-authentication-in-source-code)
@@ -2014,8 +1963,7 @@ We used this code to style a link element conditionally. If the `message_group_u
 
 Great, let's proceed with additional patterns to ensure the system is in an optimal state.
 
-
-## Implement Conversation Pattern B
+## Implement Conversation Pattern B [— Go🔃](#b-listing-messages-group-into-application)
 
 Pattern B displays message groups.
 ```sh
@@ -2039,7 +1987,6 @@ This will allow users to conveniently access and review their ongoing conversati
 
 ### Step 1: Develop [Messages Dot Py](../backend-flask/services/messages.py)
 Start retrieve messages from a DynamoDB database based on a message group UUID and a user's Cognito user ID
-
 
 1. Import the Required Modules lib.ddb and lib.db we created and the Ddb and db classes.
 ```py
@@ -2082,7 +2029,6 @@ model = {"errors": None, "data": None}
 ```py
   return model
 ```
-
 
 8. The run function went from this;
 
@@ -2137,7 +2083,6 @@ Transitioning from mock data generation to interacting with a real database invo
 
 Code a comprehensive implementation that can handle message creation and updates with database interactions, error checking, and user authentication. 
 
-
 1. Update the run method's parameter list. 
 ```py
 def run(
@@ -2151,14 +2096,12 @@ def run(
 
 This accepts additional parameters, including mode, `cognito_user_id`, `message_group_uuid`, and `user_receiver_handle`. Remove the parameters that are not used above.
 
-
 2. Retain the error handling logic as it is in the main source.
 3. Implement database interactions using the db and Ddb classes for our group.
 ```py
 from lib.db import db
 from lib.ddb import Ddb
 ```
-
 
 4. Implement the necessary database queries and operations within our `run`
 
@@ -2196,7 +2139,6 @@ if mode == "update":
         model["errors"] = ["message_group_uuid_blank"]
 ```
 
-
   - It also verifies the presence and length of `cognito_user_id`.
 
 ```py
@@ -2222,7 +2164,6 @@ elif len(message) > 1024:
 ```
 
 This code checks the message content. If the message is not provided or empty, it populates `model["errors"]` with the error message `message_blank`. If the message exceeds `1024` characters in length, it populates `model["errors"]` with the error message `message_exceed_max_chars`.
-
 
 - If there are errors in the `model["errors"]`, it populates `model["data"]` with default values, including "Yahya Abulhaj" as the display name, the `user_sender_handle`, and the message content. This is done as a fallback response when there are errors.
 
@@ -2329,7 +2270,6 @@ else:
     return model["data"], 200
 ```
 
-
 4. Reflect on your code design; the updates went from this
 ```python
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
@@ -2386,12 +2326,10 @@ docker compose up
 
 4. Access your application and perform the messanging check to validate the changes made.
 
+Take me to [this seed.](../bin/ddb/seed)
 ![Pattern B PoC](assets/week5/3-%20NeatDelivery/pattern%20B.png)
 
-> Take me to [this seed.](../bin/ddb/seed)
-
-
-## Implement Conversations Pattern C
+## Implement Conversations Pattern C [— Go🔃](#c-creating-a-message-for-an-existing-message-group-into-application)
 We are going to implement the C functionality to display message groups in our application. 
 
 ```sh
@@ -2576,7 +2514,6 @@ def data_create_message():
 ```
 
 ### Code SQL Message Users
-
 This SQL query will retrieve information from a database `users` table  based on the following conditions.
 
 
@@ -2631,7 +2568,6 @@ WHERE
    - Essentially, this CASE statement categorizes users into three groups: 'sender,' 'recv' (receiver), or 'other,' based on whether their `cognito_user_id` matches the provided value or not.	 
 
 ### Code `MessageGroupNewPage.js`
-
 1. **Lets start by Creating The File**:
    - A new file named `MessageGroupNewPage.js` is created in the `/pages` directory.
 2. **Imports**:
@@ -2686,7 +2622,6 @@ return (
 );
 ```
 This code defines a React component for a message group page. It fetches data from the backend server and renders a user interface that includes message groups, messages, and a message form.
-
 
 ### ReactJS For `MessageGroupNewPage`
 We have now to add the routing configuration to our React application to define our new route for `MessageGroupNewPage.js`.
@@ -2771,8 +2706,6 @@ VALUES ( (
     )
 ```
 
-
-
 ### Create `UsersShortPy` and SQL Template
 
 1. **Create an SQL Query Template**:
@@ -2790,8 +2723,6 @@ SELECT
 FROM public.users
 WHERE users.handle = %(handle)s
 ```
-
-
 3. **users_short Creation and `short.sql` call**:
    - Create a file named `users_short.py` in the `backend-flask/services` directory.
 ```
@@ -2810,7 +2741,6 @@ class UsersShort:
         sql = db.template("users", "short")
         results = db.query_object_json(sql, {"handle": handle})
 ```
-
 6. Make sure `users_short.py` is as follows;
 
 ```python
@@ -2829,7 +2759,6 @@ class UsersShort:
 ```python
 from services.users_short import *
 ```
-
 2. Define the route that allows you to access user data by handle in `app.py`
 ```py
 @app.route("/api/users/@<string:handle>/short", methods=["GET"])
@@ -2844,9 +2773,7 @@ I tell You How They Work Together;
 - The `UsersShort` class uses the `lib.db` module to construct and execute SQL queries, and it returns the results as JSON data.
 - The JSON data is then sent as a response to the user's request, providing them with user information in a structured format.
 
-
 ### Rendering All that To ReactJs
-
 We now require to display user information such as their display name and handle and provide a link for users to start a new message conversation with that user that what's this for.
 
 1. Create `frontend-react-js/src/components/MessageGroupNewItem.js`
@@ -2897,9 +2824,7 @@ To recap, the component includes a link to a specific route, displays user infor
 
 Now this complete setup allows you to retrieve user data by handle through a specific API endpoint in your application.
 
-
 ### Step Take A Look Pattern C
-
 1. Start by running your application using Docker Compose.
 2. Execute the setup script to configure your environment.
 3. Navigate to the "Messaging" tab in your application.
@@ -2909,22 +2834,19 @@ Now this complete setup allows you to retrieve user data by handle through a spe
 
 Verify that the process completes successfully.
 
-
-![](assets/week5/3-%20NeatDelivery/pattern%20C.png)
+![Pattern C PoC](assets/week5/3-%20NeatDelivery/pattern%20C.png)
 
 Congratulations! You have successfully implemented Pattern C.
 
-## Implement Conversations Pattern D
-
+## Implement Conversations Pattern D [— Go🔃](#d-creating-a-message-for-a-new-message-group-into-application)
 
 In this pattern, it's essential to ensure that we can create a new message group and write messages to.
 
-- [Creating and Locating the User Profile](#creating-and-locating-the-user-profile)
-- [Crafting Messages to Londo](#crafting-messages-to-londo)
-- [Experiment with Londo](#experiment-with-londo)
+- [Creating and Locating the User Profile — `5 Steps`](#creating-and-locating-the-user-profile)
+- [Crafting Messages to Londo — `5 Steps`](#crafting-messages-to-londo)
+- [Experiment with Londo — `5 Steps`](#experiment-with-londo)
 
 Having completed the '**Bayko**' implementation, it's now time to implement the necessary steps for a new user named '**Londo**' thus the D pattern.
-
 
 ### Creating and Locating the User Profile
 
@@ -2947,19 +2869,19 @@ VALUES (
        )
 ```
 
-2. **Step 1:** Develop `frontend-react-js/src/components/MessageGroupFeed.js`
+2.  Develop `frontend-react-js/src/components/MessageGroupFeed.js`
    - Import a new component called `MessageGroupNewItem` from the './MessageGroupNewItem' file.
 ```js
 import MessageGroupNewItem from './MessageGroupNewItem';
 ```
-3. **Step 2:** Declare a Variable
+3.  Declare a Variable
    - Declare a variable named `message_group_new_item`.
 ```js
 let message_group_new_item;
 ```
 This variable will be used to conditionally render the `MessageGroupNewItem` component based on the presence of `props.otherUser`.
 
-4. **Step 3:** Conditional Rendering
+4. Do Conditional Rendering
    - Check if the `props.otherUser` exists.
    - If `props.otherUser` is truthy, assign a JSX element with the `MessageGroupNewItem` component to the `message_group_new_item` variable, passing `props.otherUser` as a prop.
 ```js
@@ -2970,8 +2892,7 @@ if (props.otherUser) {
 
 A conditional check is performed. If `props.otherUser` exists (i.e., it's truthy), then the `message_group_new_item` variable is assigned a JSX element, specifically the `MessageGroupNewItem` component with the user prop set to `props.otherUser`. This means that if there's another user provided as a prop, the `MessageGroupNewItem` component will be rendered.
 
-
-5. **Step 4:** Return JSX
+5. Go Return JSX
      - A container `div` with the class name 'message_group_feed.'
      - A heading `div` with the class name 'message_group_feed_heading,' containing the text 'Messages.'
 ```js
@@ -3003,7 +2924,6 @@ Now, let's put this into action. <br>
 https://port:dev-url/messages/new/londo
 ```
 You can do so by simply navigating to our new user message group endpoint URL.
-
 
 ### Crafting Messages to Londo
 
@@ -3109,14 +3029,541 @@ Let's put this into practice and see how it works in action.
 4. Access Londo's message group within the messaging section.
 5. Write her out! Compose and send a message to Londo.
 
-
 ![Londo PoC Message Group Messanging](assets/week5/3-%20NeatDelivery/patternABCD.png)
+
+> The 🌍 in Pattern E.
 
 Your message should be successfully delivered, and you will see it displayed in the user interface. Our next objective is to ensure that these messages are stored in a production environment.
 
+## Implement Conversations Pattern E [— Go🔃](#e-updating-a-message-group-using-dynamodb-streams)
 
----
+This pattern offers the most enjoyable experience and delivers the highest value. We plan to redesign our schema to ensure it is production-ready. 
 
-**To Be Continued.. *Pattern  E, Security, Costs.***
+- [Schema Re-Design For Prod — `13 Steps`](#schema-re-design-for-prod)
+- [Setting Up a VPC Endpoint for DynamoDB — `5 Steps`](#setting-up-a-vpc-endpoint-for-dynamodb)
+- [Dynamo Streams Lambda Function — `3 Steps`](#dynamo-streams-lambda)
 
----
+Subsequently, we will leverage Dynamo streams to seamlessly transmit user-generated messages from our application directly to the production AWS DynamoDB. This orchestrated workflow will be initiated through a coded Lambda function.
+
+### Schema Re-Design For Prod
+
+Our existing schema includes the following primary key (PK) and sort key (SK) attributes:
+```py
+  AttributeDefinitions=[
+
+    {
+      'AttributeName': 'pk',
+      'AttributeType': 'S'
+    },
+    {
+      'AttributeName': 'sk',
+      'AttributeType': 'S'
+    },
+  ],
+```
+1. Add the following attributes
+```
+    {
+      'AttributeName': 'message_group_uuid',
+      'AttributeType': 'S'
+    },
+```
+2. Create a list to hold the Global Secondary Index configuration
+```py
+  GlobalSecondaryIndexes= [{   }],
+```
+3. Inside GSI, Specify the name of the index
+```py
+    'IndexName': 'message-group-sk-index',
+```
+4. Define the key schema for the index
+```py
+    'KeySchema': [{
+        'AttributeName': 'message_group_uuid',
+        'KeyType': 'HASH'  # This attribute is the partition key
+    }, {
+        'AttributeName': 'sk',
+        'KeyType': 'RANGE'  # This attribute is the sort key
+    }],
+```
+5. Specify what attributes to project into the index
+```py
+    'Projection': {
+        'ProjectionType': 'ALL' 
+    },
+``` 
+    This will project all attributes from the table
+
+6. Set the provisioned throughput for the index
+```py
+'ProvisionedThroughput': {}
+```
+7. In `ProvisionedThroughput`, Add Read capacity units for the index
+```py
+ 'ReadCapacityUnits': 5
+```
+8. In `ProvisionedThroughput`, Add Write capacity units for the index
+```py
+'WriteCapacityUnits': 5
+```
+
+So We just defined our Global Secondary Index named 'message-group-sk-index'. <br>**Make sure its designed as required;**
+```py
+ GlobalSecondaryIndexes= [{
+    'IndexName':'message-group-sk-index',
+    'KeySchema':[{
+      'AttributeName': 'message_group_uuid',
+      'KeyType': 'HASH'
+    },{
+      'AttributeName': 'sk',
+      'KeyType': 'RANGE'
+    }],
+    'Projection': {
+      'ProjectionType': 'ALL'
+    },
+    'ProvisionedThroughput': {
+      'ReadCapacityUnits': 5,
+      'WriteCapacityUnits': 5
+    },
+  }],
+```
+    This index has a key schema with a partition key (`HASH`) named `message_group_uuid` and a sort key (`RANGE`) named 'sk'. 
+
+Lets keep going with the schema design and actually go **configure the DynamoDB table** itself.
+
+9. Set the billing mode for the DynamoDB table to PROVISIONED
+```py
+  BillingMode='PROVISIONED',
+```
+10.  Set the provisioned throughput for the DynamoDB table
+
+```py
+  ProvisionedThroughput={ }
+```
+11. In the `ProvisionedThroughput`, Set read capacity units for the table
+
+```py
+      'ReadCapacityUnits': 5
+```
+12. In the `ProvisionedThroughput`, Set Write capacity units for the table
+```py
+      'WriteCapacityUnits': 5
+```
+
+Reflect and make sure your table design is as follows;
+```sh
+BillingMode = 'PROVISIONED'
+
+ProvisionedThroughput = {
+    'ReadCapacityUnits': 5,   
+    'WriteCapacityUnits': 5  
+}
+```
+
+13. Go load that in production and make sure the connection is configured.
+```
+./bin/ddb/schema-load prod
+```
+
+![PoC Prod Loading DDB](assets/week5/1-%20DynamoDb%20Utility%20Scrips/9%20it%20outputs%20our%20table.png)
+
+
+
+### Setting Up a VPC Endpoint for DynamoDB
+
+We need to establish a Virtual Private Cloud endpoint for our DynamoDB Streams.
+
+#### 1. Access the VPC Console
+
+Begin by navigating to the AWS VPC console.
+- Logging into your AWS account.
+- From the AWS Management Console dashboard, locate and click on the **Services** dropdown menu at the top-left corner.
+- In the **Networking & Content Delivery** section, select **VPC**.
+
+#### 2. Access the Endpoints Tab
+
+Once you are in the VPC console:
+
+- In the left-hand navigation pane, click on the **Endpoints** tab.
+
+#### 3. Create a New Endpoint
+
+To create a new VPC endpoint for DynamoDB:
+
+- Click the **Create Endpoint** button, usually found at the top of the main window.
+
+#### 4. Configure the Endpoint
+
+Now, you need to configure your VPC endpoint.
+
+##### 4.1 Name the Endpoint
+
+Provide a descriptive name for your VPC endpoint. This name should help you identify the endpoint's purpose or function, making it easier to manage multiple endpoints in the future.
+
+##### 4.2 Select DynamoDB as the Service
+
+Under the **Services** section, select **DynamoDB**. This choice indicates that you are creating an endpoint specifically for accessing DynamoDB within your VPC.
+
+##### 4.3 Choose the VPC
+
+Next, choose the appropriate VPC where you want to create this endpoint. This is the VPC where your DynamoDB data will be accessible. You can go for the default.
+
+##### 4.4 Select Available Route Tables
+
+Specify the route tables that you want to associate with this endpoint. Route tables control the routing of traffic within your VPC, so selecting the appropriate ones ensures that your DynamoDB traffic is directed correctly.
+
+##### 4.5 Define Access Control
+
+In the **Policy** or **Access Control** section, specify the level of access for this endpoint. In your case, you've chosen **Full Access**, which grants the highest level of access to DynamoDB.
+
+#### 5. Create the VPC Endpoint
+
+- Click the **Create** button to initiate the creation of your VPC endpoint.
+
+![PoC VPC DynamoDB Created](assets/week5/3-%20NeatDelivery/streams/2%20vpc.png)
+
+## Dynamo Streams Lambda
+- [Pre-Streams Process — `5 Steps`](#pre-streams-process)
+- [Concurrent Streams Function — `9 Steps`](#concurrent-streams-function)
+- [Post-Streams Process — `3 Steps` ](#post-streams-process)
+
+
+### Pre-Streams Process
+1. Create a New Lambda Function with the `Python 3.9 runtime`.
+2. Configure Execution Role basic Lambda permissions.
+3. Enable VPC and Select a VP You Created.
+   - In the "Advanced settings," enable Virtual Private Cloud (VPC) and choose a specific VPC.
+4. Choose `three subnets` from Your VPC.
+5. Choose `Default Security Groups`.
+
+![VPC, Subnets, Lambda Streams]()
+
+### Concurrent Streams Function
+**Step 0 :** Create a file and call it `aws/lambdas/cruddur-messaging-stream.py`
+
+1. **Import necessary libraries:**
+   - Import the JSON library for working with JSON data.
+   - Import the Boto3 library, the official AWS SDK for Python.
+   - Import specific classes (`Key` and `Attr`) from Boto3 for working with DynamoDB conditions.
+```py
+import json
+import boto3
+from boto3.dynamodb.conditions import Key, Attr
+```
+2. **Configure DynamoDB Resource:**
+   - Create a DynamoDB resource object named `dynamodb` with a specific region and endpoint URL. Replace `<region>` with your actual AWS region and DynamoDB endpoint URL.
+```py
+dynamodb = boto3.resource(
+   'dynamodb',
+   region_name='<region>',
+   endpoint_url="http://dynamodb.<region>.amazonaws.com"
+)
+```
+3. **Go Define the Lambda Handler Function:**
+   - The `lambda_handler` function is the entry point for AWS Lambda.
+   - It takes two parameters: `event` and `context`, representing the Lambda event trigger and runtime context.
+```py
+def lambda_handler(event, context):
+```
+4. **Start Logging Event Data:**
+   - Log the event data using `print` to the Lambda execution logs for debugging and understanding the incoming event.
+```py
+print("event-data", event)
+```
+5. **Extract Event Information:**
+   - Extract relevant information from the incoming event, focusing on DynamoDB events.
+   - Retrieve the `eventName` from the first record in the event to determine the type of DynamoDB event.
+   - If it's a "REMOVE" event, log a message and return early, skipping further processing.
+```py
+eventName = event["Records"][0]["eventName"]
+if eventName == "REMOVE":
+    print("skip REMOVE event")
+    return
+pk = event['Records'][0]['dynamodb']['Keys']['pk']['S']
+sk = event['Records'][0]['dynamodb']['Keys']['sk']['S']
+
+```
+6. **Handle Other DynamoDB Events:**
+   - If the event is not a "REMOVE" event, continue processing.
+   - Extract the `pk` (partition key) and `sk` (sort key) from the DynamoDB record in the event.
+   - Check if the `pk` starts with "MSG#"; if so, assume a specific kind of DynamoDB item and proceed to extract more data.
+```py
+if pk.startswith('MSG#'):
+    group_uuid = pk.replace("MSG#","")
+    message = event['Records'][0]['dynamodb']['NewImage']['message']['S']
+    print("GRUP ===>",group_uuid,message)
+
+```
+7. **Query a DynamoDB Table:**
+   - Specify the table name and an index name to query, defined as `table_name` and `index_name`.
+   - Query the DynamoDB table using the `query` method with a `KeyConditionExpression` filtering items based on `message_group_uuid` matching `group_uuid`.
+   - Store the result in the `data` variable.
+```py
+table_name = 'cruddur-messages'
+index_name = 'message-group-sk-index'
+table = dynamodb.Table(table_name)
+data = table.query(
+    IndexName=index_name,
+    KeyConditionExpression=Key('message_group_uuid').eq(group_uuid)
+)
+print("RESP ===>",data['Items'])
+
+```
+8. **Modifying DynamoDB Data:**
+   - Enter a loop to process each item retrieved from the query result (`data['Items']`).
+   - For each item, perform the following actions:
+     - Delete the item from the table using `table.delete_item`.
+     - Insert a new item into the table with a modified `sk` value, along with other attributes.
+     - Log both the deletion and insertion actions using `print`.
+```py
+for i in data['Items']:
+    delete_item = table.delete_item(Key={'pk': i['pk'], 'sk': i['sk']})
+    print("DELETE ===>",delete_item)
+    response = table.put_item(
+        Item={
+            'pk': i['pk'],
+            'sk': sk,
+            'message_group_uuid':i['message_group_uuid'],
+            'message':message,
+            'user_display_name': i['user_display_name'],
+            'user_handle': i['user_handle'],
+            'user_uuid': i['user_uuid']
+        }
+    )
+    print("CREATE ===>",response)
+```
+
+This code function is designed to get triggered by DynamoDB events. It primarily deals with processing our Application conversations items in response to messanging process of our users.
+
+9. Return to the AWS Lambda console and deploy the code you've just created.
+
+![Stream Code Deployed PoC](assets/week5/3-%20NeatDelivery/streams/3%20deploy%20lambda%20code.png)
+
+### Post-Streams Process
+
+This process wil showcase what must be done after you succefuly code ur function and deployed to the console.
+
+- [Create Streams Inline Policy — `5 Steps`](#create-streams-inline-policy)
+- [Turn Streams and Trigger — `4 Steps`](#turn-streams-and-trigger)
+- [Stream Prod Testing — `6 Steps`](#stream-prod-testing)
+
+
+#### Create Streams Inline Policy
+
+1. Go to **Configuration** > **Permissions** > **Execution role** and click on the **Role name.**
+2. Under **Permissions policies**, click **Add Permissions** and then select **Attach Policy.**
+3. Choose the `AWSLambdaInvocation-DynamoDB` policy and add it.
+
+You can also configure it from the console.
+![Inline Policy Not Json](assets/week5/3-%20NeatDelivery/streams/6%20custom%20policy.png)
+
+4. Or Click **Add Permissions** again and select **Create Inline Policy** to create a custom policy. 
+
+       Add the following JSON code;
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "VisualEditor0",
+                "Effect": "Allow",
+                "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:Query"
+                ],
+                "Resource": [
+                    "arn:aws:dynamodb:<region>:<account_id>:table/cruddur-messages/index/message-group-sk-index",
+                    "arn:aws:dynamodb:<region>:<account_id>:table/cruddur-messages"
+                ]
+            }
+        ]
+    }
+    ```
+
+5. Click **Save** to save the changes.
+
+![Custom Policy Added](assets/week5/3-%20NeatDelivery/streams/7%20attached.png)
+
+#### Turn Streams and Trigger
+
+In here, we'll enable DynamoDB Streams and set it as a trigger for the Lambda function you've just created.
+
+1. Go to the **Exports and Streams** tab and activate **DynamoDB Stream Details** with the **New Image** attribute.
+2. Same tab, Click on the option to create a trigger.
+3. Select the Lambda function you've previously configured.
+![Picking the trigger](assets/week5/3-%20NeatDelivery/streams/5%20lambda%20trigger.png)
+4. Just proceed to create the trigger.
+
+![DynamoDB Lambda Trigger](assets/week5/3-%20NeatDelivery/streams/5%20anotherone.png)
+
+### Stream Prod Testing
+It's time to put this magic to the test.
+
+1. Ensure that you add a `#` to your local connection settings in your `docker-compose.yaml` file.
+```
+#AWS_ENDPOINT_URL: "http://dynamodb-local:8000"   
+```
+2. Launch your application using `docker compose up`
+
+3. Execute your setup script.
+```sh
+./bin/db/setup
+```
+4. Access one of your message groups by navigating to the following URL in your web browser:
+```
+https://frontend-url/messages/new/bayko
+```
+5. Start a convo man!
+
+> The 🌍 for an [Early Reason.](https://github.com/yaya2devops/aws-cloud-project-bootcamp/pull/2)
+![Chatting PoC](assets/week5/3-%20NeatDelivery/streams/8%20pattern%20E.png)
+
+6. Verify that conversations streamed to AWS DynamoDB Table.
+
+![Dynamo Table PoC](assets/week5/3-%20NeatDelivery/streams/9%20patternE-Dynamo.png)
+
+
+- Traceability of logs is available in [CSV](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.csv) and [JSON](assets/week5/%5BLOGS%5Dmessanging-streams-cloudwatch.json).
+- Access All Week Five Catalog from [this location](assets/week5/).
+- Check this [Cloudwatch Asset](/assets/week5/3-%20NeatDelivery/streams/10-%20patternE-Cloudwatch.png) for the streams.
+
+Welcome to the future!
+
+## Primer on Premier DynamoDB: A 101 Explainer
+
+There's no better way to conclude this than by providing you with the foundational starting point to rise from the bottom once more.
+
+I made this table to explain to you the core concepts in DynamoDB.
+
+This is a **table**, and it's quite straightforward. You're probably familiar with it, and it might have a different name elsewhere e.g. collection in MongoDB.
+
+| Full Name       | Nickname | Age | Date of Birth   | Occupation          |Mission|
+|-----------------|----------|-----|-----------------|---------------------|--------|
+| Yahya Abulhaj   | Yaya     | 22  | April 8, 2001  | DevOps Consultant    |Value Provider|
+| Yours           | Yours    |Yours| Yours          | Yours                |Yours|
+
+An **item** refers to a single data *record*, which can also be referred to as a row or as "absolute explanation" a *single line* in the table.
+
+Presenting my **item;**
+| Yahya Abulhaj   | Yaya     | 22  | April 8, 2001  | DevOps Consultant    |Value Provider|
+|-----------------|----------|-----|-----------------|---------------------|-------|
+
+You may also come across this concept when working with *Comma-Separated Values* (CSV).
+```csv
+Yahya Abulhaj, Yaya, 22, April 8, 2001, DevOps Consultant, Value Provider
+```
+
+Now, if I were to ask you, the database architect, for the 'Mission' **attribute** of that record, <br>how would you respond? <br>
+
+Exact. You would say the required **attribute** is "Value Provider". <br>***Attributes*** are pieces of data attached to a single item, A Nickname of **Yaya** can be one of them.
+
+Good stuff! You've solidified your understanding of three fundamental concepts in DynamoDB *Tables, Items and Attributes* that will serve as valuable guidance for any database system you attack. 
+
+Once your database is set up, the next step is query it. **Querying** a database table is mainly done using a **primary key**.
+
+### Simple Primary key
+
+The primary key can be called "simple" if just made up by a partition key also called hash key.
+- `pk`, Partition key is the primary identifier for an item and is used to determine the physical partition where the item is stored. 
+
+Using a simple is like the standard key-value stores or even process of retrieving rows from a SQL table via a handle e.g. yaya2devops primary key.
+
+### Composite Primary key
+
+On the other hand, there is Composite Primary Key which is a combination of  two components: the partition key and the sort key sk also called range key.
+- `sk`, Sort key, is an optional attribute that, when used in conjunction with the partition key, allows you to create a compound primary key e.g. when you need to perform range queries or retrieve items based on their order within a partition
+
+For example, in a table storing data about books, you might use;
+- The International Standard Book Number (ISBN) as the partition key 
+- The publication date as the range key. 
+
+You have book titled "Zero To One" by Peter Thiel CEO Paypal with ISBN "1234567890," and it has multiple editions published on different dates. You can use this table to organize and query this data:
+
+
+1. **Retrieve all editions of **Zero To One** (Simple)**
+
+| ISBN        | Publication Date | Edition    |
+|-------------|------------------|------------|
+|  1234567890 | 2014-09-14       | Edition 1  |
+|             | 2014-09-15       | Edition 2  |
+|             | 2014-09-16       | Edition 3  |
+
+2. **Retrieve editions published within a specific date range (Composite)**<br>
+Let's say you want to find all editions of "Zero To One" published between 14 septembre 2014, and 16 septembre 2014.
+
+You can perform a query with;
+-  The ISBN *partition key* "1234567890" 
+-  *Range key* condition that filters by the publication date within that date range
+
+You can find the ISBN for [this book here](assets/week5/zero-to-one-isbn.png). I loved it! Or just [google it](https://www.google.com/search?q=ISBN+zero+to+one+peter+thiel&rlz=1C1GCEU_frTN1018TN1018&oq=ISBN+zero+to+one+peter+thiel&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIKCAIQIRgWGB0YHjIKCAMQIRgWGB0YHjIKCAQQIRgWGB0YHjIKCAUQIRgWGB0YHjIKCAYQIRgWGB0YHjIKCAcQIRgWGB0YHjIKCAgQIRgWGB0YHjIKCAkQIRgWGB0YHtIBCDQwNTRqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8)
+
+### Secondary Indexes
+
+You may have additional access patterns that would be inefficient with your primary key. <br>Thats where **secondary indexes** comes in for advanced pattern use cases.
+
+#### 1. Local Secondary Index
+LSIs are indexes that allow you to query data within a single partition. You can create up to five LSIs per table for additional insights. 
+
+To better explain this, let me go back to Zero To One. <br>
+For this, I'll design my **LSIs** as **GenreIndex**. <br>
+So I make it as follows;
+| Attribute         | Description                                |
+|-------------------|--------------------------------------------|
+| Partition Key     | ISBN (Same as the table's partition key)   |
+| Range Key         | Genre (Genre of the book)                   |
+
+If you want to find all books of a specific genre (e.g., "monopoly"), you can query the LSI with the ISBN (partition key) and Genre (range key). 
+
+| ISBN         | Genre    | Publication Date | Book Title    |
+|--------------|----------|------------------|---------------|
+| 1234567890   | Monopoly | 2014-09-16       | Zero To One   |
+| 2345678901   | Monopoly | 2013-05-15       | Monopoly Magic|
+| 3456789012   | Monopoly | 2015-08-20       | Monopoly World|
+
+!This allows you to efficiently retrieve all books of a particular genre, sorted by ISBN and genre, within a specific date range!
+
+#### 2. Global Secondary Indexes
+
+GSIs are more versatile as they allow you to query data across partitions, You can create up to 20 GSIs per table. GSI is an additional data structure that allows you to query a database table using attributes other than the table's primary key. 
+
+- Adding secondary indexes can introduce complexity and potential performance overhead to your system.
+- You should try to design your data model and queries in such a way that you can rely on the primary key
+- Only use secondary indexes when you have no other good option to solve your problem.
+
+Secondary indexes can significantly increase Storage, cost more, make the database schema more complex and harder to maintain.
+
+However, They can greatly improve query performance for certain use cases where querying by attributes other than the primary key is essential. 
+
+Lets go back to our example and design **gsi** as **AuthorIndex**;
+
+| Attribute         | Description                            |
+|-------------------|----------------------------------------|
+| Partition Key     | Author (Name of the book's author)    |
+| Range Key         | PublicationDate (Same as the table's range key) |
+
+If you want to retrieve books written by a specific author (e.g., "Author Peter Thiel") across all genres, you can query the GSI with the Author (partition key). This allows you to efficiently get a list of books by that author, sorted by publication date, regardless of their ISBN or genre.
+
+### Maximized Data Unity
+Lets combine all together to prove this powerful point. <br>We will query based on all our key designs  —`pk`, `lsi`, `gsi`.
+
+| **Query** | ISBN        | Genre    | Publication Date | Author      |
+|-----------|-------------|----------|------------------|-------------|
+| Example   | 1234567890  | Monopoly | 2014-09-16       | Peter Thiel |
+|           |             |          | 2014-09-16       | Peter Thiel |
+|           |             |          | 2014-09-16       | Peter Thiel |
+
+With these indexes, you can easily find all "monopoly" books within a specific date range (LSI) or all books by "Peter Thiel" across all genres (GSI).
+
+*Concluding* your database *One O One* with the **key difference between LSI and GSI**;
+
+- LSI (GenreIndex) is used for queries that involve filtering and sorting within the same partition (ISBN). It allows you to efficiently find books of a specific genre within a date range while staying within the same ISBN range.
+- GSI (AuthorIndex) is used for queries that span multiple partitions. It enables you to efficiently find books by a specific author, regardless of their genre, across all ISBNs.	
+
+The key distinction lies in whether the query is limited to a single partition (LSI) or spans multiple partitions (GSI). In more complex scenarios or with larger datasets, this distinction becomes more significant.
+
+I believe I've designed this section correctly, if you follow it closely, you'll establish a robust DB foundation. I have a strong affinity for databases, but my enthusiasm extends to all aspects of technology, The everything.
+
+To elevate your database expertise, jump into this masterwork and revisit Week Four for SQL data using psql.
+- [Start Week Five From here](#a-masterclass-on-nosql-schema)
+- [Go and Do Week Four](week4.md)

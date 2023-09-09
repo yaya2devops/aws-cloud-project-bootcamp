@@ -1,6 +1,6 @@
 # Vim Keybindings Exposure On Bootcamp
 
-[Why, why, why...](../assets/week8/memes/337017785_1051893609101184_1193362582954280787_n.png)
+[Why, why, why...](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/main/journal/assets/week8/memes/337017785_1051893609101184_1193362582954280787_n.png)
 
 Me loving VIM and the moves.
 
