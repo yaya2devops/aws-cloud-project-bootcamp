@@ -29,11 +29,11 @@ My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedi
     - [Scripting `update_cognito_user_ids`](#script-update_cognito_user_ids)
 - [`Ddb` Class for Conversational Feature](#ddb-class-for-conversational-feature)
 - [Cruddur Messanging Pre-Access Patterns](#cruddur-messanging-pre-access-patterns)
-    - [Implement Conversations Pattern A — `6 Steps`](#implement-pattern-a-for-conversations)
-    - [Implement Conversations Pattern B — `4 Steps`](#implement-conversation-pattern-b)
-    - [Implement Conversations Pattern C — `10 Steps`](#implement-conversations-pattern-c)
-    - [Implement Conversations Pattern D — `3 Steps`](#implement-conversations-pattern-d)
-    - [Implement Conversations Pattern E — `3 Steps`](#implement-conversations-pattern-e)
+    - [Implement Conversations Pattern A — `6 Steps`](#implement-pattern-a-for-conversations--go)
+    - [Implement Conversations Pattern B — `4 Steps`](#implement-conversation-pattern-b--go)
+    - [Implement Conversations Pattern C — `10 Steps`](#implement-conversations-pattern-c--go)
+    - [Implement Conversations Pattern D — `3 Steps`](#implement-conversations-pattern-d--go)
+    - [Implement Conversations Pattern E — `3 Steps`](#implement-conversations-pattern-e--go)
 - [Primer on Premier DynamoDB: A 101 Explainer](#primer-on-premier-dynamodb-a-101-explainer)
 
 Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
@@ -238,7 +238,7 @@ Proceed to my complete guide about the access patterns prior to our implemention
 - [D. Creating a Message for a new Message Group into Application](#d-creating-a-message-for-a-new-message-group-into-application)
 - [E. Updating a Message Group using DynamoDB Streams](#e-updating-a-message-group-using-dynamodb-streams)
 
-### [A. Listing Messages in Message Group into Application](#implement-pattern-a-for-conversations)
+### [A. Listing Messages in Message Group into Application](#implement-pattern-a-for-conversations--go)
 
 This pattern is used to list all the messages in a message group. The following steps are involved in implementing this pattern:
 
@@ -248,7 +248,7 @@ This pattern is used to list all the messages in a message group. The following 
 - `MessageID:` The secondary index of the table. This is a sort key.
 - `Message:` The message content.
 
-### [B. Listing Messages Group into Application](#implement-conversation-pattern-b)
+### [B. Listing Messages Group into Application](#implement-conversation-pattern-b--go)
 
 This pattern is used to list all the message groups. The following steps are involved in implementing this pattern:
 
@@ -258,7 +258,7 @@ This pattern is used to list all the message groups. The following steps are inv
 - `Name:` The name of the message group.
 2. In the application, query the DynamoDB table for all the message groups.
 
-### [C. Creating a Message for an existing Message Group into Application](#implement-conversations-pattern-c)
+### [C. Creating a Message for an existing Message Group into Application](#implement-conversations-pattern-c--go)
 
 This pattern is used to create a new message for an existing message group. The following steps are involved in implementing this pattern:
 
@@ -269,7 +269,7 @@ This pattern is used to create a new message for an existing message group. The 
 - `Message:` The message content.
 2. In the application, create a new message and add it to the DynamoDB table.
 
-### [D. Creating a Message for a new Message Group into Application](#implement-conversations-pattern-d)
+### [D. Creating a Message for a new Message Group into Application](#implement-conversations-pattern-d--go)
 
 This pattern is used to create a new message group and a new message in the message group. The following steps are involved in implementing this pattern:
 
@@ -280,7 +280,7 @@ This pattern is used to create a new message group and a new message in the mess
 - `Message:` The message content.
 2. In the application, create a new message group and add a new message to the message group.
 
-### [E. Updating a Message Group using DynamoDB Streams](#implement-conversations-pattern-e)
+### [E. Updating a Message Group using DynamoDB Streams](#implement-conversations-pattern-e--go)
 
 This pattern is used to update a message group using DynamoDB Streams. DynamoDB Streams is a feature of DynamoDB that allows you to track changes to your data. The following steps are involved in implementing this pattern:
 
