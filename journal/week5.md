@@ -1,6 +1,6 @@
 # Week 5 — NoSQL with Amazon DynamoDB
 
-This week, we're diving headfirst into the exciting world of NoSQL, harnessing the power of AWS DynamoDB to revolutionize the messaging functionality within our application.
+This [week](https://raw.githubusercontent.com/yaya2devops/aws-cloud-project-bootcamp/main/journal/assets/week5/week5-banner.png), we're diving headfirst into the exciting world of NoSQL, harnessing the power of AWS DynamoDB to revolutionize the messaging functionality within our application.
 
 My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedin.com/posts/yahya-abulhaj_cloud-microsoft-strategy-activity-7079118494864175104-NKq1?utm_source=share&utm_medium=member_desktop) experience. <br>You can [find my notes on the subject here](https://github.com/yaya2devops/ExperienceInCloud/tree/main/Notes#azure-data-fundamentals), which might be useful to you. <br> I passed that with a 900 points plus score, Its [open sourced too](https://github.com/yaya2devops/ExperienceInCloud/blob/main/Certifications!/2%C2%B0DP-900.pdf).
 
@@ -36,7 +36,9 @@ My data journey began with my [Microsoft Azure Fundamentals](https://www.linkedi
     - [Implement Conversations Pattern E — `3 Steps`](#implement-conversations-pattern-e--go)
 - [Primer on Premier DynamoDB: A 101 Explainer](#primer-on-premier-dynamodb-a-101-explainer)
 
-Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. Some may even create group chats that defy the boundaries of conventional data modeling in SQL. 
+Our choice of NoSQL over SQL is a testament to the sheer complexity of the messaging process, which defies conventional schema-based structuring. Messages are inherently unpredictable; you never know who will engage in a conversation with whom. 
+
+Some may even create group chats that defy the boundaries of conventional data modeling in SQL. Welcome to the core of our bootcamp, where transformation begins.
 
 ## Personalizing Your NoSQL Experience
 The term **NoSQL** was first coined in 1998 by Carlo Strozzi, who used it to describe his lightweight, open-source relational database that did not expose the standard Structured Query Language (SQL) interface. 
@@ -146,53 +148,53 @@ It's quite remarkable that you can integrate Amazon DynamoDB, a NoSQL database s
 The following steps serve as acknowledged guidelines that will steer you towards establishing a solid foundation for designing your NoSQL data modeling that will be showcased through our Cruddur app development.
 
 1. **Understand Your Data Access Patterns**
-   - Understand [the primary access patterns](#cruddur-access-patterns-design) of your application. 
+   - Understand [the primary access patterns](#cruddur-messanging-pre-access-patterns) of your application. 
    - Identify the [common queries](assets/week5/resources/patternsdb.md) that your application will perform.
    -  Apply frequently used patterns in your app before optimization.
 2. **Denormalization is Key**
    - DynamoDB doesn't support complex JOIN operations like relational databases.
-   - Design for flat tables instead.
+   - Design for [flat tables instead](#design-schema-load-script).
    - Using one table instead of linked tables boosts scalability.
-   - Duplicate some information across multiple tables to optimize read operations. 
+   - [Duplicate some information across multiple tables](https://aws.amazon.com/fr/blogs/database/should-your-dynamodb-table-be-normalized-or-denormalized/) to optimize read operations. 
 3. **Choose the Right Partition Key**
-   - The hash key determines how data is distributed across DynamoDB partitions. 
+   - The [hash key determines how data is distributed](https://aws.amazon.com/fr/blogs/database/choosing-the-right-dynamodb-partition-key/#:~:text=DynamoDB%20uses%20the%20partition%20key's,value%20of%20its%20partition%20key.) across DynamoDB partitions. 
    - Common choices for partition keys include user IDs, timestamps, or unique identifiers.
    - Key condition expressions for query only for RANGE, HASH is only equality
-   - Generate a UUID for an entity only when needed for a specific access pattern.
+   - Generate a [UUID for an entity only when needed for a specific access pattern](https://itnext.io/when-should-you-assign-ids-to-your-entities-ae17454376dd?gi=9d206390c010).
    - Each query requires a partition key (pk) and, if available in the table, a sort key (sk).
 4. **Design Secondary Indexes**
    - Design these indexes based on your access patterns.
-   - Store data as a JSON document in a string field If you're not indexing
+   - Store [data as a JSON document](#implement-seed-script---seed) in a string field If you're not indexing
    - Repeating data for better indexing is acceptable.
    - Be aware that secondary indexes come with additional costs and write capacity requirements.
-   - Changing a key (simple.pk or composite.sk) requires creating a new item.
+   - Changing a key (simple.pk or composite.sk) requires [creating a new item](#primer-on-premier-dynamodb-a-101-explainer).
 5. **Use Composite Primary Keys Sparingly**
    - Composite primary keys consist of both a partition key and a sort key (range key) e.g. pk = 'yaya2devops'
    - Data keys can serve as a third key or store JSON documents
-   - Useful for modeling hierarchical data but should be used judiciously because they limit your query flexibility.
+   - [Useful for modeling hierarchical data](https://www.google.com/search?q=Composite+Primary+Keys+Sparingly&rlz=1C1GCEU_frTN1018TN1018&oq=Composite+Primary+Keys+Sparingly&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEIMTk4NGowajSoAgCwAgA&sourceid=chrome&ie=UTF-8) but should be used judiciously because they limit your query flexibility.
 6. **Understand Provisioned Throughput vs. On-Demand Capacity**
-   - DynamoDB offers both provisioned and on-demand capacity modes. 
+   - DynamoDB offers [both provisioned and on-demand capacity](https://docs.aws.amazon.com/wellarchitected/latest/serverless-applications-lens/capacity.html) modes. 
    - Provisioned capacity requires you to specify the read and write capacity units
    - On-demand automatically scales capacity based on your actual usage.
    - Choose the capacity mode that aligns with your workload and budget.
 7. **Monitor and Optimize**
-   - Regularly monitor your DynamoDB tables using CloudWatch metrics and AWS X-Ray for tracing. 
+   - Regularly monitor your DynamoDB tables using [CloudWatch metrics](week2.md#monitor-flaskapp-with-cloudwatch) and [AWS X-Ray for tracing](week2.md#the-distributed-tracing-system-x-ray). 
    - Adjust your table's provisioned capacity or indexes as needed based on real usage patterns.
-   - Use tools like the AWS DynamoDB Auto Scaling feature to automate capacity adjustments.
+   - Use tools like the [AWS DynamoDB Auto Scaling feature](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html#:~:text=DynamoDB%20auto%20scaling%20can%20increase,table%20quotas%20in%20Amazon%20DynamoDB.) to automate capacity adjustments.
 8. **Use Conditional Writes**
-   - Allow you to make changes to your data only if specific conditions are met. 
-   - Help yourself with data consistency and integrity.
+   - Allow you to [make changes to your data only if specific conditions are met](https://saturncloud.io/blog/amazon-dynamodb-conditional-writes-and-atomic-counters-a-comprehensive-guide/#:~:text=To%20use%20conditional%20writes%2C%20you,condition%20is%20met%20or%20not.). 
+   - Help yourself with [data consistency](https://metaplane.dev/blog/data-consistency-definition-examples) and [integrity](https://www.talend.com/resources/what-is-data-integrity/).
 9. **Understand the Consistency Models**
-   - DynamoDB offers two consistency models: eventually consistent reads and strongly consistent reads. 
+   - DynamoDB offers [two consistency models](https://docs.aws.amazon.com/whitepapers/latest/comparing-dynamodb-and-hbase-for-nosql/consistency-model.html): eventually consistent reads and strongly consistent reads. 
    - Choose the one that fits your application's requirements.
 10. **Leverage DynamoDB Streams**
-    - DynamoDB Streams can be used to capture changes to your data and trigger other AWS services, enabling real-time processing and event-driven architectures(Employed).
+    - DynamoDB Streams can be used to capture changes to your data and trigger other AWS services, enabling [real-time processing and event-driven architectures(Employed)](#turn-streams-and-trigger).
 11. **Consider Data Size and Item Size Limits**
-    - DynamoDB's maximum item size limit (400 KB) 
+    - DynamoDB's [maximum item size limit (400 KB)](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ServiceQuotas.html#:~:text=The%20maximum%20item%20size%20in,lengths%20(again%20binary%20length).) 
     - Partition size limit (10 GB). 
-    - Design your data model accordingly.
+    - [Design your data model accordingly](https://www.google.com/search?q=design+dynammodb+data+for+sizer+item&rlz=1C1GCEU_frTN1018TN1018&oq=design+dynammodb+data+for+sizer+item&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIJCAEQIRgKGKABMgkIAhAhGAoYoAEyCQgDECEYChigATIJCAQQIRgKGKAB0gEIMjA3N2owajSoAgCwAgA&sourceid=chrome&ie=UTF-8).
 12. **Use the AWS SDK for DynamoDB**
-    - Utilize the AWS SDKs, which provide convenient APIs for working with DynamoDB, making it easier to interact with your data.
+    - [Use the AWS SDKs](../.gitpod.yml#L3), which provide convenient APIs for working with DynamoDB, making it easier to interact with your data.
 
 Continuously reevaluate and retest your data model to verify its alignment with your performance and scalability prerequisites. Let me take you into our application's data modeling for further insight.
 
@@ -1173,11 +1175,11 @@ We require a way to view the user details stored in your AWS Cognito user pool t
 
 ```sh
 ☁️/
-├── 📂bin/
-│   ├── 🔐cognito/
-│   │   └── 📄list-users            
-│   └── 💾db/
-└       └── 📄update_cognito_user_ids 
+└── 📂bin/
+    ├── 🔐cognito/
+    │   └── 📄list-users            
+    └── 💾db/
+        └── 📄update_cognito_user_ids 
 ```
 
 #### Script `list-users`
@@ -1702,7 +1704,7 @@ class Ddb:
 This code serves as the foundation for initiating our process of implementing the five patterns we've previously discussed. Our aim is to provide you with a solid starting point for your coding journey. So, without further ado, let's dive into the first pattern, Pattern A.
 
 ## Implement Pattern A For Conversations [— Go🔃](#a-listing-messages-in-message-group-into-application)
-The initial pattern ensures that you encounter your first message group on the platform, featuring the 'bayko' user.
+The initial pattern ensures that you encounter your first message group on the platform, featuring the `bayko` user.
 ```
 📁backend-flask/
 ├── 📁lib/
@@ -1965,7 +1967,7 @@ Great, let's proceed with additional patterns to ensure the system is in an opti
 
 ## Implement Conversation Pattern B [— Go🔃](#b-listing-messages-group-into-application)
 
-Pattern B displays message groups.
+Pattern B involves targeting service endpoints for message groups and creating messages to ultimately display the message groups on the app.
 ```sh
 📁backend-flask/
 ├── 📁services/
@@ -1978,7 +1980,7 @@ Pattern B displays message groups.
     └── 📁setup/
         └── 📄setup
 ```
-This will allow users to conveniently access and review their ongoing conversations with other individuals.
+This will allow users to conveniently access and review their ongoing conversations with each other.
 
 - [Step 1: Develop MessagesDotPy](#step-1-develop-messages-dot-py)
 - [Step 2: Develop CreateMessagePy](#step-2-develop-create-message-py)
@@ -3031,7 +3033,7 @@ Let's put this into practice and see how it works in action.
 
 ![Londo PoC Message Group Messanging](assets/week5/3-%20NeatDelivery/patternABCD.png)
 
-> The 🌍 in Pattern E.
+> The [🌍 in Pattern E](#stream-prod-testing).
 
 Your message should be successfully delivered, and you will see it displayed in the user interface. Our next objective is to ensure that these messages are stored in a production environment.
 
@@ -3046,6 +3048,8 @@ This pattern offers the most enjoyable experience and delivers the highest value
 Subsequently, we will leverage Dynamo streams to seamlessly transmit user-generated messages from our application directly to the production AWS DynamoDB. This orchestrated workflow will be initiated through a coded Lambda function.
 
 ### Schema Re-Design For Prod
+
+> WHAT IS PK? SK? GSI? LSI? — [I Got You](#primer-on-premier-dynamodb-a-101-explainer)
 
 Our existing schema includes the following primary key (PK) and sort key (SK) attributes:
 ```py
@@ -3565,5 +3569,5 @@ The key distinction lies in whether the query is limited to a single partition (
 I believe I've designed this section correctly, if you follow it closely, you'll establish a robust DB foundation. I have a strong affinity for databases, but my enthusiasm extends to all aspects of technology, The everything.
 
 To elevate your database expertise, jump into this masterwork and revisit Week Four for SQL data using psql.
-- [Start Week Five From here](#a-masterclass-on-nosql-schema)
+- [Start Week Five From here](#pre-data-model)
 - [Go and Do Week Four](week4.md)

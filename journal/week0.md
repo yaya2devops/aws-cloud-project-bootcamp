@@ -319,7 +319,7 @@ The AWS Well-Architected Framework incorporates a set of insightful questions al
 
 Based on the inputs provided, the framework generates a comprehensive report, aiding businesses in achieving optimal and sustainable design outcomes.
 
-<img src="assets/week0/media/aws-arch-frame-service.png">
+![Redact Framework](assets/week0/redacted/1-aws-framework.png)
 
 ***aws***
 :  Is a term I use before a name to refer the act of searching a service in the console.
@@ -511,7 +511,7 @@ Once you have set up an IAM user, you can connect to the AWS Management Console 
 3. Enter the user name and password for the IAM user.
 4. Click **Sign in**.
 
-<img src="assets/week0/hiiam.png">
+![Redacted Item](assets/week0/redacted/2-hiiam.png)
 
 ### Crafting an Efficient AWS Role:
 
@@ -519,7 +519,7 @@ Once you have set up an IAM user, you can connect to the AWS Management Console 
 2. Attach a policy to the role that grants the role the permissions it needs to access your AWS resources.
 3. (Optional) Tag the role with metadata.
 
-<img src="assets/week0/media/role.png">
+![Redact Framework](assets/week0/redacted/3-role.png)
 
 ### Policy Attachment in AWS
 
@@ -648,11 +648,11 @@ To confirm this subscription, click or visit the link below (If this was in erro
 Confirm subscription
 ```
 
-<img src="assets/week0/subs-to-topic.png">
+![Redacted Item](assets/week0/redacted/4-subs-to-topic.png)
 
 - Please access the console and navigate to SNS to locate the confirmations<br> It will be listed in the subscription column.
 
-<img src="assets/week0/sns-for-event-bridge.png">
+![Redact Item](assets/week0/redacted/5-sns-for-event-bridge.png)
 
 **Step 3: Create an EventBridge Rule**
 
@@ -668,7 +668,9 @@ aws events put-rule --name "sns-eventbridge-health" \
     "RuleArn": "arn:aws:events:<AWS-REGION>:<AWS-ID>:rule/sns-eventbridge-health"
 }
 ```
-<img src="assets/week0/sns-eventbridge-health.png">
+
+
+![Redacted Item](assets/week0/redacted/6-sns-eventbridge-health.png)
 
 **Step 4: Add a Target to the Rule**
 1. Finally, add the SNS topic as the target for the EventBridge rule:
@@ -687,7 +689,7 @@ If successful, the command will return a response indicating no failure entries:
 
 You have successfully integrated your Health Dashboard with SNS using EventBridge. 
 
-<img src="assets/week0/sns-eventbridge-health-target.png">
+![Redacted Item](assets/week0/redacted/7-sns-eventbridge-health-target.png)
 
 # Spend Considerations
 The costs of services can vary depending on many factors which it is being offered.
@@ -754,7 +756,7 @@ CloudWatch alarms are a powerful way to monitor your AWS resources and take acti
 - **Get Notified** 
 Receive Cloudwatch Alarm Topic Notifications Directly to Your Inbox.
 
-<img src="assets/week0/4- notif received.png">
+![Redacted Item](assets/week0/redacted/9-notif-confirm.png)
 
 I started my journey in the [US East Central region](#aws-cloudshell) and subsequently shifted to CA Central for upcoming weeks.
 
@@ -831,7 +833,7 @@ aws sts get-caller-identity
 ```
 - Yes, It is Implicit authentication check.
 
-<img src="assets/week0/media/usingcloudshell.png">
+![Redacted Item](assets/week0/redacted/11-awscloud-shell.png)
 
 > Please refer to the shell, It is in us-east-1.
 
@@ -850,7 +852,8 @@ To begin authenticating your AWS account with any IDE, you need to first generat
 5. In the **Access Key ID** and **Secret Access Key** fields, enter your AWS credentials.
 6. Click the **Create Profile** button.
 
-<img src="assets/week0/CLI-WORK/1-GENERATE CREDENITIAL ACCESS KEY.png">
+![Redacted Item](assets/week0/redacted/8-gen-aws-cli.png)
+
 
 ### Go to Your Favorite IDE
 
@@ -904,7 +907,7 @@ Once you have installed the AWS CLI, you can check that you are connected to AWS
 aws sts get-caller-identity
 ```
 > If you are [pondering!](#setting-environement-variables)
-<img src="assets/week0/CLI-WORK/5 connected to aws from gitpod .png">
+![Redacted Item](assets/week0/redacted/11-aws-gitpod.png)
 This command will return your AWS account ID, your AWS Region and your Arn.
 
 You can also get your AWS account ID by running the following command:
@@ -957,7 +960,8 @@ To create an AWS Budget, you can follow these steps:
 1. Create a [budget JSON file.](../aws/json/budget.json)
 1. Create a [notifications JSON file](../aws/json/budget-notifications-with-subscribers.json).
 2. Configure a your budget as code.
-<img src="assets/week0/CLI-WORK/7 Budget 1.png">
+<img src="assets/week0/redacted/0-budget-redacted.png">
+
 3. Run the `aws budgets create-budget` command.
 
 ```
@@ -970,7 +974,8 @@ aws budgets create-budget \
 - The [budget JSON file](../aws/json/budget.json) specifies the budget settings, such as the budget name, the budget type, the budget amount, and the budget notifications. 
 - The [notifications JSON file](../aws/json/budget-notifications-with-subscribers.json) specifies the notification settings, such as the notification topic ARN, the notification protocol.
 
-<img src="assets/week0/CLI-WORK/8 budget 2 applied.png">
+![Redacted Item](assets/week0/redacted/12-budget-cli.png)
+
 
 By checking the console, you will notice that there are now two budgets available. 
 
@@ -991,7 +996,8 @@ To set up SNS for your budget, you can follow these steps:
 ```bash
 aws sns create-topic --name CLI-billing-alarm
 ```
-<img src="assets/week0/CLI-WORK/11 sns cli create.png">
+![Redacted Item](assets/week0/redacted/13-sns-topic.png)
+
 
 2. Subscribe to the topic.
 
@@ -1000,11 +1006,11 @@ The SNS topic will be used to send notifications when your budget is exceeded. Y
 Once you have created the SNS topic and subscribed to the topic, you can start receiving notifications when your budget is exceeded.
 ```bash
 aws sns subscribe \
-    --topic-arn="arn:aws:sns:ca-central-1:598485450821:CLI-billing-alarm" \
+    --topic-arn="arn:aws:sns:ca-central-1:<aws-id>:CLI-billing-alarm" \
     --protocol=email \
-    --notification-endpoint yahyaabulhaj@outlook.com
+    --notification-endpoint <email>
 ```
-<img src="assets/week0/CLI-WORK/13 SNS CLI CONFIRM MAIL.png">
+![Redacted Item](assets/week0/redacted/14-topic-confirm.png)
 
 - Go to the console and check if the changes took effects
 <img src="assets/week0/CLI-WORK/16 perfect .png">
@@ -1167,7 +1173,8 @@ Replace `https://yours.lambda-url.<region>.on.aws/` with the actual Lambda funct
 ![Thunder Client Vs Code Extension](assets/week0/postapi/postapi-poc.png)
 
 4. Check your subscribed email for the post notif.
-![Post API Email](assets/week0/postapi/postapi-email.png)
+![Redacted Post Email](assets/week0/redacted/15-postapi-email.png)
+
 
 ## Creating a CloudWatch Alarm
 
@@ -1179,13 +1186,14 @@ To create a CloudWatch alarm, you can follow these steps:
 ```
 aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
 ```
-<img src="assets/week0/CLI-WORK/17 cloudwatch alarm command.png">
+![Redacted Item](assets/week0/redacted/16-cloud-watch-alarm.png)
+
 
 The CloudWatch alarm JSON file specifies the alarm settings, such as the alarm name, the metric to monitor, the threshold, and the alarm actions.
 
 Once you have created the CloudWatch alarm JSON file, and ran the `aws cloudwatch put-metric-alarm` command to create the alarm. You will see an alarm on daily estimated charges to verify.
 
-<img src="assets/week0/CLI-WORK/18 alarm is here notification.png">
+![Redacted Item](assets/week0/redacted/17-alarm-notif.png)
 
 ## **Open Support ticket**  
 
@@ -1202,11 +1210,11 @@ To open a support ticket, you can follow these steps:
 5. Click on "Create Case".
 6. Verify that the ticket you opened reflects the necessary details.
 
-<img src="assets/week0/4 case.png">
+![Redacted Item](assets/week0/redacted/18-aws-case-open.png)
 
 Once you have opened a support ticket, you will receive an email confirmation with the ticket number. 
 
-<img src="assets/week0/6 cased.png">
+![Redacted Item](assets/week0/redacted/19-case-back.png)
 
 > You can use the ticket number to track the status of your ticket.
 
