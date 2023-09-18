@@ -1,8 +1,8 @@
 <div align="center">
 
 # Ultimate Resource Hub
-The resources listed below were compiled out of intellectual curiosity and are provided here for your reference.<br> 
-Strategically located in 1️⃣ site.
+Welcome to the **epicenter** of enlightenment, <br>the **pinnacle** of information, and the **ultimate** wellspring of wisdom. <br>
+Everything I created during the bootcamp strategically located in 1️⃣ site.<br> For **Your benefit** and **Yours** alone.
 
 | Exploration | Description | 
 | :---: | :--- | 

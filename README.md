@@ -4,7 +4,7 @@
 
 - Cohort: 2023-A1 — [**Cruds**](_docs/assets/yayacrud.csv)
 
-<img src="_docs/assets/bootcamper.jpeg">
+<img src="_docs/assets/eagle-fanboi/assets/eage-lover.png">
 
 ### **Project Inventory**
 
