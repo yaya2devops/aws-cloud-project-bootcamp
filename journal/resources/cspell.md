@@ -88,6 +88,7 @@ CSpell: Files checked: 1, Issues found: 61 in 1 files
 E.g. for week1
 </summary>
 
+
 ```yaml
 (main) $ cspell "journal/week1.md"
 1/1 ./journal/week1.md 846.58ms X

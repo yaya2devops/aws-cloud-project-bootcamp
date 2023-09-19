@@ -83,6 +83,7 @@ For interacting with containers Docker provides a set of command-line utilities
 | `docker exec`            | Executes a command in container shell.                 |
 | `docker-compose arg`      | Starts services with  `up ` and stop with  `down` as **arg**         |
 
+Docker provides a powerful set of commands and tools that streamline the process of containerization and orchestration. Analyze the following synthesis carefully.
 
 # Before Docker
 
@@ -364,7 +365,7 @@ By integrating both the backend and frontend processes, we can now get access to
 You probably got the the point of using Docker. It allows us to specify all tasks for each container in a single file, making them implicit.
 
 
-In our current scenario, we only have two containers. Imagine an entreprise app with µservices architectures where it's common to have around "guess" features each have its own container and dependencies.
+In our current scenario, we only have two containers. Imagine a business app with µservices architectures where it's common to have around "guess" features each have its own container and dependencies.
 
 
 💡 Google has announced its open sourcing of Kubernetes, revealing that the company successfully manages an impressive 4 billion containers to handle the demands of global scale. 
@@ -550,7 +551,7 @@ To experience the power of OpenAPI in this project open the `openapi-3.0.yml` fi
 You can do this by adding the following
 ```YAML
 paths:
-  /api/activites/notifications:
+  /api/activities/notifications:
 ```
 
 Once you've created the new path
@@ -559,7 +560,7 @@ Once you've created the new path
 
 
 ```yaml
-/api/activites/notifications:
+/api/activities/notifications:
     get:
       description: 'Return a feed of activity for all of those that I interact with'
       tags:
@@ -769,7 +770,7 @@ Compose will allows us to manage these containers in one go enabling seamless in
 
 In our current setup, we have successfully containerized the **frontend** and **backend** components left is to compose them.
 
-Let is go over the sample compose and disucss its content.
+Let is go over the sample compose and discuss its content.
 
 1. create a `docker-compose.yml` and paste the following
 ```YAML
@@ -814,7 +815,7 @@ services:
 To establish a connection between the frontend and backend workspaces in different developer environments, you can follow these general guidelines.
 
 
-Lets discuss how in three leading developer environements.
+Lets discuss how in three leading developer environments (CDE).
 
 
 **Codespaces**<br>
@@ -1113,11 +1114,9 @@ aws dynamodb scan --table-name Music --query "Items" --endpoint-url http://local
 
 ### Working with PostgreSQL 
 
-- Install the client librairy in yourd developemr env
+- Install the client library in yourd developer environment.
 
 ```yaml
-- name: postgres
-    init: |
       curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/postgresql.gpg
       echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list
       sudo apt update
@@ -1246,7 +1245,7 @@ Build and run the image to test the `CMD` function
 
 #### *Backend*
 
-For backend, i thought to add ENTRYPOINT. These cannot be overtitten, while we could use cmd but we could change e.g. in this case another script.
+For backend, i thought to add ENTRYPOINT. These cannot be overwritten, while we could use cmd but we could change e.g. in this case another script.
 
 
 I added this `ENTRYPOINT [""]` and directed my `external-script.sh` path
@@ -1316,7 +1315,7 @@ python3 -m flask run --host=0.0.0.0 --port=${PORT:-4567} --debug
 - Update yum: `sudo yum update`
 - Get git with: `sudo yum install git`
 - Clone Project repo
-<img src="assets/week1/EC2/6-ec2-git-available.png">
+<img src="assets/week1/EC2/ec2-git-redacted.png>
 
 > Although Dockerhub is available, I started with this approach for various reasons. Lol.
 
@@ -1477,7 +1476,7 @@ Particularly when it comes to managing  configuration files
 ## Get Container Synked
 Synk is an open-source security platform specifically designed to detect security vulnerabilities Incl those in Docker containers. 
 
-![Synk Offical Github CLI Asset](https://raw.githubusercontent.com/snyk/cli/master/help/snyk-cli-screenshot.png)
+![Synk Official Github CLI Asset](https://raw.githubusercontent.com/snyk/cli/master/help/snyk-cli-screenshot.png)
 
 To get Sec Synked, you can start by installing its CLI
 ```sh
@@ -1593,7 +1592,7 @@ Below, we outline additional critical cost considerations to keep in mind when w
 | Monitoring and Logging | Define a monitoring strategy that balances detail with associated storage and data transfer costs. |
 | Scaling and High Availability | Assess costs associated with scaling containers and ensuring high availability through redundancy. |
 
-A wraping factor is to adhere with compliance and licensing for the software and dependencies included in your container images. 
+A wrapping factor is to adhere with compliance and licensing for the software and dependencies included in your container images. 
 
 Violations can lead to legal and financial consequences.
 
