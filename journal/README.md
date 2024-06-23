@@ -46,6 +46,9 @@ Everything I created during the bootcamp strategically located in 1️⃣ site.<
 
 
 <img src="https://assets.yacrud.me/banners/yaya-aws-builder.jpg" width="712">  
+<img src="https://devsecmapops.s3.eu-north-1.amazonaws.com/yaya-aws-builder.png" width="712">  
+
+
 
 | Journal | Technologies                                                           | Start Date   | Status |
 | :-----: | :-------------------------------------------------                      | ----------   | :----: |
