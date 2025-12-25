@@ -3,6 +3,6 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem "aws-sdk-s3"
+gem "aws-sdk-s3", ">= 1.208.0"
 gem "ox"
 gem "jwt"
