@@ -19,7 +19,7 @@ RUN npm install
 RUN npm run build
 
 # New Base Image ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-FROM nginx:1.23.3-alpine
+FROM nginx:1.29.4-alpine
 
 # --from build is coming from the Base Image
 COPY --from=build /frontend-react-js/build /usr/share/nginx/html
